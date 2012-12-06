@@ -89,8 +89,9 @@ function(namespace, User) {
     },
 
     events : {
-      "click #signin_button" : "signIn",
-      "click #signout_button" : "signOut"
+      "click #signin-button" : "signIn",
+      "click #signout_button" : "signOut",
+      "click #register-button" : "signUp"
     },
 
     reattachEvents : function() {
@@ -158,7 +159,37 @@ function(namespace, User) {
 
       //alert("user signin : end");
 
-    }
+    },
+
+      userRegisterEvent : function() {
+          if (this.model.get('isRegistered') === true) {
+
+              // Go to logged in page.
+              Backbone.history.navigate("#main", true);
+          } else {
+
+              // Trigger event to update status
+              this.trigger('registration-attempted');
+          }
+      },
+
+      // When the user clicks sign-up, create a new user model and save it
+      signUp : function() {
+
+          //alert("new user signup");
+          $("#registration-status").hide();
+
+          // Todo: Validate the input values
+          this.model.set('name', $('#user-reg-name-input').val());
+          this.model.set('email', $('#user-reg-email-input').val());
+          this.model.set('password', $('#user-reg-password-input').val());
+
+          // Listen for success/fail events
+          this.model.on('user-registration-event', this.userRegisterEvent, this);
+
+          this.model.register();
+
+      }
   });
 
   // Required, return the module for AMD compliance

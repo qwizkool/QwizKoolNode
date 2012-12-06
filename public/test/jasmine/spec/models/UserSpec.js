@@ -173,8 +173,8 @@ describe('Model :: User', function () {
             };
 
             // Register the User
-            this.user.set('name', testUser + new Date().getTime());
-//            this.user.set('email', testEmail);
+            //this.user.set('name', testUser + new Date().getTime());
+            this.user.set('email', testEmail + new Date().getTime());
             this.user.set('password', testPwd);
             this.user.on('user-login-event', userLoginEvent, this);
             this.user.login();
@@ -206,8 +206,8 @@ describe('Model :: User', function () {
             };
 
             // Register the User
-            this.user.set('name', testUser);
-            //           this.user.set('email', testEmail);
+            //this.user.set('name', testUser);
+            this.user.set('email', testEmail);
             this.user.set('password', testPwd);
             this.user.on('user-login-event', userLoginEvent, this);
             this.user.login();
@@ -244,8 +244,8 @@ describe('Model :: User', function () {
             };
 
             // Register the User
-            this.user.set('name', testUser);
-            //           this.user.set('email', testEmail);
+            //this.user.set('name', testUser);
+            this.user.set('email', testEmail);
             this.user.set('password', testPwd);
             this.user.on('user-login-event', userLoginEvent, this);
             this.user.login();

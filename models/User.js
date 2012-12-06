@@ -60,8 +60,8 @@ function addUser(username, password, email, callback) {
 }
 
 
-function authenticate (username, password, callback) {
-    QwizkoolUser.findOne({ username: username }, function(err, user) {
+function authenticate (email, password, callback) {
+    QwizkoolUser.findOne({ email: email }, function(err, user) {
         if (err) { return callback(err); }
         if (!user) { return callback(null, false); }
         if (user.password == password) {

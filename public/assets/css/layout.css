@@ -1,10 +1,10 @@
 /*
-* Skeleton V1.1
+* Skeleton V1.2
 * Copyright 2011, Dave Gamache
 * www.getskeleton.com
 * Free to use under the MIT license.
 * http://www.opensource.org/licenses/mit-license.php
-* 8/17/2011
+* 6/20/2012
 */
 
 /* Table of Content
@@ -16,124 +16,306 @@
 
 /* #Site Styles
 ================================================== */
-#qwizkool_page {
-	background: #FFF;
+
+.logo{
+    margin-left:0px;
+    padding:0px;
+
+
 }
 
-/* override the skeleton fonts */
-h1, h2, h3, h4, h5, h6 {
-	font-family: 'Lato', sans-serif, "Georgia", "Times New Roman", serif;	
-}
+.logo a{
+    width:250px;
+    height:90px;
+    display:block;
+    background:url(../img/qwizkool-logo.png) no-repeat;
 
-/* #Page Styles #08C
-================================================== */
-
-.band.header .logo{
-	margin-left:0px;
-	padding:0px;
-	
-	
-}
-
-.band.header .logo a{
-	width:250px;
-	height:90px;
-	display:block;
-	background:url(../img/qwizkool-logo.png) no-repeat;
-	
-	/* to hide text of the link */
-	text-indent: 100%;
-	white-space: nowrap;
-	overflow: hidden;
-}
-
-.band.header .button{
-	margin-top:20px;
-		
-}
-
-.band.qwizkool_main .header, .footer {
-  color:#08C;
-}
-
-.band.qwizkool_main h2 {
-	font-weight: 300;
+    /* to hide text of the link */
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 
+.hero-image{
 
-.band.qwizkool_registration .header, .footer {
-  color:#08C;
+    background:url(../img/knowledge.gif);
+
+ }
+
+#qwizkool-header {
+
 }
 
-.band.qwizkool_registration .registration_form a {
-  color:#000;
+#qwizkool-toolbar {
+
+}
+
+#qwizkool-int-header {
+
+}
+
+#qwizkool-user-settings {
+}
+
+#qwizkool-user-settings .guibuttons{
+
+    float: right;
+}
+
+#qwizkool-content-side {
+    /*background-color: #CCC;*/
+}
+
+#qwizkool-main-image {
+    /*background-color: #CCC;*/
+}
+
+#qwizkool-sign-in {
+    /*background-color: #CCC;*/
+}
+
+#sign-in-form {
+    /*background-color: #CCC;*/
+}
+
+input.text {
+     width: 86%;
+    font-size: 14px;
+    padding-left: 36px;
+    height: 28px;
+
+}
+
+input.user {
+    background: url(../img/agent.png) no-repeat;
+}
+
+input.email {
+    background: url(../img/email.png) no-repeat;
+}
+
+input.password {
+    background: url(../img/lock.png) no-repeat;
+}
+
+button#signin-button {
+    font-size: 14px;
+}
+button#register-button{
+    font-size: 14px;
+    color: #2b7ebe;
+}
+
+.panel-style {
+background: #FFF;
+padding: 10px;
+border: thin solid #d0d0d0; /* This is the outer border, inner border will be added to the div contained within*/
+border-radius: 8px; /* Add rounded corners to the form*/
+-moz-border-radius: 8px;
+-webkit-border-radius: 8px;
+box-shadow: 0px 1px 3px #888; /* Add shadow to the form – First two values are shadow offset, third is blur radius*/
+-webkit-box-shadow: 0px 1px 3px #888;
+-moz-box-shadow: 0px 1px 3px #888;
+}
+
+#registration-status .error {
+    color:#ff0000;
+}
+
+#registration-status .success {
+    color:#08C;
+}
+
+#login-status .error {
+    color:#ff0000;
+}
+
+#login-status .success {
+    color:#08C;
 }
 
 
-.band.qwizkool_registration #registration-status .error {
-  color:#ff0000;
+#sign-in-form {
 }
 
-.band.qwizkool_registration #registration-status .success {
-  color:#08C;
+#reg-in-form {
 }
 
-.sign_in_form #login-status .error {
-  color:#ff0000;
+#qwizkool-info-left {
+    height: 200px;
+    background-color: #CCC;
 }
 
-.sign_in_form #login-status .success {
-  color:#08C;
+#qwizkool-info-right {
+    height: 200px;
+    background-color: #CCC;
 }
 
-.band.qwizkool_registration .microcopy {
-  font-weight: 100;
+#qwizkool-info-mid {
+    height: 200px;
+    background-color: #CCC;
 }
 
+#qwizkool-footer-content {
+    /*background-color:#CCC;*/
+    height: 80px;
+}
 
 .band.social_connection .connect {
-	color:#C0C0C0;
+    color: #C0C0C0;
 }
 
-.band.social_connection .logo_facebook a{
-	width:70px;
-	height:70px;
-	display:block;
-	background: url(../img/f_logo.png) no-repeat;
-	
-	/* to hide text of the link */
-	text-indent: 100%;
-	white-space: nowrap;
-	overflow: hidden;
+.band.social_connection .logo_facebook a {
+    width: 70px;
+    height: 70px;
+    display: block;
+    background: url(../img/f_logo.png) no-repeat;
+
+    /* to hide text of the link */
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
-.band.social_connection .logo_googleplus a{
-	width:70px;
-	height:70px;
-	display:block;
-	background: url(../img/gplusicon_large.png) no-repeat;
-	
-	/* to hide text of the link */
-	text-indent: 100%;
-	white-space: nowrap;
-	overflow: hidden;
+.band.social_connection .logo_googleplus a {
+    width: 70px;
+    height: 70px;
+    display: block;
+    background: url(../img/gplusicon_large.png) no-repeat;
+
+    /* to hide text of the link */
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
-.band.social_connection .logo_twitter a{
-	width:70px;
-	height:70px;
-	display:block;
-	background: url(../img/twitter_newbird_boxed_whiteonblue.png) no-repeat;
-	
-	/* to hide text of the link */
-	text-indent: 100%;
-	white-space: nowrap;
-	overflow: hidden;
+.band.social_connection .logo_twitter a {
+    width: 70px;
+    height: 70px;
+    display: block;
+    background: url(../img/twitter_newbird_boxed_whiteonblue.png) no-repeat;
+
+    /* to hide text of the link */
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+#qwizkool-footer-content a{
+    font-size: 14px;
+    font-weight: bold;
+
 }
 
-.band.showcase_tutorial .header, .footer, strong {
-  color:#08C;
+.side-panel-header-style {
+    background: #f5f5f5;;
+    padding: 10px;
+    border: thin solid #d0d0d0; /* This is the outer border, inner border will be added to the div contained within*/
+    -webkit-border-top-left-radius: 8px;
+    -webkit-border-top-right-radius: 8px;
+    -moz-border-radius-topleft: 8px;
+    -moz-border-radius-topright: 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    box-shadow: 0px 1px 3px #888; /* Add shadow to the form – First two values are shadow offset, third is blur radius*/
+    -webkit-box-shadow: 0px 1px 3px #888;
+    -moz-box-shadow: 0px 1px 3px #888;
+}
+
+
+.side-panel-style {
+    background: #FFF;
+    padding: 10px;
+    border: thin solid #d0d0d0; /* This is the outer border, inner border will be added to the div contained within*/
+    -webkit-border-bottom-right-radius: 8px;
+    -webkit-border-bottom-left-radius: 8px;
+    -moz-border-radius-bottomright: 8px;
+    -moz-border-radius-bottomleft: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    box-shadow: 0px 1px 3px #888; /* Add shadow to the form – First two values are shadow offset, third is blur radius*/
+    -webkit-box-shadow: 0px 1px 3px #888;
+    -moz-box-shadow: 0px 1px 3px #888;
+}
+
+.qwizbook-panel-style {
+    background: #FFF;
+    padding: 10px;
+    border: thin solid #d0d0d0; /* This is the outer border, inner border will be added to the div contained within*/
+    box-shadow: 0px 1px 3px #888; /* Add shadow to the form – First two values are shadow offset, third is blur radius*/
+    -webkit-box-shadow: 0px 1px 3px #888;
+    -moz-box-shadow: 0px 1px 3px #888;
+}
+
+#qwizkool-major-category-list li a {
+    text-decoration: none;
+}
+
+#qwizkool-major-category-list li a:hover {
+    color: #007bc4;
+}
+
+input.search {
+    background: url(../img/search.png) no-repeat;
+    width: 80%;
+    font-size: 14px;
+    padding-left: 36px;
+    height: 28px;
+}
+
+.qwizbook-list-item-content {
+    min-height: 100px;
+}
+
+.qwizbook-list-item-footer button {
+    float: right;
+}
+
+
+
+.qwizbook-details button {
+    float: left;
+}
+
+.qwizbook-ratings-container {
+    float: left;
+}
+
+
+/* Qwizbook */
+
+#qwizbook-main-image{
+
+}
+
+
+.qwizbook-footer {
+
+    padding: 5px;
+}
+
+
+.qwizbook-footer .qwizbook-rated-container {
+   float: left;
+}
+.qwizbook-footer .qwizbook-to-be-rated-container {
+    float: right;
+}
+
+
+.qwizbook-rated-container .rater {
+    margin: 0px;
+}
+
+.qwizbook-to-be-rated-container .rater {
+    margin: 0px;
+}
+
+
+/* Generic scaled image */
+.scaled-image {
+    max-width: 100%;
+    height: auto;
 }
 
 /* For scaling the emdedded video
@@ -149,7 +331,7 @@ to its width - giving us a 16:9 ratio
     height: 0;
     overflow: hidden;
 }
- 
+
 /*
 then we make the actual embedded content
 behave in terms of its dimensions
@@ -165,73 +347,31 @@ and its position within the container
     height: 100%;
 }
 
-.band.showcase_topics .header, .more_info a {
-  color:#08C;
-}
+/* #Page Styles
+================================================== */
 
-footer a {
-	display:inline;
-	text-decoration:none;
-	border-bottom:thin;
-    border-bottom-color:000;
-}
-
-footer a:hover, h5 {
-  color:#08C;
-}
-
-
-.registration-form {
-	background: #FFF;
-	padding: 10px;
-	border: thin solid #d0d0d0; /* This is the outer border, inner border will be added to the div contained within*/
-	border-radius: 8px; /* Add rounded corners to the form*/
-	-moz-border-radius: 8px;
-	-webkit-border-radius: 8px;
-	box-shadow: 0px 3px 7px #888; /* Add shadow to the form – First two values are shadow offset, third is blur radius*/
-	-webkit-box-shadow: 0px 3px 7px #888;
-	-moz-box-shadow: 0px 3px 7px #888;
-}
-
-
-
-.qwizbook-collection-header {
-	border-bottom: thin solid #d0d0d0;
-}
-
-.qwizbook-container {
-	background: #0;
-	padding: 10px;
-	border-bottom: thin solid #d0d0d0;
-}
-
-.user-main-tab-content {
-	border-right: thin solid #d0d0d0;
-	border-left: thin solid #d0d0d0;
-	border-bottom: thin solid #d0d0d0;
-}
-
-
-
- 
 /* #Media Queries
 ================================================== */
 
-	/* Smaller than standard 960 (devices and browsers) */
-	@media only screen and (max-width: 959px) {}
+/* Smaller than standard 960 (devices and browsers) */
+@media only screen and (max-width: 959px) {
+}
 
-	/* Tablet Portrait size to standard 960 (devices and browsers) */
-	@media only screen and (min-width: 768px) and (max-width: 959px) {}
+/* Tablet Portrait size to standard 960 (devices and browsers) */
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+}
 
-	/* All Mobile Sizes (devices and browser) */
-	@media only screen and (max-width: 767px) {}
+/* All Mobile Sizes (devices and browser) */
+@media only screen and (max-width: 767px) {
+}
 
-	/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
-	@media only screen and (min-width: 480px) and (max-width: 767px) {}
+/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+}
 
-	/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
-	@media only screen and (max-width: 479px) {}
-
+/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+@media only screen and (max-width: 479px) {
+}
 
 /* #Font-Face
 ================================================== */
