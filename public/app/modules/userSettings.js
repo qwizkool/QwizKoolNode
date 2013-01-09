@@ -6,12 +6,20 @@ define([
     // Create a new module
     var UserSettings = App.module();
 
-     UserSettings.View = Backbone.View.extend({
+    UserSettings.View = Backbone.View.extend({
         template:"",
 
         initialize:function () {
             this.model = new User.Model();
             this.tmplSettings = "app/templates/userSettings.html";
+
+            // Bind the event for toggling the settings view.
+            $(document).bind('click', function (e) {
+                if (e.target.id != $('.dropdown').attr('class')) {
+                    $('.dropdown-slider').slideUp();
+                    $('span.toggle').removeClass('active');
+                }
+            });
         },
 
         render:function (done) {
@@ -24,6 +32,14 @@ define([
             App.fetchTemplate(template, function (tmpl) {
 
                 view.el.innerHTML = tmpl();
+
+                view.$(".dropdown .guibutton, .dropdown guibutton").click(function () {
+                    $(this).parent().find('.dropdown-slider').slideToggle('fast');
+                    $(this).find('span.toggle').toggleClass('active');
+                    return false;
+                });
+
+
                 if (_.isFunction(done)) {
                     done(view.el);
                 }
@@ -34,7 +50,17 @@ define([
 
         events:{
             // TODO: implement expandable/collapsible user setting drop down list.
-            "click #user-settings":"signOut"
+            "click #user-settings":"toggleUserSettings",
+            "click #user-logout":"signOut"
+        },
+
+        toggleUserSettings:function (e) {
+
+            if (e.target.id != $('.dropdown').attr('class')) {
+                $('.dropdown-slider').slideUp();
+                $('span.toggle').removeClass('active');
+            }
+
         },
 
         reattachEvents:function () {
