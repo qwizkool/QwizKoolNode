@@ -3,16 +3,8 @@
 // A QwizPage could be an intro page, a multiple choice question, summary etc.
 
 define([
-  "app",
-
-  // Libs
-
-  // Modules
-
-  // Plugins
-],
-
-function(namespace) {
+  "app"
+], function(namespace) {
 
   // Create a new module
   var QwizPage = namespace.module();
