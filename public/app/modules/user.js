@@ -1,22 +1,12 @@
 define([
-
- "app"
-
-// Libs
-
-// Modules
-
-// Plugins
-], function (namespace) {
+    "app"
+], function (App) {
 
     // Create a new module
-    var User = namespace.module();
+    var User = App.module();
 
     // User extendings
     User.Model = Backbone.Model.extend({
-
-        //Root of the REST url for users
-        //urlRoot: "/?q=rest_server/user",
 
         urlRoot:function () {
 

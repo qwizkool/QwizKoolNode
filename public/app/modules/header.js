@@ -1,20 +1,13 @@
 define([
     "app",
-
-    // Libs
-
-    // Modules
-    "modules/user",
-     // Plugins
-], function (namespace, User, UserSettings) {
+    "modules/user"
+], function (App, User, UserSettings) {
 
     // Create a new module
-    var Header = namespace.module();
+    var Header = App.module();
 
-    // This will fetch the tutorial template and render it.
     Header.View = Backbone.View.extend({
         template:"app/templates/header.html",
-
 
         initialize:function () {
             this.model = new User.Model();
@@ -23,17 +16,16 @@ define([
         render:function (done) {
             var view = this;
 
-
             // Fetch the template, render it to the View element and call done.
-            namespace.fetchTemplate(this.template, function (tmpl) {
+            App.fetchTemplate(this.template, function (tmpl) {
 
                 // Add the template for header
                 view.el.innerHTML = tmpl();
-                    // Pass the rendered el to the caller to attach
-                    // to the DOM.
-                    if (_.isFunction(done)) {
-                        done(view.el);
-                    }
+                // Pass the rendered el to the caller to attach
+                // to the DOM.
+                if (_.isFunction(done)) {
+                    done(view.el);
+                }
 
             });
 
@@ -41,6 +33,8 @@ define([
 
         renderSettings:function () {
 
+            // Show the settings option based on the user
+            // log in.
             if (this.model.get('isLoggedIn') === true) {
                 $("#qwizkool-user-settings").show();
             } else {

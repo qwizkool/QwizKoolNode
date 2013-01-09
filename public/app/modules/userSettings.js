@@ -1,18 +1,12 @@
 define([
-
     "app",
-
-    // Modules
     "modules/user"
-
-], function (namespace, User) {
+], function (App, User) {
 
     // Create a new module
-    var UserSettings = namespace.module();
+    var UserSettings = App.module();
 
-
-    // This will fetch the tutorial template and render it.
-    UserSettings.View = Backbone.View.extend({
+     UserSettings.View = Backbone.View.extend({
         template:"",
 
         initialize:function () {
@@ -24,10 +18,10 @@ define([
             var view = this;
             var template;
 
-                  template = this.tmplSettings;
+            template = this.tmplSettings;
 
             // Fetch the template, render it to the View element and call done.
-            namespace.fetchTemplate(template, function (tmpl) {
+            App.fetchTemplate(template, function (tmpl) {
 
                 view.el.innerHTML = tmpl();
                 if (_.isFunction(done)) {
@@ -39,8 +33,7 @@ define([
         },
 
         events:{
-            // TODO: implement expandable/collapsible user setting
-            // dropdown list.
+            // TODO: implement expandable/collapsible user setting drop down list.
             "click #user-settings":"signOut"
         },
 
@@ -61,12 +54,11 @@ define([
             }
         },
 
-        // When the user clicks sign-in, create a new user model and save it
         signOut:function (e) {
 
-           // e.preventDefault();
+            e.preventDefault();
 
-            // Listen for success/fail events
+            // Register for log out status event.
             this.model.on('user-logout-event', this.userLogoutEvent, this);
 
             this.model.logout();

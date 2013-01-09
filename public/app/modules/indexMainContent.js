@@ -1,7 +1,5 @@
 define([
     "app",
-
-    // Modules
     "modules/user"
 ], function (App, User) {
 
@@ -14,7 +12,7 @@ define([
 
         initialize:function () {
             this.model = new User.Model();
-         },
+        },
 
         render:function (done) {
             var view = this;
@@ -134,7 +132,7 @@ define([
         signIn:function () {
 
             // clear the current login status, if present.
-             $("#login-status").hide();
+            $("#login-status").hide();
 
             // Todo: Validate the input values
             this.model.set('email', $('#user-email-input').val());

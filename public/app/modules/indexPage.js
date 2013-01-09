@@ -1,7 +1,5 @@
 define([
     "app",
-
-    // Modules
     "modules/header",
     "modules/indexMainContent",
     "modules/footer",
@@ -11,7 +9,7 @@ define([
     // Create a new module
     var IndexPage = new App.module();
 
-    // Top level view for the qwizkool
+    // Landing page for the qwizkool.
     IndexPage.View = Backbone.View.extend({
 
         initialize:function () {

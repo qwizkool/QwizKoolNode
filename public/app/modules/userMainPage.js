@@ -1,7 +1,6 @@
 define([
     "app",
     "tabs",
-    // Modules
     "modules/header",
     "modules/userMainContent",
     "modules/footer",
