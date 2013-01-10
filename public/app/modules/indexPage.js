@@ -13,11 +13,11 @@ define([
     IndexPage.View = Backbone.View.extend({
 
         initialize:function () {
+
             this.header = new Header.View();
             this.qwizkoolMain = new QwizkoolMain.View();
             this.footer = new Footer.View();
             this.userSettings = new UserSettings.View();
-            //          this.userSettings.on("logout-attempted", this.renderSettings, this);
 
             this.qwizkoolMain.on("login-attempted", this.logInHandler, this);
             this.qwizkoolMain.on("registration-attempted", this.registrationHandler, this);

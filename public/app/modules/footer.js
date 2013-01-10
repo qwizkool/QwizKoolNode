@@ -11,9 +11,11 @@ define([
     Footer.Router = Backbone.Router.extend({ /* ... */ });
 
     Footer.View = Backbone.View.extend({
+
         template:"app/templates/footer.html",
 
         render:function (done) {
+
             var view = this;
 
             // Fetch the template, render it to the View element and call done.

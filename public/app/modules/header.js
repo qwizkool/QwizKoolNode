@@ -7,6 +7,7 @@ define([
     var Header = App.module();
 
     Header.View = Backbone.View.extend({
+
         template:"app/templates/header.html",
 
         initialize:function () {
@@ -14,6 +15,7 @@ define([
         },
 
         render:function (done) {
+
             var view = this;
 
             // Fetch the template, render it to the View element and call done.

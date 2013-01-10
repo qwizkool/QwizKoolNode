@@ -7,11 +7,12 @@ define([
     var UserSettings = App.module();
 
     UserSettings.View = Backbone.View.extend({
-        template:"",
+
+        template:"app/templates/userSettings.html",
 
         initialize:function () {
+
             this.model = new User.Model();
-            this.tmplSettings = "app/templates/userSettings.html";
 
             // Bind the event for toggling the settings view.
             $(document).bind('click', function (e) {
@@ -24,12 +25,10 @@ define([
 
         render:function (done) {
             var view = this;
-            var template;
 
-            template = this.tmplSettings;
 
             // Fetch the template, render it to the View element and call done.
-            App.fetchTemplate(template, function (tmpl) {
+            App.fetchTemplate(this.template, function (tmpl) {
 
                 view.el.innerHTML = tmpl();
 
