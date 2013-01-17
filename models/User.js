@@ -59,7 +59,7 @@ function addUser(username, password, email, callback) {
     });
 }
 
-
+// Authenticate function
 function authenticate (email, password, callback) {
     QwizkoolUser.findOne({ email: email }, function(err, user) {
         if (err) { return callback(err); }
