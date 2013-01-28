@@ -228,7 +228,7 @@
     .container .nine.columns        { width: 655px; }
     .container .ten.columns         { width: 730px; }
     .container .eleven.columns      { width: 805px; }
-    .container .twelve.columns      { width: 880px; }
+    .container .twelve.columns      { width: 1180px; }
     .container .thirteen.columns    { width: 955px; }
     .container .fourteen.columns    { width: 1030px; }
     .container .fifteen.columns     { width: 1105px; }
@@ -271,6 +271,7 @@
       display: block;
       overflow: hidden;
       visibility: hidden;
+     padding-top:10px; /* Edited By Seethal on 14/01/2013*/
       width: 0;
       height: 0; }
     .row:after,

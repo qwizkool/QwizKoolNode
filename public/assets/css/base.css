@@ -229,7 +229,7 @@
 		margin: 0;
 		width: 210px;
 		max-width: 100%;
-		display: block;
+	/* display: block; Edited by Seethal on 16/01/2013*/
 		margin-bottom: 20px;
 		background: #fff; }
 	select {

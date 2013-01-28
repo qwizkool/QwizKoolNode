@@ -5,6 +5,7 @@ define([
     "modules/userMainContent",
     "modules/footer",
     "modules/userSettings"
+    
 ], function (App, Tabs, Header, UserMainContent, Footer, UserSettings) {
 
     // Create a new module
@@ -18,6 +19,7 @@ define([
             this.userMainContent = new UserMainContent.View();
             this.footer = new Footer.View();
             this.userSettings = new UserSettings.View();
+            
             //           this.userSettings.on("logout-attempted", this.renderSettings, this);
         },
 
@@ -45,6 +47,10 @@ define([
 
             thisView.userMainContent.render(function (el) {
                 $("#qpage-content").html(el);
+                
+                
+                
+                
             });
 
 

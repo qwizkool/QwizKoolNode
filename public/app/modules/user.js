@@ -13,10 +13,13 @@ define([
             urlRootBase = "/";
 
             if (this.action == "register") {
-                return urlRootBase + "users/";
+            	return urlRootBase + "users/";
+                
             } else if (this.action == "login") {
+            	
                 return urlRootBase + "login/";
             } else if (this.action == "logout") {
+            	
                 return urlRootBase + "logout/";
             } else {
                 return urlRootBase + "users/";
@@ -39,9 +42,17 @@ define([
         },
 
         initialize:function () {
-
-            userInfo = JSON.parse(localStorage.getItem("qwizkoolUser"));
-            if (userInfo) {
+           
+           
+            var  qwizkoolUserLogin = localStorage.getItem("qwizkoolUser");
+            
+            if(qwizkoolUserLogin)
+            {
+            	
+             userInfo = JSON.parse(localStorage.getItem("qwizkoolUser"));
+           
+            //userInfo = JSON.parse(localStorage.getItem("qwizkoolUser"));
+            if(userInfo) {
 
                 this.set({
                     name:userInfo.name,
@@ -58,8 +69,10 @@ define([
                 });
 
             }
+         }
 
         },
+
 
         isUserAuthenticated:function () {
             var state = this.get('isLoggedIn');

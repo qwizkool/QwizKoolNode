@@ -114,7 +114,7 @@ define(["app"], function(App) {
 			//page_num : the page # in the search result to be returned.
 			this.searchval = '';
 			this.filterval = 'Recently Updated';
-			
+			this.isListedqwizBook = false;
 			// Commented --needed later
 			
 			//this.req_count = '10';
@@ -158,16 +158,19 @@ define(["app"], function(App) {
 			var jqxhr = qwizbookList.fetch({
 
 				error : function(collection, response) {
+					this.isListedqwizBook = false;
 					//alert("Failed to get QwizBooks!");
-					console.log("Failed to get QwizBooks!");
+					//console.log("Failed to get QwizBooks!");
+					collection.trigger('list-qwizbook-event');
 				},
 
 				success : function(collection, response) {
+					this.isListedqwizBook = true;
 				 var List = Array();
 				 List = qwizbookList.toJSON();
 					//alert(List[0].title);
 				    //console.log(List);
-					
+					collection.trigger('list-qwizbook-event');
 				}
 			});
 
@@ -186,7 +189,7 @@ define(["app"], function(App) {
 	// This will fetch the tutorial template and render it.
 	//Item view
 	QwizBook.View = Backbone.View.extend({
-		template : "app/templates/qwizbook.html",
+		template : "app/templates/qwizbookListItem.html",
 
 		initialize : function() {
 			//this.model = new QwizBook.Model();
@@ -210,13 +213,14 @@ define(["app"], function(App) {
 		}
 	});
 
+   
 	QwizBook.ListView = Backbone.View.extend({
 
 		//template:"app/templates/qwizbooklist.html",
-		template : "app/templates/Dashboard.html",
+		template : "app/templates/qwizbookList.html",
 
 		initialize : function() {
-			this.model.bind("reset", this.render, this);
+			this.model.on("reset", this.render, this);
 
 		},
 
@@ -237,7 +241,7 @@ define(["app"], function(App) {
 						model : qwizbook
 					});
 					qwizbookView.render(function(elv) {
-						$(view.el).find("#qwizbooks").append(elv);
+						$(view.el).find("#home-content-container").append(elv);
 					});
 				});
 
@@ -250,36 +254,8 @@ define(["app"], function(App) {
 			return this;
 		}
 	});
+    
 
-	//
-	QwizBook.CoverView = Backbone.View.extend({
-
-		template : "app/templates/qwizbookcover.html",
-
-		initialize : function() {
-			this.model.bind("reset", this.render, this);
-		},
-
-		render : function(done) {
-
-			var view = this;
-			var qbookview_template;
-
-			// Fetch the template, render it to the View element and call done.
-			App.fetchTemplate(this.template, function(tmpl) {
-				//alert("Templ " + tmpl(view.model.toJSON()) + " " + "json" + view.model.get('title'));
-				qbookview_template = _.template(tmpl());
-				view.el.innerHTML = qbookview_template();
-
-				// If a done function is passed, call it with the element
-				if (_.isFunction(done)) {
-					done(view.el);
-				}
-			});
-
-			return this;
-		}
-	});
 	// Required, return the module for AMD compliance
 	return QwizBook;
 

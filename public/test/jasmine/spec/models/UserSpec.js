@@ -297,11 +297,11 @@ describe('Model :: User', function () {
 
 
 //TODO : how to use spy with jasmine??
-/*   it('should fail creating a title-less user', function() {
+  it('should fail creating a title-less user', function() {
  var spy = jasmine.createSpy();
  this.user.on('error', spy);
  this.user.save({});
  expect(spy.callCount).toEqual(1);
  expect(this.user.id).toBeUndefined();
 
- });*/
+ });
