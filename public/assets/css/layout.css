@@ -257,10 +257,11 @@ box-shadow: 0px 1px 3px #888; /* Add shadow to the form – First two values are
 
 input.search {
     background: url(../img/search.png) no-repeat;
-    width: 80%;
+    width: 76%;
     font-size: 14px;
     padding-left: 36px;
     height: 28px;
+   background-color:#FFFFFF; /*edited by Seethal on 14/01/2013 */
 }
 
 .qwizbook-list-item-content {
