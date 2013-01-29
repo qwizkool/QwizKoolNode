@@ -39,6 +39,11 @@ define([
         },
 
         initialize:function () {
+        	
+        	var  qwizkoolUserLogin = localStorage.getItem("qwizkoolUser");
+        	
+        	if(qwizkoolUserLogin)
+            {
 
             userInfo = JSON.parse(localStorage.getItem("qwizkoolUser"));
             if (userInfo) {
@@ -58,7 +63,7 @@ define([
                 });
 
             }
-
+		  }
         },
 
         isUserAuthenticated:function () {

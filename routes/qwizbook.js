@@ -80,6 +80,7 @@ module.exports = {
 				// No error send the unique ID for the newly created book
 				//console.log("Retreive QwizBooks");
 				//console.log(JSON.stringify(books));
+				console.log(JSON.stringify(books));
 				res.send(JSON.stringify(books));
 				//res.send({id : book._id});
 				//res.send({id:book.id});

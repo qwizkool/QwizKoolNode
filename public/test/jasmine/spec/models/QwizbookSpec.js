@@ -160,7 +160,8 @@ describe('Model :: Qwizbook', function() {
 				};
 
 				// Add the Same Title different description
-				qwizbook.set('title', testqwizbookTitle);
+				//qwizbook.set('title', testqwizbookTitle);
+				qwizbook.set('title', new Date().getTime() + testqwizbookTitle);
 				qwizbook.set('description', new Date().getTime() + testqwizbookDescription);
 				qwizbook.set('ownerEmail', owneremail);
 				qwizbook.on('create-qwizbook-event', createqwizbookEvent, this);

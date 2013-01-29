@@ -40,11 +40,24 @@ define(["app", "modules/qwizbook", "modules/breadcrumbs", "modules/searchFilter"
 	this.searchfilter.on("searchorfilter", function(searchfilterdataObj) {
 	var searchorfiltercriteria = searchfilterdataObj.listcriteria;
 	var qwizbookList = searchfilterdataObj.liston;
-
+	var filterorsearch = searchfilterdataObj.listwithsearchorfilter;
+	
+	if(filterorsearch == 'user-search-input')
+	{
 	qwizbookList.qwizbookSearch(searchorfiltercriteria);
-	qwizbookList.QwizbookList();
+	qwizbookList.QwizbookList();	
+	}
+     
+    if(filterorsearch == 'user-filter-input')
+	{
+	qwizbookList.qwizbookFilter(searchorfiltercriteria);
+	qwizbookList.QwizbookList();	
+	}
+	
 
 	});
+	
+	
 	//this.searchfilter.on("filter-change",this.updateFilterSettings(), this);
 	//this.searchfilter.on("searchorfilter", this.updateSearchOrFilterSettings(searchorfilterData), this);
 	//this.pagination.on("pageChange",this.updatePageChange, this);

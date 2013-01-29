@@ -45,7 +45,7 @@ define(["app", "modules/qwizbook", "modules/searchFilter"], function(App, QwizBo
 
 			//triggering usermaincontent.js event to get the input value and change the URL
 
-			this.trigger('searchorfilter', {listcriteria: $('#user-search-input').val(), liston:this.options.collection});
+			this.trigger('searchorfilter', {listcriteria: $('#user-search-input').val(), listwithsearchorfilter: 'user-search-input', liston:this.options.collection});
 
 		},
 
@@ -53,7 +53,7 @@ define(["app", "modules/qwizbook", "modules/searchFilter"], function(App, QwizBo
 
 			//triggering usermaincontent.js event to get the dropdown value and change the URL
 
-			this.trigger('searchorfilter', $('#user-filter-input').val());
+			this.trigger('searchorfilter', {listcriteria: $('#user-filter-input').val(), listwithsearchorfilter: 'user-filter-input', liston:this.options.collection});
 			//this.trigger('searchorfilter',$('#user-filter-input').val());
 
 		}
