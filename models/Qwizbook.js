@@ -239,29 +239,42 @@ function retrieveQwizbooks(owner, callback) {
 
 function retrieveQwizbooksOnSearch(owner, searchdata, filterdata, callback) {
 
-	var instance = new QwizbookData();
-
-	
+	//var instance = new QwizbookData();
+    
 	if (filterdata == "Recently Updated") {
-		
-		QwizbookData.find({$or:[{title:{$regex:'135',$options:'i'}},{description:{$regex:'135',$options:'i'}}]}).sort({date:-1}).execFind(function(err, books) {
-			
+        console.log(searchdata);
+		QwizbookData.find({
+			$or : [{
+				title : {
+					$regex : /.*135.*/,
+					$options : 'i'
+				}
+			}, {
+				description : {
+					$regex : /.*135.*/,
+					$options : 'i'
+				}
+			}]
+		}).sort({
+			date : -1
+		}).execFind(function(err, books) {
+
 			if (err) {
 				// Check for duplicate key error
-				// All other conditions Pass as is TODO: need to cleanup.
-				console.log("No"+books)
-				callback({
 
+				// All other conditions Pass as is TODO: need to cleanup.
+				callback({
 					Error : "Retreive Qwizbooks failed."
 				}, null);
 			} else {
-				console.log("Hello"+books)
 				callback(null, books);
 			}
 
 		});
+		
 	}
 	if (filterdata == "Most Popular") {
+		console.log(searchdata);
 		QwizbookData.find({
 			$or : [{
 				title : {
@@ -289,6 +302,7 @@ function retrieveQwizbooksOnSearch(owner, searchdata, filterdata, callback) {
 			}
 
 		});
+		
 
 	}
 

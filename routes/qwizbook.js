@@ -19,9 +19,6 @@ module.exports = {
 		var sessionUser = req.user;
 		var book = req.body;
 
-		//console.log(req.body);
-		//console.log(book);
-
 		Qwizbook.createQwizbook(sessionUser, book, function(err, book) {
 			// If error send the error response
 			if (err) {
@@ -49,71 +46,53 @@ module.exports = {
 	getbooks : function(req, res) {
 
 		var sessionUser = req.user;
-        
-        
-		if (req.query) {
-			//var book = req.body;
-			//console.log("Hello World");
 
-			//console.log("Request Details" + req.query);
+		if (req.query) {
+
 			var p = req.query;
 			var searchfilterArr = new Array();
 			for (var i in p) {
-			
+
 				searchfilterArr[i] = p[i];
-				console.log("Request Request Det" + p[i]);
+				//console.log("Request Request Det" + p[i]);
 			}
-			
+
 			var searchstring = searchfilterArr['search_str'];
 			var filterstring = searchfilterArr['sort_by'];
-			
-			if(searchstring)
-			{
-				console.log("search entered !!!!!");
+
+			if (searchstring) {
+				//console.log("search entered !!!!!");
 				Qwizbook.retrieveQwizbooksOnSearch(sessionUser, searchstring, filterstring, function(err, books) {
-				// If error send the error response
-				if (err) {
-					res.send(400, err);
-					console.log(err);
-					return;
-				}
-				// No error send the unique ID for the newly created book
-				//console.log("Retreive QwizBooks");
-				//console.log(JSON.stringify(books));
-				console.log(JSON.stringify(books));
-				res.send(JSON.stringify(books));
-				//res.send({id : book._id});
-				//res.send({id:book.id});
+					// If error send the error response
+					if (err) {
+						res.send(400, err);
+						console.log(err);
+						return;
+					}
+					// No error send the unique ID for the newly created book
 
-			})
-				
-				
-			}
-			else {
-				console.log("filter entered !!!!!");
-				
+					console.log("searched criteria" + JSON.stringify(books));
+					console.log("searched criteria num " + books.length);
+					res.send(JSON.stringify(books));
+
+				})
+			} else {
+
 				Qwizbook.retrieveQwizbooksOnFilter(sessionUser, filterstring, function(err, books) {
-				// If error send the error response
-				if (err) {
-					res.send(400, err);
-					console.log(err);
-					return;
-				}
-				// No error send the unique ID for the newly created book
-				//console.log("Retreive QwizBooks");
-				console.log(JSON.stringify(books));
-				res.send(JSON.stringify(books));
-				//res.send({id : book._id});
-				//res.send({id:book.id});
+					// If error send the error response
+					if (err) {
+						res.send(400, err);
+						console.log(err);
+						return;
+					}
+					// No error send the unique ID for the newly created book
 
-			})
-			
+					console.log("Filter criteria" + JSON.stringify(books));
+					console.log("searched criteria num " + books.length);
+					res.send(JSON.stringify(books));
+
+				})
 			}
-
-			//console.log(book);
-			//console.log(sessionUser);
-			//console.log("345");
-			//console.log(book);
 
 		} else {
 
@@ -125,17 +104,12 @@ module.exports = {
 					return;
 				}
 				// No error send the unique ID for the newly created book
-				//console.log("Retreive QwizBooks");
-				//console.log(JSON.stringify(books));
+
 				res.send(JSON.stringify(books));
-				//res.send({id : book._id});
-				//res.send({id:book.id});
 
 			})
 		}
 
-		//console.log(book.getQwizbookForResponse());
-		//console.log(req.user);
 	},
 
 	updateBook : function(req, res) {
