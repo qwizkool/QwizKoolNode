@@ -241,11 +241,7 @@ function retrieveQwizbooksOnSearch(owner, searchdata, filterdata, callback) {
 
 	var instance = new QwizbookData();
 
-	//if (!owner) {
-	//callback({Error:"Login to view qwizbooks"});
-	//return;
-	//}
-	//console.log("Search Search");
+	
 	if (filterdata == "Recently Updated") {
 		
 		QwizbookData.find({$or:[{title:{$regex:'135',$options:'i'}},{description:{$regex:'135',$options:'i'}}]}).sort({date:-1}).execFind(function(err, books) {
