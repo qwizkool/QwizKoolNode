@@ -246,12 +246,12 @@ function retrieveQwizbooksOnSearch(owner, searchdata, filterdata, callback) {
 		QwizbookData.find({
 			$or : [{
 				title : {
-					$regex : /.*135.*/,
+					$regex : searchdata,
 					$options : 'i'
 				}
 			}, {
 				description : {
-					$regex : /.*135.*/,
+					$regex : searchdata,
 					$options : 'i'
 				}
 			}]
@@ -278,12 +278,12 @@ function retrieveQwizbooksOnSearch(owner, searchdata, filterdata, callback) {
 		QwizbookData.find({
 			$or : [{
 				title : {
-					$regex : 'searchdata',
+					$regex : searchdata,
 					$options : 'i'
 				}
 			}, {
 				description : {
-					$regex : 'searchdata',
+					$regex : searchdata,
 					$options : 'i'
 				}
 			}]

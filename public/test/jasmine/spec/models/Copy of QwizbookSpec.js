@@ -5,9 +5,12 @@ describe('Model :: Qwizbook', function() {
 	var testEmail = '';
 	// Create test data for the user model
 
-	var testqwizbookuniqueKey = '';
-	var testqwizbookTitle = '';
-	var testqwizbookDescription = '';
+	//var testqwizbookuniqueKey = "uniqueKey" + time;
+	var testqwizbookuniqueKey = "uniqueKey";
+	//var testqwizbookTitle = "Title" + time;
+	var testqwizbookTitle = "Title";
+	//var testqwizbookDescription = "Description" + time;
+	var testqwizbookDescription = "Description";
 
 	beforeEach(function() {
 		time = new Date().getTime();
@@ -16,14 +19,17 @@ describe('Model :: Qwizbook', function() {
 		testEmail = testUser + "@email.com";
 		// Create test data for the user model
 
+		//var testqwizbookuniqueKey = "uniqueKey" + time;
 		var testqwizbookuniqueKey = "uniqueKey";
+		//var testqwizbookTitle = "Title" + time;
 		var testqwizbookTitle = "Title";
+		//var testqwizbookDescription = "Description" + time;
 		var testqwizbookDescription = "Description";
 
 		var that = this, done = false;
 
 		require(['modules/user'], function(User) {
-			// that.users = new User.Collection();
+			//  that.users = new User.Collection();
 			that.user = new User.Model();
 			done = true;
 		});
@@ -64,15 +70,16 @@ describe('Model :: Qwizbook', function() {
 
 			// Register the User
 			//this.user.set('name', testUser + new Date().getTime());
-			this.user.set('email', this.user.get('email'));
+			this.user.set('email', testEmail);
 			//this.user.set('email', testEmail + new Date().getTime());
-			this.user.set('password', this.user.get('password'));
+			this.user.set('password', testPwd);
 			this.user.on('user-login-event', userLoginEvent, this);
 			this.user.login();
 
 			waitsFor(function() {
 				return done;
 			});
+			
 		});
 
 	});
@@ -90,7 +97,7 @@ describe('Model :: Qwizbook', function() {
 			var owneremail = this.user.get('email');
 
 			require(['modules/qwizbook'], function(Qwizbook) {
-				// that.users = new User.Collection();
+				//  that.users = new User.Collection();
 				qwizbook = new Qwizbook.Model();
 				done = true;
 			});
@@ -146,7 +153,31 @@ describe('Model :: Qwizbook', function() {
 					});
 				}
 
-				
+				/*
+				 console.log(charArray);
+				 // Register the Qwizbook
+				 qwizbook.set('uniqueKey', testqwizbookuniqueKey);
+				 qwizbook.set('title', testqwizbookTitle);
+				 qwizbook.set('description', testqwizbookDescription);
+				 qwizbook.set('ownerEmail', owneremail);
+				 //qwizbook.set('date', testqwizbookdate);
+				 qwizbook.on('create-qwizbook-event', createqwizbookEvent, this);
+
+				 qwizbook.createqwizbook();
+
+				 waitsFor(function() {
+				 return done;
+				 });
+
+				 // Validate the registration
+				 runs(function() {
+				 expect(qwizbook).not.toBe(null);
+				 expect(qwizbook.get('isAddedqwizBook')).toEqual(false);
+				 expect(qwizbook.get('id')).toBeNull();
+				 //expect(qwizbook.get('id')).toEqual(jasmine.any(null));
+				 //expect(qwizbook.get('AddedqwizBookStatus')).not.toBeNull();
+				 });
+				 */
 			});
 		});
 
@@ -156,7 +187,7 @@ describe('Model :: Qwizbook', function() {
 			var owneremail = this.user.get('email');
 
 			require(['modules/qwizbook'], function(Qwizbook) {
-				// that.users = new User.Collection();
+				//  that.users = new User.Collection();
 				qwizbook = new Qwizbook.Model();
 				done = true;
 			});
@@ -176,8 +207,20 @@ describe('Model :: Qwizbook', function() {
 
 				// Add the Same Title different description
 				//qwizbook.set('title', testqwizbookTitle);
-				
-				qwizbook.set('title', testqwizbookTitle + new Date().getTime());
+				var a = 65;
+				var charArray = {};
+				for (var i = 0; i < 26; i++) {
+					charArray[String.fromCharCode(a + i)] = String.fromCharCode(a + i);
+					testqwizbookuniqueKey = "uniqueKey" + charArray[String.fromCharCode(a + i)];
+					testqwizbookTitle = "Title" + charArray[String.fromCharCode(a + i)];
+					testqwizbookDescription = "Description" + charArray[String.fromCharCode(a + i)];
+
+					console.log(charArray[String.fromCharCode(a + i)]);
+					console.log(testqwizbookuniqueKey);
+					console.log(testqwizbookTitle);
+					console.log(testqwizbookDescription);
+					
+					qwizbook.set('title', testqwizbookTitle + new Date().getTime());
 					qwizbook.set('description', testqwizbookDescription + new Date().getTime());
 					qwizbook.set('ownerEmail', owneremail);
 					qwizbook.on('create-qwizbook-event', createqwizbookEvent, this);
@@ -194,6 +237,8 @@ describe('Model :: Qwizbook', function() {
 						expect(qwizbook.get('id')).toBeNull();
 						//expect(qwizbook.get('AddedqwizBookStatus')).toEqual("Bad Request");
 					});
+				}
+
 			});
 		});
 	});
@@ -207,7 +252,7 @@ describe("A Qwizbook collection", function() {
 		var qwizbookList = null;
 
 		require(['modules/qwizbook'], function(Qwizbook) {
-			// that.users = new User.Collection();
+			//  that.users = new User.Collection();
 			qwizbookList = new Qwizbook.Collection();
 			done = true;
 		});
