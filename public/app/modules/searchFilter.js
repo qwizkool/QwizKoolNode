@@ -28,7 +28,7 @@ define(["app", "modules/qwizbook", "modules/searchFilter"], function (App, QwizB
         },
 
         events:{
-            "keydown #user-search-input":"setsearchParams",
+            "keyup #user-search-input":"setsearchParams",
             "change #user-filter-input":"setfilterParams"
         },
 
@@ -41,7 +41,6 @@ define(["app", "modules/qwizbook", "modules/searchFilter"], function (App, QwizB
 
             //triggering usermaincontent.js event to get the input value and change the URL
             this.trigger('searchorfilter', {listcriteria:$('#user-search-input').val(), listwithsearchorfilter:'user-search-input', liston:this.options.collection});
-
         },
 
         setfilterParams:function () {
