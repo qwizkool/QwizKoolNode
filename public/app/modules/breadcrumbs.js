@@ -24,9 +24,8 @@ define([
                 }
 
             });
-        },
-        
-      
+        }
+
     });
 
     // Required, return the module for AMD compliance
