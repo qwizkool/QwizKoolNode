@@ -72,19 +72,16 @@ define(["app"], function(App) {
 
 		url : function() {
 			var urlRoot = "/qwizbooks";
-			
-            if(this.searchval!='')
-            {
-            urlRoot = urlRoot + "?search_str=" + this.searchval + "&sort_by=" + this.filterval;
-			//return urlRoot;
-            	
-            } else
-            {
-            	
-            urlRoot = urlRoot + "?search_str=" + '' + "&sort_by=" + this.filterval;
-			//return urlRoot;
-            }
-			
+
+			if (this.searchval != '') {
+				urlRoot = urlRoot + "?search_str=" + this.searchval + "&sort_by=" + this.filterval;
+				//return urlRoot;
+
+			} else {
+
+				urlRoot = urlRoot + "?search_str=" + '' + "&sort_by=" + this.filterval;
+				//return urlRoot;
+			}
 
 			// Commented for the time being
 
@@ -116,7 +113,7 @@ define(["app"], function(App) {
 			this.filterval = 'Recently Updated';
 			this.isListedqwizBook = false;
 			// Commented --needed later
-			
+
 			//this.req_count = '10';
 			//this.page_num = '1';
 			//this._meta = {};
@@ -133,7 +130,7 @@ define(["app"], function(App) {
 		qwizbookSearch : function(searchedstring) {
 			this.searchval = searchedstring;
 			this.urlroot = this.url(searchedstring);
-			
+
 			//alert(this.urlroot);
 			//this._meta['action'] = "searchqwizbook";
 			//alert(this._meta['action']);
@@ -143,7 +140,7 @@ define(["app"], function(App) {
 		qwizbookFilter : function(filterstring) {
 			this.filterval = filterstring;
 			this.urlroot = this.url();
-			
+
 			//this.model= new QwizBook.Model();
 			//qwizbookAction =  "searchqwizbook";
 			//this.action = "searchqwizbook";
@@ -154,7 +151,7 @@ define(["app"], function(App) {
 		},
 
 		QwizbookList : function() {
-            var qwizbookList = this;
+			var qwizbookList = this;
 			var jqxhr = qwizbookList.fetch({
 
 				error : function(collection, response) {
@@ -166,10 +163,10 @@ define(["app"], function(App) {
 
 				success : function(collection, response) {
 					this.isListedqwizBook = true;
-				 var List = Array();
-				 List = qwizbookList.toJSON();
+					var List = Array();
+					List = qwizbookList.toJSON();
 					//alert(List[0].title);
-				    console.log(List);
+					console.log(List);
 					collection.trigger('list-qwizbook-event');
 				}
 			});
@@ -188,20 +185,26 @@ define(["app"], function(App) {
 
 	// This will fetch the tutorial template and render it.
 	//Item view
-	QwizBook.View = Backbone.View.extend({
+
+	
+    QwizBook.View = Backbone.View.extend({
+
+		//tagName : "#qpage-content",
+		//className : "contact-container",
+
 		template : "app/templates/qwizbookListItem.html",
 
 		initialize : function() {
 			//this.model = new QwizBook.Model();
 		},
-
+        
 		render : function(done) {
 			var view = this;
 			var qbook_template;
-
-			// Fetch the template, render it to the View element and call done.
+            // Fetch the template, render it to the View element and call done.
 			App.fetchTemplate(this.template, function(tmpl) {
 				//alert("Templ " + tmpl(view.model.toJSON()) + " " + "json" + view.model.get('title'));
+
 				qbook_template = _.template(tmpl(view.model.toJSON()));
 				view.el.innerHTML = qbook_template();
 
@@ -213,23 +216,22 @@ define(["app"], function(App) {
 		}
 	});
 
-   
-	QwizBook.ListView = Backbone.View.extend({
 
-		//template:"app/templates/qwizbooklist.html",
+	QwizBook.ListView = Backbone.View.extend({
+		
 		template : "app/templates/qwizbookList.html",
 
 		initialize : function() {
 			this.model.on("reset", this.render, this);
-
+			
 		},
 
 		render : function(done) {
 
 			var view = this;
 			var qbookview_template;
-
-			// Fetch the template, render it to the View element and call done.
+            
+           // Fetch the template, render it to the View element and call done.
 			App.fetchTemplate(this.template, function(tmpl) {
 
 				//alert("Templ " + tmpl(view.model.toJSON()) + " " + "json" + view.model.get('title'));
@@ -254,7 +256,6 @@ define(["app"], function(App) {
 			return this;
 		}
 	});
-    
 
 	// Required, return the module for AMD compliance
 	return QwizBook;
