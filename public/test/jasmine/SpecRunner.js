@@ -43,7 +43,7 @@ require(['jasmine-html'], function (jasmine) {
     var specs = [];
 
     //specs.push('spec/example');
-    //specs.push('spec/models/UserSpec');
+    specs.push('spec/models/UserSpec');
     specs.push('spec/models/QwizbookSpec');
     /*
      specs.push('spec/views/ClearCompletedSpec');

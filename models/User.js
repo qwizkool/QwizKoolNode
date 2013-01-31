@@ -11,15 +11,13 @@ var db = require('../lib/user_db');
 /*Schema definition*/
 
 var UserSchema = new db.Schema({
-    username:{type:String,  unique:true}
-    , email:{type:String, unique:true}
-    , password:String
+    username:{type:String, unique:true}, email:{type:String, unique:true}, password:String
 });
 
 
 UserSchema.methods.getUserForResponse = function () {
 
-    return { username : this.username, email : this.email, id : this._id  }
+    return { username:this.username, email:this.email, id:this._id  }
 };
 
 
@@ -45,13 +43,12 @@ function addUser(username, password, email, callback) {
 
             // Check for duplicate key error
             if (err.code == 11000) {
-                callback({Error: "User already exist with the same email ID/user name"})
+                callback({Error:"User already exist with the same email ID/user name"})
                 return;
             }
 
-
             // All other conditions Pass as is TODO: need to cleanup.
-            callback({Error: "User Could not be created "});
+            callback({Error:"User Could not be created "});
         }
         else {
             callback(null, instance);
@@ -60,10 +57,14 @@ function addUser(username, password, email, callback) {
 }
 
 
-function authenticate (email, password, callback) {
-    QwizkoolUser.findOne({ email: email }, function(err, user) {
-        if (err) { return callback(err); }
-        if (!user) { return callback(null, false); }
+function authenticate(email, password, callback) {
+    QwizkoolUser.findOne({ email:email }, function (err, user) {
+        if (err) {
+            return callback(err);
+        }
+        if (!user) {
+            return callback(null, false);
+        }
         if (user.password == password) {
             return callback(null, user);
         } else {
@@ -72,10 +73,14 @@ function authenticate (email, password, callback) {
     });
 };
 
-function findById (id, callback) {
-    QwizkoolUser.findById(id , function(err, user) {
-        if (err) { return callback(err); }
-        if (!user) { return callback(null, false); }
+function findById(id, callback) {
+    QwizkoolUser.findById(id, function (err, user) {
+        if (err) {
+            return callback(err);
+        }
+        if (!user) {
+            return callback(null, false);
+        }
 
         return callback(null, user);
 

@@ -1,65 +1,57 @@
-define(["app", "modules/qwizbook", "modules/searchFilter"], function(App, QwizBook, Searchfilter) {
+define(["app", "modules/qwizbook", "modules/searchFilter"], function (App, QwizBook, Searchfilter) {
 
-	// Create a new module
-	var Searchfilter = App.module();
+    // Create a new module
+    var Searchfilter = App.module();
 
-	Searchfilter.View = Backbone.View.extend({
+    Searchfilter.View = Backbone.View.extend({
 
-		template : "app/templates/searchFilter.html",
+        template:"app/templates/searchFilter.html",
 
-		initialize : function() {
+        initialize:function () {
 
-        // example for how to get a collection created in usermaincontent initialize
-        
-        //console.log("Constructor/initialize"+this.options.collection);
-			
-		},
+        },
 
-		render : function(done) {
+        render:function (done) {
 
-			var view = this;
+            var view = this;
 
-			// Fetch the template, render it to the View element and call done.
-			App.fetchTemplate(this.template, function(tmpl) {
-				view.el.innerHTML = tmpl();
+            // Fetch the template, render it to the View element and call done.
+            App.fetchTemplate(this.template, function (tmpl) {
+                view.el.innerHTML = tmpl();
 
-				// If a done function is passed, call it with the element
-				if (_.isFunction(done)) {
-					done(view.el);
-				}
+                // If a done function is passed, call it with the element
+                if (_.isFunction(done)) {
+                    done(view.el);
+                }
 
-			});
-		},
+            });
+        },
 
-		events : {
-			"keydown #user-search-input" : "setsearchParams",
-			"change #user-filter-input" : "setfilterParams"
-		},
+        events:{
+            "keyup #user-search-input":"setsearchParams",
+            "change #user-filter-input":"setfilterParams"
+        },
 
-		reattachEvents : function() {
-			this.undelegateEvents();
-			this.delegateEvents(this.events);
-		},
+        reattachEvents:function () {
+            this.undelegateEvents();
+            this.delegateEvents(this.events);
+        },
 
-		setsearchParams : function() {
+        setsearchParams:function () {
 
-			//triggering usermaincontent.js event to get the input value and change the URL
+            //triggering usermaincontent.js event to get the input value and change the URL
+            this.trigger('searchorfilter', {listcriteria:$('#user-search-input').val(), listwithsearchorfilter:'user-search-input', liston:this.options.collection});
+        },
 
-			this.trigger('searchorfilter', {listcriteria: $('#user-search-input').val(), listwithsearchorfilter: 'user-search-input', liston:this.options.collection});
+        setfilterParams:function () {
 
-		},
+            //triggering usermaincontent.js event to get the dropdown value and change the URL
+            this.trigger('searchorfilter', {listcriteria:$('#user-filter-input').val(), listwithsearchorfilter:'user-filter-input', liston:this.options.collection});
 
-		setfilterParams : function() {
+        }
+    });
 
-			//triggering usermaincontent.js event to get the dropdown value and change the URL
-
-			this.trigger('searchorfilter', {listcriteria: $('#user-filter-input').val(), listwithsearchorfilter: 'user-filter-input', liston:this.options.collection});
-			//this.trigger('searchorfilter',$('#user-filter-input').val());
-
-		}
-	});
-
-	// Required, return the module for AMD compliance
-	return Searchfilter;
+    // Required, return the module for AMD compliance
+    return Searchfilter;
 
 });
