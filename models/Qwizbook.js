@@ -79,9 +79,9 @@ var QwizbookSchema = new db.Schema({
     comments:[
         {
             submitterEmail:{type:String},
-            date:{ type:Date, default:Date.now }, text:{ type:String
-        }, approved:{ type:Boolean
-        }
+            date:{ type:Date, default:Date.now }, 
+            text:{ type:String}, 
+            approved:{ type:Boolean}
 
         }
     ],
@@ -162,11 +162,13 @@ var QwizbookSchema = new db.Schema({
 });
 
 QwizbookSchema.methods.getQwizbookForResponse = function () {
-
-    return {
+	
+	return {
         title:this.title,
         description:this.description,
-        id:this._id
+        id:this._id,
+        userating:this.userRating
+        
     }
 };
 

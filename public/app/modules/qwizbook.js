@@ -22,6 +22,14 @@ define(["app"], function(App) {
 			description : "Qwizbook Description",
 			ownerEmail : "qwizkool_user@qwizkool.com",
 			date : Date.now,
+			userRating:[
+    		{
+     			submitterEmail:"qwizkool_user@qwizkool.com",
+        		rating:"0"	
+    	
+    		}
+       
+    		],
 			//averagerating: 0
 
 			isAddedqwizBook : false,

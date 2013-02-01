@@ -129,6 +129,8 @@ describe('Model :: Qwizbook', function() {
 					qwizbook.set('title', testqwizbookTitle);
 					qwizbook.set('description', testqwizbookDescription);
 					qwizbook.set('ownerEmail', owneremail);
+					qwizbook.set('userRating["submitterEmail"]', owneremail);
+					qwizbook.set('userRating["rating"]', rating);
 					//qwizbook.set('date', testqwizbookdate);
 					qwizbook.on('create-qwizbook-event', createqwizbookEvent, this);
 
@@ -199,6 +201,12 @@ describe('Model :: Qwizbook', function() {
 			});
 		});
 	});
+	
+	
+	//Test Suite for Qwizbook Rating
+	
+	
+	//Test Suite Ends
 
 });
 
