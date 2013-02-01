@@ -39,31 +39,30 @@ define([
         },
 
         initialize:function () {
-        	
-        	var  qwizkoolUserLogin = localStorage.getItem("qwizkoolUser");
-        	
-        	if(qwizkoolUserLogin)
-            {
 
-            userInfo = JSON.parse(localStorage.getItem("qwizkoolUser"));
-            if (userInfo) {
+            var qwizkoolUserLogin = localStorage.getItem("qwizkoolUser");
 
-                this.set({
-                    name:userInfo.name,
-                    isRegistered:userInfo.isRegistered,
-                    registrationAttempted:userInfo.registrationAttempted,
-                    registrationStatus:userInfo.registrationStatus,
-                    isLoggedIn:userInfo.isLoggedIn,
-                    loginAttempted:userInfo.loginAttempted,
-                    logoutAttempted:userInfo.logoutAttempted,
-                    loginStatus:userInfo.loginStatus,
-                    password:userInfo.password,
-                    email:userInfo.email,
-                    action:userInfo.action
-                });
+            if (qwizkoolUserLogin) {
 
+                userInfo = JSON.parse(localStorage.getItem("qwizkoolUser"));
+                if (userInfo) {
+
+                    this.set({
+                        name:userInfo.name,
+                        isRegistered:userInfo.isRegistered,
+                        registrationAttempted:userInfo.registrationAttempted,
+                        registrationStatus:userInfo.registrationStatus,
+                        isLoggedIn:userInfo.isLoggedIn,
+                        loginAttempted:userInfo.loginAttempted,
+                        logoutAttempted:userInfo.logoutAttempted,
+                        loginStatus:userInfo.loginStatus,
+                        password:userInfo.password,
+                        email:userInfo.email,
+                        action:userInfo.action
+                    });
+
+                }
             }
-		  }
         },
 
         isUserAuthenticated:function () {

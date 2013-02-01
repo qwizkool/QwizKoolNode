@@ -46,7 +46,7 @@ module.exports = {
             // user.
             console.log("User Added:");
             console.log(JSON.stringify(user));
-            res.send({id : user._id});
+            res.send({id:user._id});
         });
 
     },
