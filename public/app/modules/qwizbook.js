@@ -222,7 +222,7 @@ define(["app"], function(App) {
 		template : "app/templates/qwizbookList.html",
 
 		initialize : function() {
-			this.model.on("reset", this.render, this);
+			//this.model.on("reset", this.render, this);
 			
 		},
 
@@ -237,6 +237,8 @@ define(["app"], function(App) {
 				//alert("Templ " + tmpl(view.model.toJSON()) + " " + "json" + view.model.get('title'));
 				qbookview_template = _.template(tmpl());
 				view.el.innerHTML = qbookview_template();
+
+                $(view.el).find("#home-content-container").empty();
 
 				_.each(view.model.models, function(qwizbook) {
 					var qwizbookView = new QwizBook.View({
