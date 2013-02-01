@@ -1,4 +1,8 @@
-define(["app", "modules/qwizbook", "modules/breadcrumbs", "modules/searchFilter"
+define([
+    "app",
+    "modules/qwizbook",
+    "modules/breadcrumbs",
+    "modules/searchFilter"
 //"modules/pagination"
 ], function (App, QwizBook, Breadcrumbs, Searchfilter) {
     //function (App, QwizBook) {
@@ -17,7 +21,6 @@ define(["app", "modules/qwizbook", "modules/breadcrumbs", "modules/searchFilter"
             this.qwizbooklistview = new QwizBook.ListView({
                 model:this.qwizbookList
             });
-
 
             //this.qwizbooklistitemview = new QwizbookListItem.View({
             //	collection : this.qwizbookList

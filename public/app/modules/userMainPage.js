@@ -40,21 +40,11 @@ define([
         show:function (done) {
 
             var thisView = this;
-            // Attach the tutorial to the DOM
 
-            thisView.header.render(function (el) {
-                $("#qpage-header").html(el);
+            $("#qpage-header").html(this.header.render().el);
+            $("#qwizkool-user-settings").html(this.userSettings.render().el);
+            this.header.renderSettings();
 
-                // Add the user settings template inside header
-                thisView.userSettings.render(function (el) {
-
-                    $("#qwizkool-user-settings").html(el);
-                    thisView.header.renderSettings();
-
-                });
-
-
-            });
 
            // thisView.userMainContent.render(function (el) {
            //     $("#qpage-content").html(el);
