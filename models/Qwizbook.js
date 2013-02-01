@@ -63,6 +63,17 @@ var QwizbookSchema = new db.Schema({
     sharedWith:[
         { email:String }
     ],
+    
+    // User Ratings
+    userRating:[
+    {
+     	submitterEmail:{type:String},
+        rating:{type:Number, default:0}	
+    	
+    }
+       
+    ],
+
 
 //------- Qwizbook comments
     comments:[
