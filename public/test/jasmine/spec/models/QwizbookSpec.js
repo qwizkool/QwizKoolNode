@@ -200,6 +200,14 @@ describe('Model :: Qwizbook', function() {
 
 });
 
+//Test Suite to check rating
+
+
+
+
+//Test Suite ends
+
+
 describe("A Qwizbook collection", function() {
 
 	it('should contain models', function() {
