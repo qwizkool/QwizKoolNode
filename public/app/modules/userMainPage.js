@@ -15,6 +15,7 @@ define([
     UserMainPage.View = Backbone.View.extend({
 
         initialize:function () {
+
             this.qwizbookList = new QwizBook.Collection();
             this.header = new Header.View();
             this.userMainContent = new UserMainContent.View({collection:this.qwizbookList});
@@ -22,38 +23,22 @@ define([
             this.userSettings = new UserSettings.View();
             this.qwizbookList.QwizbookList();
             this.qwizbookList.on("reset", this.updateCollection, this);
-            //           this.userSettings.on("logout-attempted", this.renderSettings, this);
         },
 
         updateCollection:function () {
-            var thisView = this;
 
-            thisView.userMainContent.render(function (el) {
-                $("#qpage-content").html(el);
-                thisView.userMainContent.reattachEvents();
-            });
-
+            $("#qpage-content").html(this.userMainContent.render().el);
+            this.userMainContent.reattachEvents();
         },
 
         // Render all the nested views related to this page
         // and attach it to the DOM.
         show:function (done) {
 
-            var thisView = this;
-
             $("#qpage-header").html(this.header.render().el);
             $("#qwizkool-user-settings").html(this.userSettings.render().el);
             this.header.renderSettings();
-
-
-           // thisView.userMainContent.render(function (el) {
-           //     $("#qpage-content").html(el);
-            //});
-
-
-            thisView.footer.render(function (el) {
-                $("#qpage-footer").html(el);
-            });
+            $("#qpage-footer").html(this.footer.render().el);
 
         }
     });

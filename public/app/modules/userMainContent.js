@@ -2,18 +2,19 @@ define([
     "app",
     "modules/qwizbook",
     "modules/breadcrumbs",
-    "modules/searchFilter"
-//"modules/pagination"
-], function (App, QwizBook, Breadcrumbs, Searchfilter) {
-    //function (App, QwizBook) {
-    // Create a new module
+    "modules/searchFilter",
+    "text!templates/userMainContent.html"
+
+], function (App, QwizBook, Breadcrumbs, Searchfilter, Template) {
+
     var UserMainContent = App.module();
 
     UserMainContent.View = Backbone.View.extend({
 
         initialize:function () {
+
             this.qwizbookList = this.collection;
-            //this.qwizbook = new QwizBook.View();
+            // TODO: breadcrumb view
             //this.breadcrumbs = new Breadcrumbs.View();
             this.searchfilter = new Searchfilter.View({
                 collection:this.qwizbookList
@@ -22,22 +23,9 @@ define([
                 model:this.qwizbookList
             });
 
-            //this.qwizbooklistitemview = new QwizbookListItem.View({
-            //	collection : this.qwizbookList
-            //});
-            // this.pagination 	= new Pagination.View();
-
-            //this.QwizbookList = new QwizBook.Collection({
-            //	model : this.qwizbookList
-            //});
-            //this.QwizbookList = new QwizBook.QwizbookList({model:this.qwizbookcollection});
-            //alert(this.qwizbookcollection.fetch());
-            //this.qwizbookcollection.fetch();
-            //$('#qwizbookcollection-container').html(this.qwizbooklistView.render().el);
-
             // Register for events from subviews
-
             this.searchfilter.on("searchorfilter", function (searchfilterdataObj) {
+
                 var searchorfiltercriteria = searchfilterdataObj.listcriteria;
                 var qwizbookList = searchfilterdataObj.liston;
                 var filterorsearch = searchfilterdataObj.listwithsearchorfilter;
@@ -52,97 +40,26 @@ define([
                     qwizbookList.QwizbookList();
                 }
 
-
             });
 
-
-            //this.searchfilter.on("filter-change",this.updateFilterSettings(), this);
-            //this.searchfilter.on("searchorfilter", this.updateSearchOrFilterSettings(searchorfilterData), this);
-            //this.pagination.on("pageChange",this.updatePageChange, this);
-            //this.qwizbookcollection.QwizbookList();
-            //this.QwizbookList.QwizbookList();
-            //this.qwizbookList.fetch();
-            //           this.userSettings.on("logout-attempted", this.renderSettings, this);
         },
+
         reattachEvents:function () {
             this.searchfilter.reattachEvents();
-         },
-        /*
-         updateSearchOrFilterSettings : function(searchorfilterdata) {
+        },
 
-         //Retreive filter setting from searchfilter view
-         //var  searchorfilterCriteria = searchorfilterData;
-         //alert(searchorfilterCriteria);
-         //this.qwizbookcollection.set(filterData);
-         //trigger the qwizbook collection fetch
-         var searchorfiltercriteria = searchorfilterdata;
-         alert(searchorfiltercriteria);
-         this.QwizbookList = new QwizBook.Collection({
-         model : this.qwizbookList
-         });
-         this.QwizbookList.url(searchorfiltercriteria);
-         this.QwizbookList.QwizbookList();
-         //this.QwizbookList.refresh();
+        template:Template,
 
-         //
-         },
-         */
+        render:function () {
 
-        /*
-         updateFilterSettings:function()
-         {
+            this.el.innerHTML = this.template;
+            $(this.el).find("#searchfilter-container").append(this.searchfilter.render().el);
+            $(this.el).find("#qwizbooklist-container").append(this.qwizbooklistview.render().el);
 
-         //Retreive filter setting from searchfilter view
-         var filterData = this.searchfilter.getfilterParameter();
-
-         this.qwizbookcollection.set(filterData);
-         //trigger the qwizbook collection fetch
-         this.qwizbookcollection.refresh();
-
-         //
-         },
-
-         */
-
-        template:"app/templates/userMainContent.html",
-
-        render:function (done) {
-
-            var view = this;
-
-            // Fetch the template, render it to the View element and call done.
-            App.fetchTemplate(this.template, function (tmpl) {
-                view.el.innerHTML = tmpl();
-
-                view.searchfilter.render(function (elv) {
-                    $(view.el).find("#searchfilter-container").append(elv);
-                });
-
-
-                /*
-                 view.qwizbooklistview.render(function(elv) {
-                 $(view.el).find("#qwizbooklist-container").append(elv);
-
-                 });
-                 */
-
-                view.qwizbooklistview.render(function (elv) {
-
-                    $(view.el).find("#qwizbooklist-container").append(elv);
-                });
-
-
-                // If a done function is passed, call it with the element
-                if (_.isFunction(done)) {
-                    done(view.el);
-
-                }
-
-            });
+            return this;
         }
     });
 
-// Required, return the module for AMD compliance
     return UserMainContent;
 
 });
