@@ -1,36 +1,25 @@
 define([
     "app",
-    "modules/user"
-], function (App, User, UserSettings) {
+    "modules/user",
+    "text!templates/header.html"
+], function (App, User, Template) {
 
     // Create a new module
     var Header = App.module();
 
     Header.View = Backbone.View.extend({
 
-        template:"app/templates/header.html",
+        template:Template,
 
         initialize:function () {
             this.model = new User.Model();
         },
 
-        render:function (done) {
+        render:function () {
 
-            var view = this;
-
-            // Fetch the template, render it to the View element and call done.
-            App.fetchTemplate(this.template, function (tmpl) {
-
-                // Add the template for header
-                view.el.innerHTML = tmpl();
-                // Pass the rendered el to the caller to attach
-                // to the DOM.
-                if (_.isFunction(done)) {
-                    done(view.el);
-                }
-
-            });
-
+            this.el.innerHTML = this.template;
+            console.log(this.el.innerHTML);
+            return this;
         },
 
         renderSettings:function () {
