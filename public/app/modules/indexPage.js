@@ -29,47 +29,27 @@ define([
         // and attach it to the DOM.
         show:function (done) {
 
-            var thisView = this;
-            // Attach the tutorial to the DOM
+            $("#qpage-header").html(this.header.render().el);
+            $("#qwizkool-user-settings").html(this.userSettings.render().el);
+            this.header.renderSettings();
 
-            thisView.header.render(function (el) {
-
-                $("#qpage-header").html(el);
-
-                // Add the user settings template inside header
-                thisView.userSettings.render(function (el) {
-
-                    $("#qwizkool-user-settings").html(el);
-
-                    thisView.header.renderSettings();
-                });
-
-
-            });
-
-            thisView.qwizkoolMain.render(function (el) {
-                $("#qpage-content").html(el);
-            });
-
-
-            thisView.footer.render(function (el) {
-                $("#qpage-footer").html(el);
-            });
+            $("#qpage-content").html(this.qwizkoolMain.render().el);
+            $("#qpage-footer").html(this.footer.render().el);
 
         },
 
         // Update the view with the status of the log in operation.
         logInHandler:function () {
-            this.qwizkoolMain.renderLogInStatus(function (el) {
-                $("#qpage-content").html(el);
-            });
+
+            $("#qpage-content").html(this.qwizkoolMain.renderLogInStatus().el);
+            this.qwizkoolMain.reattachEvents();
+
         },
 
         // Update the view with the status of the registration operation.
         registrationHandler:function () {
-            this.qwizkoolMain.renderRegistrationStatus(function (el) {
-                $("#qpage-content").html(el);
-            });
+            $("#qpage-content").html(this.qwizkoolMain.renderRegistrationStatus().el);
+            this.qwizkoolMain.reattachEvents();
 
         }
     });

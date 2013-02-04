@@ -4,8 +4,9 @@ define([
     "modules/header",
     "modules/userMainContent",
     "modules/footer",
-    "modules/userSettings"
-], function (App, Tabs, Header, UserMainContent, Footer, UserSettings) {
+    "modules/userSettings",
+    "modules/qwizbook"
+], function (App, Tabs, Header, UserMainContent, Footer, UserSettings, QwizBook) {
 
     // Create a new module
     var UserMainPage = new App.module();
@@ -14,43 +15,30 @@ define([
     UserMainPage.View = Backbone.View.extend({
 
         initialize:function () {
+
+            this.qwizbookList = new QwizBook.Collection();
             this.header = new Header.View();
-            this.userMainContent = new UserMainContent.View();
+            this.userMainContent = new UserMainContent.View({collection:this.qwizbookList});
             this.footer = new Footer.View();
             this.userSettings = new UserSettings.View();
-            //           this.userSettings.on("logout-attempted", this.renderSettings, this);
+            this.qwizbookList.QwizbookList();
+            this.qwizbookList.on("reset", this.updateCollection, this);
         },
 
+        updateCollection:function () {
+
+            $("#qpage-content").html(this.userMainContent.render().el);
+            this.userMainContent.reattachEvents();
+        },
 
         // Render all the nested views related to this page
         // and attach it to the DOM.
         show:function (done) {
 
-            var thisView = this;
-            // Attach the tutorial to the DOM
-
-            thisView.header.render(function (el) {
-                $("#qpage-header").html(el);
-
-                // Add the user settings template inside header
-                thisView.userSettings.render(function (el) {
-
-                    $("#qwizkool-user-settings").html(el);
-                    thisView.header.renderSettings();
-
-                });
-
-
-            });
-
-            thisView.userMainContent.render(function (el) {
-                $("#qpage-content").html(el);
-            });
-
-
-            thisView.footer.render(function (el) {
-                $("#qpage-footer").html(el);
-            });
+            $("#qpage-header").html(this.header.render().el);
+            $("#qwizkool-user-settings").html(this.userSettings.render().el);
+            this.header.renderSettings();
+            $("#qpage-footer").html(this.footer.render().el);
 
         }
     });
