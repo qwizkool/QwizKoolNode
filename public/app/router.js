@@ -13,7 +13,8 @@ define([
 
         routes:{
             '':'index',
-            'main':'userMain'
+            'main':'userMain',
+            'qwizbookDetails/:id':'qwizbookMain'
 
         },
 
@@ -50,6 +51,11 @@ define([
             userMainPage.show();
 
 
+        },
+        
+        qwizbookMain:function(id)
+        {
+        	alert(id);
         }
 
     });
