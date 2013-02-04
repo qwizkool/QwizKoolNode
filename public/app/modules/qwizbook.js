@@ -169,7 +169,7 @@ define(["app"], function(App) {
 				 var List = Array();
 				 List = qwizbookList.toJSON();
 					//alert(List[0].title);
-				    console.log(List);
+				    //console.log(List);
 					collection.trigger('list-qwizbook-event');
 				}
 			});
@@ -210,6 +210,17 @@ define(["app"], function(App) {
 					done(view.el);
 				}
 			});
+		},
+		events : {
+			'click button.qwizbookListItem':'openQwizbook'
+		},
+		
+		openQwizbook: function(e){
+		  var clickedEl = $(e.currentTarget);
+		  var id = clickedEl.attr("id");
+		  Backbone.history.navigate("#qwizbookDetails/"+id, true);
+               
+		  //this.trigger('getQwizbook', {qwizbookCriteria: id, openDescription:this.options.collection});
 		}
 	});
 
@@ -221,7 +232,7 @@ define(["app"], function(App) {
 
 		initialize : function() {
 			this.model.on("reset", this.render, this);
-
+			
 		},
 
 		render : function(done) {
