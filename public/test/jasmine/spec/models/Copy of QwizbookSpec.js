@@ -5,9 +5,11 @@ describe('Model :: Qwizbook', function() {
 	var testEmail = '';
 	// Create test data for the user model
 
+
 	var testqwizbookuniqueKey = '';
 	var testqwizbookTitle = '';
 	var testqwizbookDescription = '';
+
 
 	beforeEach(function() {
 		time = new Date().getTime();
@@ -88,7 +90,10 @@ describe('Model :: Qwizbook', function() {
 			var done = false;
 			var qwizbook = null;
 			var owneremail = this.user.get('email');
-
+			var rating =0;
+			
+			
+			
 			require(['modules/qwizbook'], function(Qwizbook) {
 				// that.users = new User.Collection();
 				qwizbook = new Qwizbook.Model();
@@ -112,6 +117,9 @@ describe('Model :: Qwizbook', function() {
 
 				var a = 65;
 				var charArray = {};
+				
+				
+				
 				for (var i = 0; i < 26; i++) {
 					charArray[String.fromCharCode(a + i)] = String.fromCharCode(a + i);
 					testqwizbookuniqueKey = "uniqueKey" + charArray[String.fromCharCode(a + i)];
@@ -127,6 +135,40 @@ describe('Model :: Qwizbook', function() {
 					qwizbook.set('title', testqwizbookTitle);
 					qwizbook.set('description', testqwizbookDescription);
 					qwizbook.set('ownerEmail', owneremail);
+					
+					//var userRatingArr = new Array();
+				    //var userRatingObj = qwizbook.get('userRating');
+				    
+				    
+				    
+					//console.log('Spec rating array begining'+userRatingObj);
+					
+					//qwizbook.set('userRating', [{ 'submitterEmail': owneremail, 'rating':  '0'}]);
+					
+					
+					//for(var j in userRatingObj[0])
+					//{
+						//console.log(userRatingObj[0][j]);
+						
+						//if(j == 'submitterEmail')
+						//userRatingObj[0][j]=owneremail;
+						
+						//if(j == 'rating')
+						//userRatingObj[0][j]=0;
+						
+						//qwizbook.set('userRating', [{ 'submitterEmail': owneremail, 'rating':  '0'}]);
+						
+					//}
+					
+					
+					console.log('Spec rating array');
+					
+					
+					
+					
+					//qwizbook.set('userRating', userRatingObj);
+					
+					
 					//qwizbook.set('date', testqwizbookdate);
 					qwizbook.on('create-qwizbook-event', createqwizbookEvent, this);
 
@@ -197,6 +239,12 @@ describe('Model :: Qwizbook', function() {
 			});
 		});
 	});
+	
+	
+	//Test Suite for Qwizbook Rating
+	
+	
+	//Test Suite Ends
 
 });
 
