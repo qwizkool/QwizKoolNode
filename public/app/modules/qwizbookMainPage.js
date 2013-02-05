@@ -1,27 +1,24 @@
 define([
     "app",
-    //"tabs",
     "modules/header",
-    "modules/userMainContent",
     "modules/footer",
     "modules/userSettings"
-], function (App,Header, UserMainContent, Footer, UserSettings) {
+], function (App, Header, Footer, UserSettings) {
 
     // Create a new module
-    var UserMainPage = new App.module();
+    var QwizbookMainPage = new App.module();
 
     // Top level view for the qwizkool
-    UserMainPage.View = Backbone.View.extend({
-
+    QwizbookMainPage.View = Backbone.View.extend({
+    	
+		
         initialize:function () {
+        	this.qbookid = this.options.someData;
             this.header = new Header.View();
-            this.userMainContent = new UserMainContent.View();
             this.footer = new Footer.View();
             this.userSettings = new UserSettings.View();
-            //           this.userSettings.on("logout-attempted", this.renderSettings, this);
         },
-
-
+        
         // Render all the nested views related to this page
         // and attach it to the DOM.
         show:function (done) {
@@ -43,17 +40,15 @@ define([
 
             });
 
-            thisView.userMainContent.render(function (el) {
-                $("#qpage-content").html(el);
-            });
-
 
             thisView.footer.render(function (el) {
+            	//console.log('zxzx'+this.qbookid);
+            	$("#qpage-content").html('sdsds'+this.qbookid);
                 $("#qpage-footer").html(el);
             });
 
         }
     });
 
-    return UserMainPage;
+    return QwizbookMainPage;
 }); 
