@@ -24,8 +24,8 @@ define(["app"], function(App) {
 			date : Date.now,
 			userRating:[
     		{
-     			submitterEmail:"qwizkool_user@qwizkool.com",
-        		rating:"0"	
+     			submitterEmail : "qwizkool_user@qwizkool.com",
+        		rating : "0"	
     	
     		}
        
