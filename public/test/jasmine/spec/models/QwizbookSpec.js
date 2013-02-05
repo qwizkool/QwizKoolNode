@@ -5,9 +5,11 @@ describe('Model :: Qwizbook', function() {
 	var testEmail = '';
 	// Create test data for the user model
 
+
 	var testqwizbookuniqueKey = '';
 	var testqwizbookTitle = '';
 	var testqwizbookDescription = '';
+
 
 	beforeEach(function() {
 		time = new Date().getTime();
@@ -88,7 +90,10 @@ describe('Model :: Qwizbook', function() {
 			var done = false;
 			var qwizbook = null;
 			var owneremail = this.user.get('email');
-
+			var rating =0;
+			
+			
+			
 			require(['modules/qwizbook'], function(Qwizbook) {
 				// that.users = new User.Collection();
 				qwizbook = new Qwizbook.Model();
@@ -112,22 +117,43 @@ describe('Model :: Qwizbook', function() {
 
 				var a = 65;
 				var charArray = {};
+				
+				
+				
 				for (var i = 0; i < 26; i++) {
 					charArray[String.fromCharCode(a + i)] = String.fromCharCode(a + i);
 					testqwizbookuniqueKey = "uniqueKey" + charArray[String.fromCharCode(a + i)];
 					testqwizbookTitle = "Title" + charArray[String.fromCharCode(a + i)];
 					testqwizbookDescription = "Description" + charArray[String.fromCharCode(a + i)];
 
-					console.log(charArray[String.fromCharCode(a + i)]);
-					console.log(testqwizbookuniqueKey);
-					console.log(testqwizbookTitle);
-					console.log(testqwizbookDescription)
+					//console.log(charArray[String.fromCharCode(a + i)]);
+					//console.log(testqwizbookuniqueKey);
+					//console.log(testqwizbookTitle);
+					//console.log(testqwizbookDescription)
 					// Register the Qwizbook
 					qwizbook.set('uniqueKey', testqwizbookuniqueKey);
 					qwizbook.set('title', testqwizbookTitle);
 					qwizbook.set('description', testqwizbookDescription);
 					qwizbook.set('ownerEmail', owneremail);
-					//qwizbook.set('date', testqwizbookdate);
+					qwizbook.set('userRating', [{ 'submitterEmail': owneremail, 'rating':  '0'}]);	
+					for(var r =1; r <= 5; r++)
+					{
+					qwizbook.get('userRating').push({ 'submitterEmail': owneremail, 'rating':  r});	
+						
+					}
+					
+					
+					//var userRatingObj = new Array();
+				    //var userRatingObj = qwizbook.get('userRating');
+				    //userRatingObj['submitterEmail'] = owneremail;
+				    //userRatingObj['rating'] = '0';
+				    //qwizbook.set('userRating', userRatingObj);
+				    
+				    //var userratingNew = qwizbook.get('userRating');
+				    //console.log("New Rating" + userratingNew);
+			        //qwizbook.set('userRating', [{ 'submitterEmail': owneremail, 'rating':  '0'}]);
+					
+					
 					qwizbook.on('create-qwizbook-event', createqwizbookEvent, this);
 
 					qwizbook.createqwizbook();
@@ -197,6 +223,12 @@ describe('Model :: Qwizbook', function() {
 			});
 		});
 	});
+	
+	
+	//Test Suite for Qwizbook Rating
+	
+	
+	//Test Suite Ends
 
 });
 

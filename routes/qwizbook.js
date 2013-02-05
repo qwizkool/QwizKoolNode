@@ -18,7 +18,8 @@ module.exports = {
 
         var sessionUser = req.user;
         var book = req.body;
-
+        
+        
         Qwizbook.createQwizbook(sessionUser, book, function (err, book) {
             // If error send the error response
             if (err) {
@@ -29,10 +30,11 @@ module.exports = {
             // No error send the unique ID for the newly created
             // book.
             console.log("QwizBook Added:");
-            console.log(JSON.stringify(book));
+            console.log("Book Details" + JSON.stringify(book));
+            
             res.send({
-                id:book._id
-            });
+                id:book._id,
+               });
             //res.send({id:book.id});
 
         })

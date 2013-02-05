@@ -64,15 +64,15 @@ var QwizbookSchema = new db.Schema({
         { email:String }
     ],
     
-    // User Ratings
-    userRating:[
-    {
-     	submitterEmail:{type:String},
-        rating:{type:Number, default:0}	
+     //User Ratings
+    	userRating:[
+    	{
+    	 	submitterEmail:{type:String},
+       	 	rating:{type:Number, default:0}	
     	
-    }
+    	}
        
-    ],
+   	],
 
 
 //------- Qwizbook comments
@@ -167,7 +167,7 @@ QwizbookSchema.methods.getQwizbookForResponse = function () {
         title:this.title,
         description:this.description,
         id:this._id,
-        userating:this.userRating
+        userRating:this.userRating
         
     }
 };
@@ -188,7 +188,7 @@ function createQwizbook(owner, data, callback) {
     // Check if the provided owner is same as the
     // session owner. A book can be created by only
     // the session owner
-
+   
     if (owner.email != data.ownerEmail) {
         callback({
             Error:"Qwizbook Could not be created, Please Login "
@@ -197,13 +197,17 @@ function createQwizbook(owner, data, callback) {
     }
 
     var instance = new QwizbookData();
-
+    var userratingArr = new Array();
+    
     instance.uniqueKey = data.title + ":" + owner.email;
     instance.title = data.title;
     instance.description = data.description;
     instance.ownerEmail = owner.email;
+    
+    instance.userRating = data.userRating;
+    
     instance.groupPermission = data.groupPermission;
-
+    
     instance.save(function (err) {
         if (err) {
             // Check for duplicate key error
@@ -222,6 +226,9 @@ function createQwizbook(owner, data, callback) {
             callback(null, instance);
         }
     });
+    
+   
+    
 };
 
 function retrieveQwizbook(owner, id, callback) {

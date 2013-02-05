@@ -26,7 +26,6 @@ define(["app"], function(App) {
     		{
      			submitterEmail : "qwizkool_user@qwizkool.com",
         		rating : "0"	
-    	
     		}
        
     		],
@@ -175,7 +174,7 @@ define(["app"], function(App) {
 					var List = Array();
 					List = qwizbookList.toJSON();
 					//alert(List[0].title);
-					console.log(List);
+					//console.log(List);
 					collection.trigger('list-qwizbook-event');
 				}
 			});
