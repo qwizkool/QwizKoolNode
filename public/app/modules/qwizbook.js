@@ -30,7 +30,7 @@ define(["app"], function(App) {
        
     		],
 			//averagerating: 0
-
+            isAddedqwizBookRating: false,
 			isAddedqwizBook : false,
 			AddedqwizBookAttempted : false,
 			AddedqwizBookStatus : null,
@@ -43,6 +43,7 @@ define(["app"], function(App) {
 			this.set({
 				AddedqwizBookAttempted : true,
 				isAddedqwizBook : false,
+				isAddedqwizBookRating: false,
 				AddedqwizBookStatus : null
 			});
 
@@ -51,6 +52,7 @@ define(["app"], function(App) {
 				error : function(model, response) {
 					model.set({
 						isAddedqwizBook : false,
+						isAddedqwizBookRating: false,
 						AddedqwizBookStatus : response.statusText,
 						action : 'none'
 					});
@@ -72,6 +74,22 @@ define(["app"], function(App) {
 			});
 
 		},
+		
+		// To be added to comment a qwizbook
+		//addQwizbookComment : function() {
+			
+		//},
+		
+		//To Add Qwizbook Rating
+		//addQwizbookRating : function() {
+			
+		//},
+		
+		//To Edit Qwizbook Rating
+		//editQwizbookRating : function() {
+			
+		//},
+		
 	});
 
 	QwizBook.Collection = Backbone.Collection.extend({
