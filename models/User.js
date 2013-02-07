@@ -7,19 +7,44 @@
  */
 var db = require('../lib/user_db');
 
+var bcrypt = require('bcrypt');
+var SALT_WORK_FACTOR = 10;
+
 
 /*Schema definition*/
 
 var UserSchema = new db.Schema({
-    username:{type:String, unique:true}, email:{type:String, unique:true}, password:String
+    username:{type:String, unique:true},
+    email:{type:String, unique:true},
+ //   salt: { type: String, required: true },
+    hash: { type: String, required: true }
 });
 
+
+UserSchema.virtual('password')
+    .get(function () {
+        return this._password;
+    })
+    .set(function (password) {
+
+        this._password = password;
+
+        //The salt is incorporated into the hash (as plaintext).
+        var salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
+        this.hash = bcrypt.hashSync(password, salt);
+    });
+
+UserSchema.method('verifyPassword', function(password, callback) {
+
+    //The salt is incorporated into the hash (as plaintext). The compare function simply pulls the salt out of the hash
+    //and then uses it to hash the password and perform the comparison.
+     bcrypt.compare(password, this.hash, callback);
+});
 
 UserSchema.methods.getUserForResponse = function () {
 
     return { username:this.username, email:this.email, id:this._id  }
 };
-
 
 var QwizkoolUser = db.conn.model('User', UserSchema);
 
@@ -65,11 +90,13 @@ function authenticate(email, password, callback) {
         if (!user) {
             return callback(null, false);
         }
-        if (user.password == password) {
+
+        user.verifyPassword(password, function(err, passwordCorrect) {
+            if (err) { return callback(err); }
+            if (!passwordCorrect) { return callback(null, false); }
             return callback(null, user);
-        } else {
-            return callback(null, false);
-        }
+        });
+
     });
 };
 

@@ -154,7 +154,7 @@ define([
 
         QwizbookList:function () {
             var qwizbookList = this;
-<<<<<<< HEAD
+
 			var jqxhr = qwizbookList.fetch({
 
 				error : function(collection, response) {
@@ -269,98 +269,5 @@ define([
 
 	// Required, return the module for AMD compliance
 	return QwizBook;
-=======
-            var jqxhr = qwizbookList.fetch({
-
-                error:function (collection, response) {
-                    this.isListedqwizBook = false;
-                    //alert("Failed to get QwizBooks!");
-                    console.log("Failed to get QwizBooks!");
-                    collection.trigger('list-qwizbook-event');
-                },
-
-                success:function (collection, response) {
-                    this.isListedqwizBook = true;
-                    var List = Array();
-                    List = qwizbookList.toJSON();
-                    //alert(List[0].title);
-                    console.log(List);
-                    collection.trigger('list-qwizbook-event');
-                }
-            });
-
-            //qwizbookList.fetch(function() {
-
-            //console.log(qwizbookList);
-
-            //});
-
-            // $('#qwizbook-lists').html(this.qwizbookListView.render().el);
-        }
-    });
-
-    QwizBook.Router = Backbone.Router.extend({/* ... */ });
-
-    // This will fetch the tutorial template and render it.
-    //Item view
-
-
-    QwizBook.View = Backbone.View.extend({
-
-        //tagName : "#qpage-content",
-        //className : "contact-container",
-
-        template:TmplQwizbookItem,
-
-        initialize:function () {
-        },
-
-        render:function (done) {
-
-            var view = this;
-            var qbook_item_template;
-            qbook_item_template = _.template(this.template, view.model.toJSON());
-            view.el.innerHTML = qbook_item_template;
-            return this;
-        }
-    });
-
-
-    QwizBook.ListView = Backbone.View.extend({
-
-        template:TmplQwizbookList,
-
-        initialize:function () {
-        },
-
-        render:function (done) {
-
-            var view = this;
-            var qbook_list_template;
-
-            qbook_list_template = this.template;
-
-            view.el.innerHTML = qbook_list_template;
-
-            $(view.el).find("#home-content-container").empty();
-
-            _.each(view.model.models, function (qwizbook) {
-
-                var qwizbookView = new QwizBook.View({
-                    model:qwizbook
-                });
-
-                $(view.el).find("#home-content-container").append(qwizbookView.render().el);
-
-            });
-
-            return this;
-
-        }
-    });
-
-    // Required, return the module for AMD compliance
-    return QwizBook;
->>>>>>> 507d4bf4dbd806b576dd8955eec7de14826ac7fc
 
 });
