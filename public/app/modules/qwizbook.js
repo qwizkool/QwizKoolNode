@@ -1,8 +1,8 @@
 /*
- QwizBook represents one full quiz with associated navigation, hints, comments, images, video, audio etc.
- The QwizBook primarily maintains a list of QwizPage references, and the starte transitions between them.
- A QwizPage could be an intro page, a multiple choice question, summary etc.
- */
+QwizBook represents one full quiz with associated navigation, hints, comments, images, video, audio etc.
+The QwizBook primarily maintains a list of QwizPage references, and the starte transitions between them.
+A QwizPage could be an intro page, a multiple choice question, summary etc.
+*/
 
 define([
     "app",
@@ -88,12 +88,12 @@ define([
             //TODO: Commented for the time being
 
             //if (this.req_count) {
-            //	urlRoot = urlRoot + "?search_str=" + this.searchval + "&sort_by=" + this.filterval + "&req_count=" + this.req_count;
+            // urlRoot = urlRoot + "?search_str=" + this.searchval + "&sort_by=" + this.filterval + "&req_count=" + this.req_count;
 
             //}
 
             //if (this.page_num) {
-            //	urlRoot = urlRoot + "?search_str=" + this.searchval + "&sort_by=" + this.filterval + "&req_count=" + this.req_count + "&page_num=" +this.page_num;
+            // urlRoot = urlRoot + "?search_str=" + this.searchval + "&sort_by=" + this.filterval + "&req_count=" + this.req_count + "&page_num=" +this.page_num;
 
             //}
 
@@ -103,9 +103,9 @@ define([
 
         initialize:function () {
 
-            // default  url for search
+            // default url for search
 
-            //  /qwizbooks?search_str=scala&sort_by=popular&req_count=10&page_num=1
+            // /qwizbooks?search_str=scala&sort_by=popular&req_count=10&page_num=1
 
             //search_str : search string
             //sort_by : sort criteria
@@ -122,11 +122,11 @@ define([
         },
 
         //meta : function(prop, value) {
-        //	if (value === undefined) {
-        //		return this._meta[prop]
-        //	} else {
-        //		this._meta[prop] = value;
-        //	}
+        // if (value === undefined) {
+        // return this._meta[prop]
+        // } else {
+        // this._meta[prop] = value;
+        // }
         //},
 
         qwizbookSearch:function (searchedstring) {
@@ -144,7 +144,7 @@ define([
             this.urlroot = this.url();
 
             //this.model= new QwizBook.Model();
-            //qwizbookAction =  "searchqwizbook";
+            //qwizbookAction = "searchqwizbook";
             //this.action = "searchqwizbook";
             //this._meta['action'] = "filterqwizbook";
             //alert(this._meta['action']);
@@ -155,119 +155,119 @@ define([
         QwizbookList:function () {
             var qwizbookList = this;
 
-			var jqxhr = qwizbookList.fetch({
+var jqxhr = qwizbookList.fetch({
 
-				error : function(collection, response) {
-					this.isListedqwizBook = false;
-					//alert("Failed to get QwizBooks!");
-					console.log("Failed to get QwizBooks!");
-					collection.trigger('list-qwizbook-event');
-				},
+error : function(collection, response) {
+this.isListedqwizBook = false;
+//alert("Failed to get QwizBooks!");
+console.log("Failed to get QwizBooks!");
+collection.trigger('list-qwizbook-event');
+},
 
-				success : function(collection, response) {
-					this.isListedqwizBook = true;
-				 var List = Array();
-				 List = qwizbookList.toJSON();
-					//alert(List[0].title);
-				    //console.log(List);
-					collection.trigger('list-qwizbook-event');
-				}
-			});
+success : function(collection, response) {
+this.isListedqwizBook = true;
+var List = Array();
+List = qwizbookList.toJSON();
+//alert(List[0].title);
+//console.log(List);
+collection.trigger('list-qwizbook-event');
+}
+});
 
-			//qwizbookList.fetch(function() {
+//qwizbookList.fetch(function() {
 
-			//console.log(qwizbookList);
+//console.log(qwizbookList);
 
-			//});
+//});
 
-			// $('#qwizbook-lists').html(this.qwizbookListView.render().el);
-		}
-	});
+// $('#qwizbook-lists').html(this.qwizbookListView.render().el);
+}
+});
 
-	QwizBook.Router = Backbone.Router.extend({/* ... */ });
+QwizBook.Router = Backbone.Router.extend({/* ... */ });
 
-	// This will fetch the tutorial template and render it.
-	//Item view
-	QwizBook.View = Backbone.View.extend({
-		template : "app/templates/qwizbookListItem.html",
+// This will fetch the tutorial template and render it.
+//Item view
+QwizBook.View = Backbone.View.extend({
+template : "app/templates/qwizbookListItem.html",
 
-		initialize : function() {
-			//this.model = new QwizBook.Model();
-		},
+initialize : function() {
+//this.model = new QwizBook.Model();
+},
 
-		render : function(done) {
-			var view = this;
-			var qbook_template;
+render : function(done) {
+var view = this;
+var qbook_template;
 
-			// Fetch the template, render it to the View element and call done.
-			App.fetchTemplate(this.template, function(tmpl) {
-				//alert("Templ " + tmpl(view.model.toJSON()) + " " + "json" + view.model.get('title'));
-				qbook_template = _.template(tmpl(view.model.toJSON()));
-				view.el.innerHTML = qbook_template();
+// Fetch the template, render it to the View element and call done.
+App.fetchTemplate(this.template, function(tmpl) {
+//alert("Templ " + tmpl(view.model.toJSON()) + " " + "json" + view.model.get('title'));
+qbook_template = _.template(tmpl(view.model.toJSON()));
+view.el.innerHTML = qbook_template();
 
-				// If a done function is passed, call it with the element
-				if (_.isFunction(done)) {
-					done(view.el);
-				}
-			});
-		},
-		events : {
-			'click button.qwizbookListItem':'openQwizbook'
-		},
-		
-		openQwizbook: function(e){
-		  var clickedEl = $(e.currentTarget);
-		  var id = clickedEl.attr("id");
-		  Backbone.history.navigate("#qwizbookDetails/"+id, true);
+// If a done function is passed, call it with the element
+if (_.isFunction(done)) {
+done(view.el);
+}
+});
+},
+events : {
+'click button.qwizbookListItem':'openQwizbook'
+},
+
+openQwizbook: function(e){
+var clickedEl = $(e.currentTarget);
+var id = clickedEl.attr("id");
+Backbone.history.navigate("#qwizbookDetails/"+id, true);
                
-		  //this.trigger('getQwizbook', {qwizbookCriteria: id, openDescription:this.options.collection});
-		}
-	});
+//this.trigger('getQwizbook', {qwizbookCriteria: id, openDescription:this.options.collection});
+}
+});
 
    
-	QwizBook.ListView = Backbone.View.extend({
+QwizBook.ListView = Backbone.View.extend({
 
-		//template:"app/templates/qwizbooklist.html",
-		template : "app/templates/qwizbookList.html",
+//template:"app/templates/qwizbooklist.html",
+template : "app/templates/qwizbookList.html",
 
-		initialize : function() {
-			this.model.on("reset", this.render, this);
-			
-		},
+initialize : function() {
+this.model.on("reset", this.render, this);
 
-		render : function(done) {
+},
 
-			var view = this;
-			var qbookview_template;
+render : function(done) {
 
-			// Fetch the template, render it to the View element and call done.
-			App.fetchTemplate(this.template, function(tmpl) {
+var view = this;
+var qbookview_template;
 
-				//alert("Templ " + tmpl(view.model.toJSON()) + " " + "json" + view.model.get('title'));
-				qbookview_template = _.template(tmpl());
-				view.el.innerHTML = qbookview_template();
+// Fetch the template, render it to the View element and call done.
+App.fetchTemplate(this.template, function(tmpl) {
 
-				_.each(view.model.models, function(qwizbook) {
-					var qwizbookView = new QwizBook.View({
-						model : qwizbook
-					});
-					qwizbookView.render(function(elv) {
-						$(view.el).find("#home-content-container").append(elv);
-					});
-				});
+//alert("Templ " + tmpl(view.model.toJSON()) + " " + "json" + view.model.get('title'));
+qbookview_template = _.template(tmpl());
+view.el.innerHTML = qbookview_template();
 
-				// If a done function is passed, call it with the element
-				if (_.isFunction(done)) {
-					done(view.el);
-				}
-			});
+_.each(view.model.models, function(qwizbook) {
+var qwizbookView = new QwizBook.View({
+model : qwizbook
+});
+qwizbookView.render(function(elv) {
+$(view.el).find("#home-content-container").append(elv);
+});
+});
 
-			return this;
-		}
-	});
+// If a done function is passed, call it with the element
+if (_.isFunction(done)) {
+done(view.el);
+}
+});
+
+return this;
+}
+});
     
 
-	// Required, return the module for AMD compliance
-	return QwizBook;
+// Required, return the module for AMD compliance
+return QwizBook;
 
 });

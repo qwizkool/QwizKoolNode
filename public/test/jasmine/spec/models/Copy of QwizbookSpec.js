@@ -130,19 +130,39 @@ describe('Model :: Qwizbook', function() {
 						'rating' : '0'
 					}]);
 
-					var submitterName = 'TestQwizbookRater'
-					var submitterDomain = 'qwizkool.com';
-					var submitterEmail = '';
+					//Test Spec to Add rating for the Qwizbook by different users
+					describe('Add Qwizbook Rating', function() {
 
-					for (var r = 1; r <= 5; r++) {
+						var submitterName = 'TestQwizbookRater'
+						var submitterDomain = 'qwizkool.com';
+						var submitterEmail = '';
+						
 
-						submitterEmail = submitterName + r + '@' + submitterDomain;
-						qwizbook.get('userRating').push({
-							'submitterEmail' : submitterEmail,
-							'rating' : r
-						});
+						for (var r = 1; r <= 5; r++) {
 
-					}
+							it('should add ratings for that qwizbook from different users', function() {
+								console.log("Test rating Working");
+								submitterEmail = submitterName + r + '@' + submitterDomain;
+								qwizbook.get('userRating').push({
+									'submitterEmail' : submitterEmail,
+									'rating' : r
+								});
+
+								expect(qwizbook.get('userRating')).not.toBe(null);
+
+							});
+
+							it('should fail to add rating by the same user for the same qwizbook instead it should update his rating', function() {
+
+								qwizbook.set('userRating', [{
+									'submitterEmail' : submitterEmail,
+									'rating' : r
+								}]);
+								expect(qwizbook.get('userRating')).toBeNull();
+								;
+							});
+						}
+					});
 
 					qwizbook.on('create-qwizbook-event', createqwizbookEvent, this);
 
@@ -212,55 +232,8 @@ describe('Model :: Qwizbook', function() {
 			});
 		});
 	});
+
 });
-
-describe("Add and Edit Qwizbook Rating ", function() {
-
-	it('should add rating to Qwizbook userRating array if new users', function() {
-
-		var done = false;
-		var qwizbookList = null;
-
-		require(['modules/qwizbook'], function(Qwizbook) {
-			// that.users = new User.Collection();
-			qwizbookList = new Qwizbook.Collection();
-			done = true;
-		});
-		waitsFor(function() {
-			return done;
-		}, "Create Collection");
-
-		// Create Qwizbbok completed event handler.
-		runs(function() {
-			var a = 65;
-			var charArray = {};
-			var qwizbookcurr = '';
-			var qwizbooklisting = null;
-			//qwizbookList.QwizbookList();
-			//var qwizbookList = '';
-			//qwizbookList = new Qwizbook.Collection();
-			qwizbooklisting = qwizbookList.QwizbookList();
-			console.log(qwizbooklisting.toJSON);
-
-			
-			// Validate the registration
-			runs(function() {
-				expect(qwizbookList).not.toBe(null);
-				expect(qwizbookList.isListedqwizBook).toEqual(false);
-
-			});
-		});
-
-	});
-});
-
-//Test Suite to check rating
-
-
-
-
-//Test Suite ends
-
 
 describe("A Qwizbook collection", function() {
 

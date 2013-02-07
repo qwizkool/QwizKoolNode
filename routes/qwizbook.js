@@ -1,14 +1,14 @@
 /**
- * Created with JetBrains WebStorm.
- * User: bambalakkat
- * Date: 11/25/12
- * Time: 12:47 PM
- * To change this template use File | Settings | File Templates.
- */
+* Created with JetBrains WebStorm.
+* User: bambalakkat
+* Date: 11/25/12
+* Time: 12:47 PM
+* To change this template use File | Settings | File Templates.
+*/
 
 /**
- * Module dependencies.
- */
+* Module dependencies.
+*/
 var User = require('../models/User');
 var Qwizbook = require('../models/Qwizbook');
 
