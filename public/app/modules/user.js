@@ -1,6 +1,7 @@
 define([
-    "app"
-], function (App) {
+    "app",
+    "sha256"
+], function (App, Sha256) {
 
     // Create a new module
     var User = App.module();
@@ -70,7 +71,17 @@ define([
             return state;
         },
 
-        register:function () {
+        register:function (username, email, password) {
+
+
+            var shaObj = new jsSHA(password, "TEXT");
+            var hash = shaObj.getHash("SHA-256", "HEX");
+
+
+            this.set('name', username);
+            this.set('email', email);
+            this.set('password', hash);
+
 
             //alert("Register user");
             this.action = "register";
@@ -107,7 +118,18 @@ define([
 
         },
 
-        login:function () {
+        login:function (email, password) {
+
+
+            var shaObj = new jsSHA(password, "TEXT");
+            var hash = shaObj.getHash("SHA-256", "HEX");
+
+
+            this.set('email', email);
+            this.set('password', hash);
+
+
+
             //alert("Login user");
             this.action = "login";
 

@@ -108,13 +108,13 @@ define([
             //$("#login-status").hide();
 
             // Todo: Validate the input values
-            this.model.set('email', $('#user-email-input').val());
-            this.model.set('password', $('#user-password-input').val());
+            var email = $('#user-email-input').val();
+            var password = $('#user-password-input').val();
 
             // Register for event to monitor login status.
             this.model.on('user-login-event', this.userLoginEvent, this);
 
-            this.model.login();
+            this.model.login(email, password);
 
         },
 
@@ -135,14 +135,15 @@ define([
             //$("#registration-status").hide();
 
             // Todo: Validate the input values
-            this.model.set('name', $('#user-reg-name-input').val());
-            this.model.set('email', $('#user-reg-email-input').val());
-            this.model.set('password', $('#user-reg-password-input').val());
+            var username = $('#user-reg-name-input').val();
+            var email = $('#user-reg-email-input').val();
+            var password = $('#user-reg-password-input').val();
+
 
             // Register for event to monitor registration status
             this.model.on('user-registration-event', this.userRegisterEvent, this);
 
-            this.model.register();
+            this.model.register(username,email,password);
 
         }
 

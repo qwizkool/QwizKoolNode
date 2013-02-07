@@ -18,7 +18,6 @@ define([
         render:function () {
 
             this.el.innerHTML = this.template;
-            console.log(this.el.innerHTML);
             return this;
         },
 
