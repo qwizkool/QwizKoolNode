@@ -214,6 +214,7 @@ describe('Model :: Qwizbook', function() {
 	});
 });
 
+/*
 describe("Add and Edit Qwizbook Rating ", function() {
 
 	it('should add rating to Qwizbook userRating array if new users', function() {
@@ -253,6 +254,15 @@ describe("Add and Edit Qwizbook Rating ", function() {
 
 	});
 });
+
+*/
+//Test Suite to check rating
+
+
+
+
+//Test Suite ends
+
 
 describe("A Qwizbook collection", function() {
 

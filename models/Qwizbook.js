@@ -1,47 +1,46 @@
 /**
- * Created with JetBrains WebStorm.
- * User: bambalakkat
- * Date: 11/25/12
- * Time: 10:56 AM
- * To change this template use File | Settings | File Templates.
- */
+* Created with JetBrains WebStorm.
+* User: bambalakkat
+* Date: 11/25/12
+* Time: 10:56 AM
+* To change this template use File | Settings | File Templates.
+*/
 
 var db = require('../lib/qwizbook_db');
 
 /*
 
- Qwizbook definition
+Qwizbook definition
 
- Qwizbook has sections[]. Each Sections has pages[]. Each Page has one Question.
+Qwizbook has sections[]. Each Sections has pages[]. Each Page has one Question.
 
- The transition from one section to another is managed by the qwizbook FSM and
- the rules/criteria  defined in the FSM.
+The transition from one section to another is managed by the qwizbook FSM and
+the rules/criteria defined in the FSM.
 
- Inside each section, the transition happens from one page to another in a linear
- fashion.
+Inside each section, the transition happens from one page to another in a linear
+fashion.
 
- A Qwizbook can have reference module. A reference module is a collection of the following
+A Qwizbook can have reference module. A reference module is a collection of the following
 
- - Links to external videos[]
- - links to web pages[]
- - links to Images[]
- - links to wiki like pages[] created by user (internal to Qwizkool)
+- Links to external videos[]
+- links to web pages[]
+- links to Images[]
+- links to wiki like pages[] created by user (internal to Qwizkool)
 
- A Qwizbook can have comments posted by the registered users.
+A Qwizbook can have comments posted by the registered users.
 
- A collection of hints can be associated with the a page. every time a user refers to a hint. The points
- will be deducted accordingly. This will affect the criteria that decides the progress from one section to
- another.
+A collection of hints can be associated with the a page. every time a user refers to a hint. The points
+will be deducted accordingly. This will affect the criteria that decides the progress from one section to
+another.
 
- A qwizbook page can have comments posted by the registered users.
+A qwizbook page can have comments posted by the registered users.
 
- Comments will be moderated by the Qwizbook owner. Comments will be active only after the owners approval.
- CAPTCHA based Spam prevention will be used for comments.
+Comments will be moderated by the Qwizbook owner. Comments will be active only after the owners approval.
+CAPTCHA based Spam prevention will be used for comments.
 
- A question is the basic unit. A question will have one or more correct answers.
+A question is the basic unit. A question will have one or more correct answers.
 
-
-
+*/
 
 /*Schema definition*/
 
@@ -64,24 +63,22 @@ var QwizbookSchema = new db.Schema({
         { email:String }
     ],
     
-     //User Ratings
-    	userRating:[
-    	{
-    	 	submitterEmail:{type:String},
-       	 	rating:{type:Number, default:0}	
-    	
-    	}
+   //User Ratings
+     userRating:[
+     {
+     submitterEmail:{type:String},
+        rating:{type:Number, default:0}
+    
+     }
        
-   	],
-
-
+    ],
 //------- Qwizbook comments
     comments:[
         {
             submitterEmail:{type:String},
-            date:{ type:Date, default:Date.now }, 
-            text:{ type:String}, 
-            approved:{ type:Boolean}
+            date:{ type:Date, default:Date.now }, text:{ type:String
+        }, approved:{ type:Boolean
+        }
 
         }
     ],
@@ -162,13 +159,12 @@ var QwizbookSchema = new db.Schema({
 });
 
 QwizbookSchema.methods.getQwizbookForResponse = function () {
-	
-	return {
+
+    return {
         title:this.title,
         description:this.description,
         id:this._id,
         userRating:this.userRating
-        
     }
 };
 
@@ -188,7 +184,7 @@ function createQwizbook(owner, data, callback) {
     // Check if the provided owner is same as the
     // session owner. A book can be created by only
     // the session owner
-   
+
     if (owner.email != data.ownerEmail) {
         callback({
             Error:"Qwizbook Could not be created, Please Login "
@@ -197,8 +193,7 @@ function createQwizbook(owner, data, callback) {
     }
 
     var instance = new QwizbookData();
-    var userratingArr = new Array();
-    
+
     instance.uniqueKey = data.title + ":" + owner.email;
     instance.title = data.title;
     instance.description = data.description;
@@ -208,6 +203,7 @@ function createQwizbook(owner, data, callback) {
     
     instance.groupPermission = data.groupPermission;
     
+
     instance.save(function (err) {
         if (err) {
             // Check for duplicate key error
@@ -226,9 +222,6 @@ function createQwizbook(owner, data, callback) {
             callback(null, instance);
         }
     });
-    
-   
-    
 };
 
 function retrieveQwizbook(owner, id, callback) {
