@@ -1,12 +1,12 @@
 /**
- * Module dependencies.
- */
+* Module dependencies.
+*/
 var User = require('../models/User');
 
 
 /*
- * GET users listing.
- */
+* GET users listing.
+*/
 
 exports.list = function (req, res) {
     res.send("respond with a resource");
@@ -47,7 +47,7 @@ module.exports = {
             // user.
             console.log("User Added:");
             console.log(JSON.stringify(user));
-            res.send({id:user._id});
+            res.send({id : user._id});
         });
 
     },
