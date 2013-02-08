@@ -12,6 +12,8 @@ define(["app"], function(App) {
 	//QwizBook extending
 	QwizBook.Model = Backbone.Model.extend({
 
+
+			
 		//Root of the REST url for QwizBooks
 		urlRoot : "/qwizbooks/",
 
@@ -27,7 +29,34 @@ define(["app"], function(App) {
 			AddedqwizBookAttempted : false,
 			AddedqwizBookStatus : null,
 		},
+		
+		initialize:function () {
+        	
+        	var  qwizbook = localStorage.getItem("QwizbookData");
+        	console.log('dfdf'+qwizbook);
+        	
+        	if(qwizbook)
+            {
 
+             qwizbookDetails= JSON.parse(localStorage.getItem("QwizbookData"));
+            console.log(qwizbookDetails);
+            if (userInfo) {
+
+                this.set({
+                   id 			: qwizbookDetails._id,
+					uniqueKey 	: qwizbookDetails.uniqueKey,
+					title 	  	: qwizbookDetails.title,
+					description : qwizbookDetails.description,
+					ownerEmail 	: qwizbookDetails.ownerEmail,
+					date 		: qwizbookDetails.date
+                });
+
+            }
+		  }
+        },
+		
+		 
+		
 		createqwizbook : function() {
 
 			//alert("Register user");
@@ -169,7 +198,7 @@ define(["app"], function(App) {
 				 var List = Array();
 				 List = qwizbookList.toJSON();
 					//alert(List[0].title);
-				    console.log(List);
+				    //console.log(List);
 					collection.trigger('list-qwizbook-event');
 				}
 			});

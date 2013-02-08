@@ -42,12 +42,30 @@ module.exports = {
 	},
 
 	getbook : function(req, res) {
+		var qbookId = req.route.params.id;
+		
+		qbookId = req.route.params.id;
+		var sessionUser = req.user;
+		Qwizbook.retrieveQwizbook(sessionUser, qbookId, function(err, book) {
+				// If error send the error response
+				if (err) {
+					res.send(400, err);
+					console.log(err);
+					return;
+				}
+				// No error send the unique ID for the newly created book
+				//console.log("Retreive QwizBooks");
+				//console.log(JSON.stringify(books));
+				//console.log(JSON.stringify(book));
+				res.send(JSON.stringify(book));
+				//res.send({id : book._id});
+				//res.send({id:book.id});
 
-		console.log(req.user);
+			})
+		
 	},
 
 	getbooks : function(req, res) {
-
 		var sessionUser = req.user;
         
         

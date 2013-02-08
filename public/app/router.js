@@ -56,7 +56,7 @@ define([
         
         qwizbookMain:function(id)
         {
-             var qwizbookMainPage = new QwizbookMainPage.View({ someData: "data" });
+             var qwizbookMainPage = new QwizbookMainPage.View({ qwizbookId: id });
              qwizbookMainPage.show();
         }
 

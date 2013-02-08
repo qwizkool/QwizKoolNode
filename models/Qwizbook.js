@@ -209,6 +209,23 @@ function createQwizbook(owner, data, callback) {
 };
 
 function retrieveQwizbook(owner, id, callback) {
+	//var qId = db.mongoose.Types.ObjectId('510636c6586b5e5d0f00000a');
+	//var qId = db.mongoose.mongo.BSONPure.ObjectID.fromString("510636c6586b5e5d0f00000a");
+	//console.log(qId);
+	QwizbookData.findById(id, function (err, book) {
+
+		if (err) {
+			// Check for duplicate key error
+
+			// All other conditions Pass as is TODO: need to cleanup.
+			callback({
+				Error : "failed Qwizbook Retreive  ."
+			}, null);
+		} else {
+			callback(null, book);
+		}
+
+	});
 
 };
 

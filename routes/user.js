@@ -18,6 +18,7 @@ module.exports = {
     register:function (req, res) {
 
         var user = req.body;
+        console.log(req.body);
         console.log('User Add request for: ');
         console.log(JSON.stringify(user));
 

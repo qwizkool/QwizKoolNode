@@ -2,8 +2,9 @@ define([
     "app",
     "modules/header",
     "modules/footer",
+    "modules/qwizbookContent",
     "modules/userSettings"
-], function (App, Header, Footer, UserSettings) {
+], function (App, Header, Footer,QwizbookContent, UserSettings) {
 
     // Create a new module
     var QwizbookMainPage = new App.module();
@@ -13,9 +14,10 @@ define([
     	
 		
         initialize:function () {
-        	this.qbookid = this.options.someData;
+        	this.qbookid = this.options.qwizbookId;
             this.header = new Header.View();
             this.footer = new Footer.View();
+            this.qwizbookContent = new QwizbookContent.View({ qwizbookId: this.qbookid });
             this.userSettings = new UserSettings.View();
         },
         
@@ -40,10 +42,14 @@ define([
 
             });
 
-
+			thisView.qwizbookContent.render(function (el)
+			{
+				var qwizbookId = thisView.options.qwizbookId;
+				$("#qpage-content").html(el);
+			});
+			
             thisView.footer.render(function (el) {
-            	//console.log('zxzx'+this.qbookid);
-            	$("#qpage-content").html('sdsds'+this.qbookid);
+            	
                 $("#qpage-footer").html(el);
             });
 
