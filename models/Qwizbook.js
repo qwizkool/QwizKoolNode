@@ -1,10 +1,10 @@
 /**
-* Created with JetBrains WebStorm.
-* User: bambalakkat
-* Date: 11/25/12
-* Time: 10:56 AM
-* To change this template use File | Settings | File Templates.
-*/
+ * Created with JetBrains WebStorm.
+ * User: bambalakkat
+ * Date: 11/25/12
+ * Time: 10:56 AM
+ * To change this template use File | Settings | File Templates.
+ */
 
 var db = require('../lib/qwizbook_db');
 
@@ -50,112 +50,110 @@ var QwizbookSchema = new db.Schema({
 
 // A combination of title and owner email to create uniqueness
 // This is with assumption that email is unique @ qwizkool.
-    uniqueKey:{type:String, unique:true},
-    title:{type:String},
-    description:{type:String},
-    ownerEmail:{type:String},
-    date:{ type:Date, default:Date.now },
+uniqueKey:{type:String, unique:true},
+title:{type:String},
+description:{type:String},
+ownerEmail:{type:String},
+date:{ type:Date, default:Date.now },
 // Private/Public/Shared
-    groupPermission:{ type:String
-    },
+groupPermission: { type:String
+},
 // Shared with these email owners.
-    sharedWith:[
-        { email:String }
-    ],
+sharedWith:[
+{ email:String }
+],
 
 //------- Qwizbook comments
-    comments:[
-        {
-            submitterEmail:{type:String},
-            date:{ type:Date, default:Date.now }, text:{ type:String
-        }, approved:{ type:Boolean
-        }
+comments:[
+{
+submitterEmail:{type:String},
+date:{ type:Date, default:Date.now }, text: { type:String
+}, approved: { type:Boolean
+}
 
-        }
-    ],
+}
+],
 
 //------- Qwizbook references
 // TODO: complete the schema definition.
-    reference:[
-        {
-            videoLinks:[],
-            webLinks:[],
-            imageLinks:[],
-            pages:[]
-        }
-    ],
+reference:[
+{
+videoLinks:[],
+webLinks:[],
+imageLinks:[],
+pages:[]
+}
+],
 
 //------- Qwizbook FSM
 // TODO: complete the schema definition.
-    FSM:{},
+FSM:{},
 
 //------- Qwizbook sections
-    sections:[
-        {
+sections:[
+{
 
-            sectionTitle:{type:String},
+sectionTitle:{type:String},
 
 //------- Qwizbook pages
-            pages:[
-                {
+pages:[
+{
 
 //------- Page comments
-                    comments:[
-                        {
-                            submitterEmail:{type:String},
-                            date:{ type:Date, default:Date.now }, text:{ type:String
-                        }, approved:{ type:Boolean
-                        }
+comments:[
+{
+submitterEmail:{type:String},
+date:{ type:Date, default:Date.now }, text: { type:String
+}, approved: { type:Boolean
+}
 
-                        }
-                    ],
+}
+],
 
 //------- Hints for the questions
-                    hints:[
-                        {
-                            text:{type:String}
+hints:[
+{
+text:{type:String}
 //TODO: Add support for Image, Video, Audio
 
-                        }
-                    ],
+}
+],
 
-                    question:{
+question: {
 
-                        // question text
-                        text:{ type:String
-                        },
+	// question text
+	text: { type:String
+	},
 
-                        //TODO: Add support for Image, Video, Audio
-                        // as questions.
+	//TODO: Add support for Image, Video, Audio
+	// as questions.
 
-                        // answer choices
-                        choices:[
-                            {
-                                text:{
-                                    type:String
-                                },
-                                answer:{
-                                    type:Boolean
-                                }
-                            }
-                        ]
-                    }
+	// answer choices
+	choices:[{
+		text : {
+			type : String
+		},
+		answer : {
+			type : Boolean
+		}
+	}]
+}
 
-                }
-            ]
+}
+]
 
-        }
-    ]
+}
+]
 
 });
 
-QwizbookSchema.methods.getQwizbookForResponse = function () {
+QwizbookSchema.methods.getQwizbookForResponse = function() {
 
-    return {
-        title:this.title,
-        description:this.description,
-        id:this._id
-    }
+	return {
+		title : this.title,
+		description : this.description,
+		id : this._id
+	}
 };
 
 var QwizbookData = db.conn.model('Qwizbook', QwizbookSchema);
@@ -171,189 +169,211 @@ module.exports.deleteQwizbook = deleteQwizbook;
 
 function createQwizbook(owner, data, callback) {
 
-    // Check if the provided owner is same as the
-    // session owner. A book can be created by only
-    // the session owner
+	// Check if the provided owner is same as the
+	// session owner. A book can be created by only
+	// the session owner
 
-    if (owner.email != data.ownerEmail) {
-        callback({
-            Error:"Qwizbook Could not be created, Please Login "
-        });
-        return;
-    }
+	if (owner.email != data.ownerEmail) {
+		callback({
+			Error : "Qwizbook Could not be created, Please Login "
+		});
+		return;
+	}
 
-    var instance = new QwizbookData();
+	var instance = new QwizbookData();
 
-    instance.uniqueKey = data.title + ":" + owner.email;
-    instance.title = data.title;
-    instance.description = data.description;
-    instance.ownerEmail = owner.email;
-    instance.groupPermission = data.groupPermission;
+	instance.uniqueKey = data.title + ":" + owner.email;
+	instance.title = data.title;
+	instance.description = data.description;
+	instance.ownerEmail = owner.email;
+	instance.groupPermission = data.groupPermission;
 
-    instance.save(function (err) {
-        if (err) {
-            // Check for duplicate key error
-            if (err.code == 11000) {
-                callback({
-                    Error:"Qwizbook already exist for the same user"
-                }, null)
-                return;
-            }
+	instance.save(function(err) {
+		if (err) {
+			// Check for duplicate key error
+			if (err.code == 11000) {
+				callback({
+					Error : "Qwizbook already exist for the same user"
+				}, null)
+				return;
+			}
 
-            // All other conditions Pass as is TODO: need to cleanup.
-            callback({
-                Error:"Qwizbook Could not be created "
-            }, null);
-        } else {
-            callback(null, instance);
-        }
-    });
+			// All other conditions Pass as is TODO: need to cleanup.
+			callback({
+				Error : "Qwizbook Could not be created "
+			}, null);
+		} else {
+			callback(null, instance);
+		}
+	});
 };
 
 function retrieveQwizbook(owner, id, callback) {
+	//var qId = db.mongoose.Types.ObjectId('510636c6586b5e5d0f00000a');
+	//var qId = db.mongoose.mongo.BSONPure.ObjectID.fromString("510636c6586b5e5d0f00000a");
+	//console.log(qId);
+	QwizbookData.findById(id, function(err, book) {
+
+		if (err) {
+			// Check for duplicate key error
+
+			// All other conditions Pass as is TODO: need to cleanup.
+			callback({
+				Error : "failed Qwizbook Retreive ."
+			}, null);
+		} else {
+			callback(null, book);
+		}
+
+	});
 
 };
 
 function retrieveQwizbooks(owner, callback) {
 
-    // TODO: Complete the Retrieve Qwizbooks
-    // Retrieve Qwizbooks, that are shared, public or
-    // owned by the 'owner'
-    QwizbookData.find(function (err, books) {
+	//var instance = new QwizbookData();
 
-        if (err) {
-            // All other conditions Pass as is TODO: need to cleanup.
-            callback({ Error:"Retreive Qwizbooks failed." }, null);
-        } else {
-            callback(null, books);
-        }
+	//if (!owner) {
+	//callback({Error:"Login to view qwizbooks"});
+	//return;
+	//}
 
-    });
+	QwizbookData.find(function(err, books) {
+
+		if (err) {
+			// Check for duplicate key error
+
+			// All other conditions Pass as is TODO: need to cleanup.
+			callback({
+				Error : "Retreive Qwizbooks failed."
+			}, null);
+		} else {
+			callback(null, books);
+		}
+
+	});
 
 };
 
 function retrieveQwizbooksOnSearch(owner, searchdata, filterdata, callback) {
 
-    // TODO: Complete the Retrieve Qwizbooks
-    // Retrieve Qwizbooks, that are shared, public or
-    // owned by the 'owner'
+	var instance = new QwizbookData();
 
-    if (filterdata == "Recently Updated") {
-        console.log(searchdata);
-        QwizbookData.find({
-            $or:[
-                {
-                    title:{
-                        $regex:searchdata,
-                        $options:'i'
-                    }
-                },
-                {
-                    description:{
-                        $regex:searchdata,
-                        $options:'i'
-                    }
-                }
-            ]
-        }).sort({
-                date:-1
-            }).execFind(function (err, books) {
+	//if (!owner) {
+	//callback({Error:"Login to view qwizbooks"});
+	//return;
+	//}
+	//console.log("Search Search");
+	if (filterdata == "Recently Updated") {
 
-                if (err) {
-                    // Check for duplicate key error
+		QwizbookData.find({
+			$or : [{
+				title : {
+					$regex : '135',
+					$options : 'i'
+				}
+			}, {
+				description : {
+					$regex : '135',
+					$options : 'i'
+				}
+			}]
+		}).sort({
+			date : -1
+		}).execFind(function(err, books) {
 
-                    // All other conditions Pass as is TODO: need to cleanup.
-                    callback({
-                        Error:"Retreive Qwizbooks failed."
-                    }, null);
-                } else {
-                    callback(null, books);
-                }
+			if (err) {
+				// Check for duplicate key error
+				// All other conditions Pass as is TODO: need to cleanup.
+				console.log("No" + books)
+				callback({
 
-            });
+					Error : "Retreive Qwizbooks failed."
+				}, null);
+			} else {
+				console.log("Hello" + books)
+				callback(null, books);
+			}
 
-    }
+		});
+	}
+	if (filterdata == "Most Popular") {
+		QwizbookData.find({
+			$or : [{
+				title : {
+					$regex : 'searchdata',
+					$options : 'i'
+				}
+			}, {
+				description : {
+					$regex : 'searchdata',
+					$options : 'i'
+				}
+			}]
+		}).execFind(function(err, books) {
 
-    if (filterdata == "Most Popular") {
-        console.log(searchdata);
-        QwizbookData.find({
-            $or:[
-                {
-                    title:{
-                        $regex:searchdata,
-                        $options:'i'
-                    }
-                },
-                {
-                    description:{
-                        $regex:searchdata,
-                        $options:'i'
-                    }
-                }
-            ]
-        }).execFind(function (err, books) {
+			if (err) {
+				// Check for duplicate key error
 
-                if (err) {
-                    // Check for duplicate key error
+				// All other conditions Pass as is TODO: need to cleanup.
+				callback({
+					Error : "Retreive Qwizbooks failed."
+				}, null);
+			} else {
+				console.log(books);
+				callback(null, books);
+			}
 
-                    // All other conditions Pass as is TODO: need to cleanup.
-                    callback({
-                        Error:"Retreive Qwizbooks failed."
-                    }, null);
-                } else {
-                    console.log(books);
-                    callback(null, books);
-                }
+		});
 
-            });
-
-
-    }
+	}
 
 };
 
 function retrieveQwizbooksOnFilter(owner, filterdata, callback) {
 
-    // TODO: Complete the Retrieve Qwizbooks
-    // Retrieve Qwizbooks, that are shared, public or
-    // owned by the 'owner'
+	//var instance = new QwizbookData();
 
-    console.log("Filter Filter");
-    if (filterdata == "Recently Updated") {
-        QwizbookData.find().sort({
-            date:-1
-        }).execFind(function (err, books) {
+	//if (!owner) {
+	//callback({Error:"Login to view qwizbooks"});
+	//return;
+	//}
+	console.log("Filter Filter");
+	if (filterdata == "Recently Updated") {
+		QwizbookData.find().sort({
+			date : -1
+		}).execFind(function(err, books) {
 
-                if (err) {
-                    // Check for duplicate key error
+			if (err) {
+				// Check for duplicate key error
 
-                    // All other conditions Pass as is TODO: need to cleanup.
-                    callback({
-                        Error:"Retreive Qwizbooks failed."
-                    }, null);
-                } else {
-                    callback(null, books);
-                }
+				// All other conditions Pass as is TODO: need to cleanup.
+				callback({
+					Error : "Retreive Qwizbooks failed."
+				}, null);
+			} else {
+				callback(null, books);
+			}
 
-            });
-    }
-    if (filterdata == "Most Popular") {
-        QwizbookData.find(function (err, books) {
+		});
+	}
+	if (filterdata == "Most Popular") {
+		QwizbookData.find(function(err, books) {
 
-            if (err) {
-                // Check for duplicate key error
+			if (err) {
+				// Check for duplicate key error
 
-                // All other conditions Pass as is TODO: need to cleanup.
-                callback({
-                    Error:"Retreive Qwizbooks failed."
-                }, null);
-            } else {
-                callback(null, books);
-            }
+				// All other conditions Pass as is TODO: need to cleanup.
+				callback({
+					Error : "Retreive Qwizbooks failed."
+				}, null);
+			} else {
+				callback(null, books);
+			}
 
-        });
+		});
 
-    }
+	}
 
 };
 
@@ -364,4 +384,3 @@ function updateQwizbook(owner, callback) {
 function deleteQwizbook(owner, callback) {
 
 };
-
