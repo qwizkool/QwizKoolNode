@@ -214,47 +214,6 @@ describe('Model :: Qwizbook', function() {
 	});
 });
 
-describe("Add and Edit Qwizbook Rating ", function() {
-
-	it('should add rating to Qwizbook userRating array if new users', function() {
-
-		var done = false;
-		var qwizbookList = null;
-
-		require(['modules/qwizbook'], function(Qwizbook) {
-			// that.users = new User.Collection();
-			qwizbookList = new Qwizbook.Collection();
-			done = true;
-		});
-		waitsFor(function() {
-			return done;
-		}, "Create Collection");
-
-		// Create Qwizbbok completed event handler.
-		runs(function() {
-			var a = 65;
-			var charArray = {};
-			var qwizbookcurr = '';
-			var qwizbooklisting = null;
-			//qwizbookList.QwizbookList();
-			//var qwizbookList = '';
-			//qwizbookList = new Qwizbook.Collection();
-			qwizbooklisting = qwizbookList.QwizbookList();
-			console.log(qwizbooklisting.toJSON);
-
-			
-			// Validate the registration
-			runs(function() {
-				expect(qwizbookList).not.toBe(null);
-				expect(qwizbookList.isListedqwizBook).toEqual(false);
-
-			});
-		});
-
-	});
-});
-
-//Test Suite to check rating
 
 
 

@@ -31,6 +31,12 @@ define([
             AddedqwizBookAttempted:false,
             AddedqwizBookStatus:null
         },
+        
+        initialize : function() {
+
+			
+		},
+
 
         createqwizbook:function () {
 
