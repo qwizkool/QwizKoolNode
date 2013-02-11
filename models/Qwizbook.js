@@ -212,6 +212,21 @@ function createQwizbook(owner, data, callback) {
 
 function retrieveQwizbook(owner, id, callback) {
 
+	QwizbookData.findById(id, function(err, book) {
+
+		if (err) {
+			// Check for duplicate key error
+
+			// All other conditions Pass as is TODO: need to cleanup.
+			callback({
+				Error : "failed Qwizbook Retreive ."
+			}, null);
+		} else {
+			callback(null, book);
+		}
+
+	});
+
 };
 
 function retrieveQwizbooks(owner, callback) {

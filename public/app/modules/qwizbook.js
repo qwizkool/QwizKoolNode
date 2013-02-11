@@ -31,6 +31,11 @@ define([
             AddedqwizBookAttempted:false,
             AddedqwizBookStatus:null
         },
+        
+        initialize : function() {
+
+			
+		},
 
         createqwizbook:function () {
 
@@ -218,7 +223,7 @@ events : {
 openQwizbook: function(e){
 var clickedEl = $(e.currentTarget);
 var id = clickedEl.attr("id");
-Backbone.history.navigate("#qwizbookDetails/"+id, true);
+Backbone.history.navigate("#qwizbookDetails/" + id, true);
                
 //this.trigger('getQwizbook', {qwizbookCriteria: id, openDescription:this.options.collection});
 }
