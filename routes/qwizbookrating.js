@@ -11,11 +11,11 @@
  */
 var User = require('../models/User');
 var Qwizbook = require('../models/Qwizbook');
-
+var QwizbookRating = require('../models/QwizbookRating');
 
 module.exports = {
 
-	createBook : function(req, res) {
+	addBookRating : function(req, res) {
 
 		var sessionUser = req.user;
 		var book = req.body;
