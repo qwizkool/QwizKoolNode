@@ -1,9 +1,13 @@
 define([
     "app",
-    "modules/qwizbook"
-   // "modules/qwizbookBreadcrumbs",
-   // "text!templates/qwizbookContent.html"
-], function (App,QwizBook,Breadcrumbs,Template) {
+    "modules/qwizbook",
+    "modules/qwizbookBreadcrumbs",
+    "modules/qwizbookDetails",
+    "modules/qwizbookComments",
+    "modules/commentDetails",
+    "text!templates/qwizbookContent.html"
+    
+], function (App,QwizBook,Breadcrumb,QwizbookDetails,QwizbookComments,CommentDetails,Template) {
 
     // Create a new module
     var QwizbookContent = App.module();
@@ -11,8 +15,13 @@ define([
 
     QwizbookContent.View = Backbone.View.extend({
 		initialize : function() {
+		this.breadcrumb = new Breadcrumb.View();
 		this.qwizbookId = this.options.qwizbookId;
-		this.model = new QwizBook.Model({id:this.qwizbookId});
+		//this.qwizbookDetails = new QwizbookDetails.View({qwizbookId:this.qwizbookId});
+		this.comments = new QwizbookComments.View();
+		this.commentDetail = new CommentDetails.View();
+		
+		/*this.model = new QwizBook.Model({id:this.qwizbookId});
 		var jqxhr = this.model.fetch({
 
 				error : function(model, response) {
@@ -20,34 +29,20 @@ define([
 				},
 
 				success : function(model, response) {
-				
 				}
-			});
-			this.model.on('change', this.render, this)
-		//this.collection = new QwizBook.Collection();
-		//this.model = this.collection.get(this.qwizbookId);
-		//this.model.getqwizbook(this.qwizbookId);
+			});*/
+			
 		},
+        template:Template,
 
-		template:'templates/qwizbookContent.html',
         render:function (done) {
- 			
-           var view = this;
-            view.el.innerHTML = this.template;
-            
-           // $(view.el).find("#home-content-header").append(this.Breadcrumbs.render().el);
-            //$(view.el).find("#qwizbooklist-container").append(this.qwizbooklistview.render().el);
-            var qbook_template;
-            // Fetch the template, render it to the View element and call done.
-           App.fetchTemplate(this.template, function(tmpl) {
-           //
-			qbook_template = _.template(tmpl(view.model.toJSON()));
-				view.el.innerHTML = qbook_template();
-				// If a done function is passed, call it with the element
-				if (_.isFunction(done)) {
-					done(view.el);
-				}
-			});
+        	 this.el.innerHTML = this.template;
+        	 $(this.el).find("#home-content-header").append(this.breadcrumb.render().el);
+        	// $(this.el).find("#home-content-container").append(this.model.render().el);
+        	 $(this.el).find("#review-content-header").append(this.comments.render().el);
+        	 $(this.el).find("#review-content-container").append(this.commentDetail.render().el);
+        	 return this;
+			
         }
     });
 

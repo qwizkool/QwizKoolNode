@@ -1,10 +1,10 @@
 define([
     "app",
     "modules/header",
-    "modules/footer",
+    "modules/userSettings",
     "modules/qwizbookContent",
-    "modules/userSettings"
-], function (App, Header, Footer,QwizbookContent, UserSettings) {
+    "modules/footer",
+], function (App, Header, UserSettings ,QwizbookContent, Footer) {
 
     // Create a new module
     var QwizbookMainPage = new App.module();
@@ -16,24 +16,22 @@ define([
         initialize:function () {
         	this.qbookid = this.options.qwizbookId;
             this.header = new Header.View();
-            this.footer = new Footer.View();
-            this.qwizbookContent = new QwizbookContent.View({ qwizbookId: this.qbookid });
             this.userSettings = new UserSettings.View();
+            this.qwizbookContent = new QwizbookContent.View({qwizbookId: this.qbookid });
+            this.footer = new Footer.View();
+            
+           
         },
         
         // Render all the nested views related to this page
         // and attach it to the DOM.
         show:function (done) {
         	$("#qpage-header").html(this.header.render().el);
-            $("#qwizkool-user-settings").html(this.userSettings.render().el);
+        	$("#qwizkool-user-settings").html(this.userSettings.render().el);
             this.header.renderSettings();
+            $("#qpage-content").html(this.qwizbookContent.render().el);
             $("#qpage-footer").html(this.footer.render().el);
-            var thisView = this;
-            // Attach the tutorial to the DOM
-			thisView.qwizbookContent.render(function (el)
-			{
-				$("#qpage-content").html(el);
-			});
+            
 			
             
 
