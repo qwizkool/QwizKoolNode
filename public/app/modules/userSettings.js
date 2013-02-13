@@ -1,14 +1,15 @@
 define([
     "app",
-    "modules/user"
-], function (App, User) {
+    "modules/user",
+    "text!templates/userSettings.html"
+], function (App, User, Template) {
 
     // Create a new module
     var UserSettings = App.module();
 
     UserSettings.View = Backbone.View.extend({
 
-        template:"app/templates/userSettings.html",
+        template:Template,
 
         initialize:function () {
 
@@ -24,27 +25,17 @@ define([
         },
 
         render:function (done) {
+
             var view = this;
+            view.el.innerHTML = this.template;
 
-
-            // Fetch the template, render it to the View element and call done.
-            App.fetchTemplate(this.template, function (tmpl) {
-
-                view.el.innerHTML = tmpl();
-
-                view.$(".dropdown .guibutton, .dropdown guibutton").click(function () {
-                    $(this).parent().find('.dropdown-slider').slideToggle('fast');
-                    $(this).find('span.toggle').toggleClass('active');
-                    return false;
-                });
-
-
-                if (_.isFunction(done)) {
-                    done(view.el);
-                }
-
+            view.$(".dropdown .guibutton, .dropdown guibutton").click(function () {
+                $(this).parent().find('.dropdown-slider').slideToggle('fast');
+                $(this).find('span.toggle').toggleClass('active');
+                return false;
             });
 
+            return this;
         },
 
         events:{
@@ -95,4 +86,6 @@ define([
     return UserSettings;
 
 });
+
+
 
