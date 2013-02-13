@@ -45,13 +45,14 @@ define(["app", "modules/qwizbook", "modules/breadcrumbs", "modules/searchFilter"
 	if(filterorsearch == 'user-search-input')
 	{
 	qwizbookList.qwizbookSearch(searchorfiltercriteria);
-	qwizbookList.QwizbookList();	
+	qwizbookList.QwizbookList();
+	
 	}
      
     if(filterorsearch == 'user-filter-input')
 	{
 	qwizbookList.qwizbookFilter(searchorfiltercriteria);
-	qwizbookList.QwizbookList();	
+	qwizbookList.QwizbookList();
 	}
 	
 

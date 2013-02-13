@@ -11,7 +11,7 @@
  */
 var User = require('../models/User');
 var Qwizbook = require('../models/Qwizbook');
-
+var QwizbookRating = require('../models/QwizbookRating');
 
 module.exports = {
 
@@ -117,6 +117,75 @@ module.exports = {
 		} else {
 
 			Qwizbook.retrieveQwizbooks(sessionUser, function(err, books) {
+				// If error send the error response
+				if (err) {
+					res.send(400, err);
+					console.log(err);
+					return;
+				}
+				// No error send the unique ID for the newly created book
+
+				res.send(JSON.stringify(books));
+
+			})
+		}
+
+	},
+	
+	getbooksWithAverageRating : function(req, res) {
+
+		var sessionUser = req.user;
+
+		if (req.query) {
+
+			var p = req.query;
+			var searchfilterArr = new Array();
+			for (var i in p) {
+
+				searchfilterArr[i] = p[i];
+				//console.log("Request Request Det" + p[i]);
+			}
+
+			var searchstring = searchfilterArr['search_str'];
+			var filterstring = searchfilterArr['sort_by'];
+
+			if (searchstring) {
+				//console.log("search entered !!!!!");
+				QwizbookRating.retrieveQwizbooksOnSearch(sessionUser, searchstring, filterstring, function(err, books) {
+					// If error send the error response
+					if (err) {
+						res.send(400, err);
+						console.log(err);
+						return;
+					}
+					// No error send the unique ID for the newly created book
+
+					console.log("searched criteria" + JSON.stringify(books));
+					console.log("searched criteria num " + books.length);
+					res.send(JSON.stringify(books));
+
+				})
+			} else {
+
+				QwizbookRating.retrieveQwizbooksOnFilter(sessionUser, filterstring, function(err, books) {
+					// If error send the error response
+					if (err) {
+						res.send(400, err);
+						console.log(err);
+						return;
+					}
+					// No error send the unique ID for the newly created book
+
+					console.log("Filter criteria" + JSON.stringify(books));
+					console.log("searched criteria num " + books.length);
+					res.send(JSON.stringify(books));
+
+				})
+			}
+
+		} else {
+
+			QwizbookRating.retrieveQwizbooks(sessionUser, function(err, books) {
 				// If error send the error response
 				if (err) {
 					res.send(400, err);

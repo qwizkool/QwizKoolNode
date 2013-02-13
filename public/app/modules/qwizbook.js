@@ -92,6 +92,8 @@ define(["app", "text!templates/qwizbookListItem.html", "text!templates/qwizbookL
 		}
 	});
 
+   
+    	
 	QwizBook.Collection = Backbone.Collection.extend({
 
 		model : QwizBook.Model,
@@ -178,8 +180,7 @@ define(["app", "text!templates/qwizbookListItem.html", "text!templates/qwizbookL
 
 		QwizbookList : function() {
 			var qwizbookList = this;
-
-			var jqxhr = qwizbookList.fetch({
+            var jqxhr = qwizbookList.fetch({
 
 				error : function(collection, response) {
 					this.isListedqwizBook = false;
@@ -192,6 +193,8 @@ define(["app", "text!templates/qwizbookListItem.html", "text!templates/qwizbookL
 					this.isListedqwizBook = true;
 					var List = Array();
 					List = qwizbookList.toJSON();
+					//qbookid =  List[0]._id;
+					
 					//alert(List[0].title);
 					//console.log(List);
 					collection.trigger('list-qwizbook-event');

@@ -144,6 +144,8 @@ app.post('/qwizbooks', ensureAuthenticated, qwizbook.createBook);
 // Retrieve all qwizbooks
 app.get('/qwizbooks', ensureAuthenticated, qwizbook.getbooks);
 
+//app.get('/qwizbooks', ensureAuthenticated, qwizbook.getbooksWithAverageRating);
+
 // Retrieve this Qwizbook
 app.get('/qwizbooks/:id', ensureAuthenticated, qwizbook.getbook);
 
