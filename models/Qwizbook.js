@@ -6,7 +6,7 @@
 * To change this template use File | Settings | File Templates.
 */
 
-var db = require('../lib/qwizbook_db');
+var db = require('../lib/db_connection');
 
 /*
 
