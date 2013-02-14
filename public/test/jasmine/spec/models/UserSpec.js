@@ -67,11 +67,11 @@ describe('Model :: User', function () {
             };
 
             // Register the User
-            this.user.set('name', testUser);
-            this.user.set('email', testEmail);
-            this.user.set('password', testPwd);
+            var username = testUser;
+            var email = testEmail;
+            var password = testPwd;
             this.user.on('user-registration-event', userRegisterEvent, this);
-            this.user.register();
+            this.user.register(username,email,password);
 
             waitsFor(function () {
                 return done;
@@ -100,11 +100,11 @@ describe('Model :: User', function () {
             };
 
             // Register the Same User different email
-            this.user.set('name', testUser);
-            this.user.set('email',  new Date().getTime()+ testEmail);
-            this.user.set('password', testPwd);
+            var username = testUser;
+            var email = new Date().getTime()+ testEmail;
+            var password = testPwd;
             this.user.on('user-registration-event', userRegisterEvent, this);
-            this.user.register();
+            this.user.register(username,email,password);
 
             waitsFor(function () {
                 return done;
@@ -133,11 +133,11 @@ describe('Model :: User', function () {
             };
 
             // Register the new User but same email
-            this.user.set('name', testUser + new Date().getTime());
-            this.user.set('email', testEmail);
-            this.user.set('password', testPwd);
+            var username = testUser + new Date().getTime();
+            var email = testEmail;
+            var password = testPwd;
             this.user.on('user-registration-event', userRegisterEvent, this);
-            this.user.register();
+            this.user.register(username,email,password);
 
             waitsFor(function () {
                 return done;
@@ -172,12 +172,11 @@ describe('Model :: User', function () {
                 }
             };
 
-            // Register the User
-            //this.user.set('name', testUser + new Date().getTime());
-            this.user.set('email', testEmail + new Date().getTime());
-            this.user.set('password', testPwd);
+            // Login  the User
+            var email = testEmail + new Date().getTime();
+            var password = testPwd;
             this.user.on('user-login-event', userLoginEvent, this);
-            this.user.login();
+            this.user.login(email, password);
 
             waitsFor(function () {
                 return done;
@@ -205,12 +204,11 @@ describe('Model :: User', function () {
                 }
             };
 
-            // Register the User
-            //this.user.set('name', testUser);
-            this.user.set('email', testEmail);
-            this.user.set('password', testPwd);
+            // Login the User
+            var email = testEmail;
+            var password = testPwd;
             this.user.on('user-login-event', userLoginEvent, this);
-            this.user.login();
+            this.user.login(email, password);
 
             waitsFor(function () {
                 return done;
@@ -243,12 +241,11 @@ describe('Model :: User', function () {
                 }
             };
 
-            // Register the User
-            //this.user.set('name', testUser);
-            this.user.set('email', testEmail);
-            this.user.set('password', testPwd);
+            // Login the User
+            var email = testEmail;
+            var password = testPwd;
             this.user.on('user-login-event', userLoginEvent, this);
-            this.user.login();
+            this.user.login(email, password);
 
             waitsFor(function () {
                 return done;
