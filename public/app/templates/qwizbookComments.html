@@ -5,9 +5,11 @@
             	
             	<div id="addcomments" style="display:none;">
 	<div style="clear: both; background-color: rgb(255, 255, 255); height: 117px; padding-top: 20px; padding-left: 20px;">
-	<div style="width: 70px; margin-bottom: -18px;">Commets:</div> <input type="text" style="margin-left: 100px; margin-bottom: 0px;" value="Add comments">
-	<div style="padding-top:20px;padding-left:60px;"><input type="submit" value="Add">
-		 <a style="text-decoration:none;padding-left:20px" id="cancelComment" >Cancel</a></div>
+	<div style="width: 70px; margin-bottom: -18px;">Commets:</div> <input type="text" onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;" id="comment" style="margin-left: 100px; margin-bottom: 0px;" value="Add comments">
+	<div style="padding-top:20px;padding-left:60px;"><button id="addcomment" style="width:4%;" class="full-width button">
+                    Add
+                </button>
+		 <a style="text-decoration:none;padding-left:20px;cursor: pointer;" id="cancelComment" >Cancel</a></div>
 	
 	</div>
 

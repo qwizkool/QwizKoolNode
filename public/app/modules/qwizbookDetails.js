@@ -28,19 +28,27 @@ define([
 		},
         template:"app/templates/qwizbookDetails.html",
 
-        render:function (done) {
- 			
-            var view = this;
-            var qbook_template;
-            // Fetch the template, render it to the View element and call done.
-           App.fetchTemplate(this.template, function(tmpl) {
-           
+       render : function(done) {
+
+			var view = this;
+			var qbook_template;
+			// Fetch the template, render it to the View element and call done.
+			App.fetchTemplate(this.template, function(tmpl) {
+
 				qbook_template = _.template(tmpl(view.model.toJSON()));
 				view.el.innerHTML = qbook_template();
-				return view;
-				// If a done function is passed, call it with the element
 				
+			   $(view.el).find("#home-content-container").append(view.el.innerHTML);
+					
+					if (_.isFunction(done)) {
+					done(view.el);
+				}
+				//return view;
+				// If a done function is passed, call it with the element
+
 			});
+			return view;
+
 			
         }
     });

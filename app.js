@@ -6,6 +6,7 @@ var express = require('express')
     , routes = require('./routes')
     , user = require('./routes/user')
     , qwizbook = require('./routes/qwizbook')
+    , qwizbookComment = require('./routes/qwizbookComments')
     , http = require('http')
     , path = require('path')
     , fs = require('fs')
@@ -96,7 +97,7 @@ function unsupported(req, res) {
 };
 
 
-
+app.post('/addComments', ensureAuthenticated,qwizbookComment.AddComments);
 /*
 * User Access related routes
 */
@@ -119,8 +120,8 @@ app.get('/users',unsupported);
 app.get('/users/:id', ensureAuthenticated, user.getUser);
 app.put('/users',unsupported);
 app.put('/users/:id', ensureAuthenticated, user.updateUser);
-app.delete('/users', unsupported);
-app.delete('/users/:id', unsupported);
+//app.delete('/users', unsupported);
+//app.delete('/users/:id', unsupported);
 
 //app.get('/users', user.list);
 
@@ -153,10 +154,13 @@ app.put('/qwizbooks/:id', ensureAuthenticated, qwizbook.updateBook);
 
 
 // Delete all Qwizbooks
-app.delete('/qwizbooks', ensureAuthenticated, qwizbook.deleteBooks);
+//app.delete('/qwizbooks', ensureAuthenticated, qwizbook.deleteBooks);
 
 // Delete this Qwizbook
-app.delete('/qwizbooks/:id', ensureAuthenticated, qwizbook.deleteBook);
+//app.delete('/qwizbooks/:id', ensureAuthenticated, qwizbook.deleteBook);
+
+
+
 
 
 // Start the REST server

@@ -1,7 +1,8 @@
 define([
     "app",
+    "modules/addComments",
     "text!templates/qwizbookComments.html"
-], function (App,Template) {
+], function (App,AddComments,Template) {
 
     // Create a new module
     var Comment = App.module();
@@ -14,6 +15,10 @@ define([
     Comment.View = Backbone.View.extend({
 
         template:Template,
+      	initialize:function () {
+      	this.qId = this.options.qwizbookId;
+        this.model = new AddComments.Model();
+    	},
 
         render:function (done) {
 
@@ -24,7 +29,8 @@ define([
         events:{
         	
         	"click #cancelComment":"commentDiv",
-        	"click #writeComment":"addCommentDiv"
+        	"click #writeComment":"addCommentDiv",
+        	"click #addcomment":"addComment"
         },
         
         commentDiv:function(e){
@@ -33,6 +39,11 @@ define([
         
         addCommentDiv:function(e){
         	$('#addcomments').show();
+        },
+        
+        addComment:function(e){
+        	var addComment = $('#comment').val();
+        	this.model.addQwizbookComments(addComment,this.qId);
         }
     });
 

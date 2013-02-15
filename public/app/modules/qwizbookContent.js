@@ -17,20 +17,11 @@ define([
 		initialize : function() {
 		this.breadcrumb = new Breadcrumb.View();
 		this.qwizbookId = this.options.qwizbookId;
-		//this.qwizbookDetails = new QwizbookDetails.View({qwizbookId:this.qwizbookId});
-		this.comments = new QwizbookComments.View();
+		this.qwizbookDetails = new QwizbookDetails.View({qwizbookId:this.qwizbookId});
+		this.comments = new QwizbookComments.View({qwizbookId:this.qwizbookId});
 		this.commentDetail = new CommentDetails.View();
 		
-		/*this.model = new QwizBook.Model({id:this.qwizbookId});
-		var jqxhr = this.model.fetch({
-
-				error : function(model, response) {
-					console.log("Failed to get QwizBook!");
-				},
-
-				success : function(model, response) {
-				}
-			});*/
+		
 			
 		},
         template:Template,
@@ -38,7 +29,7 @@ define([
         render:function (done) {
         	 this.el.innerHTML = this.template;
         	 $(this.el).find("#home-content-header").append(this.breadcrumb.render().el);
-        	// $(this.el).find("#home-content-container").append(this.model.render().el);
+        	 $(this.el).find("#home-content-container").append(this.qwizbookDetails.render().el);
         	 $(this.el).find("#review-content-header").append(this.comments.render().el);
         	 $(this.el).find("#review-content-container").append(this.commentDetail.render().el);
         	 return this;
