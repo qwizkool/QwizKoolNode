@@ -5,47 +5,46 @@ define(["app", "modules/qwizbook", "modules/qwizbookrating", "modules/qwizbookBr
 
 	QwizbookContent.View = Backbone.View.extend({
 		initialize : function() {
-			
+
 			this.breadcrumb = new Breadcrumb.View();
 			this.qwizbookId = this.options.qwizbookId;
-			this.qwizbookDetails = new QwizbookDetails.View({qwizbookId:this.qwizbookId});
+			this.qwizbookDetails = new QwizbookDetails.View({
+				qwizbookId : this.qwizbookId
+			});
 			this.comments = new QwizbookComments.View();
 			this.commentDetail = new CommentDetails.View();
 
-			
-			this.model = new QwizBook.Model({id:this.qwizbookId});
-			 var jqxhr = this.model.fetch({
+			this.model = new QwizBook.Model({
+				id : this.qwizbookId
+			});
+			var jqxhr = this.model.fetch({
 
-			 error : function(model, response) {
-			 console.log("Failed to get QwizBook!");
-			 },
+				error : function(model, response) {
+					console.log("Failed to get QwizBook!");
+				},
 
-			 success : function(model, response) {
-			 }
-			 });
-			 
-			 
-			 
-			 this.qwizbookDetails.on("addrating", function (ratingdataObj) {
+				success : function(model, response) {
+				}
+			});
 
-                var ratingvalue = ratingdataObj.ratingval;
-                var qbookId = this.qwizbookId;
-                var qwizbookratingmodel = ratingdataObj.ratingmodel;
-                //alert(qbookId);
-                //alert(ratingvalue);
-               // qwizbookratingmodel.getQwizbookIdAndRating(qbookId,ratingvalue);
-                qwizbookratingmodel.addqwizbookrating(qbookId,ratingvalue);
+			this.qwizbookDetails.on("addrating", function(ratingdataObj) {
 
-            });
-            
-            //this.qwizbookDetails.on("show-qwizbookrating-event", function (ratingdata) {
+				var ratingvalue = ratingdataObj.ratingval;
+				var qbookId = this.qwizbookId;
+				var qwizbookratingmodel = ratingdataObj.ratingmodel;
+				//alert(qbookId);
+				//alert(ratingvalue);
+				// qwizbookratingmodel.getQwizbookIdAndRating(qbookId,ratingvalue);
+				qwizbookratingmodel.addqwizbookrating(qbookId, ratingvalue);
 
-                //var ratingvalue = ratingdata;
-                //alert(ratingvalue);
+			});
 
-            //});
-            
-           
+			//this.qwizbookDetails.on("show-qwizbookrating-event", function (ratingdata) {
+
+			//var ratingvalue = ratingdata;
+			//alert(ratingvalue);
+
+			//});
 
 		},
 		template : Template,

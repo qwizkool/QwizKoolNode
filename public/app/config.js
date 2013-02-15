@@ -8,6 +8,7 @@ require.config({
   paths: {
     // Put paths here.
       tabs: "../assets/js/libs/tabs",
+      sha256: "../assets/js/libs/sha256",
       scion: "../assets/js/libs/SCION/lib/browser/SCXML",
       core_scxml: "../assets/js/libs/SCION/lib/core/scxml/SCXML",
       jsonml_dom: "../assets/js/libs/SCION/lib/external/jsonml/jsonml-dom",
@@ -24,7 +25,11 @@ require.config({
     // Put shims here.
       tabs: {
           deps: ["jquery"]
+      },
+      sha256: {
+          deps: ["jquery"]
       }
+
   }
 
 });

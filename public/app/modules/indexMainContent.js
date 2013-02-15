@@ -1,31 +1,28 @@
 define([
     "app",
-    "modules/user"
-], function (App, User) {
+    "modules/user",
+    "text!templates/indexMainContent.html",
+    "text!templates/loginStatus.html",
+    "text!templates/registrationStatus.html"
+], function (App, User, Template, TmplLoginStatus, TmplRegStatus) {
 
     // Create a new module
     var indexMainContent = App.module();
 
     indexMainContent.View = Backbone.View.extend({
 
-        template:"app/templates/indexMainContent.html",
+        template:Template,
 
         initialize:function () {
             this.model = new User.Model();
         },
 
-        render:function (done) {
-            var view = this;
+        render:function () {
 
-            // Fetch the template, render it to the View element and call done.
-            App.fetchTemplate(this.template, function (tmpl) {
-                view.el.innerHTML = tmpl();
+            this.el.innerHTML = this.template;
 
-                // If a done function is passed, call it with the element
-                if (_.isFunction(done)) {
-                    done(view.el);
-                }
-            });
+            return this;
+
         },
 
         renderLogInStatus:function (done) {
@@ -36,74 +33,50 @@ define([
             // with appropriate status.
             if (view.model.get('loginAttempted') === true) {
 
-                App.fetchTemplate("app/templates/loginStatus.html", function (tmpl) {
 
-                    // clear all DOM events.
-                    view.undelegateEvents();
+                var data = view.model.toJSON();
+                statusTemplate = _.template(TmplLoginStatus, data);
 
-                    var attributes = view.model.toJSON();
-                    statusTemplate = _.template(tmpl(attributes));
+                view.$("#login-status").html(statusTemplate);
 
-                    view.$("#login-status").html(statusTemplate());
+                if (view.model.get('isLoggedIn') === true) {
+                    view.$("#login-status").find('.status').addClass('success');
+                } else {
+                    view.$("#login-status").find('.status').addClass('error');
+                }
 
-                    if (view.model.get('isLoggedIn') === true) {
-                        view.$("#login-status").find('.status').addClass('success');
-                    } else {
-                        view.$("#login-status").find('.status').addClass('error');
-                    }
-
-                    if (_.isFunction(done)) {
-                        done(view.el);
-                    }
-
-                    // re-attach all DOM events.
-                    view.delegateEvents(this.events);
-
-                });
+                // Show the login status
+                $("#login-status").show();
 
             }
-            ;
 
-            // Show the login status
-            $("#login-status").show();
-
+            return this;
         },
 
         renderRegistrationStatus:function (done) {
+
             var view = this;
             var statusTemplate;
 
             // Update the registration status related view elements
             // with appropriate status.
             if (view.model.get('registrationAttempted') === true) {
+                var data = view.model.toJSON();
+                statusTemplate = _.template(TmplRegStatus, data);
 
-                App.fetchTemplate("app/templates/registrationStatus.html", function (tmpl) {
+                view.$("#registration-status").html(statusTemplate);
 
-                    var attributes = view.model.toJSON();
-                    statusTemplate = _.template(tmpl(attributes));
-
-                    view.$("#registration-status").html(statusTemplate());
-
-                    if (view.model.get('isRegistered') === true) {
-                        view.$("#registration-status").find('.status').addClass('success');
-                    } else {
-                        view.$("#registration-status").find('.status').addClass('error');
-                    }
-
-                    if (_.isFunction(done)) {
-                        done(view.el);
-                    }
-
-                    // re-attach all DOM events.
-                    view.delegateEvents(this.events);
-
-                });
+                if (view.model.get('isRegistered') === true) {
+                    view.$("#registration-status").find('.status').addClass('success');
+                } else {
+                    view.$("#registration-status").find('.status').addClass('error');
+                }
 
             }
-            ;
 
             // Show the login status
             $("#registration-status").show();
+            return this;
 
         },
 
@@ -132,16 +105,16 @@ define([
         signIn:function () {
 
             // clear the current login status, if present.
-            $("#login-status").hide();
+            //$("#login-status").hide();
 
             // Todo: Validate the input values
-            this.model.set('email', $('#user-email-input').val());
-            this.model.set('password', $('#user-password-input').val());
+            var email = $('#user-email-input').val();
+            var password = $('#user-password-input').val();
 
             // Register for event to monitor login status.
             this.model.on('user-login-event', this.userLoginEvent, this);
 
-            this.model.login();
+            this.model.login(email, password);
 
         },
 
@@ -159,17 +132,18 @@ define([
         signUp:function () {
 
             // clear/hide the current status
-            $("#registration-status").hide();
+            //$("#registration-status").hide();
 
             // Todo: Validate the input values
-            this.model.set('name', $('#user-reg-name-input').val());
-            this.model.set('email', $('#user-reg-email-input').val());
-            this.model.set('password', $('#user-reg-password-input').val());
+            var username = $('#user-reg-name-input').val();
+            var email = $('#user-reg-email-input').val();
+            var password = $('#user-reg-password-input').val();
+
 
             // Register for event to monitor registration status
             this.model.on('user-registration-event', this.userRegisterEvent, this);
 
-            this.model.register();
+            this.model.register(username,email,password);
 
         }
 

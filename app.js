@@ -1,6 +1,6 @@
 /**
- * Module dependencies.
- */
+* Module dependencies.
+*/
 
 var express = require('express')
     , routes = require('./routes')
@@ -27,7 +27,7 @@ app.configure(function () {
     app.use(express.methodOverride());
     app.use(express.cookieParser());
     app.use(express.cookieSession({ secret:"qwizkool magic" }));
-    // Initialize Passport!  Also use passport.session() middleware, to support
+    // Initialize Passport! Also use passport.session() middleware, to support
     // persistent login sessions (recommended).
     app.use(passport.initialize());
     app.use(passport.session());
@@ -41,10 +41,10 @@ app.configure('development', function () {
 });
 
 // Passport session setup.
-//   To support persistent login sessions, Passport needs to be able to
-//   serialize users into and deserialize users out of the session.  Typically,
-//   this will be as simple as storing the user ID when serializing, and finding
-//   the user by ID when deserializing.
+// To support persistent login sessions, Passport needs to be able to
+// serialize users into and deserialize users out of the session. Typically,
+// this will be as simple as storing the user ID when serializing, and finding
+// the user by ID when deserializing.
 
 passport.serializeUser(function (user, done) {
     done(null, user.id);
@@ -75,10 +75,10 @@ passport.use(new LocalStrategy({
 ));
 
 // Simple route middleware to ensure user is authenticated.
-//   Use this route middleware on any resource that needs to be protected.  If
-//   the request is authenticated (typically via a persistent login session),
-//   the request will proceed.  Otherwise, the user will be redirected to the
-//   login page.
+// Use this route middleware on any resource that needs to be protected. If
+// the request is authenticated (typically via a persistent login session),
+// the request will proceed. Otherwise, the user will be redirected to the
+// login page.
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
@@ -106,11 +106,11 @@ app.post('/logout', user.logout);
 
 /*
 +-----------+-------------------+--------------------+----------------------+----------------+
-| RESOURCE  |   POST(create)    |     GET(read)      |     PUT(update)      | DELETE(delete) |
+| RESOURCE | POST(create) | GET(read) | PUT(update) | DELETE(delete) |
 +-----------+-------------------+--------------------+----------------------+----------------+
-| /users    | create a new user | ERROR              | ERROR                | ERROR          |
+| /users | create a new user | ERROR | ERROR | ERROR |
 +-----------+-------------------+--------------------+----------------------+----------------+
-|/users/:id | ERROR             | get  user with :id | update user with :id | ERROR          |
+|/users/:id | ERROR | get user with :id | update user with :id | ERROR |
 +-----------+-------------------+--------------------+----------------------+----------------+
 */
 
@@ -126,15 +126,15 @@ app.delete('/users/:id', unsupported);
 //app.get('/users', user.list);
 
 /*
- * Qwizbook related routes
- */
+* Qwizbook related routes
+*/
 /*
 +----------------+-----------------------+------------------------+--------------------------+--------------------------+
-|    RESOURCE    |     POST(create)      |       GET(read)        |       PUT(update)        |      DELETE(delete)      |
+| RESOURCE | POST(create) | GET(read) | PUT(update) | DELETE(delete) |
 +----------------+-----------------------+------------------------+--------------------------+--------------------------+
-| /qwizbooks     | create a new qwizbook | get qwizbooks          | bulk update qwizbooks    | delete all qwizbooks     |
+| /qwizbooks | create a new qwizbook | get qwizbooks | bulk update qwizbooks | delete all qwizbooks |
 +----------------+-----------------------+------------------------+--------------------------+--------------------------+
-| /qwizbooks/:id | ERROR                 | get qwizbook with :id  | update qwizbook with :id | delete qwizbook with :id |
+| /qwizbooks/:id | ERROR | get qwizbook with :id | update qwizbook with :id | delete qwizbook with :id |
 +----------------+-----------------------+------------------------+--------------------------+--------------------------+
 */
 
@@ -166,15 +166,15 @@ app.delete('/qwizbooks/:id', ensureAuthenticated, qwizbook.deleteBook);
 
 
 /*
- * Qwizbook Rating related routes
- */
+* Qwizbook Rating related routes
+*/
 /*
 +---------------------------------+-------------------------------------------------+---------------------------------------------------------+----------------------------------------+---------------------------------------------------+
-|    RESOURCE                     |     POST(create)                                |       GET(read)                                         |       PUT(update)                      |      DELETE(delete)                               |
+| RESOURCE | POST(create) | GET(read) | PUT(update) | DELETE(delete) |
 +---------------------------------+------------------------------------------------+----------------------------------------------------------+--------------------------------------- +--------------------------------------------------+
-| /qwizbookratings/:qbookid       | add rating to a qwizbook  with : qbookid       | get ratings (average rating) of qwizbook with : qbookid | update qwizbook rating with : qbookid   | delete all rating for qwizbooks with : qbookid   |
+| /qwizbookratings/:qbookid | add rating to a qwizbook with : qbookid | get ratings (average rating) of qwizbook with : qbookid | update qwizbook rating with : qbookid | delete all rating for qwizbooks with : qbookid |
 +---------------------------------+-----------------------+------------------------+---------------------------------------------------------+---------------------------------------- +-------------------------------------------------+
-| /qwizbookratings/:id            | ERROR                                          | get qwizbookrating with :id                             | update qwizbookrating with :id          | ERROR                                           |
+| /qwizbookratings/:id | ERROR | get qwizbookrating with :id | update qwizbookrating with :id | ERROR |
 +---------------------------------+-----------------------+------------------------+---------------------------------------------------------+-----------------------------------------+-------------------------------------------------+
 */
 
@@ -205,4 +205,3 @@ app.put('/qwizbookrating/', ensureAuthenticated, qwizbookrating.updateBookRating
 http.createServer(app).listen(app.get('port'), function () {
     console.log("Qwizkool REST server listening on port " + app.get('port'));
 });
-

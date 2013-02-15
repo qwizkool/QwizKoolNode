@@ -9,7 +9,7 @@ define(["app", "modules/qwizbook", "modules/qwizbookrating", "text!templates/qwi
 			this.model = new QwizBook.Model({
 				id : this.qwizbookId
 			});
-			
+
 			this.qwizbookratingmodel = new QwizBookRating.Model();
 			var jqxhr = this.model.fetch({
 
@@ -20,8 +20,7 @@ define(["app", "modules/qwizbook", "modules/qwizbookrating", "text!templates/qwi
 				success : function(model, response) {
 				}
 			});
-            
-             
+
 			//this.collection = new QwizBook.Collection();
 			//this.model = this.collection.get(this.qwizbookId);
 			//this.model.getqwizbook(this.qwizbookId);
@@ -37,10 +36,10 @@ define(["app", "modules/qwizbook", "modules/qwizbookrating", "text!templates/qwi
 
 				qbook_template = _.template(tmpl(view.model.toJSON()));
 				view.el.innerHTML = qbook_template();
-				
-			   $(view.el).find("#home-content-container").append(view.el.innerHTML);
-					
-					if (_.isFunction(done)) {
+
+				$(view.el).find("#home-content-container").append(view.el.innerHTML);
+
+				if (_.isFunction(done)) {
 					done(view.el);
 				}
 				//return view;
@@ -60,28 +59,43 @@ define(["app", "modules/qwizbook", "modules/qwizbookrating", "text!templates/qwi
 		},
 
 		setRating1 : function() {
-			
+
 			//triggering usermaincontent.js event to get the input value and change the URL
-			this.trigger('addrating', {ratingval : $('#rating-1').val(), ratingmodel: this.qwizbookratingmodel});
+			this.trigger('addrating', {
+				ratingval : $('#rating-1').val(),
+				ratingmodel : this.qwizbookratingmodel
+			});
 
 		},
 
 		setRating2 : function() {
-			this.trigger('addrating', {ratingval : $('#rating-2').val(), ratingmodel: this.qwizbookratingmodel});
+			this.trigger('addrating', {
+				ratingval : $('#rating-2').val(),
+				ratingmodel : this.qwizbookratingmodel
+			});
 		},
 
 		setRating3 : function() {
-			this.trigger('addrating', {ratingval : $('#rating-3').val(), ratingmodel: this.qwizbookratingmodel});
+			this.trigger('addrating', {
+				ratingval : $('#rating-3').val(),
+				ratingmodel : this.qwizbookratingmodel
+			});
 
 		},
 
 		setRating4 : function() {
-			this.trigger('addrating', {ratingval : $('#rating-4').val(), ratingmodel: this.qwizbookratingmodel});
+			this.trigger('addrating', {
+				ratingval : $('#rating-4').val(),
+				ratingmodel : this.qwizbookratingmodel
+			});
 
 		},
 
 		setRating5 : function() {
-			this.trigger('addrating', {ratingval : $('#rating-5').val(), ratingmodel: this.qwizbookratingmodel});
+			this.trigger('addrating', {
+				ratingval : $('#rating-5').val(),
+				ratingmodel : this.qwizbookratingmodel
+			});
 
 		}
 	});
@@ -89,4 +103,4 @@ define(["app", "modules/qwizbook", "modules/qwizbookrating", "text!templates/qwi
 	// Required, return the module for AMD compliance
 	return QwizbookDetails;
 
-}); 
+});

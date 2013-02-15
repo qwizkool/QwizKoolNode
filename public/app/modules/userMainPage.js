@@ -38,4 +38,4 @@ define(["app", "tabs", "modules/header", "modules/userMainContent", "modules/foo
 	});
 
 	return UserMainPage;
-});
+}); 
