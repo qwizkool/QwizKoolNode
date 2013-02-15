@@ -25,6 +25,17 @@ define([
 		this.comments = new QwizbookComments.View({qwizbookId:this.qwizbookId});
 		this.commentDetail = new CommentDetails.View({collection:this.commentList});
 		
+		this.qwizbookDetails.on("addrating", function(ratingdataObj) {
+
+            var ratingvalue = ratingdataObj.ratingval;
+            var qbookId = this.qwizbookId;
+            var qwizbookratingmodel = ratingdataObj.ratingmodel;
+            //alert(qbookId);
+            //alert(ratingvalue);
+            // qwizbookratingmodel.getQwizbookIdAndRating(qbookId,ratingvalue);
+            qwizbookratingmodel.addqwizbookrating(qbookId, ratingvalue);
+
+        });
 		
 			
 		},
