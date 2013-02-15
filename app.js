@@ -98,6 +98,7 @@ function unsupported(req, res) {
 
 
 app.post('/addComments', ensureAuthenticated,qwizbookComment.AddComments);
+app.get('/addComments/:qwizbookId', ensureAuthenticated,qwizbookComment.ListComments);
 /*
 * User Access related routes
 */

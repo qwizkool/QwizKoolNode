@@ -54,6 +54,7 @@ var QwizbookCommentsData = db.conn.model('QwizbookComments', QwizbookCommentsSch
 
 // Exports
 module.exports.addComments = addComments;
+module.exports.retrieveQwizbookcomments = retrieveQwizbookcomments;
 
 function addComments(comment,qwizbookId, callback) {
 
@@ -74,7 +75,21 @@ function addComments(comment,qwizbookId, callback) {
             callback(null, instance);
         }
     });
-};
+}
+
+function retrieveQwizbookcomments(user,qwizbookId,callback)
+{
+	 QwizbookCommentsData.find(function (err, comments) {
+
+        if (err) {
+            // All other conditions Pass as is TODO: need to cleanup.
+            callback({ Error:"Retreive QwizbookComments failed." }, null);
+        } else {
+            callback(null, comments);
+        }
+
+    });
+}
 
 
 

@@ -34,6 +34,22 @@ AddComments:function (req, res) {
 
        
 
+   },
+ListComments:function(req,res)
+    {
+    	
+        var qbookId = req.route.params.qwizbookId;
+
+		var sessionUser = req.user;
+		QwizbookComment.retrieveQwizbookcomments(sessionUser, qbookId, function(err, comments) {
+		// If error send the error response
+		if (err) {
+		res.send(400, err);
+		console.log(err);
+		return;
+		}
+		res.send(JSON.stringify(comments));
+		
+		})
     }
-    
 };

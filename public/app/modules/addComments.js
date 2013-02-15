@@ -56,8 +56,38 @@ define([
     AddComments.Collection = Backbone.Collection.extend({
 
         model:AddComments.Model,
-        url:"/comments"
+        url:function () {
+            var urlRoot = "/addComments";
+            if(this.qwizbookId)
+            {
+            	urlRoot =urlRoot + "/" +this.qwizbookId;
+            }
+            return urlRoot;
+		},
+		 QwizbookComments:function (qwizbookId) {
+		 	this.qwizbookId = qwizbookId;
+		 	this.urlroot = this.url();
+		 	
+            var qwizbookComments = this;
 
+		var jqxhr = qwizbookComments.fetch({
+		
+		error : function(collection, response) {
+		},
+		
+		success : function(collection, response) {
+		List = qwizbookComments.toJSON();
+		}
+});
+
+//qwizbookList.fetch(function() {
+
+//console.log(qwizbookList);
+
+//});
+
+// $('#qwizbook-lists').html(this.qwizbookListView.render().el);
+}
     });
 
     AddComments.Router = Backbone.Router.extend({/* ... */ });

@@ -5,9 +5,10 @@ define([
     "modules/qwizbookDetails",
     "modules/qwizbookComments",
     "modules/commentDetails",
+    "modules/addComments",
     "text!templates/qwizbookContent.html"
     
-], function (App,QwizBook,Breadcrumb,QwizbookDetails,QwizbookComments,CommentDetails,Template) {
+], function (App,QwizBook,Breadcrumb,QwizbookDetails,QwizbookComments,CommentDetails,AddComments,Template) {
 
     // Create a new module
     var QwizbookContent = App.module();
@@ -15,8 +16,11 @@ define([
 
     QwizbookContent.View = Backbone.View.extend({
 		initialize : function() {
-		this.breadcrumb = new Breadcrumb.View();
 		this.qwizbookId = this.options.qwizbookId;
+		this.commentList = new AddComments.Collection({qwizbookId:this.qwizbookId});
+		this.commentList.QwizbookComments(this.qwizbookId);
+		this.breadcrumb = new Breadcrumb.View();
+		
 		this.qwizbookDetails = new QwizbookDetails.View({qwizbookId:this.qwizbookId});
 		this.comments = new QwizbookComments.View({qwizbookId:this.qwizbookId});
 		this.commentDetail = new CommentDetails.View();
