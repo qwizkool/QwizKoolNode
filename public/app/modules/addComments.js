@@ -80,6 +80,74 @@ define([
 		}
 });
 
+AddComments.View = Backbone.View.extend({
+template : "app/templates/commentDetails.html",
+
+initialize : function() {
+//this.model = new QwizBook.Model();
+},
+
+render : function(done) {
+var view = this;
+var qbook_template;
+
+// Fetch the template, render it to the View element and call done.
+App.fetchTemplate(this.template, function(tmpl) {
+//alert("Templ " + tmpl(view.model.toJSON()) + " " + "json" + view.model.get('title'));
+qbook_template = _.template(tmpl(view.model.toJSON()));
+view.el.innerHTML = qbook_template();
+
+// If a done function is passed, call it with the element
+if (_.isFunction(done)) {
+done(view.el);
+}
+});
+}
+});
+
+   
+AddComments.ListView = Backbone.View.extend({
+
+//template:"app/templates/qwizbooklist.html",
+template : "app/templates/qwizbookContent.html",
+
+initialize : function() {
+this.model.on("reset", this.render, this);
+
+},
+
+render : function(done) {
+
+var view = this;
+var qCommentview_template;
+
+// Fetch the template, render it to the View element and call done.
+App.fetchTemplate(this.template, function(tmpl) {
+
+//alert("Templ " + tmpl(view.model.toJSON()) + " " + "json" + view.model.get('title'));
+qCommentview_template = _.template(tmpl());
+view.el.innerHTML = qCommentview_template();
+
+_.each(view.model.models, function(qwizbookcomment) {
+var qwizbookCommentView = new AddComments.View({
+model : AddComments
+});
+qwizbookCommentView.render(function(elv) {
+$(view.el).find("#home-content-container").append(elv);
+});
+});
+
+// If a done function is passed, call it with the element
+if (_.isFunction(done)) {
+done(view.el);
+}
+});
+
+return this;
+}
+});
+    
+
 //qwizbookList.fetch(function() {
 
 //console.log(qwizbookList);

@@ -23,7 +23,7 @@ define([
 		
 		this.qwizbookDetails = new QwizbookDetails.View({qwizbookId:this.qwizbookId});
 		this.comments = new QwizbookComments.View({qwizbookId:this.qwizbookId});
-		this.commentDetail = new CommentDetails.View();
+		this.commentDetail = new CommentDetails.View({collection:this.commentList});
 		
 		
 			

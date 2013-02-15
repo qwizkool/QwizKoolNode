@@ -1,7 +1,8 @@
 define([
     "app",
+    "modules/addComments",
     "text!templates/commentDetails.html"
-], function (App,Template) {
+], function (App,AddComments,Template) {
 
     // Create a new module
     var CommentDetails = App.module();
@@ -12,6 +13,12 @@ define([
     CommentDetails.Router = Backbone.Router.extend({ /* ... */ });
 
     CommentDetails.View = Backbone.View.extend({
+    	initialize:function () {
+    		 this.commentList = this.collection;
+    		 this.commentListview = new AddComments.ListView({
+             model:this.commentList
+            });
+    	},
 
         template:Template,
 
