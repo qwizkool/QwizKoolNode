@@ -7,6 +7,7 @@ var express = require('express')
     , user = require('./routes/user')
     , qwizbook = require('./routes/qwizbook')
     , qwizbookComment = require('./routes/qwizbookComments')
+    , qwizbookrating = require('./routes/qwizbookrating')
     , http = require('http')
     , path = require('path')
     , fs = require('fs')
@@ -160,6 +161,40 @@ app.put('/qwizbooks/:id', ensureAuthenticated, qwizbook.updateBook);
 // Delete this Qwizbook
 //app.delete('/qwizbooks/:id', ensureAuthenticated, qwizbook.deleteBook);
 
+
+/*
+* Qwizbook Rating related routes
+*/
+/*
++---------------------------------+-------------------------------------------------+---------------------------------------------------------+----------------------------------------+---------------------------------------------------+
+| RESOURCE | POST(create) | GET(read) | PUT(update) | DELETE(delete) |
++---------------------------------+------------------------------------------------+----------------------------------------------------------+--------------------------------------- +--------------------------------------------------+
+| /qwizbookratings/:qbookid | add rating to a qwizbook with : qbookid | get ratings (average rating) of qwizbook with : qbookid | update qwizbook rating with : qbookid | delete all rating for qwizbooks with : qbookid |
++---------------------------------+-----------------------+------------------------+---------------------------------------------------------+---------------------------------------- +-------------------------------------------------+
+| /qwizbookratings/:id | ERROR | get qwizbookrating with :id | update qwizbookrating with :id | ERROR |
++---------------------------------+-----------------------+------------------------+---------------------------------------------------------+-----------------------------------------+-------------------------------------------------+
+*/
+
+
+// Add a Qwizbook Rating
+app.post('/qwizbookrating/', ensureAuthenticated, qwizbookrating.addBookRating);
+
+// Retrieve all qwizbooks
+//app.get('/qwizbookratings/:qbookid ', ensureAuthenticated, qwizbookrating.getBookratings);
+
+// Retrieve this Qwizbook
+//app.get('/qwizbooks/:id', ensureAuthenticated, qwizbook.getbook);
+
+
+// Update this Qwizbook Rating
+app.put('/qwizbookrating/', ensureAuthenticated, qwizbookrating.updateBookRating);
+
+
+// Delete all Qwizbooks
+//app.delete('/qwizbooks', ensureAuthenticated, qwizbook.deleteBooks);
+
+// Delete this Qwizbook
+//app.delete('/qwizbooks/:id', ensureAuthenticated, qwizbook.deleteBook);
 
 
 
