@@ -6,6 +6,7 @@ var express = require('express')
     , routes = require('./routes')
     , user = require('./routes/user')
     , qwizbook = require('./routes/qwizbook')
+    , qwizbookrating = require('./routes/qwizbookrating')
     , http = require('http')
     , path = require('path')
     , fs = require('fs')
@@ -178,8 +179,8 @@ app.delete('/qwizbooks/:id', ensureAuthenticated, qwizbook.deleteBook);
 */
 
 
-// Create a Qwizbook
-//app.post('/qwizbookratings/:qbookid', ensureAuthenticated, qwizbookrating.addBookRating);
+// Add a Qwizbook Rating
+app.post('/qwizbookrating/', ensureAuthenticated, qwizbookrating.addBookRating);
 
 // Retrieve all qwizbooks
 //app.get('/qwizbookratings/:qbookid ', ensureAuthenticated, qwizbookrating.getBookratings);
@@ -188,8 +189,8 @@ app.delete('/qwizbooks/:id', ensureAuthenticated, qwizbook.deleteBook);
 //app.get('/qwizbooks/:id', ensureAuthenticated, qwizbook.getbook);
 
 
-// Update this Qwizbook
-//app.put('/qwizbooks/:id', ensureAuthenticated, qwizbook.updateBook);
+// Update this Qwizbook Rating
+app.put('/qwizbookrating/', ensureAuthenticated, qwizbookrating.updateBookRating);
 
 
 // Delete all Qwizbooks

@@ -1,30 +1,24 @@
-define(["app", "modules/qwizbook", "modules/searchFilter"], function (App, QwizBook, Searchfilter) {
+define([
+    "app",
+     "text!templates/searchFilter.html"
+], function (App, Template) {
 
     // Create a new module
     var Searchfilter = App.module();
 
     Searchfilter.View = Backbone.View.extend({
 
-        template:"app/templates/searchFilter.html",
+        template: Template,
 
         initialize:function () {
 
         },
 
-        render:function (done) {
+        render:function () {
 
-            var view = this;
+            this.el.innerHTML = this.template;
+            return this;
 
-            // Fetch the template, render it to the View element and call done.
-            App.fetchTemplate(this.template, function (tmpl) {
-                view.el.innerHTML = tmpl();
-
-                // If a done function is passed, call it with the element
-                if (_.isFunction(done)) {
-                    done(view.el);
-                }
-
-            });
         },
 
         events:{
@@ -51,7 +45,8 @@ define(["app", "modules/qwizbook", "modules/searchFilter"], function (App, QwizB
         }
     });
 
-    // Required, return the module for AMD compliance
     return Searchfilter;
 
 });
+
+

@@ -79,11 +79,12 @@ var QwizbookRatingData = db.conn.model('QwizbookRating', QwizbookRatingSchema);
 
 // Exports
 module.exports.addRating = addRating;
+module.exports.updateRating = updateRating;
 module.exports.retrieveQwizbook = retrieveQwizbook;
 module.exports.retrieveQwizbooks = retrieveQwizbooks;
 module.exports.retrieveQwizbooksOnSearch = retrieveQwizbooksOnSearch;
 module.exports.retrieveQwizbooksOnFilter = retrieveQwizbooksOnFilter;
-module.exports.retrieveAverageRating = retrieveAverageRating;
+//module.exports.retrieveAverageRating = retrieveAverageRating;
 
 function addRating(owner, data, callback) {
 
@@ -91,36 +92,82 @@ function addRating(owner, data, callback) {
     // session owner. A book can be created by only
     // the session owner
 
-    if (owner.email != data.ownerEmail) {
+    if (owner.email != data.userEmail) {
         callback({
             Error:"Qwizbook Could not be created, Please Login "
         });
         return;
     }
 
+    
     var instance = new QwizbookRatingData();
 
-   
+    instance.userEmail = data.userEmail;
+	instance.qwizbookId = data.qbookId;
+	instance.rating = data.ratingval;
 
     instance.save(function (err) {
         if (err) {
             // Check for duplicate key error
             if (err.code == 11000) {
                 callback({
-                    Error:"Qwizbook already exist for the same user"
+                    Error:"You have already rated"
                 }, null)
                 return;
             }
 
             // All other conditions Pass as is TODO: need to cleanup.
             callback({
-                Error:"Qwizbook Could not be created "
+                Error:"Cannot rate Qwizbook "
             }, null);
         } else {
             callback(null, instance);
         }
     });
 };
+
+
+
+function updateRating(owner, data, callback) {
+
+    // Check if the provided owner is same as the
+    // session owner. A book can be created by only
+    // the session owner
+    var qbookId = data.qbookId;
+    var useremail = owner.email;
+    
+    if (owner.email != data.userEmail) {
+        callback({
+            Error:"Qwizbook Could not be created, Please Login "
+        });
+        return;
+    }
+   
+
+
+    QwizbookRatingData.find({$and:[{qwizbookId:qbookId, userEmail:useremail}]}).execFind(function(err, rating) {
+
+		if (err) {
+			// Check for duplicate key error
+
+			// All other conditions Pass as is TODO: need to cleanup.
+			callback({
+				Error : "failed Qwizbook Retreive ."
+				
+			}, null);
+			console.log('no rating found');
+		} else {
+			callback(null, rating);
+			var query = { qwizbookId: qbookId,  userEmail:useremail};
+            QwizbookRatingData.update(query, { rating: data.ratingval }, err, callback)
+			console.log('got rating');
+		}
+
+	});
+};
+
+
+
 
 
 function retrieveQwizbook(owner, id, callback) {
@@ -293,9 +340,7 @@ function retrieveQwizbooksOnFilter(owner, filterdata, callback) {
 
 };
 
-function retrieveAverageRating(owner, id, callback) {
 
-};
 
 
 

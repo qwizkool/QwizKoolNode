@@ -14,13 +14,18 @@ var Qwizbook = require('../models/Qwizbook');
 var QwizbookRating = require('../models/QwizbookRating');
 
 module.exports = {
-
+	
 	addBookRating : function(req, res) {
 
 		var sessionUser = req.user;
-		var book = req.body;
+		var qwizbookrating = req.body;
+		console.log(qwizbookrating);
+		var email = sessionUser.email;
+		var rating = qwizbookrating.ratingval;
+		var qId = qwizbookrating.qbookId;
+		console.log("rating val" + qwizbookrating.qbookId);
 
-		Qwizbook.createQwizbook(sessionUser, book, function(err, book) {
+		QwizbookRating.addRating(sessionUser,qwizbookrating , function(err, qwizbookrating) {
 			// If error send the error response
 			if (err) {
 				res.send(400, err);
@@ -29,17 +34,48 @@ module.exports = {
 			}
 			// No error send the unique ID for the newly created
 			// book.
-			console.log("QwizBook Added:");
-			console.log("Book Details" + JSON.stringify(book));
+			console.log("QwizBook Rated");
+			console.log("Book Details" + JSON.stringify(qwizbookrating));
 
 			res.send({
-				id : book._id,
+				id : qwizbookrating._id,
 			});
 			//res.send({id:book.id});
 
 		})
 	},
+	
+    
+    updateBookRating: function(req, res) {
+    	var sessionUser = req.user;
+		var qwizbookrating = req.body;
+		console.log(qwizbookrating);
+		var email = sessionUser.email;
+		var rating = qwizbookrating.ratingval;
+		var qId = qwizbookrating.qbookId;
+		console.log("rating val" + qwizbookrating.ratingval);
 
+		QwizbookRating.updateRating(sessionUser,qwizbookrating , function(err, qwizbookrating) {
+			// If error send the error response
+			if (err) {
+				res.send(400, err);
+				console.log(err);
+				return;
+			}
+			// No error send the unique ID for the newly created
+			// book.
+			console.log("QwizBook Rated");
+			console.log("Book Details" + JSON.stringify(qwizbookrating));
+
+			res.send({
+				id : qwizbookrating._id,
+			});
+			//res.send({id:book.id});
+
+		})
+    },
+    
+    
 	getbook : function(req, res) {
 		var qbookId = req.route.params.id;
 

@@ -1,59 +1,41 @@
-define([
-    "app",
-    "tabs",
-    "modules/header",
-    "modules/userMainContent",
-    "modules/footer",
-    "modules/userSettings"
-], function (App, Tabs, Header, UserMainContent, Footer, UserSettings) {
+define(["app", "tabs", "modules/header", "modules/userMainContent", "modules/footer", "modules/userSettings", "modules/qwizbook"], function(App, Tabs, Header, UserMainContent, Footer, UserSettings, QwizBook) {
 
-    // Create a new module
-    var UserMainPage = new App.module();
+	// Create a new module
+	var UserMainPage = new App.module();
 
-    // Top level view for the qwizkool
-    UserMainPage.View = Backbone.View.extend({
+	// Top level view for the qwizkool
+	UserMainPage.View = Backbone.View.extend({
 
-        initialize:function () {
-            this.header = new Header.View();
-            this.userMainContent = new UserMainContent.View();
-            this.footer = new Footer.View();
-            this.userSettings = new UserSettings.View();
-            //           this.userSettings.on("logout-attempted", this.renderSettings, this);
-        },
+		initialize : function() {
 
+			this.qwizbookList = new QwizBook.Collection();
+			this.header = new Header.View();
+			this.userMainContent = new UserMainContent.View({
+				collection : this.qwizbookList
+			});
+			this.footer = new Footer.View();
+			this.userSettings = new UserSettings.View();
+			this.qwizbookList.QwizbookList();
+			this.qwizbookList.on("reset", this.updateCollection, this);
+		},
 
-        // Render all the nested views related to this page
-        // and attach it to the DOM.
-        show:function (done) {
+		updateCollection : function() {
 
-            var thisView = this;
-            // Attach the tutorial to the DOM
+			$("#qpage-content").html(this.userMainContent.render().el);
+			this.userMainContent.reattachEvents();
+		},
 
-            thisView.header.render(function (el) {
-                $("#qpage-header").html(el);
+		// Render all the nested views related to this page
+		// and attach it to the DOM.
+		show : function(done) {
 
-                // Add the user settings template inside header
-                thisView.userSettings.render(function (el) {
+			$("#qpage-header").html(this.header.render().el);
+			$("#qwizkool-user-settings").html(this.userSettings.render().el);
+			this.header.renderSettings();
+			$("#qpage-footer").html(this.footer.render().el);
 
-                    $("#qwizkool-user-settings").html(el);
-                    thisView.header.renderSettings();
+		}
+	});
 
-                });
-
-
-            });
-
-            thisView.userMainContent.render(function (el) {
-                $("#qpage-content").html(el);
-            });
-
-
-            thisView.footer.render(function (el) {
-                $("#qpage-footer").html(el);
-            });
-
-        }
-    });
-
-    return UserMainPage;
-}); 
+	return UserMainPage;
+});

@@ -54,6 +54,8 @@ define(["app", "text!templates/qwizbookListItem.html", "text!templates/qwizbookL
 
 				}
 			}
+			
+			
 		},
 
 		createqwizbook : function() {
@@ -219,6 +221,7 @@ define(["app", "text!templates/qwizbookListItem.html", "text!templates/qwizbookL
 		template : "app/templates/qwizbookListItem.html",
 
 		initialize : function() {
+			
 			//this.model = new QwizBook.Model();
 		},
 

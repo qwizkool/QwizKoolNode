@@ -1,52 +1,68 @@
-define([
-    "app",
-    "modules/qwizbook"
-], function (App,QwizBook) {
+define(["app", "modules/qwizbook", "modules/qwizbookrating", "modules/qwizbookBreadcrumbs", "modules/qwizbookDetails", "modules/qwizbookComments", "modules/commentDetails", "text!templates/qwizbookContent.html"], function(App, QwizBook, QwizBookRating, Breadcrumb, QwizbookDetails, QwizbookComments, CommentDetails, Template) {
 
-    // Create a new module
-    var QwizbookContent = App.module();
+	// Create a new module
+	var QwizbookContent = App.module();
 
-
-    QwizbookContent.View = Backbone.View.extend({
+	QwizbookContent.View = Backbone.View.extend({
 		initialize : function() {
-		this.qwizbookId = this.options.qwizbookId;
-		this.model = new QwizBook.Model({id:this.qwizbookId});
-		var jqxhr = this.model.fetch({
+			
+			this.breadcrumb = new Breadcrumb.View();
+			this.qwizbookId = this.options.qwizbookId;
+			this.qwizbookDetails = new QwizbookDetails.View({qwizbookId:this.qwizbookId});
+			this.comments = new QwizbookComments.View();
+			this.commentDetail = new CommentDetails.View();
 
-				error : function(model, response) {
-					console.log("Failed to get QwizBook!");
-				},
+			
+			this.model = new QwizBook.Model({id:this.qwizbookId});
+			 var jqxhr = this.model.fetch({
 
-				success : function(model, response) {
-				
-				}
-			});
-			this.model.on('change', this.render, this)
-		//this.collection = new QwizBook.Collection();
-		//this.model = this.collection.get(this.qwizbookId);
-		//this.model.getqwizbook(this.qwizbookId);
-		},
-        template:"app/templates/qwizbookContent.html",
+			 error : function(model, response) {
+			 console.log("Failed to get QwizBook!");
+			 },
 
-        render:function (done) {
- 			
-            var view = this;
+			 success : function(model, response) {
+			 }
+			 });
+			 
+			 
+			 
+			 this.qwizbookDetails.on("addrating", function (ratingdataObj) {
+
+                var ratingvalue = ratingdataObj.ratingval;
+                var qbookId = this.qwizbookId;
+                var qwizbookratingmodel = ratingdataObj.ratingmodel;
+                //alert(qbookId);
+                //alert(ratingvalue);
+               // qwizbookratingmodel.getQwizbookIdAndRating(qbookId,ratingvalue);
+                qwizbookratingmodel.addqwizbookrating(qbookId,ratingvalue);
+
+            });
             
-            var qbook_template;
-            // Fetch the template, render it to the View element and call done.
-           App.fetchTemplate(this.template, function(tmpl) {
-           
-				qbook_template = _.template(tmpl(view.model.toJSON()));
-				view.el.innerHTML = qbook_template();
-				// If a done function is passed, call it with the element
-				if (_.isFunction(done)) {
-					done(view.el);
-				}
-			});
-        }
-    });
+            //this.qwizbookDetails.on("show-qwizbookrating-event", function (ratingdata) {
 
-    // Required, return the module for AMD compliance
-    return QwizbookContent;
+                //var ratingvalue = ratingdata;
+                //alert(ratingvalue);
+
+            //});
+            
+           
+
+		},
+		template : Template,
+
+		render : function(done) {
+			this.el.innerHTML = this.template;
+			$(this.el).find("#home-content-header").append(this.breadcrumb.render().el);
+			$(this.el).find("#home-content-container").append(this.qwizbookDetails.render().el);
+			$(this.el).find("#review-content-header").append(this.comments.render().el);
+			$(this.el).find("#review-content-container").append(this.commentDetail.render().el);
+			return this;
+
+		}
+	});
+
+	// Required, return the module for AMD compliance
+	return QwizbookContent;
 
 });
+
