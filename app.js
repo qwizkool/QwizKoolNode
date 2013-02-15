@@ -164,41 +164,6 @@ app.put('/qwizbooks/:id', ensureAuthenticated, qwizbook.updateBook);
 
 
 
-/*
- * Qwizbook rating related routes
- */
-/*
-+---------------------------------+---------------------------------------------------+------------------------------------------------+--------------------------------------------------------+--------------------------+
-|    RESOURCE                    |                        POST(create)               |       GET(read)                                |                    PUT(update)                         |      DELETE(delete)      |
-+-------------------------------+---------------------------------------------------+-------------------------------------------------+-------------------------------------------------------+---------------------------+
-| /qwizbookrating               |                         ERROR                     |                ERROR                           |                  ERROR                                 |           ERROR          |
-+-------------------------------+---------------------------------------------------+------------------------------------------------+-------------------------------------------------------+--------------------------+
-| /qwizbookrating/:qwizbookbId |            Add rating to qwizbook                 | get rating of qwizbook with id :qwizbookbId    | update rating of qwizbook with id : qwizbookbId        |        ERROR             |
-+------------------------------+---------------------------------------------------+------------------------------------------------+--------------------------------------------------------+--------------------------+
-*/
-
-
-// Create a Qwizbook
-app.post('/qwizbookrating/:qwizbookbId', ensureAuthenticated, qwizbook.addBookRating);
-
-// Retrieve all qwizbooks
-app.get('/qwizbookrating/:qwizbookbId', ensureAuthenticated, qwizbook.getbookratings);
-
-// Retrieve this Qwizbook
-app.get('/qwizbooks/:id', ensureAuthenticated, qwizbook.getbook);
-
-
-// Update this Qwizbook
-app.put('/qwizbookrating/:qwizbookbId', ensureAuthenticated, qwizbook.updateBookRating);
-
-
-// Delete all Qwizbooks
-//app.delete('/qwizbooks', ensureAuthenticated, qwizbook.deleteBooks);
-
-// Delete this Qwizbook
-//app.delete('/qwizbooks/:id', ensureAuthenticated, qwizbook.deleteBook);
-
-
 // Start the REST server
 http.createServer(app).listen(app.get('port'), function () {
     console.log("Qwizkool REST server listening on port " + app.get('port'));
