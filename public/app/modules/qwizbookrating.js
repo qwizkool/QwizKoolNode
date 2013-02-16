@@ -36,14 +36,12 @@ define(["app"], function(App) {
 		initialize : function() {
 
 			var qwizbook = localStorage.getItem("QwizbookData");
-			console.log('dfdf' + qwizbook);
 
 			//if (qwizbook) {
 
 			qwizbookDetails = JSON.parse(localStorage.getItem("QwizbookData"));
 			userInfo = JSON.parse(localStorage.getItem("qwizkoolUser"));
 
-			console.log(userInfo);
 			if (userInfo) {
 				//this.urlroot = this.url();
 				this.set({

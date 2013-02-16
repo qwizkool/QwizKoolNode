@@ -1,8 +1,8 @@
 define([
     "app",
-    "modules/addComments",
+    "modules/comments",
     "text!templates/commentDetails.html"
-], function (App,AddComments,Template) {
+], function (App,Comments,Template) {
 
     // Create a new module
     var CommentDetails = App.module();
@@ -14,10 +14,6 @@ define([
 
     CommentDetails.View = Backbone.View.extend({
     	initialize:function () {
-    		 this.commentList = this.collection;
-    		 this.commentListview = new AddComments.ListView({
-             model:this.commentList
-            });
     	},
 
         template:Template,
