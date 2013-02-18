@@ -18,9 +18,6 @@ define(["app", "modules/qwizbook", "modules/qwizbookrating", "text!templates/qwi
        
        this.qwizbookratingmodel = new QwizBookRating.Model();
 
-          //this.collection = new QwizBook.Collection();
-         //this.model = this.collection.get(this.qwizbookId);
-        //this.model.getqwizbook(this.qwizbookId);
     },
     
     template:"app/templates/qwizbookDetails.html",

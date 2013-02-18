@@ -14,6 +14,11 @@ define([
 
     CommentDetails.View = Backbone.View.extend({
     	initialize:function () {
+    		this.commentList = this.options.collection;
+    		this.commentlistview = new Comments.ListView({
+            model:this.commentList
+            });
+    		
     	},
 
         template:Template,
@@ -21,6 +26,7 @@ define([
         render:function (done) {
 
             this.el.innerHTML = this.template;
+             $(this.el).find("#review-content-container").append(this.commentlistview.render().el);
             return this;
         }
     });
