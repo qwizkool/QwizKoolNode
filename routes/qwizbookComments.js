@@ -19,8 +19,9 @@ module.exports = {
 AddComments:function (req, res) {
         var qwizbookComment = req.body;
         var comment = qwizbookComment.comment;
+        var description = qwizbookComment.description;
         var qwizbookId = qwizbookComment.qwizbookId;
-        QwizbookComment.addComments(comment,qwizbookId, function (err, qwizbookComment) {
+        QwizbookComment.addComments(qwizbookComment, function (err, qwizbookComment) {
             // If error send the error response
             if (err) {
                 res.send(400, err);

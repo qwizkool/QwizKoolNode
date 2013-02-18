@@ -45,6 +45,7 @@ var db = require('../lib/qwizbookComments_db');
 var QwizbookCommentsSchema = new db.Schema({
 
     comment:{type:String},
+    description:{type:String},
     qwizbookId:{type:String}
     
 });
@@ -56,11 +57,12 @@ var QwizbookCommentsData = db.conn.model('QwizbookComments', QwizbookCommentsSch
 module.exports.addComments = addComments;
 module.exports.retrieveQwizbookcomments = retrieveQwizbookcomments;
 
-function addComments(comment,qwizbookId, callback) {
+function addComments(qwizbookComment, callback) {
 
     var instance = new QwizbookCommentsData();
-    instance.comment = comment;
-    instance.qwizbookId = qwizbookId;
+    instance.comment = qwizbookComment.comment;
+    instance.description = qwizbookComment.description;
+    instance.qwizbookId = qwizbookComment.qwizbookId;
 	
    
 
@@ -79,7 +81,11 @@ function addComments(comment,qwizbookId, callback) {
 
 function retrieveQwizbookcomments(user,qwizbookId,callback)
 {
-	 QwizbookCommentsData.find(function (err, comments) {
+	 QwizbookCommentsData.find({
+		$and : [{
+			qwizbookId : qwizbookId
+		}]
+	}).execFind(function(err, comments) {
 
         if (err) {
             // All other conditions Pass as is TODO: need to cleanup.

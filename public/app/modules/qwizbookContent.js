@@ -39,7 +39,6 @@ define([
 		updateCollection:function () {
 
             $(this.el).find("#review-content-container").append(this.commentDetail.render().el);
-            this.commentDetail.reattachEvents();
         },
         template:Template,
 

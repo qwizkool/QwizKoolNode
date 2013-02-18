@@ -20,6 +20,7 @@ Comments.Model = Backbone.Model.extend({
     defaults:{
         id:null,
         comment:'qwizbook coments',
+        description:'qwizbook description',
         qwizbookId:null
     },
 
@@ -33,8 +34,9 @@ Comments.Model = Backbone.Model.extend({
         return state;
     },
 
-    addQwizbookComments:function (comments,qId) {
+    addQwizbookComments:function (comments,description,qId) {
     	this.set('comment', comments);
+    	this.set('description', description);
     	this.set('qwizbookId', qId);
     	this.action = "addQwizbookComments";
 

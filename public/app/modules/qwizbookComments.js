@@ -34,7 +34,10 @@ define([
         },
         
         commentDiv:function(e){
+        	$('#comment').val("Add comments");
+        	$('#description').val("Add Description");
         	$('#addcomments').hide();
+        	
         },
         
         addCommentDiv:function(e){
@@ -43,7 +46,11 @@ define([
         
         addComment:function(e){
         	var addComment = $('#comment').val();
-        	this.model.addQwizbookComments(addComment,this.qId);
+        	var addDescription = $('#description').val();
+        	$('#comment').val("Add comments");
+        	$('#description').val("Add Description");
+        	$('#addcomments').hide();
+        	this.model.addQwizbookComments(addComment,addDescription,this.qId);
         }
     });
 
