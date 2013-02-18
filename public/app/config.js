@@ -6,7 +6,9 @@ require.config({
   deps: ["../vendor/jam/require.config", "main"],
 
   paths: {
-    // Put paths here.
+    // Put paths here.<script src="js/bootstrap.min.js"></script>
+
+      bootstrap:"../vendor/bootstrap/js/bootstarp.min.js",
       tabs: "../assets/js/libs/tabs",
       sha256: "../assets/js/libs/sha256",
       scion: "../assets/js/libs/SCION/lib/browser/SCXML",
@@ -27,6 +29,9 @@ require.config({
           deps: ["jquery"]
       },
       sha256: {
+          deps: ["jquery"]
+      },
+      bootstrap: {
           deps: ["jquery"]
       }
 
