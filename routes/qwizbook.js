@@ -106,8 +106,6 @@ module.exports = {
                     }
                     // No error send the unique ID for the newly created book
 
-                    console.log("Filter criteria" + JSON.stringify(books));
-                    console.log("searched criteria num " + books.length);
                     res.send(JSON.stringify(books));
 
                 })

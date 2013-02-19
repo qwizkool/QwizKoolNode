@@ -46,6 +46,8 @@ var QwizbookCommentsSchema = new db.Schema({
 
     comment:{type:String},
     description:{type:String},
+    username:{type:String},
+    date:{ type:Date },
     qwizbookId:{type:String}
     
 });
@@ -57,12 +59,14 @@ var QwizbookCommentsData = db.conn.model('QwizbookComments', QwizbookCommentsSch
 module.exports.addComments = addComments;
 module.exports.retrieveQwizbookcomments = retrieveQwizbookcomments;
 
-function addComments(qwizbookComment, callback) {
+function addComments(qwizbookComment,sessionUser, callback) {
 
-    var instance = new QwizbookCommentsData();
-    instance.comment = qwizbookComment.comment;
-    instance.description = qwizbookComment.description;
-    instance.qwizbookId = qwizbookComment.qwizbookId;
+    var instance 			= new QwizbookCommentsData();
+    instance.comment 		= qwizbookComment.comment;
+    instance.description 	= qwizbookComment.description;
+	instance.qwizbookId 	= qwizbookComment.qwizbookId;
+    instance.username 	    = sessionUser.username;
+    //instance.date 			= Date.now;
 	
    
 
