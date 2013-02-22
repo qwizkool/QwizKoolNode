@@ -1,13 +1,13 @@
 define([
     // Application.
     "app",
-
+    "bootstrap",
     // Modules
     "modules/user",
     "modules/indexPage",
     "modules/userMainPage",
     "modules/qwizbookMainPage"
-], function (App, User, IndexPage, UserMainPage,QwizbookDetails) {
+], function (App, Bootstrap, User, IndexPage, UserMainPage,QwizbookDetails) {
 
     // Defining the application router, you can attach sub routers here.
     var Router = Backbone.Router.extend({
@@ -20,6 +20,7 @@ define([
         },
 
         initialize:function () {
+
         },
 
         index:function (hash) {

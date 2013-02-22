@@ -3,12 +3,12 @@ require.config({
 
   // Initialize the application with the main application file and the JamJS
   // generated configuration file.
-  deps: ["../vendor/jam/require.config", "main"],
+  deps: ["../vendor/jam/require.config","main"],
 
   paths: {
     // Put paths here.<script src="js/bootstrap.min.js"></script>
 
-      bootstrap:"../vendor/bootstrap/js/bootstarp.min.js",
+      bootstrap: "../vendor/bootstrap/js/bootstrap.min",
       tabs: "../assets/js/libs/tabs",
       sha256: "../assets/js/libs/sha256",
       scion: "../assets/js/libs/SCION/lib/browser/SCXML",
@@ -32,7 +32,8 @@ require.config({
           deps: ["jquery"]
       },
       bootstrap: {
-          deps: ["jquery"]
+          deps: ["jquery"],
+          exports: 'bootstrap'
       }
 
   }

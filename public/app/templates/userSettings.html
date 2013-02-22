@@ -1,17 +1,17 @@
-<div id="user-settings" class="guibuttons">
-    <div class="dropdown left">
-        <a href="#" class="guibutton left"><span class="icon icon96"></span><span
-                class="label">Account</span><span class="toggle"></span></a>
-
-        <div class="dropdown-slider" style="display: none; ">
-            <a href="#" class="ddm"><span class="icon icon127"></span><span class="label">Profile</span></a>
-            <a href="#" class="ddm"><span class="icon icon125"></span><span
-                    class="label">Inbox (3)</span></a>
-            <a href="#" class="ddm"><span class="icon icon196"></span><span
-                    class="label">Settings</span></a>
-            <a href="#" id="user-logout" class="ddm negative"><span class="icon icon151"></span><span
-                    class="label">Logout</span></a>
-        </div>
-        <!-- /.dropdown-slider -->
-    </div>
+<div class="btn-group pull-right">
+    <button id="user-settings" class="btn btn-small dropdown-toggle" data-placement="left" data-toggle="dropdown">
+        <i class="icon-cog"></i>
+        Settings
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li><a id="user-logout" href="#">Logout</a></li>
+        <li class="divider"></li>
+        <li><a href="#">Messages</a></li>
+        <li class="divider"></li>
+        <li><a href="#">Something else here</a></li>
+        <li class="divider"></li>
+        <li><a href="#">Separated link</a></li>
+    </ul>
 </div>
+
