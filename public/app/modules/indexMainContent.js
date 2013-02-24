@@ -40,9 +40,9 @@ define([
                 view.$("#login-status").html(statusTemplate);
 
                 if (view.model.get('isLoggedIn') === true) {
-                    view.$("#login-status").find('.status').addClass('success');
+                    view.$("#login-status").find('.alert').addClass('alert-success');
                 } else {
-                    view.$("#login-status").find('.status').addClass('error');
+                    view.$("#login-status").find('.alert').addClass('alert-error');
                 }
 
                 // Show the login status
@@ -67,9 +67,9 @@ define([
                 view.$("#registration-status").html(statusTemplate);
 
                 if (view.model.get('isRegistered') === true) {
-                    view.$("#registration-status").find('.status').addClass('success');
+                    view.$("#registration-status").find('.alert').addClass('alert-success');
                 } else {
-                    view.$("#registration-status").find('.status').addClass('error');
+                    view.$("#registration-status").find('.alert').addClass('alert-error');
                 }
 
             }
@@ -104,9 +104,6 @@ define([
         // When the user clicks sign-in, create a new user model and save it
         signIn:function () {
 
-            // clear the current login status, if present.
-            //$("#login-status").hide();
-
             // Todo: Validate the input values
             var email = $('#user-email-input').val();
             var password = $('#user-password-input').val();
@@ -119,6 +116,7 @@ define([
         },
 
         userRegisterEvent:function () {
+
             if (this.model.get('isRegistered') === true) {
                 // Go to logged in page.
                 Backbone.history.navigate("#main", true);
@@ -130,9 +128,6 @@ define([
 
         // When the user clicks sign-up, create a new user model and save it
         signUp:function () {
-
-            // clear/hide the current status
-            //$("#registration-status").hide();
 
             // Todo: Validate the input values
             var username = $('#user-reg-name-input').val();

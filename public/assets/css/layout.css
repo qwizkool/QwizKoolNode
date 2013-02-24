@@ -54,3 +54,11 @@ body {
 #reg-in-form {
     margin-top: 20px;
 }
+
+#login-status {
+    margin-top: 10px;
+}
+
+#registration-status {
+    margin-top: 10px;
+}
