@@ -40,7 +40,7 @@ define([
         setfilterParams:function () {
 
             //triggering usermaincontent.js event to get the dropdown value and change the URL
-            this.trigger('searchorfilter', {listcriteria:$('#user-filter-input').val(), listwithsearchorfilter:'user-filter-input', liston:this.options.collection});
+            this.trigger('searchorfilter', {listcriteria:$('#user-filter-input option:selected').text(), listwithsearchorfilter:'user-filter-input', liston:this.options.collection});
 
         }
     });
