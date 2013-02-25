@@ -1,13 +1,16 @@
 <!--Qwizbook List Item-->
+<!--TODO: clean up the css styles, consolidate to external CSS file.-->
 <div class="qwizbook-list-item qwizbook-panel-style clearfix" id="qwizbooklistitem-container">
+    <div class="row">
+
 
     <div class="span12 qwizbook-list-item-header">
-        <div><h3><%= title %></h3></div>
+        <div style="margin: 10px"><h3><%= title %></h3></div>
     </div>
 
     <div class="span12 qwizbook-list-item-content">
-        <div><h4>Description:</h4></div>
-        <div> <%= description %>
+        <div style="margin: 10px"><h4>Description:</h4></div>
+        <div style="margin: 10px"> <%= description %>
         </div>
     </div>
 
@@ -17,7 +20,7 @@
 
             <div class="span10 qwizbook-ratings-container">
 
-                <ul class="rating-w-fonts">
+                <ul class="rating-w-fonts" style="margin: 10px">
                     <li class="rated">R</li>
                     <li class="rated">R</li>
                     <li class="rated">R</li>
@@ -27,12 +30,12 @@
             </div>
 
             <div class="span2">
-                <button class="btn btn-large btn-primary qwizbookListItem" id="<%= _id %>">Open</button>
+                <button class="btn btn-large btn-primary qwizbookListItem pull-right" style="margin: 10px" id="<%= _id %>">Open</button>
             </div>
 
         </div>
     </div>
-
+    </div>
 </div>
 
 <!--Qwizbook List Item ends-->

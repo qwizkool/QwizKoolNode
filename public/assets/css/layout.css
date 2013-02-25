@@ -66,7 +66,7 @@ body {
 
 .qwizbook-panel-style {
     background: #FFF;
-    padding: 10px;
+    padding: 0px;
     border: thin solid #d0d0d0; /* This is the outer border, inner border will be added to the div contained within*/
     box-shadow: 0px 1px 3px #888; /* Add shadow to the form – First two values are shadow offset, third is blur radius*/
     -webkit-box-shadow: 0px 1px 3px #888;
