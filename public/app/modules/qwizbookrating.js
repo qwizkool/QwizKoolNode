@@ -58,11 +58,11 @@ define(["app"], function(App) {
 		},
 
 		addqwizbookrating : function(qbId, rating) {
-
+           
 			this.set('qbookId', qbId);
 			this.set('isRatedqwizBook', false);
 			this.set('ratingval', rating);
-
+             console.log("Rating added Qbook Id" + qbId);
 			var jqxhr = this.save({}, {
 
 				error : function(model, response) {

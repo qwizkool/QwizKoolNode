@@ -11,6 +11,7 @@
 */
 var User = require('../models/User');
 var Qwizbook = require('../models/Qwizbook');
+var QwizbookRating = require('../models/QwizbookRating');
 
 module.exports = {
 
@@ -54,12 +55,36 @@ module.exports = {
 		// No error send the unique ID for the newly created book
 		//console.log("Retreive QwizBooks");
 		//console.log(JSON.stringify(books));
-		//console.log(JSON.stringify(book));
+		console.log(JSON.stringify(book));
 		res.send(JSON.stringify(book));
 		//res.send({id : book._id});
 		//res.send({id:book.id});
 		
 		})
+		
+		QwizbookRating.retrieveQwizbookRating(sessionUser, qbookId, function(err, bookrating) {
+		// If error send the error response
+		if (err) {
+		res.send(400, err);
+		console.log(err);
+		return;
+		}
+		// No error send the unique ID for the newly created book
+		//console.log("Retreive QwizBooks");
+		//console.log(JSON.stringify(books));
+		console.log(JSON.stringify(bookrating));
+		res.send(JSON.stringify(bookrating));
+		//var mapFunction1 = function() { emit(this.rating);};
+		//console.log(JSON.stringify(bookrating).rating);
+		//res.send({id : book._id});
+		//res.send({id:book.id});
+		
+		})
+		
+		
+		
+		
+		
     },
 
     getbooks:function (req, res) {
@@ -90,8 +115,8 @@ module.exports = {
                     }
                     // No error send the unique ID for the newly created book
 
-                    console.log("searched criteria" + JSON.stringify(books));
-                    console.log("searched criteria num " + books.length);
+                    //console.log("searched criteria" + JSON.stringify(books));
+                    console.log("books searched num " + books.length);
                     res.send(JSON.stringify(books));
 
                 })
@@ -106,8 +131,29 @@ module.exports = {
                     }
                     // No error send the unique ID for the newly created book
 
-                    console.log("Filter criteria" + JSON.stringify(books));
-                    console.log("searched criteria num " + books.length);
+                    //console.log("Filter criteria" + JSON.stringify(books));
+                    console.log("books filtered num " + books.length);
+                    
+                    
+                    	
+                    for(var i in books)
+                    {
+                    	//console.log("Qwizbook Array" + books[i]);
+                    	qbookId = books[i]._id;
+                    	QwizbookRating.getQwizbookAverageRating(qbookId,function (err, bookavgrating){
+                    	if (err) {
+                            res.send(400, err);
+                            console.log(err);
+                            return;
+                        }	
+                    	
+                    // No error send the unique ID for the newly created book
+
+                    
+                    	})
+                    	
+                    }
+                    
                     res.send(JSON.stringify(books));
 
                 })
@@ -123,13 +169,13 @@ module.exports = {
                     return;
                 }
                 // No error send the unique ID for the newly created book
-
                 res.send(JSON.stringify(books));
 
             })
         }
 
     },
+    
 
     updateBook:function (req, res) {
         console.log(req.user);

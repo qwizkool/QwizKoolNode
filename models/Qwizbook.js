@@ -43,6 +43,12 @@ A question is the basic unit. A question will have one or more correct answers.
 */
 
 /*Schema definition*/
+//var mongoose = require('mongoose');
+//var Schema = mongoose.Schema;
+
+//var db = require('../lib/qwizbookrating_db');
+
+//var QwizbookRatingSchema = mongoose.model('QwizbookRating', QwizbookRatingSchema);
 
 var QwizbookSchema = new db.Schema({
 
@@ -158,6 +164,8 @@ QwizbookSchema.methods.getQwizbookForResponse = function () {
     }
 };
 
+//var QwizbookRatingData = db.conn.model('QwizbookRating', QwizbookRatingSchema);
+
 var QwizbookData = db.conn.model('Qwizbook', QwizbookSchema);
 
 // Exports
@@ -254,7 +262,7 @@ function retrieveQwizbooksOnSearch(owner, searchdata, filterdata, callback) {
     // owned by the 'owner'
 
     if (filterdata == "Recently Updated") {
-        console.log(searchdata);
+        //console.log(searchdata);
         QwizbookData.find({
             $or:[
                 {
@@ -290,7 +298,7 @@ function retrieveQwizbooksOnSearch(owner, searchdata, filterdata, callback) {
     }
 
     if (filterdata == "Most Popular") {
-        console.log(searchdata);
+        //console.log(searchdata);
         QwizbookData.find({
             $or:[
                 {
@@ -316,7 +324,7 @@ function retrieveQwizbooksOnSearch(owner, searchdata, filterdata, callback) {
                         Error:"Retreive Qwizbooks failed."
                     }, null);
                 } else {
-                    console.log(books);
+                    //console.log(books);
                     callback(null, books);
                 }
 
@@ -332,7 +340,8 @@ function retrieveQwizbooksOnFilter(owner, filterdata, callback) {
     // TODO: Complete the Retrieve Qwizbooks
     // Retrieve Qwizbooks, that are shared, public or
     // owned by the 'owner'
-
+    var qwizbookArray = new Array();
+    
     console.log("Filter Filter");
     if (filterdata == "Recently Updated") {
         QwizbookData.find().sort({
@@ -348,9 +357,12 @@ function retrieveQwizbooksOnFilter(owner, filterdata, callback) {
                     }, null);
                 } else {
                     callback(null, books);
-                }
+                    
+                    }
 
             });
+         
+            
     }
     if (filterdata == "Most Popular") {
         QwizbookData.find(function (err, books) {
