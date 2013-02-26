@@ -91,4 +91,18 @@ body {
 }
 
 
+.qwizbook-item-style {
+    background: #FFF;
+    margin-top: 10px;
+    padding: 0px;
+    border: thin solid #d0d0d0;
+}
 
+.btn-orange {
+    color: #FF8800;
+}
+
+.qwizbook-list-item-footer .qwizbook-ratings-container {
+    border-right: 1px solid #e3e3e3;
+
+}

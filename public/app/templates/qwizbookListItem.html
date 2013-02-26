@@ -1,40 +1,63 @@
 <!--Qwizbook List Item-->
 <!--TODO: clean up the css styles, consolidate to external CSS file.-->
-<div class="qwizbook-list-item qwizbook-panel-style clearfix" id="qwizbooklistitem-container">
+<div class="qwizbook-list-item qwizbook-item-style clearfix" id="qwizbooklistitem-container">
     <div class="row">
 
-
-    <div class="span12 qwizbook-list-item-header">
-        <div style="margin: 10px"><h3><%= title %></h3></div>
-    </div>
-
-    <div class="span12 qwizbook-list-item-content">
-        <div style="margin: 10px"><h4>Description:</h4></div>
-        <div style="margin: 10px"> <%= description %>
-        </div>
-    </div>
-
-    <div class="span12 qwizbook-list-item-footer">
-
-        <div class="row">
-
-            <div class="span10 qwizbook-ratings-container">
-
-                <ul class="rating-w-fonts" style="margin: 10px">
-                    <li class="rated">R</li>
-                    <li class="rated">R</li>
-                    <li class="rated">R</li>
-                    <li>R</li>
-                    <li>R</li>
-                </ul>
+        <div class="span12 qwizbook-list-item-header">
+            <div class="page-header" style="margin: 10px">
+                <h1 style="font-weight: 300"><%= title %></h1>
             </div>
+        </div>
 
-            <div class="span2">
-                <button class="btn btn-large btn-primary qwizbookListItem pull-right" style="margin: 10px" id="<%= _id %>">Open</button>
+        <div class="span12 qwizbook-list-item-content">
+
+            <div class="page-header" style="margin: 10px">
+
+                <p>
+                    <%= description %>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at elit et urna aliquet dictum. Vestibulum tincidunt neque nec justo pretium lobortis in at metus. Quisque vitae lectus a dui bibendum hendrerit. Donec sed est odio, egestas iaculis nibh. Aliquam viverra adipiscing leo non blandit. Donec pellentesque, lorem et eleifend rhoncus, nisi mi pellentesque arcu, tristique lobortis tellus tortor vel risus. Nulla tristique ipsum eu purus pharetra id luctus leo feugiat. Praesent sollicitudin metus a eros pretium dictum. Sed rhoncus consequat eros, vel blandit ante sollicitudin sit amet. Nam gravida aliquam enim, id congue velit bibendum a. Etiam in mauris vitae ipsum interdum vestibulum. Duis ultrices ullamcorper mauris, vel volutpat risus vestibulum in. Sed diam mi, dapibus at tristique sit amet, sodales eget augue. Pellentesque nulla orci, dapibus tincidunt facilisis sit amet, placerat dignissim ante. In consequat sollicitudin magna, et volutpat dui faucibus at. Nunc iaculis consequat nulla a faucibus.
+                </p>
+
             </div>
 
         </div>
-    </div>
+
+        <div class="span12 ">
+
+            <div class="row qwizbook-list-item-footer">
+
+                <div class="span5">
+                    <div class="qwizbook-ratings-container">
+                        <p class="muted text-left" style="margin-left: 10px; margin-bottom: 0px"> [1000 ratings]</p>
+                        <ul class="rating-w-fonts" style="margin: 10px">
+                            <li class="rated">R</li>
+                            <li class="rated">R</li>
+                            <li class="rated">R</li>
+                            <li>R</li>
+                            <li>R</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="span5 ">
+                    <div class="qwizbook-ratings-container">
+                        <p class="muted text-left" style="margin-left: 10px"> Your rating: </p>
+                        <ul class="rating-w-fonts text-left" style="margin: 10px;margin-bottom: 0px">
+                            <li class="rated">R</li>
+                            <li class="rated">R</li>
+                            <li class="rated">R</li>
+                            <li>R</li>
+                            <li>R</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="span2">
+                    <button class="btn btn-info qwizbookListItem" style="margin: 10px" id="<%= _id %>">Open</button>
+                </div>
+
+            </div>
+        </div>
     </div>
 </div>
 
