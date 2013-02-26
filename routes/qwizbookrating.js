@@ -73,7 +73,21 @@ module.exports = {
 
 		})
 	},
-
+ListCommentRating:function(req,res){
+var qwizbookId = req.route.params.qwizbookId;
+var sessionUser = req.user.email;
+QwizbookRating.commentUserRating(sessionUser,qwizbookId,function(err,qwizbookratings)
+{
+	if(err){
+			res.send(400, err);
+			console.log(err);
+			return;
+	}
+	else{
+		res.send(JSON.stringify(qwizbookratings));
+	}
+});
+},
 	getbook : function(req, res) {
 		var qbookId = req.route.params.id;
 
@@ -86,13 +100,7 @@ module.exports = {
 				console.log(err);
 				return;
 			}
-			// No error send the unique ID for the newly created book
-			//console.log("Retreive QwizBooks");
-			//console.log(JSON.stringify(books));
-			//console.log(JSON.stringify(book));
 			res.send(JSON.stringify(book));
-			//res.send({id : book._id});
-			//res.send({id:book.id});
 
 		})
 	},

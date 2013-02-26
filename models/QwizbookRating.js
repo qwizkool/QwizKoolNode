@@ -86,10 +86,7 @@ var QwizbookRatingData = db.conn.model('QwizbookRating', QwizbookRatingSchema);
 // Exports
 module.exports.addRating = addRating;
 module.exports.updateRating = updateRating;
-module.exports.retrieveQwizbook = retrieveQwizbook;
-module.exports.retrieveQwizbooks = retrieveQwizbooks;
-module.exports.retrieveQwizbooksOnSearch = retrieveQwizbooksOnSearch;
-module.exports.retrieveQwizbooksOnFilter = retrieveQwizbooksOnFilter;
+module.exports.commentUserRating =commentUserRating;
 //module.exports.retrieveAverageRating = retrieveAverageRating;
 
 function addRating(owner, data, callback) {
@@ -111,7 +108,7 @@ function addRating(owner, data, callback) {
 	instance.qwizbookId = data.qbookId;
 	instance.rating = data.ratingval;
 
-	instance.save(function(err) {
+	/*instance.save(function(err) {
 		if (err) {
 			// Check for duplicate key error
 			if (err.code == 11000) {
@@ -128,7 +125,14 @@ function addRating(owner, data, callback) {
 		} else {
 			callback(null, instance);
 		}
-	});
+	});*/
+	
+	
+	
+	
+	
+	
+	
 };
 
 function updateRating(owner, data, callback) {
@@ -177,172 +181,22 @@ function updateRating(owner, data, callback) {
 	});
 };
 
-function retrieveQwizbook(owner, id, callback) {
-	//var qId = db.mongoose.Types.ObjectId('510636c6586b5e5d0f00000a');
-	//var qId = db.mongoose.mongo.BSONPure.ObjectID.fromString("510636c6586b5e5d0f00000a");
-	//console.log(qId);
-	QwizbookRatingData.findById(id, function(err, book) {
+function commentUserRating(user,qwizbookId,callback)
+{
+	 QwizbookRatingData.find({
+		$and : [{
+			qwizbookId : qwizbookId,
+			userEmail : user
+		}]
+	}).execFind(function(err, comments) {
 
-		if (err) {
-			// Check for duplicate key error
+        if (err) {
+            // All other conditions Pass as is TODO: need to cleanup.
+            callback({ Error:"Retreive QwizbookComments failed." }, null);
+        } else {
+            callback(null, comments);
+        }
 
-			// All other conditions Pass as is TODO: need to cleanup.
-			callback({
-				Error : "failed Qwizbook Retreive ."
-			}, null);
-		} else {
-			callback(null, book);
-		}
-
-	});
-
-};
-
-function retrieveQwizbooks(owner, callback) {
-
-	//var instance = new QwizbookData();
-
-	//if (!owner) {
-	//callback({Error:"Login to view qwizbooks"});
-	//return;
-	//}
-
-	QwizbookRatingData.find(function(err, books) {
-
-		if (err) {
-			// Check for duplicate key error
-
-			// All other conditions Pass as is TODO: need to cleanup.
-			callback({
-				Error : "Retreive Qwizbooks failed."
-			}, null);
-		} else {
-			callback(null, books);
-		}
-
-	});
-
-};
-
-function retrieveQwizbooksOnSearch(owner, searchdata, filterdata, callback) {
-
-	var instance = new QwizbookData();
-
-	//if (!owner) {
-	//callback({Error:"Login to view qwizbooks"});
-	//return;
-	//}
-	//console.log("Search Search");
-	if (filterdata == "Recently Updated") {
-
-		QwizbookRatingData.find({
-			$or : [{
-				title : {
-					$regex : '135',
-					$options : 'i'
-				}
-			}, {
-				description : {
-					$regex : '135',
-					$options : 'i'
-				}
-			}]
-		}).sort({
-			date : -1
-		}).populate('qwizbookId').execFind(function(err, books) {
-
-			if (err) {
-				// Check for duplicate key error
-				// All other conditions Pass as is TODO: need to cleanup.
-				console.log("No" + books)
-				callback({
-
-					Error : "Retreive Qwizbooks failed."
-				}, null);
-			} else {
-				console.log("Hello" + books)
-				callback(null, books);
-			}
-
-		});
-	}
-	if (filterdata == "Most Popular") {
-		QwizbookRatingData.find({
-			$or : [{
-				title : {
-					$regex : 'searchdata',
-					$options : 'i'
-				}
-			}, {
-				description : {
-					$regex : 'searchdata',
-					$options : 'i'
-				}
-			}]
-		}).populate('qwizbookId').execFind(function(err, books) {
-
-			if (err) {
-				// Check for duplicate key error
-
-				// All other conditions Pass as is TODO: need to cleanup.
-				callback({
-					Error : "Retreive Qwizbooks failed."
-				}, null);
-			} else {
-				console.log(books);
-				callback(null, books);
-			}
-
-		});
-
-	}
-
-};
-
-function retrieveQwizbooksOnFilter(owner, filterdata, callback) {
-
-	//var instance = new QwizbookData();
-
-	//if (!owner) {
-	//callback({Error:"Login to view qwizbooks"});
-	//return;
-	//}
-	console.log("Filter Filter");
-	if (filterdata == "Recently Updated") {
-		QwizbookRatingData.find().sort({
-			date : -1
-		}).populate('qwizbookId').execFind(function(err, books) {
-
-			if (err) {
-				// Check for duplicate key error
-
-				// All other conditions Pass as is TODO: need to cleanup.
-				callback({
-					Error : "Retreive Qwizbooks failed."
-				}, null);
-			} else {
-				callback(null, books);
-			}
-
-		});
-	}
-	if (filterdata == "Most Popular") {
-		QwizbookRatingData.find().populate('qwizbookId').execFind(function(err, books) {
-
-			if (err) {
-				// Check for duplicate key error
-
-				// All other conditions Pass as is TODO: need to cleanup.
-				callback({
-					Error : "Retreive Qwizbooks failed."
-				}, null);
-			} else {
-				callback(null, books);
-			}
-
-		});
-
-	}
-
+    });
 };
 

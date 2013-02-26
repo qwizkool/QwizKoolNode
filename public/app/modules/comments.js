@@ -15,6 +15,7 @@ Comments.Model = Backbone.Model.extend({
         if (this.action == "addQwizbookComments") {
             return urlRootBase + "comments/";
         } 
+       
     },
 
     defaults:{
@@ -51,17 +52,23 @@ Comments.Model = Backbone.Model.extend({
         });
 
     }
+
+
+
 });
 
 Comments.Collection = Backbone.Collection.extend({
 
     model:Comments.Model,
     url:function () {
-        var urlRoot = "/comments";
+        
     if(this.qwizbookId)
     {
-    	urlRoot =urlRoot + "/" +this.qwizbookId;
+    	
+    	urlRoot ="/comments" + "/" +this.qwizbookId;
     }
+    
+    
     return urlRoot;
 },
  QwizbookComments:function (qwizbookId) {
@@ -81,6 +88,8 @@ List = qwizbookComments.toJSON();
 });
 
 }
+
+
 });
     
     
