@@ -98,8 +98,9 @@ function unsupported(req, res) {
 };
 
 
-app.post('/addComments', ensureAuthenticated,qwizbookComment.AddComments);
-app.get('/addComments/:qwizbookId', ensureAuthenticated,qwizbookComment.ListComments);
+app.post('/comments', ensureAuthenticated,qwizbookComment.AddComments);
+app.get('/comments/:qwizbookId', ensureAuthenticated,qwizbookComment.ListComments);
+app.get('/qwizbookrating/:qwizbookId',ensureAuthenticated,qwizbookrating.ListCommentRating)
 /*
 * User Access related routes
 */
@@ -187,7 +188,7 @@ app.post('/qwizbookrating/', ensureAuthenticated, qwizbookrating.addBookRating);
 
 
 // Update this Qwizbook Rating
-app.put('/qwizbookrating/', ensureAuthenticated, qwizbookrating.updateBookRating);
+app.put('/qwizbookrating/:id', ensureAuthenticated, qwizbookrating.updateBookRating);
 
 
 // Delete all Qwizbooks

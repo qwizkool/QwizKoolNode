@@ -90,17 +90,7 @@ define([
                 //return urlRoot;
             }
 
-            //TODO: Commented for the time being
-
-            //if (this.req_count) {
-            // urlRoot = urlRoot + "?search_str=" + this.searchval + "&sort_by=" + this.filterval + "&req_count=" + this.req_count;
-
-            //}
-
-            //if (this.page_num) {
-            // urlRoot = urlRoot + "?search_str=" + this.searchval + "&sort_by=" + this.filterval + "&req_count=" + this.req_count + "&page_num=" +this.page_num;
-
-            //}
+            
 
             return urlRoot;
 

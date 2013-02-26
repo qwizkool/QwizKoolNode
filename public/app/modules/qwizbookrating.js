@@ -11,18 +11,8 @@ define(["app"], function(App) {
 
 	QwizBookRating.Model = Backbone.Model.extend({
 
-		url : "/qwizbookrating/",
-
-		//Root of the REST url for QwizBooks
-		//urlRoot : "/qwizbookratings/",
-
-		//urlRoot:function () {
-		//urlRootBase = "/qwizbookratings/"+this.qwizbookId;
-		//if (this.qwizbookId) {
-		// return urlRootBase +this.qwizbookId;
-		//}
-
-		//},
+		urlRoot : "/qwizbookrating/",
+		
 
 		defaults : {
 			id : null,
@@ -35,15 +25,15 @@ define(["app"], function(App) {
 
 		initialize : function() {
 
-			var qwizbook = localStorage.getItem("QwizbookData");
-			console.log('dfdf' + qwizbook);
+				var qwizbook = localStorage.getItem("QwizbookData");
+			
 
 			//if (qwizbook) {
 
 			qwizbookDetails = JSON.parse(localStorage.getItem("QwizbookData"));
 			userInfo = JSON.parse(localStorage.getItem("qwizkoolUser"));
 
-			console.log(userInfo);
+			
 			if (userInfo) {
 				//this.urlroot = this.url();
 				this.set({
@@ -54,11 +44,11 @@ define(["app"], function(App) {
 				});
 
 			}
-			//}
+
 		},
 
 		addqwizbookrating : function(qbId, rating) {
-           
+
 			this.set('qbookId', qbId);
 			this.set('isRatedqwizBook', false);
 			this.set('ratingval', rating);
@@ -87,19 +77,18 @@ define(["app"], function(App) {
 				}
 			});
 
-		},
-
-		getQwizbookIdAndRating : function(qbId, rating) {
-			this.qbookId = qbId;
-			this.ratingval = rating;
-			//this.urlroot = this.url();
 		}
 	});
 
 	QwizBookRating.Collection = Backbone.Collection.extend({
 
 		model : QwizBookRating.Model,
-		url : "/qwizbookratings/"
+		url:function () {
+            var urlRoot = "/qwizbookrating/";
+
+            return urlRoot;
+
+        }
 
 	});
 

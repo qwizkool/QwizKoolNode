@@ -87,11 +87,12 @@ var QwizbookRatingData = db.conn.model('QwizbookRating', QwizbookRatingSchema);
 // Exports
 module.exports.addRating = addRating;
 module.exports.updateRating = updateRating;
+
 module.exports.retrieveQwizbookRating = retrieveQwizbookRating;
 module.exports.getQwizbookAverageRating = getQwizbookAverageRating;
-//module.exports.retrieveQwizbooks = retrieveQwizbooks;
-//module.exports.retrieveQwizbooksOnSearch = retrieveQwizbooksOnSearch;
-//module.exports.retrieveQwizbooksOnFilter = retrieveQwizbooksOnFilter;
+
+module.exports.commentUserRating =commentUserRating;
+
 //module.exports.retrieveAverageRating = retrieveAverageRating;
 
 function addRating(owner, data, callback) {
@@ -132,6 +133,13 @@ function addRating(owner, data, callback) {
 			callback(null, instance);
 		}
 	});
+	
+	
+	
+	
+	
+	
+	
 };
 
 function updateRating(owner, data, callback) {
@@ -179,6 +187,7 @@ function updateRating(owner, data, callback) {
 
 	});
 };
+
 
 
 
@@ -261,12 +270,31 @@ callback({
 
  
 });
+};
 
 	
 		
 
                 
-	
+
+function commentUserRating(user,qwizbookId,callback)
+{
+	 QwizbookRatingData.find({
+		$and : [{
+			qwizbookId : qwizbookId,
+			userEmail : user
+		}]
+	}).execFind(function(err, comments) {
+
+        if (err) {
+            // All other conditions Pass as is TODO: need to cleanup.
+            callback({ Error:"Retreive QwizbookComments failed." }, null);
+        } else {
+            callback(null, comments);
+        }
+
+    });
+
 };
 
 

@@ -1,4 +1,12 @@
-define(["app", "modules/qwizbook", "modules/qwizbookrating", "text!templates/qwizbookDetails.html"], function(App, QwizBook, QwizBookRating, Template) {
+define([
+	"app",
+	"modules/qwizbook", 
+	"modules/comments",
+	"modules/qwizbookrating",
+	"modules/qwizbookUserRating",
+	"text!templates/qwizbookDetails.html"
+	], 
+	function(App, QwizBook,Comments, QwizBookRating, QwizbookUserRating,Template) {
     // Create a new module
     var QwizbookDetails = App.module();
 
@@ -16,11 +24,58 @@ define(["app", "modules/qwizbook", "modules/qwizbookrating", "text!templates/qwi
                 }
        });
        
+       this.userCommentmodel = new QwizBookRating.Model({id:this.qwizbookId});
+      	 var jqxhr = this.userCommentmodel.fetch({
+
+                error : function(model, response) {
+                  console.log("Failed to get QwizBook!");
+                },
+
+                success : function(model, response) {
+                	if(response=='')
+                	{
+                		var rating ='';
+                		
+                	}
+                	else
+                	{
+                		var rating = response[0].rating;
+                	}
+                	
+					var html ='';
+					var i=1;
+					html += '<h5>Click to rate:</h5> <ul  class="rater rating-w-fonts">';
+                    if(rating) 
+                    {
+                    	for(i=1;i<=rating;i++)
+					{
+						html += '<li id="rating-'+i+'" class="rated" name="rating-'+i+'" value="'+i+'">R</li>';
+					}
+						if(i<=5)
+						{
+							for(j=i;j<=5;j++)
+							{
+								html += '<li id="rating-'+j+'" name="rating-'+j+'" value="'+i+'">R</li>';
+							}
+						}
+                    }
+                    else
+                    {
+                    	for(j=1;j<=5;j++)
+							{
+								html += '<li id="rating-'+j+'" name="rating-'+j+'" value="'+j+'">R</li>';
+							}
+                    }
+					
+					html +='</ul>';
+					
+					this.userRating =html;
+					}
+					
+					}); 
+      // this.qwizbookRatingUser = new QwizbookUserRating.View({qwizbookId:this.qwizbookId});
        this.qwizbookratingmodel = new QwizBookRating.Model();
 
-          //this.collection = new QwizBook.Collection();
-         //this.model = this.collection.get(this.qwizbookId);
-        //this.model.getqwizbook(this.qwizbookId);
     },
     
     template:"app/templates/qwizbookDetails.html",
@@ -34,9 +89,9 @@ define(["app", "modules/qwizbook", "modules/qwizbookrating", "text!templates/qwi
 
         qbook_template = _.template(tmpl(view.model.toJSON()));
         view.el.innerHTML = qbook_template();
-
+	
         $(view.el).find("#home-content-container").append(view.el.innerHTML);
-
+        $(view.el).find("#qwizbookUserrating").append(this.userRating);
         if (_.isFunction(done)) {
             done(view.el);
         }

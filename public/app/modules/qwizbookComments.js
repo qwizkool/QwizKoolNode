@@ -1,8 +1,8 @@
 define([
     "app",
-    "modules/addComments",
+    "modules/comments",
     "text!templates/qwizbookComments.html"
-], function (App,AddComments,Template) {
+], function (App,Comments,Template) {
 
     // Create a new module
     var Comment = App.module();
@@ -17,7 +17,7 @@ define([
         template:Template,
       	initialize:function () {
       	this.qId = this.options.qwizbookId;
-        this.model = new AddComments.Model();
+        this.model = new Comments.Model();
     	},
 
         render:function (done) {
@@ -34,7 +34,10 @@ define([
         },
         
         commentDiv:function(e){
+        	$('#comment').val("Add comments");
+        	$('#description').val("Add Description");
         	$('#addcomments').hide();
+        	
         },
         
         addCommentDiv:function(e){
@@ -43,7 +46,11 @@ define([
         
         addComment:function(e){
         	var addComment = $('#comment').val();
-        	this.model.addQwizbookComments(addComment,this.qId);
+        	var addDescription = $('#description').val();
+        	$('#comment').val("Add comments");
+        	$('#description').val("Add Description");
+        	$('#addcomments').hide();
+        	this.model.addQwizbookComments(addComment,addDescription,this.qId);
         }
     });
 
