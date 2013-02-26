@@ -38,7 +38,7 @@ module.exports = {
 			console.log("Book Details" + JSON.stringify(qwizbookrating));
 
 			res.send({
-				id : qwizbookrating._id,
+				rating : qwizbookrating.rating,
 			});
 			//res.send({id:book.id});
 
@@ -67,7 +67,7 @@ module.exports = {
 			console.log("Book Details" + JSON.stringify(qwizbookrating));
 
 			res.send({
-				id : qwizbookrating._id,
+				rating : qwizbookrating.rating,
 			});
 			//res.send({id:book.id});
 

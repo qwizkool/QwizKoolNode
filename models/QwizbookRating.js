@@ -114,6 +114,68 @@ function addRating(owner, data, callback) {
 	instance.rating = data.ratingval;
 	instance.qwizbookId = data.qbookId;
 	
+	
+	
+	
+	
+	
+	
+	/*QwizbookRatingData.find({
+		$and : [{
+			qwizbookId : data.qbookId,
+			userEmail : data.userEmail
+		}]
+	}).execFind(function(err, rating) {
+
+		if (err) {
+			// Check for duplicate key error
+
+			// All other conditions Pass as is TODO: need to cleanup.
+			callback({
+				Error : "failed Qwizbook Retreive ."
+
+			}, null);
+		} else {
+			
+			
+			callback(null, rating);
+			var query = {
+				qwizbookId : data.qbookId,
+				userEmail : data.userEmail
+			};
+			QwizbookRatingData.update(query, {
+				rating : data.ratingval
+			}, err, callback)
+			//console.log('got rating');
+		}
+
+	});
+	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	instance.save(function(err) {
 		if (err) {
@@ -131,6 +193,7 @@ function addRating(owner, data, callback) {
 			}, null);
 		} else {
 			callback(null, instance);
+			
 		}
 	});
 	

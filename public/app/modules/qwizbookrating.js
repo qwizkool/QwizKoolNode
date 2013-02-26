@@ -71,8 +71,9 @@ define(["app"], function(App) {
 					model.set({
 						action : 'none'
 					});
-					model.trigger('add-qwizbookrating-event');
-					//alert(response.ratingval);
+					//console.log(response.rating);
+					localStorage.setItem('qwizkoolUserRating', response.rating);
+					model.trigger('add-qwizbookrating-event',response.rating);
 					//model.trigger('show-qwizbookrating-event', response.ratingval);
 				}
 			});
