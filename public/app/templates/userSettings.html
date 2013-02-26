@@ -1,13 +1,15 @@
-<div class="navbar">
+<div class="navbar clearfix">
 
-        <ul class="nav clearfix" style="float: right">
+        <ul class="nav" style="float: right">
 
             <li class="dropdown" id="user-settings">
                 <a class="dropdown-toggle" data-toggle="dropdown" >
-                    <img src="../../assets/img/agent.png" class="img-polaroid">
+                    <strong><%= email %></strong>
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
+                    <li></li>
+                    <li class="divider"></li>
                     <li><a id="user-logout">Logout</a></li>
                 </ul>
             </li>
@@ -26,27 +28,9 @@
                     <li><a>Notification-4</a></li>
                 </ul>
             </li>
-            <li><h5><%= email %></h5></li>
+
         </ul>
 
 
 </div>
 
-<!--
-<div class="btn-group pull-right">
-    <button id="user-settings" class="btn  btn-link dropdown-toggle" data-toggle="dropdown" >
-        <img src="../../assets/img/agent.png" class="img-polaroid">
-        <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu">
-        <li><a id="user-logout" href="#">Logout</a></li>
-        <li class="divider"></li>
-        <li><a href="#"></a></li>
-        <li class="divider"></li>
-        <li><a href="#">Something else here</a></li>
-        <li class="divider"></li>
-        <li><a href="#">Separated link</a></li>
-    </ul>
-</div>
-
--->
