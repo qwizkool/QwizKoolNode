@@ -21,6 +21,30 @@ define([
                 },
 
                 success : function(model, response) {
+                	var rating = Math.ceil(response.value);
+                	var avgHtml ='';
+                	 if(rating && rating<=5) 
+                    {
+	                    	for(i=1;i<=rating;i++)
+						{
+							avgHtml += '<li id="rating-'+i+'" class="rated" name="rating-'+i+'" value="'+i+'">R</li>';
+						}
+						if(i<=5)
+						{
+							for(j=i;j<=5;j++)
+							{
+								avgHtml += '<li id="rating-'+j+'" name="rating-'+j+'" value="'+i+'">R</li>';
+							}
+						}
+                    }
+                    else
+                    {
+                    	for(j=1;j<=5;j++)
+							{
+								avgHtml += '<li id="rating-'+j+'" name="rating-'+j+'" value="'+j+'">R</li>';
+							}
+                    }
+                    this.averageRating = avgHtml;
                 }
        });
        
@@ -137,6 +161,7 @@ define([
 	
         $(view.el).find("#home-content-container").append(view.el.innerHTML);
         $(view.el).find("#qwizbookUserrating").append(this.userRating);
+        $(view.el).find("#average-rating").append(this.averageRating);
         if (_.isFunction(done)) {
             done(view.el);
         }

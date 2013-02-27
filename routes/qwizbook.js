@@ -56,13 +56,48 @@ module.exports = {
 		//console.log("Retreive QwizBooks");
 		//console.log(JSON.stringify(books));
 		//console.log(JSON.stringify(book));
-		res.send(JSON.stringify(book));
+		
+		
+		//res.send(JSON.stringify(book));
+		//res.send({id : book._id});
+		//res.send({id:book.id});
+		QwizbookRating.retrieveQwizbookRating(qbookId, function(err, bookrating) {
+		// If error send the error response
+		if (err) {
+		res.send(400, err);
+		console.log(err);
+		return;
+		}
+		// No error send the unique ID for the newly created book
+		//console.log("Retreive QwizBooks");
+		//console.log(JSON.stringify(books));
+		console.log(bookrating);
+		var qwizbook = ' {';
+			qwizbook +='" description":'+JSON.stringify(book.description);
+			qwizbook +=', "title":'+JSON.stringify(book.title);
+			
+			qwizbook +=', "_id":'+JSON.stringify(book._id);
+			if(bookrating=='')
+			{
+				qwizbook +=', "value":'+JSON.stringify(0);
+			}
+			else{
+				qwizbook +=', "value":'+JSON.stringify(bookrating[0].value);
+			}
+			
+			qwizbook += '} ';	
+			res.send(qwizbook);
+		//var mapFunction1 = function() { emit(this.rating);};
+		//console.log(JSON.stringify(bookrating).rating);
 		//res.send({id : book._id});
 		//res.send({id:book.id});
 		
+		})
+		
+		
 		});
 		
-		QwizbookRating.retrieveQwizbookRating(qbookId, function(err, bookrating) {
+		/*QwizbookRating.retrieveQwizbookRating(qbookId, function(err, bookrating) {
 		// If error send the error response
 		if (err) {
 		res.send(400, err);
@@ -79,7 +114,7 @@ module.exports = {
 		//res.send({id : book._id});
 		//res.send({id:book.id});
 		
-		})
+		})*/
 		
 		
 		
