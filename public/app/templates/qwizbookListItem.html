@@ -13,14 +13,22 @@
 
             <div class="page-header" style="margin: 10px">
 
-                <p>
-                    <%= description %>
-              </p>
+                <div class="media">
+
+                    <a class="pull-left" href="#">
+                        <img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif">
+                    </a>
+
+                    <div class="media-body">
+
+                        <%= description %>
+                        
+                    </div>
+
+                </div>
 
             </div>
-
         </div>
-
         <div class="span12 ">
 
             <div class="row qwizbook-list-item-footer">
@@ -52,7 +60,9 @@
                 </div>
 
                 <div class="span2">
-                    <button class="btn btn-info btn-large  qwizbookListItem" style="margin: 10px" id="<%= _id %>">Open</button>
+                    <button class="btn btn-info btn-large  qwizbookListItem" style="margin: 10px" id="<%= _id %>">
+                        Open
+                    </button>
                 </div>
 
             </div>
