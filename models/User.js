@@ -5,7 +5,7 @@
  * Time: 11:11 AM
  * To change this template use File | Settings | File Templates.
  */
-var db = require('../lib/user_db');
+var db = require('../lib/db_connection');
 
 var bcrypt = require('bcrypt');
 var SALT_WORK_FACTOR = 10;
