@@ -55,14 +55,14 @@ module.exports = {
 		// No error send the unique ID for the newly created book
 		//console.log("Retreive QwizBooks");
 		//console.log(JSON.stringify(books));
-		console.log(JSON.stringify(book));
+		//console.log(JSON.stringify(book));
 		res.send(JSON.stringify(book));
 		//res.send({id : book._id});
 		//res.send({id:book.id});
 		
-		})
+		});
 		
-		QwizbookRating.retrieveQwizbookRating(sessionUser, qbookId, function(err, bookrating) {
+		QwizbookRating.retrieveQwizbookRating(qbookId, function(err, bookrating) {
 		// If error send the error response
 		if (err) {
 		res.send(400, err);
