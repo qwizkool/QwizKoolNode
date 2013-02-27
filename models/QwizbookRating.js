@@ -70,6 +70,7 @@
 			}
 		
 		});
+
 		
 		QwizbookRatingSchema.methods.getQwizbookRatingForResponse = function() {
 		
@@ -101,11 +102,76 @@
 			// the session owner
 		
 			if (owner.email != data.userEmail) {
-				callback({
-					Error : "Qwizbook Could not be created, Please Login "
-				});
-				return;
-			}
+
+		return;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	/*QwizbookRatingData.find({
+		$and : [{
+			qwizbookId : data.qbookId,
+			userEmail : data.userEmail
+		}]
+	}).execFind(function(err, rating) {
+
+		if (err) {
+			// Check for duplicate key error
+
+			// All other conditions Pass as is TODO: need to cleanup.
+			callback({
+				Error : "failed Qwizbook Retreive ."
+
+			}, null);
+		} else {
+			
+			
+			callback(null, rating);
+			var query = {
+				qwizbookId : data.qbookId,
+				userEmail : data.userEmail
+			};
+			QwizbookRatingData.update(query, {
+				rating : data.ratingval
+			}, err, callback)
+			//console.log('got rating');
+		}
+
+	});
+	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
 		
 			var instance = new QwizbookRatingData();
 		
@@ -133,6 +199,22 @@
 			});
 		
 		};
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		function updateRating(owner, data, callback) {
 		
@@ -185,9 +267,11 @@
 			
 			var mapFunction1 = function() {
 				emit(this.qwizbookId, this.rating);
-			};
+			// All other conditions Pass as is TODO: need to cleanup.
+			
+		} 
 		
-			var reduceFunction1 = function(QbId, valuesRatings) {
+		var reduceFunction1 = function(QbId, valuesRatings) {
 				return (Array.sum(valuesRatings) / valuesRatings.length);
 			};
 		
@@ -233,10 +317,16 @@
 				}
 		
 			});
+	
+};
+
+
+		
+			
 			
 			
 		
-		};
+	
 		
 		function getQwizbookAverageRating(qid, callback) {
 			//console.log(this.qwizbookId);

@@ -24,6 +24,9 @@ define([
                 }
        });
        
+       
+       
+       
        this.userCommentmodel = new QwizBookRating.Model({id:this.qwizbookId});
       	 var jqxhr = this.userCommentmodel.fetch({
 
@@ -73,9 +76,51 @@ define([
 					}
 					
 					}); 
-      // this.qwizbookRatingUser = new QwizbookUserRating.View({qwizbookId:this.qwizbookId});
+					
+					
+       
+      //this.qwizbookRatingUser = new QwizbookUserRating.View();
+      
+       
+      
        this.qwizbookratingmodel = new QwizBookRating.Model();
+	   this.qwizbookratingmodel.on("add-qwizbookrating-event", function (rating) {
 
+                var html ='';
+               
+					var i=1;
+					html += '<h5>Click to rate:</h5> <ul  class="rater rating-w-fonts">';
+                    if(rating) 
+                    {
+                    	for(i=1;i<=rating;i++)
+					{
+						html += '<li id="rating-'+i+'" class="rated" name="rating-'+i+'" value="'+i+'">R</li>';
+					}
+						if(i<=5)
+						{
+							for(j=i;j<=5;j++)
+							{
+								html += '<li id="rating-'+j+'" name="rating-'+j+'" value="'+j+'">R</li>';
+							}
+						}
+                    }
+                    else
+                    {
+                    	for(j=1;j<=5;j++)
+							{
+								html += '<li id="rating-'+j+'" name="rating-'+j+'" value="'+j+'">R</li>';
+							}
+                    }
+					
+					html +='</ul>';
+					
+					$("#qwizbookUserrating").html(html);
+
+            });
+		
+		
+		
+		
     },
     
     template:"app/templates/qwizbookDetails.html",
