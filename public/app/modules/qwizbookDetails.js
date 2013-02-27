@@ -82,7 +82,7 @@ define([
 						{
 							for(j=i;j<=5;j++)
 							{
-								html += '<li id="rating-'+j+'" name="rating-'+j+'" value="'+i+'">R</li>';
+								html += '<li id="rating-'+j+'" name="rating-'+j+'" value="'+j+'">R</li>';
 							}
 						}
                     }
