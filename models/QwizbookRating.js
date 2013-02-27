@@ -110,76 +110,25 @@
 	
 	
 	
-	
-	
-	
-	
-	/*QwizbookRatingData.find({
-		$and : [{
-			qwizbookId : data.qbookId,
-			userEmail : data.userEmail
-		}]
-	}).execFind(function(err, rating) {
-
-		if (err) {
-			// Check for duplicate key error
-
-			// All other conditions Pass as is TODO: need to cleanup.
-			callback({
-				Error : "failed Qwizbook Retreive ."
-
-			}, null);
-		} else {
-			
-			
-			callback(null, rating);
-			var query = {
-				qwizbookId : data.qbookId,
-				userEmail : data.userEmail
-			};
-			QwizbookRatingData.update(query, {
-				rating : data.ratingval
-			}, err, callback)
-			//console.log('got rating');
-		}
-
-	});
-	*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-		
-			var instance = new QwizbookRatingData();
+	var instance = new QwizbookRatingData();
 		
 			instance.userEmail = data.userEmail;
 			instance.rating = data.ratingval;
 			instance.qwizbookId = data.qbookId;
-		
-			instance.save(function(err) {
+	
+	
+	
+	 QwizbookRatingData.findOne({
+		$and : [{
+			qwizbookId : data.qbookId,
+			userEmail : data.userEmail
+		}]
+	}, function (err, book) {
+        if (err) {
+            return callback(err);
+        }
+        if (!book) {
+        	instance.save(function(err) {
 				if (err) {
 					// Check for duplicate key error
 					if (err.code == 11000) {
@@ -197,6 +146,37 @@
 					callback(null, instance);
 				}
 			});
+        }
+        
+        else
+        {
+        	var query = {
+				qwizbookId : data.qbookId,
+				userEmail : data.userEmail
+			};
+			QwizbookRatingData.update(query,{
+						rating : data.ratingval
+					}, err, callback)
+			{
+				if (err) {
+					// Check for duplicate key error
+					
+					
+					// All other conditions Pass as is TODO: need to cleanup.
+					callback({
+						Error : "Cannot rate Qwizbook "
+					}, null);
+				} else {
+					
+					callback(null, instance);
+				}
+			}
+        }
+
+       
+
+    });
+	
 		
 		};
 		
