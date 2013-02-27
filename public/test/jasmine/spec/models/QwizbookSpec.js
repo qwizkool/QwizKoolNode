@@ -8,6 +8,7 @@ describe('Model :: Qwizbook', function () {
     var testqwizbookuniqueKey = '';
     var testqwizbookTitle = '';
     var testqwizbookDescription = '';
+    var LoremDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at elit et urna aliquet dictum. Vestibulum tincidunt neque nec justo pretium lobortis in at metus. Quisque vitae lectus a dui bibendum hendrerit. Donec sed est odio, egestas iaculis nibh. Aliquam viverra adipiscing leo non blandit. Donec pellentesque, lorem et eleifend rhoncus, nisi mi pellentesque arcu, tristique lobortis tellus tortor vel risus. Nulla tristique ipsum eu purus pharetra id luctus leo feugiat. Praesent sollicitudin metus a eros pretium dictum. Sed rhoncus consequat eros, vel blandit ante sollicitudin sit amet. Nam gravida aliquam enim, id congue velit bibendum a. Etiam in mauris vitae ipsum interdum vestibulum. Duis ultrices ullamcorper mauris, vel volutpat risus vestibulum in. Sed diam mi, dapibus at tristique sit amet, sodales eget augue. Pellentesque nulla orci, dapibus tincidunt facilisis sit amet, placerat dignissim ante. In consequat sollicitudin magna, et volutpat dui faucibus at. Nunc iaculis consequat nulla a faucibus.";
 
     beforeEach(function () {
 
@@ -18,8 +19,8 @@ describe('Model :: Qwizbook', function () {
         // Create test data for the user model
 
         var testqwizbookuniqueKey = "uniqueKey";
-        var testqwizbookTitle = "Title";
-        var testqwizbookDescription = "Description";
+        var testqwizbookTitle = "Title-";
+        var testqwizbookDescription =  "description"
 
         var that = this, done = false;
 
@@ -126,7 +127,7 @@ describe('Model :: Qwizbook', function () {
                     charArray[String.fromCharCode(a + i)] = String.fromCharCode(a + i);
                     testqwizbookuniqueKey = "uniqueKey" + charArray[String.fromCharCode(a + i)];
                     testqwizbookTitle = "Title" + charArray[String.fromCharCode(a + i)];
-                    testqwizbookDescription = "Description" + charArray[String.fromCharCode(a + i)];
+                    testqwizbookDescription = LoremDescription + charArray[String.fromCharCode(a + i)];
 
                     // Add the Qwizbook
                     qwizbook.set('uniqueKey', testqwizbookuniqueKey);
@@ -203,7 +204,7 @@ describe('Model :: Qwizbook', function () {
                 //qwizbook.set('title', testqwizbookTitle);
 
                 qwizbook.set('title', testqwizbookTitle + new Date().getTime());
-                qwizbook.set('description', testqwizbookDescription + new Date().getTime());
+                qwizbook.set('description', LoremDescription + new Date().getTime());
                 qwizbook.set('ownerEmail', owneremail);
                 qwizbook.on('create-qwizbook-event', createqwizbookEvent, this);
                 qwizbook.createqwizbook();
@@ -224,7 +225,7 @@ describe('Model :: Qwizbook', function () {
     });
 });
 
-describe("Add and Edit Qwizbook Rating ", function () {
+xdescribe("Add and Edit Qwizbook Rating ", function () {
 
     it('should add rating to Qwizbook userRating array if new users', function () {
 
