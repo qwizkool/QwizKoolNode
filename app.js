@@ -6,6 +6,8 @@ var express = require('express')
     , routes = require('./routes')
     , user = require('./routes/user')
     , qwizbook = require('./routes/qwizbook')
+    , qwizbookComment = require('./routes/qwizbookComments')
+    , qwizbookrating = require('./routes/qwizbookrating')
     , http = require('http')
     , path = require('path')
     , fs = require('fs')
@@ -96,7 +98,9 @@ function unsupported(req, res) {
 };
 
 
-
+app.post('/comments', ensureAuthenticated,qwizbookComment.AddComments);
+app.get('/comments/:qwizbookId', ensureAuthenticated,qwizbookComment.ListComments);
+app.get('/qwizbookrating/:qwizbookId',ensureAuthenticated,qwizbookrating.ListCommentRating)
 /*
 * User Access related routes
 */
@@ -119,8 +123,8 @@ app.get('/users',unsupported);
 app.get('/users/:id', ensureAuthenticated, user.getUser);
 app.put('/users',unsupported);
 app.put('/users/:id', ensureAuthenticated, user.updateUser);
-app.delete('/users', unsupported);
-app.delete('/users/:id', unsupported);
+//app.delete('/users', unsupported);
+//app.delete('/users/:id', unsupported);
 
 //app.get('/users', user.list);
 
@@ -153,10 +157,47 @@ app.put('/qwizbooks/:id', ensureAuthenticated, qwizbook.updateBook);
 
 
 // Delete all Qwizbooks
-app.delete('/qwizbooks', ensureAuthenticated, qwizbook.deleteBooks);
+//app.delete('/qwizbooks', ensureAuthenticated, qwizbook.deleteBooks);
 
 // Delete this Qwizbook
-app.delete('/qwizbooks/:id', ensureAuthenticated, qwizbook.deleteBook);
+//app.delete('/qwizbooks/:id', ensureAuthenticated, qwizbook.deleteBook);
+
+
+/*
+* Qwizbook Rating related routes
+*/
+/*
++---------------------------------+-------------------------------------------------+---------------------------------------------------------+----------------------------------------+---------------------------------------------------+
+| RESOURCE | POST(create) | GET(read) | PUT(update) | DELETE(delete) |
++---------------------------------+------------------------------------------------+----------------------------------------------------------+--------------------------------------- +--------------------------------------------------+
+| /qwizbookratings/:qbookid | add rating to a qwizbook with : qbookid | get ratings (average rating) of qwizbook with : qbookid | update qwizbook rating with : qbookid | delete all rating for qwizbooks with : qbookid |
++---------------------------------+-----------------------+------------------------+---------------------------------------------------------+---------------------------------------- +-------------------------------------------------+
+| /qwizbookratings/:id | ERROR | get qwizbookrating with :id | update qwizbookrating with :id | ERROR |
++---------------------------------+-----------------------+------------------------+---------------------------------------------------------+-----------------------------------------+-------------------------------------------------+
+*/
+
+
+// Add a Qwizbook Rating
+app.post('/qwizbookrating/', ensureAuthenticated, qwizbookrating.addBookRating);
+
+// Retrieve all qwizbooks
+//app.get('/qwizbookratings/:qbookid ', ensureAuthenticated, qwizbookrating.getBookratings);
+
+// Retrieve this Qwizbook
+//app.get('/qwizbooks/:id', ensureAuthenticated, qwizbook.getbook);
+
+
+// Update this Qwizbook Rating
+app.put('/qwizbookrating/:id', ensureAuthenticated, qwizbookrating.updateBookRating);
+
+
+// Delete all Qwizbooks
+//app.delete('/qwizbooks', ensureAuthenticated, qwizbook.deleteBooks);
+
+// Delete this Qwizbook
+//app.delete('/qwizbooks/:id', ensureAuthenticated, qwizbook.deleteBook);
+
+
 
 
 // Start the REST server
