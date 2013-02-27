@@ -33,7 +33,7 @@ define([
 						{
 							for(j=i;j<=5;j++)
 							{
-								avgHtml += '<li id="rating-'+j+'" name="rating-'+j+'" value="'+i+'">R</li>';
+								avgHtml += '<li id="rating-'+j+'" name="rating-'+j+'" value="'+j+'">R</li>';
 							}
 						}
                     }
