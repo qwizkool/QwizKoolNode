@@ -1,10 +1,3 @@
-/**
-* Created with JetBrains WebStorm.
-* User: bambalakkat
-* Date: 11/25/12
-* Time: 12:47 PM
-* To change this template use File | Settings | File Templates.
-*/
 
 /**
 * Module dependencies.
@@ -169,7 +162,7 @@ module.exports = {
                     //console.log("Filter criteria" + JSON.stringify(books));
                     console.log("books filtered num " + books.length);
                     
-                    
+
                     	
                     for(var i in books)
                     {
@@ -188,6 +181,8 @@ module.exports = {
                     	})
                     	
                     }
+
+
                     res.send(JSON.stringify(books));
 
                 })

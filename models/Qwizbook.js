@@ -1,10 +1,3 @@
-/**
-* Created with JetBrains WebStorm.
-* User: bambalakkat
-* Date: 11/25/12
-* Time: 10:56 AM
-* To change this template use File | Settings | File Templates.
-*/
 
 var db = require('../lib/db_connection');
 
