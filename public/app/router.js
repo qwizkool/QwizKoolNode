@@ -54,7 +54,8 @@ define([
         },
         
         qwizbookMain:function (id){
-        	alert(id);
+        	 var qwizbookMainPage = new QwizbookMainPage.View({ qwizbookId: id });
+             qwizbookMainPage.show();
         }
 
     });

@@ -1,10 +1,3 @@
-/**
-* Created with JetBrains WebStorm.
-* User: bambalakkat
-* Date: 11/25/12
-* Time: 10:56 AM
-* To change this template use File | Settings | File Templates.
-*/
 
 var db = require('../lib/db_connection');
 
@@ -43,6 +36,12 @@ A question is the basic unit. A question will have one or more correct answers.
 */
 
 /*Schema definition*/
+//var mongoose = require('mongoose');
+//var Schema = mongoose.Schema;
+
+//var db = require('../lib/qwizbookrating_db');
+
+//var QwizbookRatingSchema = mongoose.model('QwizbookRating', QwizbookRatingSchema);
 
 var QwizbookSchema = new db.Schema({
 
@@ -158,6 +157,8 @@ QwizbookSchema.methods.getQwizbookForResponse = function () {
     }
 };
 
+//var QwizbookRatingData = db.conn.model('QwizbookRating', QwizbookRatingSchema);
+
 var QwizbookData = db.conn.model('Qwizbook', QwizbookSchema);
 
 // Exports
@@ -212,6 +213,21 @@ function createQwizbook(owner, data, callback) {
 
 function retrieveQwizbook(owner, id, callback) {
 
+	QwizbookData.findById(id, function(err, book) {
+
+		if (err) {
+			// Check for duplicate key error
+
+			// All other conditions Pass as is TODO: need to cleanup.
+			callback({
+				Error : "failed Qwizbook Retreive ."
+			}, null);
+		} else {
+			callback(null, book);
+		}
+
+	});
+
 };
 
 function retrieveQwizbooks(owner, callback) {
@@ -239,7 +255,7 @@ function retrieveQwizbooksOnSearch(owner, searchdata, filterdata, callback) {
     // owned by the 'owner'
 
     if (filterdata == "Recently Updated") {
-        console.log(searchdata);
+        //console.log(searchdata);
         QwizbookData.find({
             $or:[
                 {
@@ -275,7 +291,7 @@ function retrieveQwizbooksOnSearch(owner, searchdata, filterdata, callback) {
     }
 
     if (filterdata == "Most Popular") {
-        console.log(searchdata);
+        //console.log(searchdata);
         QwizbookData.find({
             $or:[
                 {
@@ -301,7 +317,7 @@ function retrieveQwizbooksOnSearch(owner, searchdata, filterdata, callback) {
                         Error:"Retreive Qwizbooks failed."
                     }, null);
                 } else {
-                    console.log(books);
+                    //console.log(books);
                     callback(null, books);
                 }
 
@@ -317,7 +333,8 @@ function retrieveQwizbooksOnFilter(owner, filterdata, callback) {
     // TODO: Complete the Retrieve Qwizbooks
     // Retrieve Qwizbooks, that are shared, public or
     // owned by the 'owner'
-
+    var qwizbookArray = new Array();
+    
     console.log("Filter Filter");
     if (filterdata == "Recently Updated") {
         QwizbookData.find().sort({
@@ -333,9 +350,12 @@ function retrieveQwizbooksOnFilter(owner, filterdata, callback) {
                     }, null);
                 } else {
                     callback(null, books);
-                }
+                    
+                    }
 
             });
+         
+            
     }
     if (filterdata == "Most Popular") {
         QwizbookData.find(function (err, books) {

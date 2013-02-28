@@ -17,12 +17,9 @@ define([
             // Fetch the template, render it to the View element and call done.
             App.fetchTemplate(this.template, function (tmpl) {
                 view.el.innerHTML = tmpl();
-
-                // If a done function is passed, call it with the element
-                if (_.isFunction(done)) {
-                    done(view.el);
-                }
-
+                alert(view);
+				return view;
+                
             });
         }
 

@@ -1,10 +1,4 @@
-/**
- * Created with JetBrains WebStorm.
- * User: bambalakkat
- * Date: 11/23/12
- * Time: 11:11 AM
- * To change this template use File | Settings | File Templates.
- */
+
 var db = require('../lib/db_connection');
 
 var bcrypt = require('bcrypt');
