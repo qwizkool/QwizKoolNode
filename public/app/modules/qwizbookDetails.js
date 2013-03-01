@@ -27,13 +27,13 @@ define([
                     {
 	                    	for(i=1;i<=rating;i++)
 						{
-							avgHtml += '<li id="rating-'+i+'" class="rated" name="rating-'+i+'" value="'+i+'">R</li>';
+							avgHtml += '<li class="rated" name="rating-'+i+'" value="'+i+'">R</li>';
 						}
 						if(i<=5)
 						{
 							for(j=i;j<=5;j++)
 							{
-								avgHtml += '<li id="rating-'+j+'" name="rating-'+j+'" value="'+j+'">R</li>';
+								avgHtml += '<li name="rating-'+j+'" value="'+j+'">R</li>';
 							}
 						}
                     }
@@ -41,7 +41,7 @@ define([
                     {
                     	for(j=1;j<=5;j++)
 							{
-								avgHtml += '<li id="rating-'+j+'" name="rating-'+j+'" value="'+j+'">R</li>';
+								avgHtml += '<li name="rating-'+j+'" value="'+j+'">R</li>';
 							}
                     }
                     this.averageRating = avgHtml;
@@ -103,7 +103,6 @@ define([
 					
 					
        
-      //this.qwizbookRatingUser = new QwizbookUserRating.View();
       
        
       
@@ -183,7 +182,6 @@ define([
 
     setRating1 : function() {
 
-	     //triggering usermaincontent.js event to get the input value and change the URL
 	     this.trigger('addrating', {ratingval : $('#rating-1').val(),ratingmodel : this.qwizbookratingmodel});
      }, 
     
@@ -205,7 +203,6 @@ define([
 
 });
 
-// Required, return the module for AMD compliance
 return QwizbookDetails;
 
 });

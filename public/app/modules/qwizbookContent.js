@@ -33,13 +33,27 @@ define([
             qwizbookratingmodel.addqwizbookrating(qbookId, ratingvalue);
 
         });
+        
+        this.addComments.on("reattachcommentView", function (commentsObj)
+        {
+        	var qid = commentsObj.qId;
+        	var commentList = commentsObj.comments;
+        	this.commentDetail = new Comments.ListView({model:commentList});
+        	commentList.QwizbookComments(qid);
+        	var commentDetail = new Comments.ListView({model:commentList});
+        	commentList.refresh();
+        	
+			
+        });
 		
 			
 		},
 		updateCollection:function () {
-
             $(this.el).find("#review-content-container").append(this.commentDetail.render().el);
+           
+            
         },
+
         template:Template,
 
         render:function (done) {

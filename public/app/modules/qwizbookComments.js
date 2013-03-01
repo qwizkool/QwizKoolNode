@@ -18,6 +18,7 @@ define([
       	initialize:function () {
       	this.qId = this.options.qwizbookId;
         this.model = new Comments.Model();
+        this.qbookCommentCollection =  new Comments.Collection({qwizbookId:this.qId});
     	},
 
         render:function (done) {
@@ -32,6 +33,13 @@ define([
         	"click #writeComment":"addCommentDiv",
         	"click #addcomment":"addComment"
         },
+
+        reattachEvents:function () {
+            this.undelegateEvents();
+            this.delegateEvents(this.events);
+        },
+         
+        
         
         commentDiv:function(e){
         	$('#comment').val("Add comments");
@@ -51,6 +59,8 @@ define([
         	$('#description').val("Add Description");
         	$('#addcomments').hide();
         	this.model.addQwizbookComments(addComment,addDescription,this.qId);
+        	this.trigger('reattachcommentView', {comments:this.qbookCommentCollection,qId:this.qId});
+        	
         }
     });
 
