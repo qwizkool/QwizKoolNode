@@ -29,7 +29,7 @@ define([
                 	var rating = response[0].rating;
 					var html ='';
 					var i=1;
-					html += '<h5>Click to rate:</h5> <ul  class="rater rating-w-fonts">';
+					html += '<ul  class="rater rating-w-fonts">';
                        
 					for(i=1;i<=rating;i++)
 					{

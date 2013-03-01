@@ -110,6 +110,14 @@ body {
     border: thin solid #d0d0d0;
 }
 
+.qwizbook-comment-style {
+    background: #FFF;
+    margin-top: 10px;
+    padding: 0px;
+    border: thin solid #d0d0d0;
+}
+
+
 .btn-orange {
     color: #FF8800;
 }

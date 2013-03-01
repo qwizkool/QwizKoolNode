@@ -3,7 +3,7 @@ define([
     "modules/header",
     "modules/userSettings",
     "modules/qwizbookContent",
-    "modules/footer",
+    "modules/footer"
 ], function (App, Header, UserSettings ,QwizbookContent, Footer) {
 
     // Create a new module

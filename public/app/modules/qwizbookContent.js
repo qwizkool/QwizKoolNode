@@ -44,7 +44,6 @@ define([
 
         render:function (done) {
         	 this.el.innerHTML = this.template;
-        	 $(this.el).find("#home-content-header").append(this.breadcrumb.render().el);
         	 $(this.el).find("#home-content-container").append(this.qwizbookDetails.render().el);
         	 $(this.el).find("#review-content-header").append(this.addComments.render().el);
         	
