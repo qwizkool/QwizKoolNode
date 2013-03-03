@@ -98,30 +98,30 @@ function unsupported(req, res) {
 };
 
 
-app.post('/comments', ensureAuthenticated,qwizbookComment.AddComments);
-app.get('/comments/:qwizbookId', ensureAuthenticated,qwizbookComment.ListComments);
-app.get('/qwizbookrating/:qwizbookId',ensureAuthenticated,qwizbookrating.ListCommentRating)
+app.post('/comments', ensureAuthenticated, qwizbookComment.AddComments);
+app.get('/comments/:qwizbookId', ensureAuthenticated, qwizbookComment.ListComments);
+app.get('/qwizbookrating/:qwizbookId', ensureAuthenticated, qwizbookrating.ListCommentRating)
 /*
-* User Access related routes
-*/
+ * User Access related routes
+ */
 app.post('/login', passport.authenticate('local'), user.login);
 app.post('/logout', user.logout);
 
 /*
-+-----------+-------------------+--------------------+----------------------+----------------+
-| RESOURCE  |   POST(create)    |     GET(read)      |     PUT(update)      | DELETE(delete) |
-+-----------+-------------------+--------------------+----------------------+----------------+
-| /users    | create a new user | ERROR              | ERROR                | ERROR          |
-+-----------+-------------------+--------------------+----------------------+----------------+
-|/users/:id | ERROR             | get  user with :id | update user with :id | ERROR          |
-+-----------+-------------------+--------------------+----------------------+----------------+
-*/
+ +-----------+-------------------+--------------------+----------------------+----------------+
+ | RESOURCE  |   POST(create)    |     GET(read)      |     PUT(update)      | DELETE(delete) |
+ +-----------+-------------------+--------------------+----------------------+----------------+
+ | /users    | create a new user | ERROR              | ERROR                | ERROR          |
+ +-----------+-------------------+--------------------+----------------------+----------------+
+ |/users/:id | ERROR             | get  user with :id | update user with :id | ERROR          |
+ +-----------+-------------------+--------------------+----------------------+----------------+
+ */
 
 app.post('/users', user.register);
-app.post('/users/:id',unsupported);
-app.get('/users',unsupported);
+app.post('/users/:id', unsupported);
+app.get('/users', unsupported);
 app.get('/users/:id', ensureAuthenticated, user.getUser);
-app.put('/users',unsupported);
+app.put('/users', unsupported);
 app.put('/users/:id', ensureAuthenticated, user.updateUser);
 //app.delete('/users', unsupported);
 //app.delete('/users/:id', unsupported);
@@ -132,14 +132,14 @@ app.put('/users/:id', ensureAuthenticated, user.updateUser);
  * Qwizbook related routes
  */
 /*
-+----------------+-----------------------+------------------------+--------------------------+--------------------------+
-|    RESOURCE    |     POST(create)      |       GET(read)        |       PUT(update)        |      DELETE(delete)      |
-+----------------+-----------------------+------------------------+--------------------------+--------------------------+
-| /qwizbooks     | create a new qwizbook | get qwizbooks          | bulk update qwizbooks    | delete all qwizbooks     |
-+----------------+-----------------------+------------------------+--------------------------+--------------------------+
-| /qwizbooks/:id | ERROR                 | get qwizbook with :id  | update qwizbook with :id | delete qwizbook with :id |
-+----------------+-----------------------+------------------------+--------------------------+--------------------------+
-*/
+ +----------------+-----------------------+------------------------+--------------------------+--------------------------+
+ |    RESOURCE    |     POST(create)      |       GET(read)        |       PUT(update)        |      DELETE(delete)      |
+ +----------------+-----------------------+------------------------+--------------------------+--------------------------+
+ | /qwizbooks     | create a new qwizbook | get qwizbooks          | bulk update qwizbooks    | delete all qwizbooks     |
+ +----------------+-----------------------+------------------------+--------------------------+--------------------------+
+ | /qwizbooks/:id | ERROR                 | get qwizbook with :id  | update qwizbook with :id | delete qwizbook with :id |
+ +----------------+-----------------------+------------------------+--------------------------+--------------------------+
+ */
 
 
 // Create a Qwizbook
@@ -164,18 +164,17 @@ app.put('/qwizbooks/:id', ensureAuthenticated, qwizbook.updateBook);
 
 
 /*
-* Qwizbook Rating related routes
-*/
+ * Qwizbook Rating related routes
+ */
 /*
-+---------------------------------+-------------------------------------------------+---------------------------------------------------------+----------------------------------------+---------------------------------------------------+
-| RESOURCE | POST(create) | GET(read) | PUT(update) | DELETE(delete) |
-+---------------------------------+------------------------------------------------+----------------------------------------------------------+--------------------------------------- +--------------------------------------------------+
-| /qwizbookratings/:qbookid | add rating to a qwizbook with : qbookid | get ratings (average rating) of qwizbook with : qbookid | update qwizbook rating with : qbookid | delete all rating for qwizbooks with : qbookid |
-+---------------------------------+-----------------------+------------------------+---------------------------------------------------------+---------------------------------------- +-------------------------------------------------+
-| /qwizbookratings/:id | ERROR | get qwizbookrating with :id | update qwizbookrating with :id | ERROR |
-+---------------------------------+-----------------------+------------------------+---------------------------------------------------------+-----------------------------------------+-------------------------------------------------+
-*/
-
+ +---------------------------------+-------------------------------------------------+---------------------------------------------------------+----------------------------------------+---------------------------------------------------+
+ | RESOURCE | POST(create) | GET(read) | PUT(update) | DELETE(delete) |
+ +---------------------------------+------------------------------------------------+----------------------------------------------------------+--------------------------------------- +--------------------------------------------------+
+ | /qwizbookratings/:qbookid | add rating to a qwizbook with : qbookid | get ratings (average rating) of qwizbook with : qbookid | update qwizbook rating with : qbookid | delete all rating for qwizbooks with : qbookid |
+ +---------------------------------+-----------------------+------------------------+---------------------------------------------------------+---------------------------------------- +-------------------------------------------------+
+ | /qwizbookratings/:id | ERROR | get qwizbookrating with :id | update qwizbookrating with :id | ERROR |
+ +---------------------------------+-----------------------+------------------------+---------------------------------------------------------+-----------------------------------------+-------------------------------------------------+
+ */
 
 // Add a Qwizbook Rating
 app.post('/qwizbookrating/', ensureAuthenticated, qwizbookrating.addBookRating);

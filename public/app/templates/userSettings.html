@@ -1,17 +1,36 @@
-<div id="user-settings" class="guibuttons">
-    <div class="dropdown left">
-        <a href="#" class="guibutton left"><span class="icon icon96"></span><span
-                class="label">Account</span><span class="toggle"></span></a>
+<!--TODO: clean up the css styles, consolidate to external CSS file.-->
+<div class="navbar clearfix">
 
-        <div class="dropdown-slider" style="display: none; ">
-            <a href="#" class="ddm"><span class="icon icon127"></span><span class="label">Profile</span></a>
-            <a href="#" class="ddm"><span class="icon icon125"></span><span
-                    class="label">Inbox (3)</span></a>
-            <a href="#" class="ddm"><span class="icon icon196"></span><span
-                    class="label">Settings</span></a>
-            <a href="#" id="user-logout" class="ddm negative"><span class="icon icon151"></span><span
-                    class="label">Logout</span></a>
-        </div>
-        <!-- /.dropdown-slider -->
-    </div>
+    <ul class="nav" style="float: right">
+
+        <li class="dropdown" id="user-settings">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+                <b style="font-size: 16px;font-weight: 400"><%= email %></b>
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li></li>
+                <li class="divider"></li>
+                <li><a id="user-logout">Logout</a></li>
+            </ul>
+        </li>
+
+        <li class="dropdown ">
+            <a id="user-notification" class="dropdown-toggle" data-toggle="dropdown">
+                <span class="badge badge-info ">4</span>
+            </a>
+            <ul class="dropdown-menu pull-right">
+                <li><a>Notification-1Notification-1</a></li>
+                <li class="divider"></li>
+                <li><a>Notification-2</a></li>
+                <li class="divider"></li>
+                <li><a>Notification-3</a></li>
+                <li class="divider"></li>
+                <li><a>Notification-4</a></li>
+            </ul>
+        </li>
+
+    </ul>
+
 </div>
+

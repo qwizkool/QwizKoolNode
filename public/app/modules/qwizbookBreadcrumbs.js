@@ -1,7 +1,7 @@
 define([
     "app",
     "text!templates/qwizbookBreadcrumbs.html"
-], function (App,Template) {
+], function (App, Template) {
 
     // Create a new module
     var Breadcrumb = App.module();

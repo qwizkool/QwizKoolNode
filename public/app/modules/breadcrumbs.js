@@ -18,8 +18,8 @@ define([
             App.fetchTemplate(this.template, function (tmpl) {
                 view.el.innerHTML = tmpl();
                 alert(view);
-				return view;
-                
+                return view;
+
             });
         }
 

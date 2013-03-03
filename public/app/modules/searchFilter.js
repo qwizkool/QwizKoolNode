@@ -1,6 +1,6 @@
 define([
     "app",
-     "text!templates/searchFilter.html"
+    "text!templates/searchFilter.html"
 ], function (App, Template) {
 
     // Create a new module
@@ -8,7 +8,7 @@ define([
 
     Searchfilter.View = Backbone.View.extend({
 
-        template: Template,
+        template:Template,
 
         initialize:function () {
 
@@ -40,7 +40,7 @@ define([
         setfilterParams:function () {
 
             //triggering usermaincontent.js event to get the dropdown value and change the URL
-            this.trigger('searchorfilter', {listcriteria:$('#user-filter-input').val(), listwithsearchorfilter:'user-filter-input', liston:this.options.collection});
+            this.trigger('searchorfilter', {listcriteria:$('#user-filter-input option:selected').text(), listwithsearchorfilter:'user-filter-input', liston:this.options.collection});
 
         }
     });

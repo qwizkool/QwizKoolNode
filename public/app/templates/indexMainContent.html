@@ -1,62 +1,88 @@
-<div id="qwizkool-content" class="row">
-    <div id="qwizkool-content-side" class="ten columns add-bottom">
-        <div class="nine columns offset-by-one">
-            <hgroup>
-                <h2> Learning Redefined.</h2>
-            </hgroup>
-        </div>
-        <figure id="qwizkool-main-image" class="row">
-            <img class="hero-image scaled-image" src="../../assets/img/knowledge.gif"/>
-        </figure>
-        <div class="band social_connection eight columns offset-by-one">
-            <div class="row clearfix">
-                <div class="six columns clearfix offset-by-one">
-                    <h1 class="connect">Connect with us</h1>
-                </div>
-                <div class="six columns clearfix offset-by-one">
-                    <div class="two columns alpha">
-                        <h1 class="logo_facebook"><a href=""> Facebook</a></h1>
-                    </div>
-                    <div class="two columns">
-                        <h1 class="logo_googleplus"><a href=""> Google+</a></h1>
-                    </div>
-                    <div class="two columns omega">
-                        <h1 class="logo_twitter"><a href=""> Twitter</a></h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="qwizkool-sign-in" class="six columns">
-        <div id="sign-in-form" class="row panel-style">
-            <div class="row remove-bottom">
-                <input class="text email" type="text" placeholder="Email" id="user-email-input" autofocus required/>
-                <input class="text password" type="password" placeholder="Password" id="user-password-input"
-                       required/>
-                <button class="full-width button" id="signin-button">
-                    Sign In
-                </button>
-            </div>
-            <div class="offset-by-three">
-                <a href="#" class="forgot_link">Forgot Password?</a>
-            </div>
-            <div class="row" id="login-status"></div>
-        </div>
+<div id="qwizkool-content">
+
+    <div id="qwizkool-content-side" class="span8">
+
         <div class="row">
-            <hgroup>
-                <h4> Sign up and see for yourself.</h4>
-            </hgroup>
-        </div>
-        <div id="reg-in-form" class="row panel-style">
-            <div class="row remove-bottom">
-                <input class="text user" type="text" placeholder="Username" id="user-reg-name-input"/>
-                <input class="text email" type="text" placeholder="Email" id="user-reg-email-input"/>
-                <input class="text password" type="password" placeholder="Password" id="user-reg-password-input"/>
-                <button class="full-width button" id="register-button">
-                    Sign Up for Qwizkool
-                </button>
-                <div class="row" id="registration-status"></div>
+            <div class="span8">
+                <!--<img class="img scaled-image" style="max-width: 95%" src="../../assets/img/knowledge.gif"/>-->
+                <div class="hero-unit" id="hero-unit-qwizkoolmain">
+
+                        <h3>Learning redefined. <small>Web is your text book!!</small></h3>
+
+
+                    <img class="img scaled-image" style="max-width: 95%" src="../../assets/img/knowledge.gif"/>
+                </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="span8" id="connect">
+                <h2 class="text-left">Connect with us</h2>
+
+                <div class="row">
+                    <div class="span2">
+                        <h4 class="logo_facebook text-left"><a href=""> Facebook</a></h4>
+                    </div>
+                    <div class="span2">
+                        <h4 class="logo_googleplus text-left"><a href=""> Google+</a></h4>
+                    </div>
+                    <div class="span2">
+                        <h4 class="logo_twitter text-left"><a href=""> Twitter</a></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="qwizkool-content-form" class="span4">
+
+        <div class="row">
+
+            <div id="sign-in-form" class="panel-style">
+
+                <input class="input-block-level" type="text" placeholder="Email" id="user-email-input"/>
+                <input class="input-block-level" type="password" placeholder="Password" id="user-password-input"/>
+                <label class="checkbox">
+                    <input type="checkbox" value="remember-me"> Remember me
+                </label>
+
+                <div class="row">
+                    <div class="span2">
+                        <div class="btn btn-large btn-primary" id="signin-button">
+                            Sign In
+                        </div>
+                    </div>
+                    <div class="span2">
+                        <a href="#" class="forgot_link">Forgot Password?</a>
+                    </div>
+                </div>
+
+                <div id="login-status"></div>
+
+            </div>
+
+        </div>
+
+
+        <div class="row">
+
+            <div id="reg-in-form" class="panel-style">
+                
+                <h4> Sign up and see for yourself.</h4>
+
+                <input class="input-block-level" type="text" placeholder="Username" id="user-reg-name-input"/>
+                <input class="input-block-level" type="text" placeholder="Email" id="user-reg-email-input"/>
+                <input class="input-block-level" type="password" placeholder="Password" id="user-reg-password-input"/>
+
+                <div class="btn btn-large btn-primary" id="register-button">
+                    Sign Up for Qwizkool
+                </div>
+
+                <div  id="registration-status"></div>
+            </div>
+
+        </div>
+
     </div>
 </div>

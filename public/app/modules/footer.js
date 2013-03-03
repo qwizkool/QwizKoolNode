@@ -1,7 +1,7 @@
 define([
     "app",
     "text!templates/footer.html"
-], function (App,Template) {
+], function (App, Template) {
 
     // Create a new module
     var Footer = App.module();

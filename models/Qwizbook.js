@@ -1,46 +1,38 @@
-/**
-* Created with JetBrains WebStorm.
-* User: bambalakkat
-* Date: 11/25/12
-* Time: 10:56 AM
-* To change this template use File | Settings | File Templates.
-*/
-
-var db = require('../lib/qwizbook_db');
+var db = require('../lib/db_connection');
 
 /*
 
-Qwizbook definition
+ Qwizbook definition
 
-Qwizbook has sections[]. Each Sections has pages[]. Each Page has one Question.
+ Qwizbook has sections[]. Each Sections has pages[]. Each Page has one Question.
 
-The transition from one section to another is managed by the qwizbook FSM and
-the rules/criteria defined in the FSM.
+ The transition from one section to another is managed by the qwizbook FSM and
+ the rules/criteria defined in the FSM.
 
-Inside each section, the transition happens from one page to another in a linear
-fashion.
+ Inside each section, the transition happens from one page to another in a linear
+ fashion.
 
-A Qwizbook can have reference module. A reference module is a collection of the following
+ A Qwizbook can have reference module. A reference module is a collection of the following
 
-- Links to external videos[]
-- links to web pages[]
-- links to Images[]
-- links to wiki like pages[] created by user (internal to Qwizkool)
+ - Links to external videos[]
+ - links to web pages[]
+ - links to Images[]
+ - links to wiki like pages[] created by user (internal to Qwizkool)
 
-A Qwizbook can have comments posted by the registered users.
+ A Qwizbook can have comments posted by the registered users.
 
-A collection of hints can be associated with the a page. every time a user refers to a hint. The points
-will be deducted accordingly. This will affect the criteria that decides the progress from one section to
-another.
+ A collection of hints can be associated with the a page. every time a user refers to a hint. The points
+ will be deducted accordingly. This will affect the criteria that decides the progress from one section to
+ another.
 
-A qwizbook page can have comments posted by the registered users.
+ A qwizbook page can have comments posted by the registered users.
 
-Comments will be moderated by the Qwizbook owner. Comments will be active only after the owners approval.
-CAPTCHA based Spam prevention will be used for comments.
+ Comments will be moderated by the Qwizbook owner. Comments will be active only after the owners approval.
+ CAPTCHA based Spam prevention will be used for comments.
 
-A question is the basic unit. A question will have one or more correct answers.
+ A question is the basic unit. A question will have one or more correct answers.
 
-*/
+ */
 
 /*Schema definition*/
 //var mongoose = require('mongoose');
@@ -220,20 +212,20 @@ function createQwizbook(owner, data, callback) {
 
 function retrieveQwizbook(owner, id, callback) {
 
-	QwizbookData.findById(id, function(err, book) {
+    QwizbookData.findById(id, function (err, book) {
 
-		if (err) {
-			// Check for duplicate key error
+        if (err) {
+            // Check for duplicate key error
 
-			// All other conditions Pass as is TODO: need to cleanup.
-			callback({
-				Error : "failed Qwizbook Retreive ."
-			}, null);
-		} else {
-			callback(null, book);
-		}
+            // All other conditions Pass as is TODO: need to cleanup.
+            callback({
+                Error:"failed Qwizbook Retreive ."
+            }, null);
+        } else {
+            callback(null, book);
+        }
 
-	});
+    });
 
 };
 
@@ -341,7 +333,7 @@ function retrieveQwizbooksOnFilter(owner, filterdata, callback) {
     // Retrieve Qwizbooks, that are shared, public or
     // owned by the 'owner'
     var qwizbookArray = new Array();
-    
+
     console.log("Filter Filter");
     if (filterdata == "Recently Updated") {
         QwizbookData.find().sort({
@@ -357,12 +349,12 @@ function retrieveQwizbooksOnFilter(owner, filterdata, callback) {
                     }, null);
                 } else {
                     callback(null, books);
-                    
-                    }
+
+                }
 
             });
-         
-            
+
+
     }
     if (filterdata == "Most Popular") {
         QwizbookData.find(function (err, books) {

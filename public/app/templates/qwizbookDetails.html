@@ -1,44 +1,71 @@
-  <!--Qwizbook List Item-->
-            <div class="remove-bottom qwizbook-item">
+<!--TODO: clean up the css styles, consolidate to external CSS file.-->
+<div class="qwizbook-item qwizbook-item-style clearfix" id="qwizbookitem-container">
+    <div class="row">
 
-                <div class="qwizbook-header">
-                    <div><h3><%=title %></h3></div>
-                </div>
+        <div class="span12 qwizbook-list-item-header">
+            <div class="page-header" style="margin: 10px">
+                <h1 style="font-weight: 300"><%= title %></h1>
+            </div>
+        </div>
 
-                <div class="qwizbook-item-content clearfix">
+        <div class="span12 qwizbook-list-item-content">
 
-                    <div class="three columns " id="qwizbook-main-image">
-                        <img src="assets/img/placeholder.png" class="scaled-image">
+            <div class="page-header" style="margin: 10px">
+
+                <div class="media">
+
+                    <a class="pull-left">
+                        <img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-228x332.gif">
+                    </a>
+
+                    <div class="media-body">
+
+                        <%= description %>
+
                     </div>
-                    <div class="row qwizbook-details">
-                        <div>
-                            <div><h4>Description:</h4></div>
-                            <div><%=description %>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="row qwizbook-footer">
-                    <div class="qwizbook-rated-container">
-                        <h5>Average rating:</h5>
-                        <ul id="average-rating" class="rater rating-w-fonts">
-                           
-                        </ul>
-                    </div>
-                    <div id="user-rating">
-                    	 <div id="qwizbookUserrating" class="qwizbook-to-be-rated-container">
-                        
-                    </div>
-                    </div>
-                   
 
                 </div>
-                <button class="full-width">
-                    <h4>Start</h4>
-
-                </button>
 
             </div>
+        </div>
+        <div class="span12 ">
+
+            <div class="row qwizbook-list-item-footer">
+
+                <div class="span5">
+                    <div class="qwizbook-ratings-container">
+                        <p class="muted text-left" style="margin-left: 10px; margin-bottom: 0px"> 1000 ratings</p>
+                        <ul id="average-rating"  class="rating-w-fonts" style="margin: 10px">
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="span5 ">
+                    <div class="qwizbook-ratings-container">
+                        <p class="muted text-left" style="margin-left: 10px"> Click to rate: </p>
+                        <ul id="qwizbookUserrating" class="rating-w-fonts text-left" style="margin: 10px;margin-bottom: 0px">
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="span2">
+                    <div style="padding: 10px">
+                        <button class="btn btn-info btn-large btn-block  qwizbookListItem" >
+                            Start
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
