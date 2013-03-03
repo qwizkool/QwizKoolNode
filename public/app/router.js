@@ -4,10 +4,11 @@ define([
     "bootstrap",
     // Modules
     "modules/user",
+    "modules/qwizbook",
     "modules/indexPage",
     "modules/userMainPage",
     "modules/qwizbookMainPage"
-], function (App, Bootstrap, User, IndexPage, UserMainPage,QwizbookMainPage) {
+], function (App, Bootstrap, User, Qwizbook, IndexPage, UserMainPage,QwizbookMainPage) {
 
     // Defining the application router, you can attach sub routers here.
     var Router = Backbone.Router.extend({
@@ -54,6 +55,10 @@ define([
         },
         
         qwizbookMain:function (id){
+
+             // Fetch the specified qwizbook and then trigger all the view creation.
+             var selectedQwizbook = new Qwizbook.Model({id:id});
+
         	 var qwizbookMainPage = new QwizbookMainPage.View({ qwizbookId: id });
              qwizbookMainPage.show();
         }

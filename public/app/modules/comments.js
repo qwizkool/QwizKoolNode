@@ -1,7 +1,8 @@
 define([
     "app",
-    "sha256"
-], function (App, Sha256) {
+    "text!templates/commentList.html",
+    "text!templates/commentListView.html"
+], function (App, TemplateList, TemplateListView) {
 
     // Create a new module
     var Comments = App.module();
@@ -93,7 +94,7 @@ define([
     Comments.Router = Backbone.Router.extend({/* ... */ });
 
     Comments.View = Backbone.View.extend({
-        template:"app/templates/commentListView.html",
+        template:TemplateListView,
 
         initialize:function () {
             //this.model = new QwizBook.Model();
@@ -101,26 +102,15 @@ define([
 
         render:function (done) {
             var view = this;
-            var qcomments_template;
-
-            // Fetch the template, render it to the View element and call done.
-            App.fetchTemplate(this.template, function (tmpl) {
-                //alert("Templ " + tmpl(view.model.toJSON()) + " " + "json" + view.model.get('title'));
-                qcomments_template = _.template(tmpl(view.model.toJSON()));
-                view.el.innerHTML = qcomments_template();
-
-                // If a done function is passed, call it with the element
-                if (_.isFunction(done)) {
-                    done(view.el);
-                }
-            });
+            view.el.innerHTML = _.template(this.template, this.model.toJSON());
+            return view;
         }
 
     });
 
     Comments.ListView = Backbone.View.extend({
 
-        template:"app/templates/commentList.html",
+        template:TemplateList,
 
         initialize:function () {
 
@@ -129,35 +119,22 @@ define([
         render:function (done) {
 
             var view = this;
-            var commentTemplate;
+            view.el.innerHTML = _.template(this.template, this.model.toJSON());
 
-            // Fetch the template, render it to the View element and call done.
-            App.fetchTemplate(this.template, function (tmpl) {
+            _.each(view.model.models, function (comment) {
 
-                commentTemplate = _.template(tmpl());
-                view.el.innerHTML = commentTemplate();
-                _.each(view.model.models, function (comment) {
-                    var commentView = new Comments.View({
-                        model:comment
-                    });
-                    commentView.render(function (elv) {
-
-                        $(view.el).find("#home-content-container").append(elv);
-                    });
+                var commentView = new Comments.View({
+                    model:comment
                 });
 
-// If a done function is passed, call it with the element
-                if (_.isFunction(done)) {
-                    done(view.el);
-                }
+                $(view.el).find("#home-content-container").append(commentView.render().el);
+
             });
 
-            return this;
+            return view;
         }
     });
 
-
-    // Required, return the module for AMD compliance
     return Comments;
 
 });

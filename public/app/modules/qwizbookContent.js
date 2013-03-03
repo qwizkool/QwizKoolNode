@@ -17,16 +17,19 @@ define([
 
 
         initialize:function () {
+
             this.breadcrumb = new Breadcrumb.View();
             this.qwizbookId = this.options.qwizbookId;
             this.qwizbookDetails = new QwizbookDetails.View({qwizbookId:this.qwizbookId});
 
-
-            this.commentList = new Comments.Collection({qwizbookId:this.qwizbookId});
             this.addComments = new QwizbookComments.View({qwizbookId:this.qwizbookId});
             this.commentDetail = new Comments.ListView({model:this.commentList});
+
+            this.commentList = new Comments.Collection({qwizbookId:this.qwizbookId});
             this.commentList.QwizbookComments(this.qwizbookId);
             this.commentList.on("reset", this.updateCollection, this);
+
+            this.qwizbookDetails = new QwizbookDetails.View({qwizbookId:this.qwizbookId});
             this.qwizbookDetails.on("addrating", function (ratingdataObj) {
 
                 var ratingvalue = ratingdataObj.ratingval;
