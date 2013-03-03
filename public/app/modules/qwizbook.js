@@ -55,7 +55,7 @@ define([
                 success:function (model, response) {
 
                     model.set({
-                        AddedqwizBookStatus:true,
+                        isAddedqwizBook:true,
                         AddedqwizBookStatus:"Successfully Added Qwizbook" + model.get('title') + "Qwizbook id is #" + model.get('id') + ".",
                         action:'none'
                     });
