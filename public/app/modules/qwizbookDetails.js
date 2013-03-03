@@ -43,8 +43,7 @@ define([
 
 
             this.userCommentmodel = new QwizBookRating.Model({id:this.qwizbookId});
-            //TODO: All module.fetch() need to be converted to use the require.js text!
-            // for downloading templates.
+
             var jqxhr = this.userCommentmodel.fetch({
 
                 error:function (model, response) {
@@ -122,29 +121,21 @@ define([
 
         },
 
-        template:"app/templates/qwizbookDetails.html",
+        template:Template,
 
         render:function (done) {
 
             var view = this;
-            var qbook_template;
-            // Fetch the template, render it to the View element and call done.
-            App.fetchTemplate(this.template, function (tmpl) {
 
-                qbook_template = _.template(tmpl(view.model.toJSON()));
-                view.el.innerHTML = qbook_template();
 
-                $(view.el).find("#home-content-container").append(view.el.innerHTML);
-                $(view.el).find("#qwizbookUserrating").append(this.userRating);
-                $(view.el).find("#average-rating").append(this.averageRating);
-                if (_.isFunction(done)) {
-                    done(view.el);
-                }
-                //return view;
-                // If a done function is passed, call it with the element
+            view.el.innerHTML = _.template(Template, this.model.toJSON());
+            console.log(view.el.innerHTML);
+            $(view.el).find("#home-content-container").append(view.el.innerHTML);
+            $(view.el).find("#qwizbookUserrating").append(this.userRating);
+            $(view.el).find("#average-rating").append(this.averageRating);
 
-            });
-            return view;
+
+            return this;
 
         },
 

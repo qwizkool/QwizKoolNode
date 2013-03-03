@@ -1,6 +1,6 @@
 define([
     "app",
-     "text!templates/searchFilter.html"
+    "text!templates/searchFilter.html"
 ], function (App, Template) {
 
     // Create a new module
@@ -8,7 +8,7 @@ define([
 
     Searchfilter.View = Backbone.View.extend({
 
-        template: Template,
+        template:Template,
 
         initialize:function () {
 

@@ -2,7 +2,7 @@ define([
     "app",
     "modules/comments",
     "text!templates/commentDetails.html"
-], function (App,Comments,Template) {
+], function (App, Comments, Template) {
 
     // Create a new module
     var CommentDetails = App.module();
@@ -13,20 +13,20 @@ define([
     CommentDetails.Router = Backbone.Router.extend({ /* ... */ });
 
     CommentDetails.View = Backbone.View.extend({
-    	initialize:function () {
-    		this.commentList = this.options.collection;
-    		this.commentlistview = new Comments.ListView({
-            model:this.commentList
+        initialize:function () {
+            this.commentList = this.options.collection;
+            this.commentlistview = new Comments.ListView({
+                model:this.commentList
             });
-    		
-    	},
+
+        },
 
         template:Template,
 
         render:function (done) {
 
             this.el.innerHTML = this.template;
-             $(this.el).find("#review-content-container").append(this.commentlistview.render().el);
+            $(this.el).find("#review-content-container").append(this.commentlistview.render().el);
             return this;
         }
     });

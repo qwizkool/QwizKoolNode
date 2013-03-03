@@ -102,7 +102,7 @@ module.exports = {
                         console.log(err);
                         return;
                     }
-                     //console.log("searched criteria" + JSON.stringify(books));
+                    //console.log("searched criteria" + JSON.stringify(books));
                     console.log("books searched num " + books.length);
                     res.send(JSON.stringify(books));
 
@@ -131,7 +131,7 @@ module.exports = {
                                 res.send(400, err);
                                 return;
                             }
-                       })
+                        })
 
                     }
 

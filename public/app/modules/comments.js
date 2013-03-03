@@ -34,7 +34,7 @@ define([
             return state;
         },
 
-        addQwizbookComments:function (comments,  qId) {
+        addQwizbookComments:function (comments, qId) {
             this.set('comment', comments);
             this.set('qwizbookId', qId);
             this.action = "addQwizbookComments";

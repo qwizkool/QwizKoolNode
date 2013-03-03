@@ -37,7 +37,7 @@ define([
             logoutAttempted:false,
             loginStatus:null,
             action:'none',
-            notifications: 2
+            notifications:2
         },
 
         initialize:function () {
@@ -128,7 +128,6 @@ define([
 
             this.set('email', email);
             this.set('password', hash);
-
 
 
             //alert("Login user");

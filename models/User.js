@@ -1,4 +1,3 @@
-
 var db = require('../lib/db_connection');
 
 var bcrypt = require('bcrypt');
@@ -10,8 +9,8 @@ var SALT_WORK_FACTOR = 10;
 var UserSchema = new db.Schema({
     username:{type:String, unique:true},
     email:{type:String, unique:true},
- //   salt: { type: String, required: true },
-    hash: { type: String, required: true }
+    //   salt: { type: String, required: true },
+    hash:{ type:String, required:true }
 });
 
 
@@ -28,11 +27,11 @@ UserSchema.virtual('password')
         this.hash = bcrypt.hashSync(password, salt);
     });
 
-UserSchema.method('verifyPassword', function(password, callback) {
+UserSchema.method('verifyPassword', function (password, callback) {
 
     //The salt is incorporated into the hash (as plaintext). The compare function simply pulls the salt out of the hash
     //and then uses it to hash the password and perform the comparison.
-     bcrypt.compare(password, this.hash, callback);
+    bcrypt.compare(password, this.hash, callback);
 });
 
 UserSchema.methods.getUserForResponse = function () {
@@ -85,9 +84,13 @@ function authenticate(email, password, callback) {
             return callback(null, false);
         }
 
-        user.verifyPassword(password, function(err, passwordCorrect) {
-            if (err) { return callback(err); }
-            if (!passwordCorrect) { return callback(null, false); }
+        user.verifyPassword(password, function (err, passwordCorrect) {
+            if (err) {
+                return callback(err);
+            }
+            if (!passwordCorrect) {
+                return callback(null, false);
+            }
             return callback(null, user);
         });
 

@@ -138,7 +138,7 @@ define([
             // Register for event to monitor registration status
             this.model.on('user-registration-event', this.userRegisterEvent, this);
 
-            this.model.register(username,email,password);
+            this.model.register(username, email, password);
 
         }
 

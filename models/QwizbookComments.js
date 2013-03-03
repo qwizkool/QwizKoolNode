@@ -1,4 +1,3 @@
-
 var db = require('../lib/db_connection');
 
 /*
@@ -17,7 +16,7 @@ var QwizbookCommentsSchema = new db.Schema({
     username:{type:String},
     date:{ type:Date },
     qwizbookId:{type:String}
-    
+
 });
 
 
@@ -27,16 +26,15 @@ var QwizbookCommentsData = db.conn.model('QwizbookComments', QwizbookCommentsSch
 module.exports.addComments = addComments;
 module.exports.retrieveQwizbookcomments = retrieveQwizbookcomments;
 
-function addComments(qwizbookComment,sessionUser, callback) {
+function addComments(qwizbookComment, sessionUser, callback) {
 
-    var instance 			= new QwizbookCommentsData();
-    instance.comment 		= qwizbookComment.comment;
-    instance.description 	= qwizbookComment.description;
-	instance.qwizbookId 	= qwizbookComment.qwizbookId;
-    instance.username 	    = sessionUser.username;
+    var instance = new QwizbookCommentsData();
+    instance.comment = qwizbookComment.comment;
+    instance.description = qwizbookComment.description;
+    instance.qwizbookId = qwizbookComment.qwizbookId;
+    instance.username = sessionUser.username;
     //instance.date 			= Date.now;
-	
-   
+
 
     instance.save(function (err) {
         if (err) {
@@ -51,22 +49,23 @@ function addComments(qwizbookComment,sessionUser, callback) {
     });
 }
 
-function retrieveQwizbookcomments(user,qwizbookId,callback)
-{
-	 QwizbookCommentsData.find({
-		$and : [{
-			qwizbookId : qwizbookId
-		}]
-	}).execFind(function(err, comments) {
+function retrieveQwizbookcomments(user, qwizbookId, callback) {
+    QwizbookCommentsData.find({
+        $and:[
+            {
+                qwizbookId:qwizbookId
+            }
+        ]
+    }).execFind(function (err, comments) {
 
-        if (err) {
-            // All other conditions Pass as is TODO: need to cleanup.
-            callback({ Error:"Retreive QwizbookComments failed." }, null);
-        } else {
-            callback(null, comments);
-        }
+            if (err) {
+                // All other conditions Pass as is TODO: need to cleanup.
+                callback({ Error:"Retreive QwizbookComments failed." }, null);
+            } else {
+                callback(null, comments);
+            }
 
-    });
+        });
 }
 
 

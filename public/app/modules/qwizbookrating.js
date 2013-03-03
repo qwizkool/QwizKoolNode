@@ -4,99 +4,99 @@
  A QwizPage could be an intro page, a multiple choice question, summary etc.
  */
 
-define(["app"], function(App) {
+define(["app"], function (App) {
 
-	// Create a new module
-	var QwizBookRating = App.module();
+    // Create a new module
+    var QwizBookRating = App.module();
 
-	QwizBookRating.Model = Backbone.Model.extend({
+    QwizBookRating.Model = Backbone.Model.extend({
 
-		urlRoot : "/qwizbookrating/",
-		
+        urlRoot:"/qwizbookrating/",
 
-		defaults : {
-			id : null,
-			userEmail : "qwizkool_user@qwizkool.com",
-			qwizbookId : null,
-			rating : 0,
-			isRatedqwizBook : false
 
-		},
+        defaults:{
+            id:null,
+            userEmail:"qwizkool_user@qwizkool.com",
+            qwizbookId:null,
+            rating:0,
+            isRatedqwizBook:false
 
-		initialize : function() {
+        },
 
-				var qwizbook = localStorage.getItem("QwizbookData");
-			
+        initialize:function () {
 
-			//if (qwizbook) {
+            var qwizbook = localStorage.getItem("QwizbookData");
 
-			qwizbookDetails = JSON.parse(localStorage.getItem("QwizbookData"));
-			userInfo = JSON.parse(localStorage.getItem("qwizkoolUser"));
 
-			
-			if (userInfo) {
-				//this.urlroot = this.url();
-				this.set({
-					userEmail : userInfo.email,
-					qwizbookId : this.qbookId,
-					rating : this.ratingval
+            //if (qwizbook) {
 
-				});
+            qwizbookDetails = JSON.parse(localStorage.getItem("QwizbookData"));
+            userInfo = JSON.parse(localStorage.getItem("qwizkoolUser"));
 
-			}
 
-		},
+            if (userInfo) {
+                //this.urlroot = this.url();
+                this.set({
+                    userEmail:userInfo.email,
+                    qwizbookId:this.qbookId,
+                    rating:this.ratingval
 
-		addqwizbookrating : function(qbId, rating) {
+                });
 
-			this.set('qbookId', qbId);
-			this.set('isRatedqwizBook', false);
-			this.set('ratingval', rating);
-             console.log("Rating added Qbook Id" + qbId);
-			var jqxhr = this.save({}, {
+            }
 
-				error : function(model, response) {
-					model.set({
-						isRatedqwizBook : false,
-						action : 'none'
-					});
-					model.trigger('add-qwizbookrating-event');
+        },
 
-					// alert("Model:Failed to register "+ model.get('name') + " ! " + response.statusText);
-				},
+        addqwizbookrating:function (qbId, rating) {
 
-				success : function(model, response) {
-					//alert("Model:Hello " + model.get('name') + " ! " + "Welcome to QwizKool ! " + "You are user #" + model.get('uid') +".");
+            this.set('qbookId', qbId);
+            this.set('isRatedqwizBook', false);
+            this.set('ratingval', rating);
+            console.log("Rating added Qbook Id" + qbId);
+            var jqxhr = this.save({}, {
 
-					model.set({
-						action : 'none'
-					});
-					//console.log(response.rating);
-					localStorage.setItem('qwizkoolUserRating', response.rating);
-					model.trigger('add-qwizbookrating-event',response.rating);
-					//model.trigger('show-qwizbookrating-event', response.ratingval);
-				}
-			});
+                error:function (model, response) {
+                    model.set({
+                        isRatedqwizBook:false,
+                        action:'none'
+                    });
+                    model.trigger('add-qwizbookrating-event');
 
-		}
-	});
+                    // alert("Model:Failed to register "+ model.get('name') + " ! " + response.statusText);
+                },
 
-	QwizBookRating.Collection = Backbone.Collection.extend({
+                success:function (model, response) {
+                    //alert("Model:Hello " + model.get('name') + " ! " + "Welcome to QwizKool ! " + "You are user #" + model.get('uid') +".");
 
-		model : QwizBookRating.Model,
-		url:function () {
+                    model.set({
+                        action:'none'
+                    });
+                    //console.log(response.rating);
+                    localStorage.setItem('qwizkoolUserRating', response.rating);
+                    model.trigger('add-qwizbookrating-event', response.rating);
+                    //model.trigger('show-qwizbookrating-event', response.ratingval);
+                }
+            });
+
+        }
+    });
+
+    QwizBookRating.Collection = Backbone.Collection.extend({
+
+        model:QwizBookRating.Model,
+        url:function () {
             var urlRoot = "/qwizbookrating/";
 
             return urlRoot;
 
         }
 
-	});
+    });
 
-	QwizBookRating.Router = Backbone.Router.extend({/* ... */ });
+    QwizBookRating.Router = Backbone.Router.extend({/* ... */ });
 
-	// Required, return the module for AMD compliance
-	return QwizBookRating;
+    // Required, return the module for AMD compliance
+    return QwizBookRating;
 
 });
 

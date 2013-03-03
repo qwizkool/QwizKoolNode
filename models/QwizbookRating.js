@@ -11,19 +11,14 @@ var ObjectId = db.Schema.Types.ObjectId;
 
 var QwizbookRatingSchema = new db.Schema({
 
-    //------- General Information/data
-
-    // A combination of title and owner email to create uniqueness
-    // This is with assumption that email is unique @ qwizkool.
-    //id:{type:String, unique:true},
     userEmail:{
         type:String
     },
-    //qwizbookId:{type:String},
+
     qwizbookId:{
         type:ObjectId
     },
-    //_creator : { type: Schema.Types.ObjectId, ref: 'Person' },
+
     rating:{
         type:Number
     }
