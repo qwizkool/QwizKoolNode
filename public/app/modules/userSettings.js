@@ -29,12 +29,6 @@ define([
             var view = this;
             view.el.innerHTML = _.template(Template, this.model.toJSON());
 
-            view.$(".dropdown .guibutton, .dropdown guibutton").click(function () {
-                $(this).parent().find('.dropdown-slider').slideToggle('fast');
-                $(this).find('span.toggle').toggleClass('active');
-                return false;
-            });
-
             return this;
         },
 
