@@ -130,7 +130,6 @@ define([
 
                 view.el.innerHTML = _.template(this.template, this.model.toJSON());
                 console.log(view.el.innerHTML);
-                $(view.el).find("#home-content-container").append(view.el.innerHTML);
                 $(view.el).find("#qwizbookUserrating").append(this.userRating);
                 $(view.el).find("#average-rating").append(this.averageRating);
 

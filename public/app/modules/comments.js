@@ -127,7 +127,7 @@ define([
                     model:comment
                 });
 
-                $(view.el).find("#home-content-container").append(commentView.render().el);
+                $(view.el).find("#comment-list-container").append(commentView.render().el);
 
             });
 

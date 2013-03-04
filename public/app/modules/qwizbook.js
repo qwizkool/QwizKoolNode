@@ -171,7 +171,7 @@ define([
 
             view.el.innerHTML = qbook_list_template;
 
-            $(view.el).find("#home-content-container").empty();
+            $(view.el).find("#qwizbook-list-container").empty();
 
             _.each(view.model.models, function (qwizbook) {
 
@@ -179,7 +179,7 @@ define([
                     model:qwizbook
                 });
 
-                $(view.el).find("#home-content-container").append(qwizbookView.render().el);
+                $(view.el).find("#qwizbook-list-container").append(qwizbookView.render().el);
 
             });
 
