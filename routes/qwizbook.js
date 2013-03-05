@@ -4,7 +4,7 @@
 var User = require('../models/User');
 var Qwizbook = require('../models/Qwizbook');
 var QwizbookRating = require('../models/QwizbookRating');
-
+var ratingcount =0;
 module.exports = {
 
     createBook:function (req, res) {
@@ -53,7 +53,6 @@ module.exports = {
                     return;
                 }
                 // No error send the unique ID for the newly created book
-                console.log(bookrating);
                 var qwizbook = ' {';
                 qwizbook += '" description":' + JSON.stringify(book.description);
                 qwizbook += ', "title":' + JSON.stringify(book.title);
@@ -77,7 +76,7 @@ module.exports = {
     },
 
     getbooks:function (req, res) {
-
+		var t = 1;
         var sessionUser = req.user;
 
         if (req.query) {
@@ -103,7 +102,33 @@ module.exports = {
                         return;
                     }
                     //console.log("searched criteria" + JSON.stringify(books));
-                    console.log("books searched num " + books.length);
+                    for (var i in books) {
+                        //console.log("Qwizbook Array" + books[i]);
+                        qbookId = books[i]._id;
+                        QwizbookRating.getQwizbookAverageRating(qbookId, function (err, bookavgrating) {
+                            if (err) {
+                                console.log(err);
+                                res.send(400, err);
+                                return;
+                            }
+                          
+						   books[i]['userrating'] = bookavgrating;
+						   books[i].test = 'test';
+                        })
+                        
+                        
+                         QwizbookRating.userRatingCount(qbookId, function (err, countRating) {
+                            if (err) {
+                                console.log(err);
+                                res.send(400, err);
+                                return;
+                            }
+                          
+                        })
+                        
+                        
+
+                    }
                     res.send(JSON.stringify(books));
 
                 })
@@ -121,24 +146,64 @@ module.exports = {
                     //console.log("Filter criteria" + JSON.stringify(books));
                     console.log("books filtered num " + books.length);
 
-
+						var json ='[';
+						var istrue = false;
                     for (var i in books) {
-                        //console.log("Qwizbook Array" + books[i]);
                         qbookId = books[i]._id;
+                        
+                        if(istrue)
+                        {
+                        	
+							 json +=', ';
+                        }
+                        else
+                        {
+                        	istrue = true;
+                        }
+                        
+                        	json +='{ ';
+                        	
                         QwizbookRating.getQwizbookAverageRating(qbookId, function (err, bookavgrating) {
                             if (err) {
                                 console.log(err);
                                 res.send(400, err);
                                 return;
                             }
-                        })
+                          
+						   else
+						   {
+						   }
+
+                        });
+                        QwizbookRating.userRatingCount(qbookId, function (err, countRating) {
+                            if (err) {
+                                console.log(err);
+                                res.send(400, err);
+                                return;
+                            }
+                            else
+                            {
+                            	 ratingcount = countRating;
+                            }
+                        });
+                        	json +='"ownerEmail":'+JSON.stringify(books[i].ownerEmail);
+                        	json +=',"description":'+JSON.stringify(books[i].description);
+                        	json +=',"title":'+JSON.stringify(books[i].title);
+                        	json +=',"uniqueKey":'+JSON.stringify(books[i].uniqueKey);
+                        	json +=',"_id":'+JSON.stringify(books[i]._id);
+                        	json +=',"sections":'+JSON.stringify(books[i].sections);
+                        	json +=',"reference":'+JSON.stringify(books[i].reference);
+                        	json +=',"comments":'+JSON.stringify(books[i].comments);
+                        	json +=',"sharedWith":'+JSON.stringify(books[i].sharedWith);
+                        	json +=',"date":'+JSON.stringify(books[i].date);
+                        	json +=',"ratingCount":'+JSON.stringify(1);
+                       		json +='}';
 
                     }
+					json += ']';
+                    res.send(json);
 
-
-                    res.send(JSON.stringify(books));
-
-                })
+                });
             }
 
         } else {
@@ -150,6 +215,13 @@ module.exports = {
                     console.log(err);
                     return;
                 }
+                
+                
+                
+                
+                
+                
+                
                 res.send(JSON.stringify(books));
 
             })
@@ -157,7 +229,7 @@ module.exports = {
 
     },
 
-
+	
     updateBook:function (req, res) {
         console.log(req.user);
     },

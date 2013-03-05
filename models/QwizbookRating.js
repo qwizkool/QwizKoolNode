@@ -45,6 +45,7 @@ module.exports.updateRating = updateRating;
 
 module.exports.retrieveQwizbookRating = retrieveQwizbookRating;
 module.exports.getQwizbookAverageRating = getQwizbookAverageRating;
+module.exports.userRatingCount = userRatingCount;
 
 module.exports.commentUserRating = commentUserRating;
 
@@ -306,6 +307,24 @@ function getQwizbookAverageRating(qid, callback) {
 
 
 };
+
+
+
+function userRatingCount(qid, callback)
+{
+	 QwizbookRatingData.count({qwizbookId:qid}, function(err, c)
+	{
+       if (err) {
+                            console.log(err);
+                            callback({
+                                Error:"failed to get Qwizbook Rating Count."
+                            }, null);
+                        } else {
+                            callback(null, c);
+
+                        }
+  });
+}
 
 function commentUserRating(user, qwizbookId, callback) {
     QwizbookRatingData.find({

@@ -20,7 +20,7 @@ define([
             this.qwizbooklistview = new QwizBook.ListView({
                 model:this.qwizbookList
             });
-
+			
             this.searchfilter.on("searchorfilter", function (searchfilterdataObj) {
 
                 var searchorfiltercriteria = searchfilterdataObj.listcriteria;

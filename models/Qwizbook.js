@@ -53,6 +53,7 @@ var QwizbookSchema = new db.Schema({
     description:{type:String},
     ownerEmail:{type:String},
     date:{ type:Date, default:Date.now },
+    userrating:{type:String},
 // Private/Public/Shared
     groupPermission:{ type:String
     },
@@ -152,7 +153,8 @@ QwizbookSchema.methods.getQwizbookForResponse = function () {
     return {
         title:this.title,
         description:this.description,
-        id:this._id
+        id:this._id,
+        userrating:this.userrating
     }
 };
 
