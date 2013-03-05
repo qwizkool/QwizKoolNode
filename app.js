@@ -98,9 +98,7 @@ function unsupported(req, res) {
 };
 
 
-app.post('/comments', ensureAuthenticated, qwizbookComment.AddComments);
-app.get('/comments/:qwizbookId', ensureAuthenticated, qwizbookComment.ListComments);
-app.get('/qwizbookrating/:qwizbookId', ensureAuthenticated, qwizbookrating.ListCommentRating)
+
 /*
  * User Access related routes
  */
@@ -151,9 +149,41 @@ app.get('/qwizbooks', ensureAuthenticated, qwizbook.getbooks);
 // Retrieve this Qwizbook
 app.get('/qwizbooks/:id', ensureAuthenticated, qwizbook.getbook);
 
+app.get('/qwizbooks/:id/comments')
+
 
 // Update this Qwizbook
 app.put('/qwizbooks/:id', ensureAuthenticated, qwizbook.updateBook);
+
+
+
+
+
+
+
+//POST Adding comments
+app.post('/comments', ensureAuthenticated, qwizbookComment.AddComments);
+
+//GET  Retreiving particular comment
+app.get('/comments/:id', ensureAuthenticated, qwizbookComment.ListComments);
+
+//PUT Update particular comment
+
+//app.put('/comments/:id',)
+
+//DELETE Deleting all comment
+
+//app.delete('/comments');
+
+//DELETE Deleting particular comment
+
+//app.delete('/comments/:id');
+
+
+
+
+
+app.get('/qwizbookrating/:qwizbookId', ensureAuthenticated, qwizbookrating.ListCommentRating);
 
 
 // Delete all Qwizbooks

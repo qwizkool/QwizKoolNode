@@ -26,7 +26,7 @@ define([
             description:"Qwizbook Description",
             ownerEmail:"qwizkool_user@qwizkool.com",
             date:Date.now,
-
+			userrating:"0",
             isAddedqwizBook:false,
             AddedqwizBookAttempted:false,
             AddedqwizBookStatus:null
@@ -116,7 +116,6 @@ define([
                     this.isListedqwizBook = true;
                     var List = Array();
                     List = qwizbookList.toJSON();
-                    console.log(List);
                     collection.trigger('list-qwizbook-event');
                 }
             });
@@ -178,7 +177,7 @@ define([
                 var qwizbookView = new QwizBook.View({
                     model:qwizbook
                 });
-
+				
                 $(view.el).find("#qwizbook-list-container").append(qwizbookView.render().el);
 
             });
