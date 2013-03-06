@@ -136,6 +136,7 @@ define([
             var view = this;
             var qbook_item_template;
             qbook_item_template = _.template(this.template, view.model.toJSON());
+            
             view.el.innerHTML = qbook_item_template;
             return this;
         },
