@@ -11,14 +11,23 @@ var db = require('../lib/db_connection');
 
 var QwizbookCommentsSchema = new db.Schema({
 
-    comment:{type:String},
-    description:{type:String},
-    username:{type:String},
-    date:{ type:Date },
-    qwizbookId:{type:String}
+	comment : {
+		type : String
+	},
+	description : {
+		type : String
+	},
+	username : {
+		type : String
+	},
+	date : {
+		type : Date
+	},
+	qwizbookId : {
+		type : String
+	}
 
 });
-
 
 var QwizbookCommentsData = db.conn.model('QwizbookComments', QwizbookCommentsSchema);
 
@@ -28,48 +37,42 @@ module.exports.retrieveQwizbookcomments = retrieveQwizbookcomments;
 
 function addComments(qwizbookComment, sessionUser, callback) {
 
-    var instance = new QwizbookCommentsData();
-    instance.comment = qwizbookComment.comment;
-    instance.description = qwizbookComment.description;
-    instance.qwizbookId = qwizbookComment.qwizbookId;
-    instance.username = sessionUser.username;
-    //instance.date 			= Date.now;
+	var instance = new QwizbookCommentsData();
+	instance.comment = qwizbookComment.comment;
+	instance.description = qwizbookComment.description;
+	instance.qwizbookId = qwizbookComment.qwizbookId;
+	instance.username = sessionUser.username;
+	//instance.date 			= Date.now;
 
+	instance.save(function(err) {
+		if (err) {
 
-    instance.save(function (err) {
-        if (err) {
-
-            // All other conditions Pass as is TODO: need to cleanup.
-            callback({
-                Error:"Qwizbookcomments Could not be created "
-            }, null);
-        } else {
-            callback(null, instance);
-        }
-    });
+			// All other conditions Pass as is TODO: need to cleanup.
+			callback({
+				Error : "Qwizbookcomments Could not be created "
+			}, null);
+		} else {
+			callback(null, instance);
+		}
+	});
 }
 
 function retrieveQwizbookcomments(user, qwizbookId, callback) {
-    QwizbookCommentsData.find({
-        $and:[
-            {
-                qwizbookId:qwizbookId
-            }
-        ]
-    }).execFind(function (err, comments) {
+	QwizbookCommentsData.find({
+		$and : [{
+			qwizbookId : qwizbookId
+		}]
+	}).execFind(function(err, comments) {
 
-            if (err) {
-                // All other conditions Pass as is TODO: need to cleanup.
-                callback({ Error:"Retreive QwizbookComments failed." }, null);
-            } else {
-                callback(null, comments);
-            }
+		if (err) {
+			// All other conditions Pass as is TODO: need to cleanup.
+			callback({
+				Error : "Retreive QwizbookComments failed."
+			}, null);
+		} else {
+			callback(null, comments);
+		}
 
-        });
+	});
 }
-
-
-
-
-
 
