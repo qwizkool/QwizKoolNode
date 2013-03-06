@@ -122,7 +122,7 @@ body {
     color: #FF8800;
 }
 
-.qwizbook-list-item-footer .qwizbook-ratings-container {
+.qwizbook-list-item-footer .qwizbook-ratings-container .qwizbook-summary-footer{
     border-right: 1px solid #e3e3e3;
 
 }
