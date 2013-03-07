@@ -237,9 +237,9 @@ function retrieveQwizbookRating(qid, callback) {
 };
 
 
-function getQwizbookAverageRating(qid, callback) {
+function getQwizbookAverageRating(qbook,userEmail, callback) {
 
-
+		var qid = qbook._id;
     /*
      Get the specified collection name from the db to confirm that the
      collection exists.
@@ -248,7 +248,8 @@ function getQwizbookAverageRating(qid, callback) {
 
         /*'names' contains an array of objects that contain the collection names
          if array length is 1 then the collection does  exist.*/
-        if (collectionNames.length === 1) {
+        //console.log('collectionNames.length :' +collectionNames.length);
+        //if (collectionNames.length === 1) {
 
             var mapFunction1 = function () {
                 emit(this.qwizbookId, this.rating);
@@ -286,10 +287,49 @@ function getQwizbookAverageRating(qid, callback) {
                                 Error:"failed to get Qwizbook Average Rating."
                             }, null);
                         } else {
+                        	if(averagerating.length == 0)
+                        	{
+                        		qbook.averageRating = 0; 
+                        	}
+                        	else
+                        	{
+                        		qbook.averageRating = averagerating; 
+                        	}
+                        	
+							userRatingCount(qbook,function(err,count){
+								if(err)
+								{
+										
+								}
+								else
+								{
+									qbook.userrating = count;
+									
+								commentUserRating(userEmail, qbook, function(err,usercomment){
+								if(err)
+								{
+										
+								}
+								else
+								{
+									
+									if(usercomment.length == 0)
+									{
+										qbook.userComments = 0;
+									}
+									else
+									{
+										qbook.userComments = usercomment[0].rating;
+									}
+									
+									 
+									 callback(null, JSON.stringify(qbook));
+								}
+							});
+								}
+							});
+                           
 
-                            callback(null, averagerating);
-
-                            //console.log("AVG RATING" + JSON.stringify(averagerating) + 'hhjhj');
                         }
 
                     });
@@ -298,10 +338,9 @@ function getQwizbookAverageRating(qid, callback) {
 
             });
 
-        } else {
-            // collection does not exist, pass the average rating as zero.
-            callback(null, 0);
-        }
+        //} else {
+        //    callback(null, 1);
+        //}
 
     });
 
@@ -310,8 +349,9 @@ function getQwizbookAverageRating(qid, callback) {
 
 
 
-function userRatingCount(qid, callback)
+function userRatingCount(qbook,callback)
 {
+	var qid = qbook._id;
 	 QwizbookRatingData.count({qwizbookId:qid}, function(err, c)
 	{
        if (err) {
@@ -326,7 +366,8 @@ function userRatingCount(qid, callback)
   });
 }
 
-function commentUserRating(user, qwizbookId, callback) {
+function commentUserRating(user, qbook, callback) {
+	qwizbookId = qbook._id;
     QwizbookRatingData.find({
         $and:[
             {
