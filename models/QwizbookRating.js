@@ -67,7 +67,6 @@ function addRating(owner, data, callback) {
     instance.rating = data.ratingval;
     instance.qwizbookId = data.qbookId;
 
-
     QwizbookRatingData.findOne({
         $and:[
             {
@@ -95,7 +94,28 @@ function addRating(owner, data, callback) {
                         Error:"Cannot rate Qwizbook "
                     }, null);
                 } else {
-                    callback(null, instance);
+                    userRatingCount(data.qbookId,function(err,count){
+								if(err)
+								{
+										
+								}
+								else
+								{
+									instance.userratingcount = count;
+									callback(null, instance);
+									 //retrieveQwizbookRating(data.qbookId,function(err,avgRating){
+									//	if(err)
+									//	{
+											
+									//	}
+									//	else
+									//	{
+									//		instance.averageRating = avgRating[0].value;
+											
+									//	}
+									//});
+								}
+							});
                 }
             });
         }
@@ -119,7 +139,32 @@ function addRating(owner, data, callback) {
                     }, null);
                 } else {
 
-                    callback(null, instance);
+					userRatingCount(data.qbookId,function(err,count){
+								if(err)
+								{
+										
+								}
+								else
+								{
+									instance.userratingcount = count;
+									callback(null, instance);
+									//retrieveQwizbookRating(data.qbookId,function(err,avgRating){
+									//	if(err)
+									//	{
+											
+									//	}
+									//	else
+									//	{
+									//		instance.averageRating = avgRating[0].value;
+											
+									//	}
+									//});
+									 
+								}
+							});
+
+
+                   
                 }
             }
         }
@@ -129,6 +174,10 @@ function addRating(owner, data, callback) {
 
 
 };
+
+
+
+
 
 
 function updateRating(owner, data, callback) {
@@ -172,8 +221,8 @@ function updateRating(owner, data, callback) {
                 };
                 QwizbookRatingData.update(query, {
                     rating:data.ratingval
-                }, err, callback)
-                //console.log('got rating');
+                }, err, update)
+               
             }
 
         });
@@ -244,12 +293,11 @@ function getQwizbookAverageRating(qbook,userEmail, callback) {
      Get the specified collection name from the db to confirm that the
      collection exists.
      */
-    db.conn.db.collectionNames("qwizbookRatings", function (err, collectionNames) {
+    db.conn.db.collectionNames("qwizbookratings", function (err, collectionNames) {
 
         /*'names' contains an array of objects that contain the collection names
          if array length is 1 then the collection does  exist.*/
-        //console.log('collectionNames.length :' +collectionNames.length);
-        //if (collectionNames.length === 1) {
+        if (collectionNames.length === 1) {
 
             var mapFunction1 = function () {
                 emit(this.qwizbookId, this.rating);
@@ -266,7 +314,6 @@ function getQwizbookAverageRating(qbook,userEmail, callback) {
             o.out = {
                 replace:"averageRating"
             };
-            //console.log(o);
             QwizbookRatingData.mapReduce(o, function (err, avgrating) {
                 if (err) {
                     // Check for duplicate key error
@@ -280,7 +327,7 @@ function getQwizbookAverageRating(qbook,userEmail, callback) {
                     //avgrating.findById(qbId, function(err, averagerating){
                     //avgrating.find({'_id': 'qbId'}, function(err, averagerating){
                     avgrating.find(function (error, averagerating) {
-
+						
                         if (error) {
                             console.log(error);
                             callback({
@@ -293,19 +340,19 @@ function getQwizbookAverageRating(qbook,userEmail, callback) {
                         	}
                         	else
                         	{
-                        		qbook.averageRating = averagerating; 
+                        		qbook.averageRating = averagerating[0].value; 
                         	}
                         	
-							userRatingCount(qbook,function(err,count){
+							userRatingCount(qid,function(err,count){
 								if(err)
 								{
 										
 								}
 								else
 								{
-									qbook.userrating = count;
+									qbook.userratingcount = count;
 									
-								commentUserRating(userEmail, qbook, function(err,usercomment){
+								commentUserRating(userEmail, qid, function(err,user_rating){
 								if(err)
 								{
 										
@@ -313,13 +360,13 @@ function getQwizbookAverageRating(qbook,userEmail, callback) {
 								else
 								{
 									
-									if(usercomment.length == 0)
+									if(user_rating.length == 0)
 									{
-										qbook.userComments = 0;
+										qbook.userRating = 0;
 									}
 									else
 									{
-										qbook.userComments = usercomment[0].rating;
+										qbook.userRating = user_rating[0].rating;
 									}
 									
 									 
@@ -338,9 +385,9 @@ function getQwizbookAverageRating(qbook,userEmail, callback) {
 
             });
 
-        //} else {
-        //    callback(null, 1);
-        //}
+        } else {
+            callback(null, 1);
+        }
 
     });
 
@@ -349,9 +396,8 @@ function getQwizbookAverageRating(qbook,userEmail, callback) {
 
 
 
-function userRatingCount(qbook,callback)
+function userRatingCount(qid,callback)
 {
-	var qid = qbook._id;
 	 QwizbookRatingData.count({qwizbookId:qid}, function(err, c)
 	{
        if (err) {
@@ -366,8 +412,11 @@ function userRatingCount(qbook,callback)
   });
 }
 
-function commentUserRating(user, qbook, callback) {
-	qwizbookId = qbook._id;
+
+
+
+
+function commentUserRating(user, qwizbookId, callback) {
     QwizbookRatingData.find({
         $and:[
             {

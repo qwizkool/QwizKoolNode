@@ -52,8 +52,8 @@ var QwizbookSchema = new db.Schema({
     title:{type:String},
     description:{type:String},
     ownerEmail:{type:String},
-    userComments:{type:String},
-    userrating:{type:String},
+    userRating:{type:String},
+    userratingcount:{type:String},
     averageRating:{type:String},
 // Private/Public/Shared
     groupPermission:{ type:String

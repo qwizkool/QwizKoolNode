@@ -15,7 +15,6 @@ module.exports = {
         var email = sessionUser.email;
         var rating = qwizbookrating.ratingval;
         var qId = qwizbookrating.qbookId;
-        console.log("create rating val" + qwizbookrating.qbookId);
 
         QwizbookRating.addRating(sessionUser, qwizbookrating, function (err, qwizbookrating) {
             // If error send the error response
@@ -26,11 +25,11 @@ module.exports = {
             }
             // No error send the unique ID for the newly created
             // book.
-            console.log("QwizBook Rated");
-            console.log("Book Details" + JSON.stringify(qwizbookrating));
-
             res.send({
                 rating:qwizbookrating.rating,
+                qId:qwizbookrating.qwizbookId,
+                count:qwizbookrating.userratingcount
+                //avgRating:qwizbookrating.qBookaverageRating
             });
             //res.send({id:book.id});
 

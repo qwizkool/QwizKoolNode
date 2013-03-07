@@ -6,10 +6,11 @@
 
 define([
     "app",
+    "modules/qwizbookrating",
     "text!templates/qwizbookListItem.html",
     "text!templates/qwizbookList.html"
 
-], function (App, TmplQwizbookItem, TmplQwizbookList) {
+], function (App,QwizBookRating, TmplQwizbookItem, TmplQwizbookList) {
 
     // Create a new module
     var QwizBook = App.module();
@@ -129,6 +130,37 @@ define([
         template:TmplQwizbookItem,
 
         initialize:function () {
+        	 this.qwizbookratingmodel = new QwizBookRating.Model();
+        	 this.qwizbookratingmodel.on("add-qwizbookrating-event", function (response) {
+	
+				var rating = response.rating;
+				var qId = response.qId;
+				var count = response.count;
+                    var html = '';
+
+                    var i = 1;
+                    if (rating) {
+                        for (i = 1; i <= rating; i++) {
+                            html += '<li id="rating-' + i + '" class="rated" name="rating-' + i + '" value="' + i + '">R</li>';
+                        }
+                        if (i <= 5) {
+                            for (j = i; j <= 5; j++) {
+                                html += '<li id="rating-' + j + '" name="rating-' + j + '" value="' + j + '">R</li>';
+                            }
+                        }
+                    }
+                    else {
+                        for (j = 1; j <= 5; j++) {
+                            html += '<li id="rating-' + j + '" name="rating-' + j + '" value="' + j + '">R</li>';
+                        }
+                    }
+
+					var userrating ='rat_'+qId;
+					var ratingCount ='count_'+qId;
+					$('#'+ratingCount).html(count + ' ratings ');
+                    $('#'+userrating).html(html);
+
+                });
         },
 
         render:function (done) {
@@ -136,21 +168,113 @@ define([
             var view = this;
             var qbook_item_template;
             qbook_item_template = _.template(this.template, view.model.toJSON());
-            
             view.el.innerHTML = qbook_item_template;
+            var avgRating = $(view.el.innerHTML).find("#book_avgRating").val();
+            var userRating = $(view.el.innerHTML).find("#book_userrating").val();
+            var bookId = $(view.el.innerHTML).find("#book_id").val();
+            
+            var avgHtml = '';
+                        var i = 1;
+                         avgHtml += '<ul id="avg_'+bookId+'" class="rating-w-fonts" style="margin: 10px">';
+                        if (avgRating) {
+                            for (i = 1; i <= avgRating; i++) {
+                                avgHtml += '<li  class="rated" name="rating-' + i + '" value="' + i + '">R</li>';
+                            }
+                            if (i <= 5) {
+                                for (j = i; j <= 5; j++) {
+                                    avgHtml += '<li  name="rating-' + j + '" value="' + j + '">R</li>';
+                                }
+                            }
+                        }
+                        else {
+                            for (j = 1; j <= 5; j++) {
+                                avgHtml += '<li  name="rating-' + j + '" value="' + j + '">R</li>';
+                            }
+                        }
+						 avgHtml += '</ul>';
+						
+
+
+
+					var ratingHtml = '';
+                        i = 1;
+                        ratingHtml += '<ul id="rat_'+bookId+'" class="rating-w-fonts" style="margin: 10px">';
+                        if (userRating) {
+                            for (i = 1; i <= userRating; i++) {
+                                ratingHtml += '<li id="rating-' + i + '" class="rated" name="rating-' + i + '" value="' + i + '">R</li>';
+                            }
+                            if (i <= 5) {
+                                for (j = i; j <= 5; j++) {
+                                    ratingHtml += '<li id="rating-' + j + '" name="rating-' + j + '" value="' + j + '">R</li>';
+                                }
+                            }
+                        }
+                        else {
+                            for (j = 1; j <= 5; j++) {
+                                ratingHtml += '<li id="rating-' + j + '" name="rating-' + j + '" value="' + j + '">R</li>';
+                            }
+                        }
+						ratingHtml += '</ul>';
+            $(view.el).find("#qbookaverage_rating").append(avgHtml);
+            $(view.el).find("#book_userRating").append(ratingHtml);
             return this;
         },
 
         events:{
-            'click button.qwizbookListItem':'openQwizbook'
+            "click button.qwizbookListItem":"openQwizbook",
+            "click #rating-1":"setRating1",
+            "click #rating-2":"setRating2",
+            "click #rating-3":"setRating3",
+            "click #rating-4":"setRating4",
+            "click #rating-5":"setRating5"
         },
-
+		
         openQwizbook:function (e) {
             var clickedEl = $(e.currentTarget);
             var id = clickedEl.attr("id");
             Backbone.history.navigate("#qwizbookDetails/" + id, true);
 
             //this.trigger('getQwizbook', {qwizbookCriteria: id, openDescription:this.options.collection});
+        },
+        
+        setRating1:function (e) {
+        	var ul_id = e.target.parentNode.id;
+        	var split_id =  ul_id.split("_");
+			var qBook_id = split_id[1];
+			ratingval = $('#rating-1').val();
+			this.qwizbookratingmodel.addqwizbookrating(qBook_id,ratingval );
+        },
+		
+        setRating2:function (e) {
+        	var ul_id = e.target.parentNode.id;
+        	var split_id =  ul_id.split("_");
+			var qBook_id = split_id[1];
+			ratingval = $('#rating-2').val();
+			this.qwizbookratingmodel.addqwizbookrating(qBook_id,ratingval );
+        },
+
+        setRating3:function (e) {
+        	var ul_id = e.target.parentNode.id;
+        	var split_id =  ul_id.split("_");
+			var qBook_id = split_id[1];
+			ratingval = $('#rating-3').val();
+			this.qwizbookratingmodel.addqwizbookrating(qBook_id,ratingval );
+        },
+
+        setRating4:function (e) {
+        	var ul_id = e.target.parentNode.id;
+        	var split_id =  ul_id.split("_");
+			var qBook_id = split_id[1];
+			ratingval = $('#rating-4').val();
+			this.qwizbookratingmodel.addqwizbookrating(qBook_id,ratingval );
+        },
+
+        setRating5:function (e) {
+        	var ul_id = e.target.parentNode.id;
+        	var split_id =  ul_id.split("_");
+			var qBook_id = split_id[1];
+			ratingval = $('#rating-5').val();
+			this.qwizbookratingmodel.addqwizbookrating(qBook_id,ratingval );
         }
     });
 
@@ -180,7 +304,8 @@ define([
                 });
 				
                 $(view.el).find("#qwizbook-list-container").append(qwizbookView.render().el);
-
+                
+                
             });
 
             return this;
