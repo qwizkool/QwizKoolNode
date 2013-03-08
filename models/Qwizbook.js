@@ -52,7 +52,9 @@ var QwizbookSchema = new db.Schema({
     title:{type:String},
     description:{type:String},
     ownerEmail:{type:String},
-    date:{ type:Date, default:Date.now },
+    userRating:{type:String},
+    userratingcount:{type:String},
+    averageRating:{type:String},
 // Private/Public/Shared
     groupPermission:{ type:String
     },
@@ -60,12 +62,13 @@ var QwizbookSchema = new db.Schema({
     sharedWith:[
         { email:String }
     ],
-
+//date:{ type:Date, default:Date.now },
 //------- Qwizbook comments
     comments:[
         {
             submitterEmail:{type:String},
-            date:{ type:Date, default:Date.now }, text:{ type:String
+           // date:{ type:Date, default:Date.now },
+             text:{ type:String
         }, approved:{ type:Boolean
         }
 
@@ -152,7 +155,8 @@ QwizbookSchema.methods.getQwizbookForResponse = function () {
     return {
         title:this.title,
         description:this.description,
-        id:this._id
+        id:this._id,
+        userrating:this.userrating
     }
 };
 

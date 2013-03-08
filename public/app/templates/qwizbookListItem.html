@@ -2,7 +2,9 @@
 <!--TODO: clean up the css styles, consolidate to external CSS file.-->
 <div class="qwizbook-list-item qwizbook-item-style clearfix" id="qwizbooklistitem-container">
     <div class="row">
-
+<input type="hidden"  id="book_avgRating" value ="<%= averageRating %>" />
+<input type="hidden"  id="book_userrating" value ="<%= userRating %>" />
+<input type="hidden"  id="book_id" value ="<%= _id %>" />
         <div class="span12 qwizbook-list-item-header">
             <div class="page-header" style="margin: 10px">
                 <h1 style="font-weight: 300"><%= title %></h1>
@@ -34,27 +36,20 @@
             <div class="row qwizbook-list-item-footer">
 
                 <div class="span5">
-                    <div class="qwizbook-ratings-container">
-                        <p class="muted text-left" style="margin-left: 10px; margin-bottom: 0px"> 1000 ratings</p>
-                        <ul class="rating-w-fonts" style="margin: 10px">
-                            <li class="rated">R</li>
-                            <li class="rated">R</li>
-                            <li class="rated">R</li>
-                            <li>R</li>
-                            <li>R</li>
+                    <div id= 'qbookaverage_rating' class="qwizbook-ratings-container">
+                        <p id="count_<%= _id %>" class="muted text-left" style="margin-left: 10px; margin-bottom: 0px"><%= userratingcount %>  ratings</p>
+                       
+                        	
+                        	
                         </ul>
                     </div>
                 </div>
 
                 <div class="span5 ">
-                    <div class="qwizbook-ratings-container">
+                    <div id="book_userRating" class="qwizbook-ratings-container">
                         <p class="muted text-left" style="margin-left: 10px"> Your rating: </p>
-                        <ul class="rating-w-fonts text-left" style="margin: 10px;margin-bottom: 0px">
-                            <li class="rated">R</li>
-                            <li class="rated">R</li>
-                            <li class="rated">R</li>
-                            <li>R</li>
-                            <li>R</li>
+                        <ul   class="rating-w-fonts text-left" style="margin: 10px;margin-bottom: 0px">
+                            
                         </ul>
                     </div>
                 </div>
