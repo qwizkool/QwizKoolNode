@@ -1,312 +1,152 @@
-describe('Model :: Qwizbook', function() {
-	var time = '';
-	var testUser = '';
-	var testPwd = '';
-	var testEmail = '';
-	// Create test data for the user model
+define(['modules/user', 'modules/qwizbook'], function (User, Qwizbook) {
 
-	var testqwizbookuniqueKey = '';
-	var testqwizbookTitle = '';
-	var testqwizbookDescription = '';
 
-	beforeEach(function() {
-		time = new Date().getTime();
-		testUser = "User" + time;
-		testPwd = "Pwd" + time;
-		testEmail = testUser + "@email.com";
-		// Create test data for the user model
+    return describe('Model :: Qwizbooks-', function () {
 
-		var testqwizbookuniqueKey = "uniqueKey";
-		var testqwizbookTitle = "Title";
-		var testqwizbookDescription = "Description";
+        time = new Date().getTime();
+        testUser = "User" + time;
+        testPwd = "Pwd" + time;
+        testEmail = testUser + "@email.com";
 
-		var that = this, done = false;
+        // Create test data for the user model
 
-		require(['modules/user'], function(User) {
-			// that.users = new User.Collection();
-			that.user = new User.Model();
-			done = true;
-		});
-		waitsFor(function() {
-			return done;
-		}, "Create Models");
+        var testqwizbookuniqueKey = '';
+        var testqwizbookTitle = '';
+        var testqwizbookDescription = '';
+        var LoremDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at elit et urna aliquet dictum. Vestibulum tincidunt neque nec justo pretium lobortis in at metus. Quisque vitae lectus a dui bibendum hendrerit. Donec sed est odio, egestas iaculis nibh. Aliquam viverra adipiscing leo non blandit. Donec pellentesque, lorem et eleifend rhoncus, nisi mi pellentesque arcu, tristique lobortis tellus tortor vel risus. Nulla tristique ipsum eu purus pharetra id luctus leo feugiat. Praesent sollicitudin metus a eros pretium dictum. Sed rhoncus consequat eros, vel blandit ante sollicitudin sit amet. Nam gravida aliquam enim, id congue velit bibendum a. Etiam in mauris vitae ipsum interdum vestibulum. Duis ultrices ullamcorper mauris, vel volutpat risus vestibulum in. Sed diam mi, dapibus at tristique sit amet, sodales eget augue. Pellentesque nulla orci, dapibus tincidunt facilisis sit amet, placerat dignissim ante. In consequat sollicitudin magna, et volutpat dui faucibus at. Nunc iaculis consequat nulla a faucibus.";
 
-		runs(function() {
-			// Registration completed event handler.
-			var userRegisterEvent = function() {
-				if (this.user.get('isRegistered') === true) {
-					done = true;
-				} else {
-					done = false;
-				}
-			};
+        user = new User.Model();
 
-			// Register the User
-			this.user.set('name', testUser);
-			this.user.set('email', testEmail);
-			this.user.set('password', testPwd);
-			this.user.on('user-registration-event', userRegisterEvent, this);
-			this.user.register();
+        it('should register the user', function () {
+            var that = this;
+            var done = false;
 
-			waitsFor(function() {
-				return done;
-			});
-		});
+            var userRegisterEvent = function () {
+                if (user.get('isRegistered') === true) {
+                    done = true;
+                } else {
+                    done = false;
+                }
+            };
 
-		runs(function() {
-			var userLoginEvent = function() {
-				if (this.user.get('isLoggedIn') === true) {
-					done = false;
-				} else {
-					done = true;
-				}
-			};
+            // Register the User
+            var username = testUser;
+            var email = testEmail;
+            var password = testPwd;
+            user.on('user-registration-event', userRegisterEvent, this);
+            user.register(username, email, password);
 
-			// Register the User
-			//this.user.set('name', testUser + new Date().getTime());
-			this.user.set('email', this.user.get('email'));
-			//this.user.set('email', testEmail + new Date().getTime());
-			this.user.set('password', this.user.get('password'));
-			this.user.on('user-login-event', userLoginEvent, this);
-			this.user.login();
+            waitsFor(function () {
+                return done;
+            });
 
-			waitsFor(function() {
-				return done;
-			});
-		});
+            runs(function () {
+            expect(user).not.toBe(null);
+            expect(user.get('isRegistered')).toEqual(true);
+            expect(user.get('id')).toEqual(jasmine.any(String));
+            expect(user.get('registrationStatus')).not.toBeNull();
+            });
+        });
 
-	});
 
-	afterEach(function() {
-		//logout user
+        it('should login the user', function () {
 
-	});
+            var that = this;
+            var done = false;
+            var user = new User.Model();
 
-	describe('Create Qwizbook', function() {
+            var userLoginEvent = function () {
+                if (user.get('isLoggedIn') === true) {
+                    done = true;
+                } else {
+                    done = false;
+                }
+            };
 
-		it('should create a qwizbook', function() {
-			var done = false;
-			var qwizbook = null;
-			var owneremail = this.user.get('email');
-			var rating = 0;
+            var email = testEmail;
+            var password = testPwd;
+            user.on('user-login-event', userLoginEvent, this);
+            console.log(email);
+            console.log(password);
 
-			require(['modules/qwizbook'], function(Qwizbook) {
-				// that.users = new User.Collection();
-				qwizbook = new Qwizbook.Model();
-				done = true;
-			});
-			waitsFor(function() {
-				return done;
-			}, "Create Models");
+            user.login(email, password);
 
-			// Create Qwizbbok completed event handler.
-			runs(function() {
-				var createqwizbookEvent = function() {
+            waitsFor(function () {
+                return done;
+            });
 
-					if (qwizbook.get('isAddedqwizBook') === true) {
-						done = true;
-					} else {
-						done = false;
-					}
+            runs(function () {
+                expect(user).not.toBe(null);
+                expect(user.get('isLoggedIn')).toEqual(true);
+                expect(user.get('id')).toEqual(jasmine.any(String));
+                expect(user.get('loginStatus')).not.toBeNull();
+            });
+        });
 
-				};
+        beforeEach(function () {
 
-				var a = 65;
-				var charArray = {};
+        });
 
-				for (var i = 0; i < 26; i++) {
-					charArray[String.fromCharCode(a + i)] = String.fromCharCode(a + i);
-					testqwizbookuniqueKey = "uniqueKey" + charArray[String.fromCharCode(a + i)];
-					testqwizbookTitle = "Title" + charArray[String.fromCharCode(a + i)];
-					testqwizbookDescription = "Description" + charArray[String.fromCharCode(a + i)];
+        afterEach(function () {
+            //logout user
 
-					// Add the Qwizbook
-					qwizbook.set('uniqueKey', testqwizbookuniqueKey);
-					qwizbook.set('title', testqwizbookTitle);
-					qwizbook.set('description', testqwizbookDescription);
-					qwizbook.set('ownerEmail', owneremail);
-					qwizbook.set('userRating', [{
-						'submitterEmail' : owneremail,
-						'rating' : '0'
-					}]);
+        });
 
-					var submitterName = 'TestQwizbookRater'
-					var submitterDomain = 'qwizkool.com';
-					var submitterEmail = '';
+        describe('Create Qwizbook', function () {
 
-					for (var r = 1; r <= 5; r++) {
+            it('should create a qwizbook', function () {
+                var done = false;
+                var qwizbook = null;
+                var owneremail = user.get('email');
+                var rating = 0;
+                qwizbook = new Qwizbook.Model();
 
-						submitterEmail = submitterName + r + '@' + submitterDomain;
-						qwizbook.get('userRating').push({
-							'submitterEmail' : submitterEmail,
-							'rating' : r
-						});
+                var createqwizbookEvent = function () {
 
-					}
+                    if (qwizbook.get('isAddedqwizBook') === true) {
+                        done = true;
+                    } else {
+                        done = false;
+                    }
 
-					qwizbook.on('create-qwizbook-event', createqwizbookEvent, this);
+                };
+                qwizbook.on('qwizbook-create-success-event', createqwizbookEvent, this);
 
-					qwizbook.createqwizbook();
+                var a = 65;
+                var charArray = {};
 
-					waitsFor(function() {
-						return done;
-					});
+                for (var i = 0; i < 26; i++) {
+                    charArray[String.fromCharCode(a + i)] = String.fromCharCode(a + i);
+                    testqwizbookuniqueKey = "uniqueKey" + charArray[String.fromCharCode(a + i)];
+                    testqwizbookTitle = "Title" + charArray[String.fromCharCode(a + i)]+ i.toString();
+                    testqwizbookDescription = LoremDescription + charArray[String.fromCharCode(a + i)];
 
-					// Validate the registration
-					runs(function() {
-						expect(qwizbook).not.toBe(null);
-						expect(qwizbook.get('isAddedqwizBook')).toEqual(false);
-						expect(qwizbook.get('id')).toBeNull();
-						//expect(qwizbook.get('id')).toEqual(jasmine.any(null));
-						//expect(qwizbook.get('AddedqwizBookStatus')).not.toBeNull();
-					});
-				}
+                    // Add the Qwizbook
+                    qwizbook.set('uniqueKey', testqwizbookuniqueKey);
+                    qwizbook.set('title', testqwizbookTitle);
+                    qwizbook.set('description', testqwizbookDescription);
+                    qwizbook.set('ownerEmail', owneremail);
 
-			});
-		});
+                    qwizbook.create();
 
-		it('should fail creating a qwizbook with same title', function() {
-			var done = false;
-			var qwizbook = null;
-			var owneremail = this.user.get('email');
+                    waitsFor(function () {
+                        return done;
+                    });
 
-			require(['modules/qwizbook'], function(Qwizbook) {
-				// that.users = new User.Collection();
-				qwizbook = new Qwizbook.Model();
-				done = true;
-			});
-			waitsFor(function() {
-				return done;
-			}, "Create Models");
+                    // Validate the registration
+                    runs(function () {
+                        expect(qwizbook).not.toBe(null);
+                        expect(qwizbook.get('isAddedqwizBook')).toEqual(true);
+                        expect(qwizbook.get('id')).not.toBeNull();
+                    });
+                }
 
-			runs(function() {
-				// Qwizbook create completed event handler.
-				var createqwizbookEvent = function() {
-					if (qwizbook.get('isAddedqwizBook') === true) {
-						done = false;
-					} else {
-						done = true;
-					}
-				};
 
-				// Add the Same Title different description
-				//qwizbook.set('title', testqwizbookTitle);
+            });
 
-				qwizbook.set('title', testqwizbookTitle + new Date().getTime());
-				qwizbook.set('description', testqwizbookDescription + new Date().getTime());
-				qwizbook.set('ownerEmail', owneremail);
-				qwizbook.on('create-qwizbook-event', createqwizbookEvent, this);
-				qwizbook.createqwizbook();
 
-				waitsFor(function() {
-					return done;
-				});
+        });
+    });
 
-				// Validate create qwizbook
-				runs(function() {
-					expect(qwizbook).not.toBe(null);
-					expect(qwizbook.get('isAddedqwizBook')).toEqual(false);
-					expect(qwizbook.get('id')).toBeNull();
-					//expect(qwizbook.get('AddedqwizBookStatus')).toEqual("Bad Request");
-				});
-			});
-		});
-	});
+
 });
-
-/*
-describe("Add and Edit Qwizbook Rating ", function() {
-
-	it('should add rating to Qwizbook userRating array if new users', function() {
-
-		var done = false;
-		var qwizbookList = null;
-
-		require(['modules/qwizbook'], function(Qwizbook) {
-			// that.users = new User.Collection();
-			qwizbookList = new Qwizbook.Collection();
-			done = true;
-		});
-		waitsFor(function() {
-			return done;
-		}, "Create Collection");
-
-		// Create Qwizbbok completed event handler.
-		runs(function() {
-			var a = 65;
-			var charArray = {};
-			var qwizbookcurr = '';
-			var qwizbooklisting = null;
-			//qwizbookList.QwizbookList();
-			//var qwizbookList = '';
-			//qwizbookList = new Qwizbook.Collection();
-			qwizbooklisting = qwizbookList.QwizbookList();
-			console.log(qwizbooklisting.toJSON);
-
-			
-			// Validate the registration
-			runs(function() {
-				expect(qwizbookList).not.toBe(null);
-				expect(qwizbookList.isListedqwizBook).toEqual(false);
-
-			});
-		});
-
-	});
-});
-
-*/
-
-//Test Suite to check rating
-
-
-
-
-//Test Suite ends
-
-
-describe("A Qwizbook collection", function() {
-
-	it('should contain models', function() {
-		var done = false;
-		var qwizbookList = null;
-
-		require(['modules/qwizbook'], function(Qwizbook) {
-			// that.users = new User.Collection();
-			qwizbookList = new Qwizbook.Collection();
-			done = true;
-		});
-		waitsFor(function() {
-			return done;
-		}, "Create Collection");
-
-		// Create Qwizbbok completed event handler.
-		runs(function() {
-			var listqwizbookEvent = function() {
-
-				if (qwizbookList.isListedqwizBook === true) {
-					done = true;
-				} else {
-					done = false;
-				}
-
-			};
-
-			qwizbookList.on('list-qwizbook-event', listqwizbookEvent, this);
-
-			qwizbookList.QwizbookList();
-
-			waitsFor(function() {
-				return done;
-			});
-
-			// Validate the registration
-			runs(function() {
-				expect(qwizbookList).not.toBe(null);
-				expect(qwizbookList.isListedqwizBook).toEqual(false);
-
-			});
-		});
-	});
-});
-

@@ -1,29 +1,73 @@
- <!--Qwizbook List Item-->
-                    <div class="row remove-bottom qwizbook-list-item qwizbook-panel-style" id="qwizbooklistitem-container">
+<!--Qwizbook List Item-->
+<!--TODO: clean up the css styles, consolidate to external CSS file.-->
+<div class="qwizbook-list-item qwizbook-item-style clearfix" id="qwizbooklistitem-container">
+    <div class="row">
 
-                        <div class="row  qwizbook-list-item-header">
-                            <div><h3><%= title %></h3></div>
-                        </div>
+        <div class="span12 qwizbook-list-item-header">
+            <div class="page-header" style="margin: 10px">
+                <h1 style="font-weight: 300"><%= title %></h1>
+            </div>
+        </div>
 
-                        <div class="row qwizbook-list-item-content">
-                            <div><h4>Description:</h4></div>
-                            <div> <%= description %>
-                            </div>
-                        </div>
+        <div class="span12 qwizbook-list-item-content">
 
-                        <div class="row qwizbook-list-item-footer">
-                            <div class="qwizbook-ratings-container">
-                                <ul class="rating-w-fonts">
-                                    <li class="rated">R</li>
-                                    <li class="rated">R</li>
-                                    <li class="rated">R</li>
-                                    <li>R</li>
-                                    <li>R</li>
-                                </ul>
-                            </div>
-                            <button class="qwizbookListItem" id="<%= _id %>">Open</button>
-                        </div>
+            <div class="page-header" style="margin: 10px">
+
+                <div class="media">
+
+                    <a class="pull-left" href="">
+                        <img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif">
+                    </a>
+
+                    <div class="media-body">
+
+                        <%= description %>
 
                     </div>
-                    
-                    <!--Qwizbook List Item ends-->
+
+                </div>
+
+            </div>
+        </div>
+        <div class="span12 ">
+
+            <div class="row qwizbook-list-item-footer">
+
+                <div class="span5">
+                    <div class="qwizbook-ratings-container">
+                        <p class="muted text-left" style="margin-left: 10px; margin-bottom: 0px"> 1000 ratings</p>
+                        <ul class="rating-w-fonts" style="margin: 10px">
+                            <li class="rated">R</li>
+                            <li class="rated">R</li>
+                            <li class="rated">R</li>
+                            <li>R</li>
+                            <li>R</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="span5 ">
+                    <div class="qwizbook-ratings-container">
+                        <p class="muted text-left" style="margin-left: 10px"> Your rating: </p>
+                        <ul class="rating-w-fonts text-left" style="margin: 10px;margin-bottom: 0px">
+                            <li class="rated">R</li>
+                            <li class="rated">R</li>
+                            <li class="rated">R</li>
+                            <li>R</li>
+                            <li>R</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="span2">
+                    <button class="btn btn-info btn-large  qwizbookListItem" style="margin: 10px" id="<%= _id %>">
+                        Open
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Qwizbook List Item ends-->

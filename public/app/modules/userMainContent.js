@@ -14,8 +14,6 @@ define([
         initialize:function () {
 
             this.qwizbookList = this.collection;
-            // TODO: breadcrumb view
-            //this.breadcrumbs = new Breadcrumbs.View();
             this.searchfilter = new Searchfilter.View({
                 collection:this.qwizbookList
             });
@@ -23,7 +21,6 @@ define([
                 model:this.qwizbookList
             });
 
-            // Register for events from subviews
             this.searchfilter.on("searchorfilter", function (searchfilterdataObj) {
 
                 var searchorfiltercriteria = searchfilterdataObj.listcriteria;

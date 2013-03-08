@@ -1,12 +1,11 @@
 define([
     "app",
-    "tabs",
     "modules/header",
     "modules/userMainContent",
     "modules/footer",
     "modules/userSettings",
     "modules/qwizbook"
-], function (App, Tabs, Header, UserMainContent, Footer, UserSettings, QwizBook) {
+], function (App, Header, UserMainContent, Footer, UserSettings, QwizBook) {
 
     // Create a new module
     var UserMainPage = new App.module();

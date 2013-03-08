@@ -6,6 +6,7 @@ require.config({
     deps:["../vendor/jam/require.config"],
 
     paths:{
+        sha256: "../assets/js/libs/sha256",
         jasmine:'../test/lib/jasmine',
         'jasmine-html':'../test/lib/jasmine-html',
         spec:'../test/jasmine/spec/'
@@ -20,6 +21,9 @@ require.config({
         'jasmine-html':{
             deps:['jasmine'],
             exports:'jasmine'
+        },
+        sha256: {
+            deps: ["jquery", 'lodash']
         }
     }
 });
@@ -44,7 +48,7 @@ require(['jasmine-html'], function (jasmine) {
 
     //specs.push('spec/example');
     //specs.push('spec/models/UserSpec');
-    specs.push('spec/models/QwizbookSpec');
+      specs.push('spec/models/QwizbookSpec');
     /*
      specs.push('spec/views/ClearCompletedSpec');
      specs.push('spec/views/CountViewSpec');

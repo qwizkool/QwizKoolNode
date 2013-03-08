@@ -27,7 +27,7 @@ define([
         render:function (done) {
 
             var view = this;
-            view.el.innerHTML = this.template;
+            view.el.innerHTML = _.template(Template, this.model.toJSON());
 
             view.$(".dropdown .guibutton, .dropdown guibutton").click(function () {
                 $(this).parent().find('.dropdown-slider').slideToggle('fast');
