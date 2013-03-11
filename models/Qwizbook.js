@@ -337,8 +337,7 @@ function retrieveQwizbooksOnFilter(owner, filterdata, callback) {
     // Retrieve Qwizbooks, that are shared, public or
     // owned by the 'owner'
     var qwizbookArray = new Array();
-
-    console.log("Filter Filter");
+	
     if (filterdata == "Recently Updated") {
         QwizbookData.find().sort({
             date:-1

@@ -136,6 +136,8 @@ define([
 				var rating = response.rating;
 				var qId = response.qId;
 				var count = response.count;
+				var avg  =  response.avgRating;
+				 avg = Math.ceil(avg);
                     var html = '';
 
                     var i = 1;
@@ -154,11 +156,31 @@ define([
                             html += '<li id="rating-' + j + '" name="rating-' + j + '" value="' + j + '">R</li>';
                         }
                     }
-
+                    
+                    
+					 var avgHtml = '';
+                        i = 1;
+                        if (avg) {
+                            for (i = 1; i <= avg; i++) {
+                                avgHtml += '<li  class="rated" name="rating-' + i + '" value="' + i + '">R</li>';
+                            }
+                            if (i <= 5) {
+                                for (j = i; j <= 5; j++) {
+                                    avgHtml += '<li  name="rating-' + j + '" value="' + j + '">R</li>';
+                                }
+                            }
+                        }
+                        else {
+                            for (j = 1; j <= 5; j++) {
+                                avgHtml += '<li  name="rating-' + j + '" value="' + j + '">R</li>';
+                            }
+                        }
 					var userrating ='rat_'+qId;
 					var ratingCount ='count_'+qId;
+					var averageRating = 'avg_'+qId;
 					$('#'+ratingCount).html(count + ' ratings ');
                     $('#'+userrating).html(html);
+                    $('#'+averageRating).html(avgHtml);
 
                 });
         },
@@ -172,7 +194,7 @@ define([
             var avgRating = $(view.el.innerHTML).find("#book_avgRating").val();
             var userRating = $(view.el.innerHTML).find("#book_userrating").val();
             var bookId = $(view.el.innerHTML).find("#book_id").val();
-            
+             avgRating = Math.ceil(avgRating);
             var avgHtml = '';
                         var i = 1;
                          avgHtml += '<ul id="avg_'+bookId+'" class="rating-w-fonts" style="margin: 10px">';
