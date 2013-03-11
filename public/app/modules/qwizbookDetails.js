@@ -11,7 +11,14 @@ define([
         var QwizbookDetails = App.module();
 
         QwizbookDetails.View = Backbone.View.extend({
-
+            
+            initialize:function () {
+            this.qwizbookId = this.options.qwizbookId;	
+            }
+            ,
+            
+            
+            /*
             initialize:function () {
 
                 this.qwizbookId = this.options.qwizbookId;
@@ -23,6 +30,7 @@ define([
                     },
 
                     success:function (model, response) {
+                    	
                         var rating = Math.ceil(response.value);
                         var avgHtml = '';
                         if (rating && rating <= 5) {
@@ -120,6 +128,7 @@ define([
 
 
             },
+            */
 
             template:Template,
 
@@ -128,9 +137,17 @@ define([
                 var view = this;
 
 
-                view.el.innerHTML = _.template(this.template, this.model.toJSON());
-                $(view.el).find("#qwizbookUserrating").append(this.userRating);
-                $(view.el).find("#average-rating").append(this.averageRating);
+
+                var qbook_itemdetail_template;
+               
+                qbook_itemdetail_template = _.template(this.template, view.model.toJSON());
+                //alert(qbook_itemdetail_template);
+                view.el.innerHTML = qbook_itemdetail_template;
+                //console.log(view.el.innerHTML);
+                $(view.el).find("#qwizbook-content-container").append(view.el.innerHTML );
+                //$(view.el).find("#qwizbookUserrating").append(this.userRating);
+                //$(view.el).find("#average-rating").append(this.averageRating);
+
 
 
                 return this;

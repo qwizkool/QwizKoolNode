@@ -102,7 +102,7 @@ define([
 
         render:function (done) {
             var view = this;
-            view.el.innerHTML = _.template(this.template, this.model.toJSON());
+            view.el.innerHTML = _.template(this.template, view.model.toJSON());
             return view;
         }
 
@@ -119,7 +119,7 @@ define([
         render:function (done) {
 
             var view = this;
-            view.el.innerHTML = _.template(this.template, this.model.toJSON());
+            view.el.innerHTML = _.template(this.template, view.model.toJSON());
 
             _.each(view.model.models, function (comment) {
 

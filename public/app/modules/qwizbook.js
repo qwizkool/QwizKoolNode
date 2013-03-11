@@ -64,6 +64,27 @@ define([
                 }
             });
 
+        },
+        
+        retreive:function() {
+        var retreivedQwizbook = this;	
+        var jqxhr = retreivedQwizbook.fetch({
+
+                error:function (model, response) {
+                    //this.isListedqwizBook = false;
+                    console.log("Failed to get QwizBook!");
+                    model.trigger('retreive-qwizbook-failed-event');
+                },
+
+                success:function (model, response) {
+                    //this.isListedqwizBook = true;
+                    var Qwizbookdetails = Array();
+                    Qwizbookdetails = retreivedQwizbook.toJSON();
+                    console.log("qwizbook det by indu"+Qwizbookdetails.title);
+                    model.trigger('retreive-qwizbook-success-event');
+                }
+            });	
+        	
         }
     });
 
@@ -190,6 +211,7 @@ define([
             var view = this;
             var qbook_item_template;
             qbook_item_template = _.template(this.template, view.model.toJSON());
+            //alert(qbook_item_template);
             view.el.innerHTML = qbook_item_template;
             var avgRating = $(view.el.innerHTML).find("#book_avgRating").val();
             var userRating = $(view.el.innerHTML).find("#book_userrating").val();
