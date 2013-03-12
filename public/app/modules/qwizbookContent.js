@@ -24,13 +24,14 @@ define([
             //this.qwizbookDetails = new QwizbookDetails.View({qwizbookId:this.qwizbookId});
             //this.qwizbookDetails = new QwizbookDetails.View({model:this.qwizbookdetailmodel});
             this.qwizbookDetails = new QwizbookDetails.View({model:this.qwizbookdetailmodel,qwizbookId:this.qwizbookId});
-            /*
-            this.addComments = new QwizbookComments.View({qwizbookId:this.qwizbookId});
-            this.commentDetail = new Comments.ListView({model:this.commentList});
-
+            
+           
             this.commentList = new Comments.Collection({qwizbookId:this.qwizbookId});
             this.commentList.QwizbookComments(this.qwizbookId);
             this.commentList.on("reset", this.updateCollection, this);
+            
+            this.addComments = new QwizbookComments.View({qwizbookId:this.qwizbookId});
+            this.commentDetail = new Comments.ListView({model:this.commentList});
 
             //this.qwizbookDetails = new QwizbookDetails.View({qwizbookId:this.qwizbookId});
             //this.qwizbookDetails = new QwizbookDetails.View({model:this.qwizbookDetails});
@@ -42,15 +43,24 @@ define([
                 qwizbookratingmodel.addqwizbookrating(qbookId, ratingvalue);
 
             });
-            */
-
+            
+            //this.commentadded.on("add-qwizbookcomment-success", this.checkadd, this);
         },
 
         updateCollection:function () {
 
-           // $(this.el).find("#review-content-container").append(this.commentDetail.render().el);
+            $(this.el).find("#review-content-container").append(this.commentDetail.render().el);
 
 
+        },
+        
+        checkadd:function () {
+        alert("Hello");	
+        	
+        },
+        
+        reattachEvents:function () {
+            this.addComments.reattachEvents();
         },
 
         template:Template,
@@ -59,7 +69,7 @@ define([
         	//alert("Hello");
             this.el.innerHTML = this.template;
             $(this.el).find("#qwizbook-content-container").append(this.qwizbookDetails.render().el);
-            //$(this.el).find("#review-content-header").append(this.addComments.render().el);
+            $(this.el).find("#review-content-header").append(this.addComments.render().el);
 
             return this;
 

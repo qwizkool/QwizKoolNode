@@ -19,7 +19,7 @@ define([
             
             this.selectedQwizbook = new Qwizbook.Model({id:this.qbookid});
             
-            this.selectedQwizbook.on("retreive-qwizbook-success-event", this.show, this);
+            //this.selectedQwizbook.on("retreive-qwizbook-success-event", this.show, this);
             
             this.header = new Header.View();
             this.userSettings = new UserSettings.View();
@@ -28,22 +28,24 @@ define([
             this.footer = new Footer.View();
             this.selectedQwizbook.retreive();
             this.selectedQwizbook.on("retreive-qwizbook-success-event", this.updateModel, this);
+            
 
         },
         
         updateModel:function () {
-           $("#qpage-content").html(this.qwizbookContent.render().el);
-            this.show();
+             //alert("Hello");
+            //$("#qpage-content").html(this.userMainContent.render().el);
+            $("#qpage-content").html(this.qwizbookContent.render().el);
+            this.qwizbookContent.reattachEvents();
+            //this.qwizbookContent.reattachEvents();
         },
 
 
        // Render all the nested views related to this page
         // and attach it to the DOM.
         show:function (done) {
-        	alert('hello hello');
             $("#qpage-header").html(this.header.render().el);
             $("#qwizkool-user-settings").html(this.userSettings.render().el);
-            $("#qpage-content").html(this.qwizbookContent.render().el);
             this.header.renderSettings();
             //$("#qpage-content").html(this.qwizbookContent.render().el);
             $("#qpage-footer").html(this.footer.render().el);
