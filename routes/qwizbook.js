@@ -36,6 +36,7 @@ module.exports = {
 
 		qbookId = req.route.params.id;
 		var sessionUser = req.user;
+        var userEmail = sessionUser.email;
 		Qwizbook.retrieveQwizbook(sessionUser, qbookId, function(err, book) {
 			// If error send the error response
 			if (err) {
@@ -44,7 +45,7 @@ module.exports = {
 				return;
 			}
 
-			QwizbookRating.getQwizbookAverageRating(qbookId, function(err, bookrating) {
+			QwizbookRating.getQwizbookAverageRating(qbookId, userEmail, function(err, bookrating) {
 				// If error send the error response
 				if (err) {
 					res.send(400, err);
