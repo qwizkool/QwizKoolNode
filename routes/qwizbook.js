@@ -36,6 +36,7 @@ module.exports = {
 
 		qbookId = req.route.params.id;
 		var sessionUser = req.user;
+        var userEmail = sessionUser.email;
 		Qwizbook.retrieveQwizbook(sessionUser, qbookId, function(err, book) {
 			// If error send the error response
 			if (err) {
@@ -43,6 +44,7 @@ module.exports = {
 				console.log(err);
 				return;
 			}
+
 
 			else
 			{
@@ -72,6 +74,8 @@ module.exports = {
 							}
 						});
 			}
+
+		
 		});
 
 	},
