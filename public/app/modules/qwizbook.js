@@ -80,7 +80,6 @@ define([
                     //this.isListedqwizBook = true;
                     var Qwizbookdetails = Array();
                     Qwizbookdetails = retreivedQwizbook.toJSON();
-                    console.log("qwizbook det by indu"+Qwizbookdetails.title);
                     model.trigger('retreive-qwizbook-success-event');
                 }
             });	

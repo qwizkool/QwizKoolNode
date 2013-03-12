@@ -44,29 +44,34 @@ module.exports = {
 				return;
 			}
 
-			QwizbookRating.getQwizbookAverageRating(qbookId, function(err, bookrating) {
-				// If error send the error response
-				if (err) {
-					res.send(400, err);
-					console.log(err);
-					return;
-				}
-				// No error send the unique ID for the newly created book
-				var qwizbook = ' {';
-				qwizbook += '" description":' + JSON.stringify(book.description);
-				qwizbook += ', "title":' + JSON.stringify(book.title);
-
-				qwizbook += ', "_id":' + JSON.stringify(book._id);
-				if (bookrating == '') {
-					qwizbook += ', "value":' + JSON.stringify(0);
-				} else {
-					qwizbook += ', "value":' + JSON.stringify(bookrating[0].value);
-				}
-
-				qwizbook += '} ';
-				res.send(qwizbook);
-
-			})
+			else
+			{
+						var json ='[';
+						var istrue =false;
+						var userEmail = sessionUser.email;
+						QwizbookRating.getQwizbookAverageRating(book,userEmail, function(err, avgratingNcount) {
+						
+							if (err) {
+								console.log(err);
+								res.send(400, err);
+								return;
+							} else {
+								
+								
+								if(istrue)
+								{
+									json +=',';
+								}
+								else
+								{
+									istrue = true;
+								}
+								json += avgratingNcount;
+									json += ']';
+									res.send(json);
+							}
+						});
+			}
 		});
 
 	},
