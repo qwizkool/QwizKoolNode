@@ -58,7 +58,6 @@ define([
 
 				
                 view.el.innerHTML = _.template(this.template, this.model.toJSON());
-                alert(view.el.innerHTML);
                 $(view.el).find("#qwizbookUserrating").append('this.userRating');
                 $(view.el).find("#average-rating").append('this.averageRating');
 

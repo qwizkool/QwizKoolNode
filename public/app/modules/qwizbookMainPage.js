@@ -40,7 +40,6 @@ define([
        // Render all the nested views related to this page
         // and attach it to the DOM.
         show:function (done) {
-        	alert('hello hello');
             $("#qpage-header").html(this.header.render().el);
             $("#qwizkool-user-settings").html(this.userSettings.render().el);
             $("#qpage-content").html(this.qwizbookContent.render().el);
