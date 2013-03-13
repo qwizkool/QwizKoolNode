@@ -805,7 +805,7 @@ h4 small {
 
 .page-header {
   padding-bottom: 9px;
-  margin: 20px 0 30px;
+  margin: 20px 10px 0px 30px;
   border-bottom: 1px solid #eeeeee;
 }
 
@@ -5587,6 +5587,8 @@ a.thumbnail:focus {
   overflow: hidden;
   *overflow: visible;
   zoom: 1;
+  text-align: justify;
+  margin-left: 12px;
 }
 
 .media,

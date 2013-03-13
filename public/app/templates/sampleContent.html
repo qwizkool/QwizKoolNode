@@ -6,7 +6,7 @@ Template 1
     <div class="row">
 
         <div class="span12 qwizbook-summary-header">
-            <div class="page-header" style="margin: 10px">
+            <div class="page-header">
                 <h1 style="font-weight: 300">Title</h1>
             </div>
         </div>
@@ -85,7 +85,7 @@ Template 2
     <div class="row">
     	
 		 <div class="span12 qwizbook-question-answer-header" >
-            <div class="page-header" style="margin: 10px;">
+            <div class="page-header">
                 <h1 style="font-weight: 300">Ad </h1>
             </div>
         </div>
@@ -121,43 +121,50 @@ Template 2
         <div class="span9" style="margin: 10px;">
            
            <div class="span7" style="margin: 10px;" > 
-           Q : Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+           Q : Lorem ipsum dolor sit amet, consectborder:1px solid blacketur adipisicing elit, 
                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ?
            </div>
+           
+           <div class="span1" style="margin: 10px;" > 
+           </div>
             
             <div class="span7" style="margin: 10px;" >
-            	<div class="span2" style="margin: 10px;">
-            		<a class="pull-left">
+            	<div class="span2" style="margin: 10px;border:1px solid black">
+            		<h5 style="margin: 10px;">Image</h5>
+            		<!--a class="pull-left">
                         <img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif" width="160px" >
-                    </a>
+                    </a-->
             	</div>
             	
-            	<div class="span2" style="margin: 10px;">
-            		<a class="pull-left">
+            	<div class="span2" style="margin: 10px;border:1px solid black">
+            		<h5 style="margin: 10px;">Video</h5>
+            		<!--a class="pull-left">
                         <img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"width="160px"  >
-                    </a>
+                    </a-->
             	</div>
             	
-            	<div class="span2" style="margin: 10px;">
-            		<a class="pull-left">
+            	<div class="span2" style="margin: 10px;border:1px solid black">
+            		<h5 style="margin: 10px;">Audio</h5>
+            		<!--a class="pull-left">
                         <img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif" width="160px" >
-                    </a>
+                    </a-->
             	</div>
             	
             	
             	
            </div>
          
-         
+         <div class="span1" style="margin: 10px;" > 
+         </div>
          
           <div>
           	<div class="span7" style="margin: 10px;">
             		A. Option A
             		
  		  	</div>
- 		  	<div class="span1">
-            	<input type="checkbox" name="option-A" value="A">	
+ 		  	<div class="span1" style="margin: 10px;">
+            	<input style="margin-bottom:5px;" type="checkbox" name="option-A" value="A">	
    		 	 </div>
             
          </div>
@@ -167,8 +174,8 @@ Template 2
             		B. Option B
             		
  		  	</div>
- 		  	<div class="span1">
-            	<input type="checkbox" name="option-B" value="B">	
+ 		  	<div class="span1" style="margin: 10px;">
+            	<input style="margin-bottom:5px;" type="checkbox" name="option-B" value="B">	
    		 	 </div>
             
          </div>
@@ -178,8 +185,8 @@ Template 2
             		A. Option C
             		
  		  	</div>
- 		  	<div class="span1">
-            	<input type="checkbox" name="option-C" value="C">	
+ 		  	<div class="span1" style="margin: 10px;">
+            	<input style="margin-bottom:5px;" type="checkbox" name="option-C" value="C">	
    		 	 </div>
             
          </div>
@@ -189,8 +196,8 @@ Template 2
             		A. Option D
             		
  		  	</div>
- 		  	<div class="span1">
-            	<input type="checkbox" name="option-D" value="D">	
+ 		  	<div class="span1" style="margin: 10px;">
+            	<input style="margin-bottom:5px;" type="checkbox" name="option-D" value="D">	
    		 	 </div>
             
          </div>
@@ -249,7 +256,7 @@ Template 3
     <div class="row">
 
         <div class="span12 qwizbook-reinforcement-summary-header">
-            <div class="page-header" style="margin: 10px">
+            <div class="page-header">
                 <h1 style="font-weight: 300">Title</h1>
             </div>
         </div>
@@ -384,7 +391,7 @@ Template 5
     <div class="row">
 
         <div class="span12 qwizbook-reference-header">
-            <div class="page-header" style="margin: 10px">
+            <div class="page-header">
                 <h1 style="font-weight: 300">Reference</h1>
             </div>
         </div>
@@ -393,17 +400,16 @@ Template 5
 
             <div class="page-header" style="margin: 10px;">
 				<ul class="nav-tabs">
-					  <li><a href="#">Reference</a></li>
-					  <li><a href="#">Image</a></li>
-					  <li><a href="#">Audio</a> </li>
-					  <li><a href="#">Video</a></li>
+					  <li><a>Reference</a></li>
+					  <li><a>Image</a></li>
+					  <li><a>Audio</a> </li>
+					  <li><a>Video</a></li>
 			    </ul>
 
 
 
-                <div class="media">
+                <div class="media" id="reference">
 
-                    
                     <div class="media-body">
                     	Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
                     	sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
@@ -411,8 +417,34 @@ Template 5
                     	Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
                     	Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                     	
+                    </div>	
+
+                </div>
+                
+                <div class="media" id="image" style="display:none;">
+					<div class="media-body">
+                    
+                    	image
                     	
                     </div>
+
+                </div>
+                
+                <div class="media" id="audio" style="display:none;">
+
+                    <div class="media-body">
+                    	audio
+                    	
+                    </div>
+
+                </div>
+                
+                <div class="media" id="video" style="display:none;">
+
+                    <div class="media-body">
+                    	video
+                    	
+                    </div>	
 
                 </div>
 
@@ -425,10 +457,10 @@ Template 5
 
             <div class="page-header" style="margin: 10px;">
             	<ul class="nav-tabs">
-            		  <li><a href="#">Reference</a></li>
-					  <li><a href="#">Image</a></li>
-					  <li><a href="#">Audio</a> </li>
-					  <li><a href="#">Video</a></li>
+            		  <li><a>Reference</a></li>
+					  <li><a>Image</a></li>
+					  <li><a>Audio </a></li>
+					  <li><a>Video</a></li>
 			    </ul>
 
                 <div class="media">
@@ -452,10 +484,10 @@ Template 5
 
             <div class="page-header" style="margin: 10px;">
             	<ul class="nav-tabs">
-            		  <li><a href="#">Reference</a></li>
-					  <li><a href="#">Image</a></li>
-					  <li><a href="#">Audio</a> </li>
-					  <li><a href="#">Video</a></li>
+            		  <li><a>Reference</a></li>
+					  <li><a>Image</a></li>
+					  <li><a>Audio</a></li>
+					  <li><a>Video</a></li>
 			    </ul>
 
                 <div class="media">
@@ -517,17 +549,18 @@ Template 6
     <div class="row">
 
         <div class="span6">
-            <div  style="margin: 10px;">
+        	<div class="media">
+            <div class="media-body">
             	<h3>Statistics</h3>
                 		Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
                     	sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
                     	Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
                     	Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
                     	Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-            </div>
-       
+            
+       		</div>
         
-       		<div  style="margin: 10px;">
+       		<div class="media-body">
        			<h3>Badges</h3>
        					Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
                     	sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
@@ -535,6 +568,7 @@ Template 6
                     	Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
                     	Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum 
        			
+       		</div>
        		</div>
         </div>
         
@@ -544,7 +578,7 @@ Template 6
              <div class="media">
 					<h3>Feedback form</h3>
 					<div align="left">
-					<textarea class="span6" rows="7" name="qwizbook-feedback-form" id="qwizbook-feedback-form"> </textarea>
+					<textarea class="span5" rows="7" name="qwizbook-feedback-form" id="qwizbook-feedback-form"> </textarea>
                     </div>
                     
                     <div class="qwizbook-feedback-rating-container" align="right" style="margin:10px;">
@@ -687,5 +721,4 @@ Template 7
         </div>
     </div>
 </div>
-
 
