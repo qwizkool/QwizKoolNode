@@ -33,7 +33,6 @@ module.exports = {
 	getbook : function(req, res) {
 
 		var qbookId = req.route.params.id;
-
 		qbookId = req.route.params.id;
 		var sessionUser = req.user;
         var userEmail = sessionUser.email;
@@ -107,12 +106,12 @@ module.exports = {
 						return;
 					}
 					// No error send the unique ID for the newly created book
-
 					//console.log("Filter criteria" + JSON.stringify(books));
 					var json ='[';
 					var istrue =false;
 					for (var i in books) {
 						qbook = books[i];
+						
 						var userEmail = sessionUser.email;
 						QwizbookRating.getQwizbookAverageRating(qbook,userEmail, function(err, avgratingNcount) {
 						

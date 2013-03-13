@@ -17,7 +17,7 @@ define([
 
 
         initialize:function () {
-        	
+        
             this.breadcrumb = new Breadcrumb.View();
             this.qwizbookId = this.options.qwizbookId;
             this.qwizbookdetailmodel = this.model;
@@ -25,26 +25,28 @@ define([
             //this.qwizbookDetails = new QwizbookDetails.View({model:this.qwizbookdetailmodel});
             this.qwizbookDetails = new QwizbookDetails.View({model:this.qwizbookdetailmodel,qwizbookId:this.qwizbookId});
             
+			this.addComments = new QwizbookComments.View({qwizbookId:this.qwizbookId});
+			
+			this.commentList = this.collection;
+			this.commentDetail = new Comments.ListView({model:this.commentList});
+
+			//this.commentList = new Comments.Collection({qwizbookId:this.qwizbookId});
+			//this.commentList.QwizbookComments(this.qwizbookId);
+			//this.commentList.on("reset", this.updateCollection, this);
+            
+			//this.qwizbookDetails = new QwizbookDetails.View({qwizbookId:this.qwizbookId});
+			//this.qwizbookDetails = new QwizbookDetails.View({model:this.qwizbookDetails});
+			
+			this.qwizbookDetails.on("addrating", function (ratingdataObj) {
+
+			var ratingvalue = ratingdataObj.ratingval;
+			var qbookId = this.qwizbookId;
+			var qwizbookratingmodel = ratingdataObj.ratingmodel;
+			qwizbookratingmodel.addqwizbookrating(qbookId, ratingvalue);
+
+			});
            
-            this.commentList = new Comments.Collection({qwizbookId:this.qwizbookId});
-            this.commentList.QwizbookComments(this.qwizbookId);
-            this.commentList.on("reset", this.updateCollection, this);
-            
-            this.addComments = new QwizbookComments.View({qwizbookId:this.qwizbookId});
-            this.commentDetail = new Comments.ListView({model:this.commentList});
-
-            //this.qwizbookDetails = new QwizbookDetails.View({qwizbookId:this.qwizbookId});
-            //this.qwizbookDetails = new QwizbookDetails.View({model:this.qwizbookDetails});
-            this.qwizbookDetails.on("addrating", function (ratingdataObj) {
-
-                var ratingvalue = ratingdataObj.ratingval;
-                var qbookId = this.qwizbookId;
-                var qwizbookratingmodel = ratingdataObj.ratingmodel;
-                qwizbookratingmodel.addqwizbookrating(qbookId, ratingvalue);
-
-            });
-            
-            //this.commentadded.on("add-qwizbookcomment-success", this.checkadd, this);
+          
         },
 
         updateCollection:function () {
@@ -53,12 +55,7 @@ define([
 
 
         },
-        
-        checkadd:function () {
-        alert("Hello");	
-        	
-        },
-        
+
         reattachEvents:function () {
             this.addComments.reattachEvents();
         },
@@ -66,7 +63,6 @@ define([
         template:Template,
 
         render:function (done) {
-        	//alert("Hello");
             this.el.innerHTML = this.template;
             $(this.el).find("#qwizbook-content-container").append(this.qwizbookDetails.render().el);
             $(this.el).find("#review-content-header").append(this.addComments.render().el);
@@ -80,3 +76,6 @@ define([
     return QwizbookContent;
 
 });
+
+
+

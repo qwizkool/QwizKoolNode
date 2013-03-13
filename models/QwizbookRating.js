@@ -370,7 +370,10 @@ function getQwizbookAverageRating(qbook,userEmail, callback) {
 
 
         } else {
-            callback(null, 1);
+        	qbook.userratingcount = 0;
+        	qbook.userRating = 0;
+        	qbook.averageRating = 0; 
+             callback(null, JSON.stringify(qbook));
         }
 
     });

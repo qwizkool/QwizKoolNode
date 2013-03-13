@@ -52,10 +52,11 @@ define([
 
 
         addComment:function (e) {
-            var addComment = $('#qwizbook-comment-text').val();
-            $('#qwizbook-comments-form').hide();
-            this.model.addQwizbookComments(addComment, "", this.qId);
-
+        	var addComment = $('#qwizbook-comment-text').val();
+            this.model.addQwizbookComments(addComment, this.qId);
+            this.render();
+            this.model.trigger("add-qwizbookcomment-success");
+            return false;
         }
     });
 

@@ -62,7 +62,7 @@ define([
              var selectedQwizbook = new Qwizbook.Model({id:id});
 
         	 var qwizbookMainPage = new QwizbookMainPage.View({ qwizbookId: id });
-             //qwizbookMainPage.show();
+             qwizbookMainPage.show();
         },
         
         sampleDesign : function(hash)  {

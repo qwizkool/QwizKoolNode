@@ -57,12 +57,10 @@ function addComments(qwizbookComment, sessionUser, callback) {
 	});
 }
 
-function retrieveQwizbookcomments(user, qwizbookId, callback) {
-	QwizbookCommentsData.find({
-		$and : [{
-			qwizbookId : qwizbookId
-		}]
-	}).execFind(function(err, comments) {
+function retrieveQwizbookcomments(user, qbookId, callback) {
+	
+		QwizbookCommentsData.find({qwizbookId : qbookId}).execFind(function(err, comments) {
+
 
 		if (err) {
 			// All other conditions Pass as is TODO: need to cleanup.
