@@ -184,6 +184,7 @@ module.exports = {
 								{
 									json += ']';
 									res.send(json);
+									console.log("test dddf"+ json["averageRating"]);
 								}
 							}
 						c++;

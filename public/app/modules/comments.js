@@ -24,7 +24,7 @@ define([
         defaults:{
             id:null,
             comment:'qwizbook comments',
-            description:"Qwizbook Description",
+            description:"Donec imperdiet egestas lorem, nec feugiat eros gravida et. Pellentesque ultricies consectetur tortor, sit amet hendrerit nibh faucibus ac. Integer imperdiet, leo ut pretium mollis, quam sem malesuada magna, et sollicitudin risus tortor quis tellus. Nunc convallis laoreet mi, in ullamcorper dui molestie quis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet posuere nulla. Nulla molestie aliquet tellus sed tristique. Duis pretium, sapien sed venenatis porttitor, nisl sem fringilla risus, ac ultricies neque quam vel massa.",
             username:'qwizkool_user',
             qwizbookId:null
         },
@@ -40,7 +40,9 @@ define([
         },
 
         addQwizbookComments:function (comments, qId) {
+        	var commentdesc = "Donec imperdiet egestas lorem, nec feugiat eros gravida et. Pellentesque ultricies consectetur tortor, sit amet hendrerit nibh faucibus ac. Integer imperdiet, leo ut pretium mollis, quam sem malesuada magna, et sollicitudin risus tortor quis tellus. Nunc convallis laoreet mi, in ullamcorper dui molestie quis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet posuere nulla. Nulla molestie aliquet tellus sed tristique. Duis pretium, sapien sed venenatis porttitor, nisl sem fringilla risus, ac ultricies neque quam vel massa.";
             this.set('comment', comments);
+            this.set('description', commentdesc);
             this.set('qwizbookId', qId);
             this.action = "addQwizbookComments";
 
@@ -102,7 +104,6 @@ define([
         template:TemplateListView,
 
         initialize:function () {
-            //this.model = new QwizBook.Model();
         },
 
         render:function (done) {
@@ -121,14 +122,13 @@ define([
         template:TemplateList,
 
         initialize:function () {
-
         },
 
         render:function (done) {
 
             var view = this;
             var qbookcomment_list_template;
-            
+           //alert("hello");
             qbookcomment_list_template = this.template;
             
             view.el.innerHTML = qbookcomment_list_template;
@@ -143,6 +143,7 @@ define([
                 });
 
                 $(view.el).find("#comment-list-container").append(commentView.render().el);
+                
 
             });
 

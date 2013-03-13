@@ -25,23 +25,32 @@ define([
             this.header = new Header.View();
             this.userSettings = new UserSettings.View();
             
+            
+            
+            //this.qwizbookContent = new QwizbookContent.View({qwizbookId:this.qbookid});
+            //this.qwizbookContent = new QwizbookContent.View({model:this.selectedQwizbook,qwizbookId:this.qbookid});
+            //this.qwizbookContent = new QwizbookContent.View({model:this.selectedQwizbook,commentmodel:this.commentList,qwizbookId:this.qbookid});
             this.footer = new Footer.View();
             
-            },
+            
+            
+          },
           
         getComments:function () {
-        	
+        	//$("#qpage-content").html(this.qwizbookContent.render().el);
+            //this.qwizbookContent.reattachEvents();
             this.commentList = new Comments.Collection({qwizbookId:this.qbookid});
             this.commentList.on("reset", this.updateModel, this);
-            
+            //this.commentListView = new Comments.ListView({model:this.commentList,qwizbookId:this.qbookid});
+            //$(this.el).find("#review-content-container").append(this.commentListView.render().el);
             this.commentList.QwizbookComments(this.qbookid);
-            
-            this.qwizbookContent = new QwizbookContent.View({model:this.selectedQwizbook,commentmodel:this.commentList,qwizbookId:this.qbookid});
-             
-          },
+             this.qwizbookContent = new QwizbookContent.View({model:this.selectedQwizbook,commentmodel:this.commentList,qwizbookId:this.qbookid});
+             //$("#qpage-content").html(this.qwizbookContent.render().el);
+            //alert("Hello World");
+        },
         
         updateModel:function () {
-        	
+        	//alert("in updatemodel");
         	$("#qpage-content").html(this.qwizbookContent.render().el);
             this.qwizbookContent.reattachEvents();
         },
@@ -53,6 +62,7 @@ define([
             $("#qpage-header").html(this.header.render().el);
             $("#qwizkool-user-settings").html(this.userSettings.render().el);
             this.header.renderSettings();
+            //$("#qpage-content").html(this.qwizbookContent.render().el);
             $("#qpage-footer").html(this.footer.render().el);
 
 
