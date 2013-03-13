@@ -33,9 +33,9 @@ module.exports = {
 	getbook : function(req, res) {
 
 		var qbookId = req.route.params.id;
-
 		qbookId = req.route.params.id;
 		var sessionUser = req.user;
+        var userEmail = sessionUser.email;
 		Qwizbook.retrieveQwizbook(sessionUser, qbookId, function(err, book) {
 			// If error send the error response
 			if (err) {
@@ -44,29 +44,37 @@ module.exports = {
 				return;
 			}
 
-			QwizbookRating.getQwizbookAverageRating(qbookId, function(err, bookrating) {
-				// If error send the error response
-				if (err) {
-					res.send(400, err);
-					console.log(err);
-					return;
-				}
-				// No error send the unique ID for the newly created book
-				var qwizbook = ' {';
-				qwizbook += '" description":' + JSON.stringify(book.description);
-				qwizbook += ', "title":' + JSON.stringify(book.title);
 
-				qwizbook += ', "_id":' + JSON.stringify(book._id);
-				if (bookrating == '') {
-					qwizbook += ', "value":' + JSON.stringify(0);
-				} else {
-					qwizbook += ', "value":' + JSON.stringify(bookrating[0].value);
-				}
+			else
+			{
+						var json ='[';
+						var istrue =false;
+						var userEmail = sessionUser.email;
+						QwizbookRating.getQwizbookAverageRating(book,userEmail, function(err, avgratingNcount) {
+						
+							if (err) {
+								console.log(err);
+								res.send(400, err);
+								return;
+							} else {
+								
+								
+								if(istrue)
+								{
+									json +=',';
+								}
+								else
+								{
+									istrue = true;
+								}
+								json += avgratingNcount;
+									json += ']';
+									res.send(json);
+							}
+						});
+			}
 
-				qwizbook += '} ';
-				res.send(qwizbook);
-
-			})
+		
 		});
 
 	},
@@ -98,12 +106,12 @@ module.exports = {
 						return;
 					}
 					// No error send the unique ID for the newly created book
-
 					//console.log("Filter criteria" + JSON.stringify(books));
 					var json ='[';
 					var istrue =false;
 					for (var i in books) {
 						qbook = books[i];
+						
 						var userEmail = sessionUser.email;
 						QwizbookRating.getQwizbookAverageRating(qbook,userEmail, function(err, avgratingNcount) {
 						

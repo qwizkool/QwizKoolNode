@@ -9,19 +9,23 @@ define([
 
     Comments.Model = Backbone.Model.extend({
 
-        urlRoot:function () {
+        //urlRoot:function () {
 
-            urlRootBase = "/";
+            //urlRootBase = "/";
 
-            if (this.action == "addQwizbookComments") {
-                return urlRootBase + "comments/";
-            }
+            //if (this.action == "addQwizbookComments") {
+                //return urlRootBase + "comments/";
+            //}
 
-        },
+        //},
+        
+        urlRoot:"/comments/",
 
         defaults:{
             id:null,
             comment:'qwizbook comments',
+            description:"Qwizbook Description",
+            username:'qwizkool_user',
             qwizbookId:null
         },
 
@@ -47,6 +51,7 @@ define([
                 },
 
                 success:function (model, response) {
+                	model.trigger('add-qwizbookcomment-success-event');
                 }
             });
 
@@ -60,7 +65,7 @@ define([
 
         model:Comments.Model,
         url:function () {
-
+			
             if (this.qwizbookId) {
 
                 urlRoot = "/comments" + "/" + this.qwizbookId;
@@ -72,7 +77,7 @@ define([
         QwizbookComments:function (qwizbookId) {
             this.qwizbookId = qwizbookId;
             this.urlroot = this.url();
-
+            
             var qwizbookComments = this;
 
             var jqxhr = qwizbookComments.fetch({
@@ -102,8 +107,11 @@ define([
 
         render:function (done) {
             var view = this;
-            view.el.innerHTML = _.template(this.template, view.model.toJSON());
-            return view;
+            var qbookcomment_item_template;
+            qbookcomment_item_template = _.template(this.template, view.model.toJSON());
+            //alert(qbook_item_template);
+            view.el.innerHTML = qbookcomment_item_template;
+            return this;
         }
 
     });
@@ -119,8 +127,15 @@ define([
         render:function (done) {
 
             var view = this;
-            view.el.innerHTML = _.template(this.template, view.model.toJSON());
-
+            var qbookcomment_list_template;
+            
+            qbookcomment_list_template = this.template;
+            
+            view.el.innerHTML = qbookcomment_list_template;
+            
+            $(view.el).find("#comment-list-container").empty();
+            //view.el.innerHTML = _.template(this.template, view.model.toJSON());
+          
             _.each(view.model.models, function (comment) {
 
                 var commentView = new Comments.View({
@@ -131,7 +146,7 @@ define([
 
             });
 
-            return view;
+            return this;
         }
     });
 

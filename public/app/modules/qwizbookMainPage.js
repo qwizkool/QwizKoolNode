@@ -2,10 +2,11 @@ define([
     "app",
     "modules/header",
     "modules/qwizbook",
+    "modules/comments",
     "modules/userSettings",
     "modules/qwizbookContent",
     "modules/footer"
-], function (App, Header, Qwizbook, UserSettings, QwizbookContent, Footer) {
+], function (App, Header, Qwizbook, Comments, UserSettings, QwizbookContent, Footer) {
 
     // Create a new module
     var QwizbookMainPage = new App.module();
@@ -18,24 +19,33 @@ define([
             this.qbookid = this.options.qwizbookId;
             
             this.selectedQwizbook = new Qwizbook.Model({id:this.qbookid});
-            
-            //this.selectedQwizbook.on("retreive-qwizbook-success-event", this.show, this);
+            this.selectedQwizbook.on("retreive-qwizbook-success-event", this.getComments, this);
+            this.selectedQwizbook.retreive();
             
             this.header = new Header.View();
             this.userSettings = new UserSettings.View();
             //this.qwizbookContent = new QwizbookContent.View({qwizbookId:this.qbookid});
             this.qwizbookContent = new QwizbookContent.View({model:this.selectedQwizbook,qwizbookId:this.qbookid});
             this.footer = new Footer.View();
-            this.selectedQwizbook.retreive();
-            this.selectedQwizbook.on("retreive-qwizbook-success-event", this.updateModel, this);
-
+            
+            
+            
+          },
+          
+        getComments:function () {
+        	$("#qpage-content").html(this.qwizbookContent.render().el);
+            this.qwizbookContent.reattachEvents();
+            this.commentList = new Comments.Collection({qwizbookId:this.qbookid});
+            this.commentList.on("reset", this.updateModel, this);
+            this.commentListView = new Comments.ListView({model:this.commentList,qwizbookId:this.qbookid});
+            $(this.el).find("#review-content-container").append(this.commentListView.render().el);
+			this.commentList.QwizbookComments(this.qbookid);
+            //alert("Hello World");
         },
         
         updateModel:function () {
-             //alert("Hello");
-            //$("#qpage-content").html(this.userMainContent.render().el);
-            $("#qpage-content").html(this.qwizbookContent.render().el);
-            //this.qwizbookContent.reattachEvents();
+        	$("#qpage-content").html(this.qwizbookContent.render().el);
+            this.qwizbookContent.reattachEvents();
         },
 
 
@@ -45,7 +55,7 @@ define([
             $("#qpage-header").html(this.header.render().el);
             $("#qwizkool-user-settings").html(this.userSettings.render().el);
             this.header.renderSettings();
-            //$("#qpage-content").html(this.qwizbookContent.render().el);
+            $("#qpage-content").html(this.qwizbookContent.render().el);
             $("#qpage-footer").html(this.footer.render().el);
 
 
@@ -53,4 +63,6 @@ define([
     });
 
     return QwizbookMainPage;
-}); 
+});
+
+

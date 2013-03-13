@@ -30,10 +30,12 @@ module.exports = {
 
     },
     ListComments:function (req, res) {
-
-        var qbookId = req.route.params.qwizbookId;
-
+        
+        var qbookId = req.route.params.id;
         var sessionUser = req.user;
+        
+        
+        
         QwizbookComment.retrieveQwizbookcomments(sessionUser, qbookId, function (err, comments) {
             // If error send the error response
             if (err) {
