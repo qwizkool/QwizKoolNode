@@ -33,14 +33,11 @@
 /**
  * Module dependencies.
  */
-var db = require('../lib/db_connection')
-  , QwizbookModel = require('./QwizbookModel');
+var QwizbookModel = require('./QwizbookModel');
 
 /**
  * Qwizbook model constructor.
  *
- * @param {String} iface_name
- * @param {Number} interval
  * @api public
  * @return {Function} Constructor for Qwizbook type.
  */
