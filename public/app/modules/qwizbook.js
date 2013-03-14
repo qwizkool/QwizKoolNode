@@ -67,7 +67,8 @@ define([
         },
         
         retreive:function() {
-        var retreivedQwizbook = this;	
+        var retreivedQwizbook = this;
+       this.set('id', retreivedQwizbook.id);
         var jqxhr = retreivedQwizbook.fetch({
 
                 error:function (model, response) {
@@ -78,9 +79,8 @@ define([
 
                 success:function (model, response) {
                     //this.isListedqwizBook = true;
-                    var Qwizbookdetails = Array();
-                    Qwizbookdetails = retreivedQwizbook.toJSON();
-                    model.trigger('retreive-qwizbook-success-event');
+                    var Qwizbookdetails = response;
+                    model.trigger('retreive-qwizbook-success-event', Qwizbookdetails);
                 }
             });	
         	
@@ -152,7 +152,6 @@ define([
         initialize:function () {
         	 this.qwizbookratingmodel = new QwizBookRating.Model();
         	 this.qwizbookratingmodel.on("add-qwizbookrating-event", function (response) {
-	
 				var rating = response.rating;
 				var qId = response.qId;
 				var count = response.count;
@@ -209,6 +208,7 @@ define([
 
             var view = this;
             var qbook_item_template;
+            console.log(view.model);
             qbook_item_template = _.template(this.template, view.model.toJSON());
             //alert(qbook_item_template);
             view.el.innerHTML = qbook_item_template;
@@ -264,7 +264,7 @@ define([
         },
 
         events:{
-            "click button.qwizbookListItem":"openQwizbook",
+            "click button":"openQwizbook",
             "click #rating-1":"setRating1",
             "click #rating-2":"setRating2",
             "click #rating-3":"setRating3",

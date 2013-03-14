@@ -48,8 +48,10 @@ module.exports = {
 
 			else
 			{
-						var json ='[';
-						var istrue =false;
+				console.log(book);
+				res.send(JSON.stringify(book));
+						//var json ='[';
+						//var istrue =false;
 						var userEmail = sessionUser.email;
 						QwizbookRating.getQwizbookAverageRating(book,userEmail, function(err, avgratingNcount) {
 						
@@ -60,17 +62,17 @@ module.exports = {
 							} else {
 								
 								
-								if(istrue)
-								{
-									json +=',';
-								}
-								else
-								{
-									istrue = true;
-								}
-								json += avgratingNcount;
-									json += ']';
-									res.send(json);
+							//	if(istrue)
+							//	{
+							//		json +=',';
+							//	}
+							//	else
+							//	{
+								//	istrue = true;
+							//	}
+							//	json += avgratingNcount;
+							//	json += ']';
+									
 							}
 						});
 			}
