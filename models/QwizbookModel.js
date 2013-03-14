@@ -8,8 +8,8 @@
 /**
  * Module dependencies.
  */
-var db = require('../lib/db_connection')
-  , qwizbookSchema = require('./QwizbookSchema');
+var db = require('../lib/db_connection'),
+    qwizbookSchema = require('./QwizbookSchema');
 
 /**
  * Qwizbook model.

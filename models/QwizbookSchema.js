@@ -26,7 +26,7 @@ var QwizbookSchema = {
     },
     date: {
         type: Date,
-        default: Date.now
+        'default': Date.now
     },
     // Private/Public/Shared
     groupPermission: {
@@ -44,7 +44,7 @@ var QwizbookSchema = {
         },
         date: {
             type: Date,
-            default: Date.now
+            'default': Date.now
         },
         text: {
             type: String
@@ -85,7 +85,7 @@ var QwizbookSchema = {
                 },
                 date: {
                     type: Date,
-                    default: Date.now
+                    'default': Date.now
                 },
                 text: {
                     type: String
@@ -129,7 +129,7 @@ var QwizbookSchema = {
         }]
 
     }]
-}
+};
 
 /**
   * Exports.

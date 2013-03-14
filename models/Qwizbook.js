@@ -256,7 +256,7 @@ Qwizbook.prototype.retrieveQwizbooksOnFilter = function (owner, filterdata, call
     // TODO: Complete the Retrieve Qwizbooks
     // Retrieve Qwizbooks, that are shared, public or
     // owned by the 'owner'
-    var qwizbookArray = new Array();
+    var qwizbookArray = [];
 
     if (filterdata == "Recently Updated") {
         QwizbookModel.find().sort({
