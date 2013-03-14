@@ -67,9 +67,11 @@ define([
         },
         
         retreive:function() {
+
         var retreivedQwizbook = this;
        this.set('id', retreivedQwizbook.id);
         var jqxhr = retreivedQwizbook.fetch({
+
 
                 error:function (model, response) {
                     //this.isListedqwizBook = false;
@@ -79,8 +81,10 @@ define([
 
                 success:function (model, response) {
                     //this.isListedqwizBook = true;
+
                     var Qwizbookdetails = response;
                     model.trigger('retreive-qwizbook-success-event', Qwizbookdetails);
+
                 }
             });	
         	
@@ -212,6 +216,7 @@ define([
             qbook_item_template = _.template(this.template, view.model.toJSON());
             //alert(qbook_item_template);
             view.el.innerHTML = qbook_item_template;
+            
             var avgRating = $(view.el.innerHTML).find("#book_avgRating").val();
             var userRating = $(view.el.innerHTML).find("#book_userrating").val();
             var bookId = $(view.el.innerHTML).find("#book_id").val();

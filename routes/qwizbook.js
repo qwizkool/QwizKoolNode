@@ -33,7 +33,6 @@ module.exports = {
 	getbook : function(req, res) {
 
 		var qbookId = req.route.params.id;
-
 		qbookId = req.route.params.id;
 		var sessionUser = req.user;
         var userEmail = sessionUser.email;
@@ -187,6 +186,7 @@ module.exports = {
 								{
 									json += ']';
 									res.send(json);
+									console.log("test dddf"+ json["averageRating"]);
 								}
 							}
 						c++;

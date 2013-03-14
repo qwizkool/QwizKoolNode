@@ -283,7 +283,7 @@ function retrieveQwizbookRating(qid, callback) {
                 	
                     callback(null, averagerating);
 
-                    //console.log("AVG RATING" + JSON.stringify(averagerating) + 'hhjhj');
+                    
                 }
 
             });
