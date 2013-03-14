@@ -27,7 +27,9 @@ define([
             description:"Qwizbook Description",
             ownerEmail:"qwizkool_user@qwizkool.com",
             date:Date.now,
-			userrating:"0",
+			userRating:"0",
+			averageRating:"0",
+			userratingcount:"0",
             isAddedqwizBook:false,
             AddedqwizBookAttempted:false,
             AddedqwizBookStatus:null
@@ -69,7 +71,7 @@ define([
         retreive:function() {
 
         var retreivedQwizbook = this;
-       this.set('id', retreivedQwizbook.id);
+       
         var jqxhr = retreivedQwizbook.fetch({
 
 
@@ -80,10 +82,7 @@ define([
                 },
 
                 success:function (model, response) {
-                    //this.isListedqwizBook = true;
-
-                    var Qwizbookdetails = response;
-                    model.trigger('retreive-qwizbook-success-event', Qwizbookdetails);
+                    model.trigger('retreive-qwizbook-success-event');
 
                 }
             });	
@@ -212,7 +211,6 @@ define([
 
             var view = this;
             var qbook_item_template;
-            console.log(view.model);
             qbook_item_template = _.template(this.template, view.model.toJSON());
             //alert(qbook_item_template);
             view.el.innerHTML = qbook_item_template;

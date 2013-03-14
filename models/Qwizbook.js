@@ -214,7 +214,7 @@ function createQwizbook(owner, data, callback) {
     });
 };
 
-/*
+
 function retrieveQwizbook(owner, id, callback) {
 
     QwizbookData.findById(id, function (err, book) {
@@ -233,9 +233,9 @@ function retrieveQwizbook(owner, id, callback) {
     });
 
 };
-*/
 
-function retrieveQwizbook(owner, id, callback) {
+
+/*function retrieveQwizbook(owner, id, callback) {
 
     QwizbookData.find({_id : id}).execFind(function (err, book) {
 
@@ -253,7 +253,7 @@ function retrieveQwizbook(owner, id, callback) {
     });
 
 };
-
+*/
 function retrieveQwizbooks(owner, callback) {
 
     // TODO: Complete the Retrieve Qwizbooks

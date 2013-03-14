@@ -19,8 +19,9 @@ define([
             this.qbookid = this.options.qwizbookId;
             
             this.selectedQwizbook = new Qwizbook.Model({id:this.qbookid});
+             this.selectedQwizbook.retreive();
             this.selectedQwizbook.on("retreive-qwizbook-success-event", this.getComments, this);
-            this.selectedQwizbook.retreive();
+           
             
             this.header = new Header.View();
             this.userSettings = new UserSettings.View();
@@ -30,13 +31,14 @@ define([
             },
           
         getComments:function () {
-        	
+        	var view = this;
+        	this.qwizbookData = view.selectedQwizbook;
             this.commentList = new Comments.Collection({qwizbookId:this.qbookid});
             this.commentList.on("reset", this.updateModel, this);
             
             this.commentList.QwizbookComments(this.qbookid);
             
-            this.qwizbookContent = new QwizbookContent.View({model:this.selectedQwizbook,commentmodel:this.commentList,qwizbookId:this.qbookid});
+            this.qwizbookContent = new QwizbookContent.View({model:this.qwizbookData,commentmodel:this.commentList,qwizbookId:this.qbookid});
              
           },
         
