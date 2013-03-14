@@ -1,7 +1,8 @@
 define([
     "app",
+    "modules/user",
     "text!templates/searchFilter.html"
-], function (App, Template) {
+], function (App, User, Template) {
 
     // Create a new module
     var Searchfilter = App.module();
@@ -11,13 +12,25 @@ define([
         template:Template,
 
         initialize:function () {
-
+				this.model = new User.Model();
         },
 
         render:function () {
 
             this.el.innerHTML = this.template;
             return this;
+
+        },
+        
+        renderSearch:function () {
+
+            // Show the settings option based on the user
+            // log in.
+            if (this.model.get('isLoggedIn') === true) {
+                $("#qpage-search").show();
+            } else {
+                $("#qpage-search").hide();
+            }
 
         },
 

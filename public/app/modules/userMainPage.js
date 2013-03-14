@@ -65,6 +65,7 @@ define([
             $("#qwizkool-user-settings").html(this.userSettings.render().el);
             this.header.renderSettings();
             $("#qpage-search").html(this.searchfilter.render().el);
+            this.searchfilter.renderSearch();
             $("#qpage-footer").html(this.footer.render().el);
 
         }
