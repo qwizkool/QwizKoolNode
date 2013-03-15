@@ -216,7 +216,7 @@ define([
             view.el.innerHTML = qbook_item_template;
             
             var avgRating = $(view.el.innerHTML).find("#book_avgRating").val();
-            var userRating = $(view.el.innerHTML).find("#book_userrating").val();
+            var userRating = $(view.el.innerHTML).find("#bookuserrating").val();
             var bookId = $(view.el.innerHTML).find("#book_id").val();
              avgRating = Math.ceil(avgRating);
             var avgHtml = '';
@@ -263,8 +263,6 @@ define([
 						ratingHtml += '</ul>';
             $(view.el).find("#qbookaverage_rating").append(avgHtml);
             $(view.el).find("#book_userRating").append(ratingHtml);
-            this.undelegateEvents();
-            this.delegateEvents(this.events);
             return this;
         },
 

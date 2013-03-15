@@ -9,7 +9,7 @@
  * Module dependencies.
  */
 var db = require('../lib/db_connection'),
-    qwizbookSchema = require('./QwizbookSchema');
+    qwizbookSchema = require('./schema/QwizbookSchema');
 
 /**
  * Qwizbook model.
