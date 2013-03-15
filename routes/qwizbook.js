@@ -112,6 +112,7 @@ module.exports = {
 					}
 					// No error send the unique ID for the newly created book
 					//console.log("Filter criteria" + JSON.stringify(books));
+					
 					var json ='[';
 					var istrue =false;
 					for (var i in books) {
@@ -136,9 +137,11 @@ module.exports = {
 									istrue = true;
 								}
 								json += avgratingNcount;
+								console.log(avgratingNcount);
 								if(c==book_length)
 								{
 									json += ']';
+									
 									res.send(json);
 								}
 							}

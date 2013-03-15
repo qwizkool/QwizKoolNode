@@ -263,6 +263,8 @@ define([
 						ratingHtml += '</ul>';
             $(view.el).find("#qbookaverage_rating").append(avgHtml);
             $(view.el).find("#book_userRating").append(ratingHtml);
+            this.undelegateEvents();
+            this.delegateEvents(this.events);
             return this;
         },
 
