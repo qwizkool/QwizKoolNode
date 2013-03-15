@@ -109,15 +109,16 @@ Qwizbook.prototype.createQwizbook = function (owner, data, callback) {
  * @return {Function} Constructor for Qwizbook type.
  */
 Qwizbook.prototype.retrieveQwizbook = function (owner, id, callback) {
-
-    QwizbookModel.find({_id : id}).execFind(function (err, book) {
+	
+	
+	QwizbookModel.findById(id, function (err, book) {
 
         if (err) {
             // Check for duplicate key error
 
             // All other conditions Pass as is TODO: need to cleanup.
             callback({
-                Error: "failed Qwizbook Retreive ."
+                Error:"failed Qwizbook Retreive ."
             }, null);
         } else {
             callback(null, book);
