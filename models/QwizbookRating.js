@@ -259,7 +259,6 @@ function retrieveQwizbookRating(qid, callback) {
         replace:"averageRating"
     };
 
-
     QwizbookRatingData.mapReduce(o, function (err, avgrating) {
         //console.log(o);
         if (err) {
@@ -281,6 +280,7 @@ function retrieveQwizbookRating(qid, callback) {
                         Error:"failed to get Qwizbook Average Rating."
                     }, null);
                 } else {
+                	
                     callback(null, averagerating);
 
                     

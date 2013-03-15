@@ -33,6 +33,7 @@ module.exports = {
 	getbook : function(req, res) {
 
 		var qbookId = req.route.params.id;
+
 		qbookId = req.route.params.id;
 		var sessionUser = req.user;
         var userEmail = sessionUser.email;
@@ -47,8 +48,10 @@ module.exports = {
 
 			else
 			{
-						var json ='[';
-						//var istrue =false;
+
+						var json ='';
+						var istrue =false;
+
 						var userEmail = sessionUser.email;
 						QwizbookRating.getQwizbookAverageRating(book,userEmail, function(err, avgratingNcount) {
 						
@@ -59,16 +62,17 @@ module.exports = {
 							} else {
 								
 								
-								//if(istrue)
-								//{
-									//json +=',';
-								//}
-								//else
-								//{
-									//istrue = true;
-								//}
-								//json += avgratingNcount;
-									json += ']';
+
+								if(istrue)
+								{
+									json +=',';
+								}
+								else
+								{
+									istrue = true;
+								}
+								json += avgratingNcount;
+
 									res.send(json);
 									//res.send(book);
 							}
@@ -185,7 +189,6 @@ module.exports = {
 								{
 									json += ']';
 									res.send(json);
-									console.log("test dddf"+ json["averageRating"]);
 								}
 							}
 						c++;

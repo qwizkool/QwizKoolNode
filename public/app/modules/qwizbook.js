@@ -27,7 +27,9 @@ define([
             description:"Qwizbook Description",
             ownerEmail:"qwizkool_user@qwizkool.com",
             date:Date.now,
-			userrating:"0",
+			userRating:"0",
+			averageRating:"0",
+			userratingcount:"0",
             isAddedqwizBook:false,
             AddedqwizBookAttempted:false,
             AddedqwizBookStatus:null
@@ -67,8 +69,11 @@ define([
         },
         
         retreive:function() {
-        var retreiveQwizbook = this;	
-        var jqxhr = retreiveQwizbook.fetch({
+
+        var retreivedQwizbook = this;
+       
+        var jqxhr = retreivedQwizbook.fetch({
+
 
                 error:function (model, response) {
                     //this.isListedqwizBook = false;
@@ -77,10 +82,8 @@ define([
                 },
 
                 success:function (model, response) {
-                    //this.isListedqwizBook = true;
-                    var Qwizbookdetails = Array();
-                    Qwizbookdetails = retreiveQwizbook.toJSON();
                     model.trigger('retreive-qwizbook-success-event');
+
                 }
             });	
         	
@@ -152,7 +155,6 @@ define([
         initialize:function () {
         	 this.qwizbookratingmodel = new QwizBookRating.Model();
         	 this.qwizbookratingmodel.on("add-qwizbookrating-event", function (response) {
-	
 				var rating = response.rating;
 				var qId = response.qId;
 				var count = response.count;
@@ -265,7 +267,7 @@ define([
         },
 
         events:{
-            "click button.qwizbookListItem":"openQwizbook",
+            "click button":"openQwizbook",
             "click #rating-1":"setRating1",
             "click #rating-2":"setRating2",
             "click #rating-3":"setRating3",
