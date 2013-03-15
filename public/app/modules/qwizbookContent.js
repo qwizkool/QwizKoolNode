@@ -22,7 +22,6 @@ define([
             this.qwizbookId = this.options.qwizbookId;
             this.qwizbookdetailmodel = this.model;
             
-            
             this.qwizbookDetails = new QwizbookDetails.View({model:this.qwizbookdetailmodel,qwizbookId:this.qwizbookId});
             
 			this.addComments = new QwizbookComments.View({qwizbookId:this.qwizbookId});
@@ -73,6 +72,5 @@ define([
     return QwizbookContent;
 
 });
-
 
 

@@ -48,7 +48,7 @@ module.exports = {
 			else
 			{
 						var json ='[';
-						var istrue =false;
+						//var istrue =false;
 						var userEmail = sessionUser.email;
 						QwizbookRating.getQwizbookAverageRating(book,userEmail, function(err, avgratingNcount) {
 						
@@ -59,17 +59,18 @@ module.exports = {
 							} else {
 								
 								
-								if(istrue)
-								{
-									json +=',';
-								}
-								else
-								{
-									istrue = true;
-								}
-								json += avgratingNcount;
+								//if(istrue)
+								//{
+									//json +=',';
+								//}
+								//else
+								//{
+									//istrue = true;
+								//}
+								//json += avgratingNcount;
 									json += ']';
 									res.send(json);
+									//res.send(book);
 							}
 						});
 			}

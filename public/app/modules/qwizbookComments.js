@@ -18,8 +18,27 @@ define([
 
         initialize:function () {
             this.qId = this.options.qwizbookId;
+            this.commentdetmodel = this.options.commentmodel;
             this.model = new Comments.Model();
             this.qbookCommentCollection = new Comments.Collection({qwizbookId:this.qId});
+            this.model.on("add-qwizbookcomment-success-event",this.commentHandler,this);
+            this.commentDetail = new Comments.ListView({model:this.qbookCommentCollection});
+            //this.qwizbookContent = new QwizbookContent.View({model:this.commentdetmodel, commentmodel:this.qbookCommentCollection, qwizbookId:this.qId});
+            
+        },
+        
+        commentHandler:function() {
+        //alert("ghhfg");	
+         this.qbookCommentCollection.on("reset", this.updateModel, this);
+            
+         this.qbookCommentCollection.QwizbookComments(this.qId);
+         $(this.el).find("#review-content-container").append(this.commentDetail.render().el);	
+        },
+        
+        updateModel:function () {
+        	alert("fksdf");
+        	//$("#qpage-content").html(this.qwizbookContent.render().el);
+            //this.qwizbookContent.reattachEvents();
         },
 
         render:function (done) {
