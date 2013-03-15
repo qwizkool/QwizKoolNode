@@ -40,6 +40,7 @@ function addComments(qwizbookComment, sessionUser, callback) {
 	var instance = new QwizbookCommentsData();
 	instance.comment = qwizbookComment.comment;
 	instance.description = qwizbookComment.description;
+	instance.date = qwizbookComment.date;
 	instance.qwizbookId = qwizbookComment.qwizbookId;
 	instance.username = sessionUser.username;
 	//instance.date 			= Date.now;
@@ -59,7 +60,7 @@ function addComments(qwizbookComment, sessionUser, callback) {
 
 function retrieveQwizbookcomments(user, qbookId, callback) {
 	
-		QwizbookCommentsData.find({qwizbookId : qbookId}).execFind(function(err, comments) {
+		QwizbookCommentsData.find({qwizbookId : qbookId}).sort({date:-1}).execFind(function(err, comments) {
 
 
 		if (err) {
