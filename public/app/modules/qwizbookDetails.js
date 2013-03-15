@@ -79,7 +79,6 @@ define([
                 view.el.innerHTML = qbook_itemdetail_template;
                 var avgRating = $(view.el.innerHTML).find("#book_avgRating").val();
 	            var userRating = $(view.el.innerHTML).find("#book_userrating").val();
-	            var bookId = $(view.el.innerHTML).find("#book_id").val();
 	            avgRating = Math.ceil(avgRating);
             	var avgHtml = '';
                         var i = 1;
