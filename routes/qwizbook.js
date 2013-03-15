@@ -85,6 +85,7 @@ module.exports = {
 	},
 
 	getbooks : function(req, res) {
+		
 		var t = 1;
 		var sessionUser = req.user;
 		if (req.query) {
@@ -137,7 +138,6 @@ module.exports = {
 									istrue = true;
 								}
 								json += avgratingNcount;
-								console.log(avgratingNcount);
 								if(c==book_length)
 								{
 									json += ']';
@@ -240,6 +240,7 @@ module.exports = {
 									istrue = true;
 								}
 								json += avgratingNcount;
+								console.log('avgratingNcount3');
 								if(c==book_length)
 								{
 									json += ']';

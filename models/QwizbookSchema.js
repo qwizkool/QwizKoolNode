@@ -28,6 +28,9 @@ var QwizbookSchema = {
         type: Date,
         'default': Date.now
     },
+    userRating:{type:String},
+    userratingcount:{type:String},
+    averageRating:{type:String},
     // Private/Public/Shared
     groupPermission: {
         type: String

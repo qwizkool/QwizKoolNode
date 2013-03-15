@@ -317,6 +317,7 @@ function getQwizbookAverageRating(qbook,userEmail, callback) {
 								}
 								else
 								{
+									
 									qbook.userratingcount = count;
 									
 									
@@ -328,6 +329,7 @@ function getQwizbookAverageRating(qbook,userEmail, callback) {
 								}
 								else
 								{
+									
 									
 									if(user_rating.length == 0)
 									{
@@ -356,7 +358,7 @@ function getQwizbookAverageRating(qbook,userEmail, callback) {
 				                        	{
 				                        		qbook.averageRating = avgRating[0].value; 
 				                        	}
-											 callback(null, JSON.stringify(qbook));
+											callback(null, JSON.stringify(qbook));
 										}
 										
 									});
