@@ -12,7 +12,14 @@ var config = {
     web_server_port : 3000,
     
     // mongodb server url
-    mongodb_url : 'mongodb://localhost:27017/qwizkool'
+    mongodb_url : 'mongodb://localhost:27017/qwizkool',
+    
+    // Logger log level
+    log_level : 'info',
+    
+    // Logger log level
+    log_file : 'server.log'
+    
     
 };
 
