@@ -8,7 +8,8 @@
 /**
  * Module dependencies.
  */
-var RatingModel = require('./RatingModel');
+var RatingModel = require('./RatingModel'),
+    db = require('../lib/db_connection');
 
 /**
  * Qwizbook Rating model constructor.
@@ -17,23 +18,13 @@ var RatingModel = require('./RatingModel');
  * @return {Function} Constructor for Rating type.
  */
 
-function Rating() {
+function Ratings() {
 
 }
 
 
 
-// Exports
-module.exports.addRating = addRating;
-module.exports.updateRating = updateRating;
-
-module.exports.retrieveQwizbookRating = retrieveQwizbookRating;
-module.exports.getQwizbookAverageRating = getQwizbookAverageRating;
-module.exports.userRatingCount = userRatingCount;
-
-module.exports.commentUserRating = commentUserRating;
-
-Rating.prototype.addRating = function(owner, data, callback) {
+Ratings.prototype.addRating = function(owner, data, callback) {
 
     // Check if the provided owner is same as the
     // session owner. A book can be created by only
@@ -45,25 +36,34 @@ Rating.prototype.addRating = function(owner, data, callback) {
     }
 
 
+    // Create new rating model instance
     var instance = new RatingModel();
 
     instance.userEmail = data.userEmail;
     instance.rating = data.ratingval;
     instance.qwizbookId = data.qbookId;
-    instance.userratingcount = '1';
+    instance.getQwizbookRatingCount = '1';
     instance.averageRating = '1';
 
-    RatingModel.findOne({
+    // See if the rating already exists    
+    var conditions = {
         $and: [{
             qwizbookId: data.qbookId,
             userEmail: data.userEmail
         }]
-    }, function(err, book) {
+    };
+
+    RatingModel.findOne(conditions, function(err, book) {
+
         if (err) {
             return callback(err);
         }
+
+        // If rating does not exist already, add it
         if (!book) {
             instance.save(function(err) {
+
+                // Saving error even though same rating does not exist- this is un-expected
                 if (err) {
                     // Check for duplicate key error
                     if (err.code == 11000) {
@@ -78,11 +78,14 @@ Rating.prototype.addRating = function(owner, data, callback) {
                         Error: "Cannot rate Qwizbook "
                     }, null);
                 } else {
-                    userRatingCount(data.qbookId, function(err, count) {
+
+                    // Saved successfully
+
+                    getQwizbookRatingCount(data.qbookId, function(err, count) {
                         if (err) {
 
                         } else {
-                            instance.userratingcount = count;
+                            instance.getQwizbookRatingCount = count;
 
                             retrieveQwizbookRating(data.qbookId, function(err, avgRating) {
                                 if (err) {
@@ -100,14 +103,16 @@ Rating.prototype.addRating = function(owner, data, callback) {
                 }
             });
         } else {
+            // Rating already exists - update it
             var query = {
                 qwizbookId: data.qbookId,
                 userEmail: data.userEmail
             };
-            
+
             RatingModel.update(query, {
                 rating: data.ratingval
-            }, err, callback) {
+            }, err, callback) 
+            {
                 if (err) {
                     // Check for duplicate key error
 
@@ -118,12 +123,12 @@ Rating.prototype.addRating = function(owner, data, callback) {
                     }, null);
                 } else {
 
-                    userRatingCount(data.qbookId, function(err, count) {
+                    getQwizbookRatingCount(data.qbookId, function(err, count) {
                         if (err) {
 
                         } else {
 
-                            instance.userratingcount = count;
+                            instance.getQwizbookRatingCount = count;
 
                             retrieveQwizbookRating(data.qbookId, function(err, avgRating) {
                                 if (err) {
@@ -156,7 +161,7 @@ Rating.prototype.addRating = function(owner, data, callback) {
 
 
 
-Rating.prototype.updateRating = function(owner, data, callback) {
+Ratings.prototype.updateRating = function(owner, data, callback) {
 
     // Check if the provided owner is same as the
     // session owner. A book can be created by only
@@ -202,7 +207,80 @@ Rating.prototype.updateRating = function(owner, data, callback) {
     });
 };
 
-Rating.prototype.retrieveQwizbookRating = function(qid, callback) {
+
+Ratings.prototype.getQwizbookAverageRating = function(qbook, userEmail, callback) {
+
+    var qid = qbook._id;
+    /*
+     Get the specified collection name from the db to confirm that the
+     collection exists.
+     */
+    db.conn.db.collectionNames("qwizbookratings", function(err, collectionNames) {
+
+        /*'names' contains an array of objects that contain the collection names
+         if array length is 1 then the collection does  exist.*/
+        if (collectionNames.length === 1) {
+
+            getQwizbookRatingCount(qid, function(err, count) {
+                if (err) {
+                    callback({
+                        Error: "failed to get Qwizbook Average Rating."
+                    }, null);
+                } else {
+                    qbook.getQwizbookRatingCount = count;
+
+
+
+                    getQwizbookUserRating(userEmail, qid, function(err, user_rating) {
+                        if (err) {
+
+                        } else {
+
+                            if (user_rating.length === 0) {
+                                qbook.userRating = 0;
+
+                            } else {
+                                qbook.userRating = user_rating[0].rating;
+
+                            }
+
+                            retrieveQwizbookRating(qid, function(err, avgRating) {
+                                if (err) {
+
+                                } else {
+
+                                    if (avgRating.length === 0) {
+                                        qbook.averageRating = 0;
+                                    } else {
+                                        qbook.averageRating = avgRating[0].value;
+                                    }
+                                    callback(null, JSON.stringify(qbook));
+                                }
+
+                            });
+
+                        }
+                    });
+                }
+            });
+
+
+
+
+        } else {
+            qbook.getQwizbookRatingCount = 0;
+            qbook.userRating = 0;
+            qbook.averageRating = 0;
+            callback(null, JSON.stringify(qbook));
+        }
+
+    });
+
+
+};
+
+
+function retrieveQwizbookRating(qid, callback) {
 
 
     var mapFunction1 = function() {
@@ -258,94 +336,29 @@ Rating.prototype.retrieveQwizbookRating = function(qid, callback) {
 
     });
 
-};
-
-
-Rating.prototype.getQwizbookAverageRating = function(qbook, userEmail, callback) {
-
-    var qid = qbook._id;
-    /*
-     Get the specified collection name from the db to confirm that the
-     collection exists.
-     */
-    db.conn.db.collectionNames("qwizbookratings", function(err, collectionNames) {
-
-        /*'names' contains an array of objects that contain the collection names
-         if array length is 1 then the collection does  exist.*/
-        if (collectionNames.length === 1) {
-
-            userRatingCount(qid, function(err, count) {
-                if (err) {
-                    callback({
-                        Error: "failed to get Qwizbook Average Rating."
-                    }, null);
-                } else {
-                    qbook.userratingcount = count;
+}
 
 
 
-                    commentUserRating(userEmail, qid, function(err, user_rating) {
-                        if (err) {
+/**
+ * Get the number of ratings with the specified qwizbook id.
+ *
+ * @api public
+ * @return
+ */
 
-                        } else {
+function getQwizbookRatingCount(qid, callback) {
 
-                            if (user_rating.length === 0) {
-                                qbook.userRating = 0;
-
-                            } else {
-                                qbook.userRating = user_rating[0].rating;
-
-                            }
-
-                            retrieveQwizbookRating(qid, function(err, avgRating) {
-                                if (err) {
-
-                                } else {
-
-                                    if (avgRating.length === 0) {
-                                        qbook.averageRating = 0;
-                                    } else {
-                                        qbook.averageRating = avgRating[0].value;
-                                    }
-                                    callback(null, JSON.stringify(qbook));
-                                }
-
-                            });
-
-                        }
-                    });
-                }
-            });
-
-
-
-
-        } else {
-            qbook.userratingcount = 0;
-            qbook.userRating = 0;
-            qbook.averageRating = 0;
-            callback(null, JSON.stringify(qbook));
-        }
-
-    });
-
-
-};
-
-
-
-function userRatingCount(qid, callback) {
     RatingModel.count({
         qwizbookId: qid
-    }, function(err, c) {
+    }, function(err, _count) {
         if (err) {
             console.log(err);
             callback({
-                Error: "failed to get Qwizbook Rating Count."
+                Error: "Failed to get Qwizbook Rating Count."
             }, null);
         } else {
-            callback(null, c);
-
+            callback(null, _count);
         }
     });
 }
@@ -353,25 +366,40 @@ function userRatingCount(qid, callback) {
 
 
 
+/**
+ * Get the rating of a quizbook by specific user
+ *
+ * @api public
+ * @return
+ */
 
-function commentUserRating(user, qwizbookId, callback) {
+function getQwizbookUserRating(user, qwizbookId, callback) {
+
     RatingModel.find({
         $and: [{
             qwizbookId: qwizbookId,
             userEmail: user
         }]
-    }).execFind(function(err, comments) {
+    }).execFind(function(err, rating) {
 
         if (err) {
             // All other conditions Pass as is TODO: need to cleanup.
             callback({
-                Error: "Retreive QwizbookComments failed."
+                Error: "Retreive Rating failed."
             }, null);
         } else {
-            callback(null, comments);
+            callback(null, rating);
         }
 
     });
 
 }
+
+
+/**
+ * Exports.
+ * Return the singleton instance
+ */
+
+module.exports = exports = new Ratings();
 

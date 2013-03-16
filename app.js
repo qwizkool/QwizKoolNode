@@ -12,7 +12,7 @@ var express = require('express')
     , http = require('http')
     , path = require('path')
     , fs = require('fs')
-    , User = require('./models/User.js')
+    , User = require('./models/Users.js')
     , passport = require('passport')
     , LocalStrategy = require('passport-local').Strategy
     ;

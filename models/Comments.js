@@ -1,43 +1,32 @@
-var db = require('../lib/db_connection');
-
-/*
-
- QwizbookComments definition
- TODO: Document this section.
-
+/*!
+ * Copyright(c) 2013 Vibrentt
+ *
+ * Module : Comments
+ *
  */
 
-/*Schema definition*/
+/**
+ * Module dependencies.
+ */
+var CommentModel = require('./CommentModel'),
+    db = require('../lib/db_connection');
 
-var QwizbookCommentsSchema = new db.Schema({
+/**
+ * Comment model constructor.
+ *
+ * @api public
+ * @return {Function} Constructor for Comment type.
+ */
 
-	comment : {
-		type : String
-	},
-	description : {
-		type : String
-	},
-	username : {
-		type : String
-	},
-	date : {
-		type : Date
-	},
-	qwizbookId : {
-		type : String
-	}
+function Comments() {
 
-});
+}
 
-var QwizbookCommentsData = db.conn.model('QwizbookComments', QwizbookCommentsSchema);
 
-// Exports
-module.exports.addComments = addComments;
-module.exports.retrieveQwizbookcomments = retrieveQwizbookcomments;
 
-function addComments(qwizbookComment, sessionUser, callback) {
+Comments.prototype.addComments = function (qwizbookComment, sessionUser, callback) {
 
-	var instance = new QwizbookCommentsData();
+	var instance = new CommentModel();
 	instance.comment = qwizbookComment.comment;
 	instance.description = qwizbookComment.description;
 	instance.date = qwizbookComment.date;
@@ -58,9 +47,10 @@ function addComments(qwizbookComment, sessionUser, callback) {
 	});
 }
 
-function retrieveQwizbookcomments(user, qbookId, callback) {
+
+Comments.prototype.retrieveQwizbookcomments = function(user, qbookId, callback) {
 	
-		QwizbookCommentsData.find({qwizbookId : qbookId}).sort({date:-1}).execFind(function(err, comments) {
+		CommentModel.find({qwizbookId : qbookId}).sort({date:-1}).execFind(function(err, comments) {
 
 
 		if (err) {
@@ -74,4 +64,15 @@ function retrieveQwizbookcomments(user, qbookId, callback) {
 
 	});
 }
+
+
+
+/**
+ * Exports.
+ * Return the singleton instance
+ */
+
+module.exports = exports = new Comments();
+
+
 

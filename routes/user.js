@@ -1,7 +1,7 @@
 /**
  * Module dependencies.
  */
-var User = require('../models/User');
+var User = require('../models/Users');
 
 
 /*

@@ -16,9 +16,9 @@ var db = require('../lib/db_connection'),
  */
 
 // Create mongoose schema
-var qwizbookSchema = db.Schema(qwizbookSchema);
+var mQwizbookSchema = db.Schema(qwizbookSchema);
 
-qwizbookSchema.methods.getQwizbookForResponse = function () {
+mQwizbookSchema.methods.getQwizbookForResponse = function () {
 
     return {
         title: this.title,
@@ -29,7 +29,7 @@ qwizbookSchema.methods.getQwizbookForResponse = function () {
 };
 
 // Get the mongoose model
-var QwizbookModel = db.conn.model('Qwizbook', qwizbookSchema);
+var QwizbookModel = db.conn.model('Qwizbook', mQwizbookSchema);
 
 
 /**

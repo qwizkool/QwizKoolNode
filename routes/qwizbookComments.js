@@ -1,9 +1,9 @@
 /**
  * Module dependencies.
  */
-var User = require('../models/User');
-var Qwizbook = require('../models/Qwizbook');
-var QwizbookComment = require('../models/QwizbookComments');
+var User = require('../models/Users');
+var Qwizbook = require('../models/Qwizbooks');
+var QwizbookComment = require('../models/Comments');
 
 module.exports = {
 
