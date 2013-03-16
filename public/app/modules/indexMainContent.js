@@ -82,12 +82,23 @@ define([
 
         events:{
             "click #signin-button":"signIn",
-            "click #register-button":"signUp"
+            "click #register-button":"signUp",
+            "keyup #user-password-input":"loginByEnter",
+            "keyup #user-email-input":"loginByEnter"
         },
 
         reattachEvents:function () {
             this.undelegateEvents();
             this.delegateEvents(this.events);
+        },
+        
+        loginByEnter:function(e)
+        {
+        	
+			if (e.keyCode == 13)
+			{
+				this.signIn();
+			}
         },
 
         userLoginEvent:function () {
