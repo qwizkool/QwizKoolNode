@@ -5,6 +5,9 @@
  *
  */
 
+var db = require('../../lib/db_connection');
+
+
 var ObjectId = db.Schema.Types.ObjectId;
 
 var RatingSchema = {

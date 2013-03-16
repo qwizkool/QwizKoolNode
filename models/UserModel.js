@@ -1,20 +1,28 @@
-var db = require('../lib/db_connection');
+/*!
+ * Copyright(c) 2013 Vibrentt 
+ *
+ * Module : UserModel 
+ *
+ */
 
-var bcrypt = require('bcrypt');
+/**
+ * Module dependencies.
+ */
+var db = require('../lib/db_connection'),
+    userSchema = require('./schema/UserSchema'),
+    bcrypt = require('bcrypt');
+    
+
 var SALT_WORK_FACTOR = 10;
 
+/**
+ * User model.
+ */
 
-/*Schema definition*/
+// Create mongoose schema
+var mUserSchema = db.Schema(userSchema);
 
-var UserSchema = new db.Schema({
-    username:{type:String, unique:true},
-    email:{type:String, unique:true},
-    //   salt: { type: String, required: true },
-    hash:{ type:String, required:true }
-});
-
-
-UserSchema.virtual('password')
+mUserSchema.virtual('password')
     .get(function () {
         return this._password;
     })
@@ -27,86 +35,25 @@ UserSchema.virtual('password')
         this.hash = bcrypt.hashSync(password, salt);
     });
 
-UserSchema.method('verifyPassword', function (password, callback) {
+mUserSchema.method('verifyPassword', function (password, callback) {
 
     //The salt is incorporated into the hash (as plaintext). The compare function simply pulls the salt out of the hash
     //and then uses it to hash the password and perform the comparison.
     bcrypt.compare(password, this.hash, callback);
 });
 
-UserSchema.methods.getUserForResponse = function () {
+mUserSchema.methods.getUserForResponse = function () {
 
     return { username:this.username, email:this.email, id:this._id  }
 };
 
-var QwizkoolUser = db.conn.model('User', UserSchema);
-
-// Exports
-module.exports.addUser = addUser;
-module.exports.authenticate = authenticate;
-module.exports.findById = findById;
+// Get the mongoose model
+var UserModel = db.conn.model('User', mUserSchema);
 
 
-// Add user to database
-function addUser(username, password, email, callback) {
-
-    var instance = new QwizkoolUser();
-
-    instance.username = username;
-    instance.password = password;
-    instance.email = email;
-
-    instance.save(function (err) {
-        if (err) {
-
-            // Check for duplicate key error
-            if (err.code == 11000) {
-                callback({Error:"User already exist with the same email ID/user name"})
-                return;
-            }
-
-            // All other conditions Pass as is TODO: need to cleanup.
-            callback({Error:"User Could not be created "});
-        }
-        else {
-            callback(null, instance);
-        }
-    });
-}
+/**
+  * Exports.
+  */
+module.exports  = exports = UserModel;
 
 
-function authenticate(email, password, callback) {
-    QwizkoolUser.findOne({ email:email }, function (err, user) {
-        if (err) {
-            return callback(err);
-        }
-        if (!user) {
-            return callback(null, false);
-        }
-
-        user.verifyPassword(password, function (err, passwordCorrect) {
-            if (err) {
-                return callback(err);
-            }
-            if (!passwordCorrect) {
-                return callback(null, false);
-            }
-            return callback(null, user);
-        });
-
-    });
-};
-
-function findById(id, callback) {
-    QwizkoolUser.findById(id, function (err, user) {
-        if (err) {
-            return callback(err);
-        }
-        if (!user) {
-            return callback(null, false);
-        }
-
-        return callback(null, user);
-
-    });
-};

@@ -8,7 +8,8 @@
 /**
  * Module dependencies.
  */
-var RatingModel = require('./RatingModel');
+var RatingModel = require('./RatingModel'),
+    db = require('../lib/db_connection');
 
 /**
  * Qwizbook Rating model constructor.
@@ -17,23 +18,13 @@ var RatingModel = require('./RatingModel');
  * @return {Function} Constructor for Rating type.
  */
 
-function Rating() {
+function Ratings() {
 
 }
 
 
 
-// Exports
-module.exports.addRating = addRating;
-module.exports.updateRating = updateRating;
-
-module.exports.retrieveQwizbookRating = retrieveQwizbookRating;
-module.exports.getQwizbookAverageRating = getQwizbookAverageRating;
-module.exports.getQwizbookRatingCount = getQwizbookRatingCount;
-
-module.exports.getQwizbookUserRating = getQwizbookUserRating;
-
-Rating.prototype.addRating = function(owner, data, callback) {
+Ratings.prototype.addRating = function(owner, data, callback) {
 
     // Check if the provided owner is same as the
     // session owner. A book can be created by only
@@ -44,7 +35,7 @@ Rating.prototype.addRating = function(owner, data, callback) {
         return;
     }
 
-    
+
     // Create new rating model instance
     var instance = new RatingModel();
 
@@ -60,18 +51,18 @@ Rating.prototype.addRating = function(owner, data, callback) {
             qwizbookId: data.qbookId,
             userEmail: data.userEmail
         }]
-    }
-    
+    };
+
     RatingModel.findOne(conditions, function(err, book) {
-       
+
         if (err) {
             return callback(err);
         }
-        
+
         // If rating does not exist already, add it
         if (!book) {
             instance.save(function(err) {
-            
+
                 // Saving error even though same rating does not exist- this is un-expected
                 if (err) {
                     // Check for duplicate key error
@@ -87,9 +78,9 @@ Rating.prototype.addRating = function(owner, data, callback) {
                         Error: "Cannot rate Qwizbook "
                     }, null);
                 } else {
-                
+
                     // Saved successfully
-                    
+
                     getQwizbookRatingCount(data.qbookId, function(err, count) {
                         if (err) {
 
@@ -117,10 +108,11 @@ Rating.prototype.addRating = function(owner, data, callback) {
                 qwizbookId: data.qbookId,
                 userEmail: data.userEmail
             };
-            
+
             RatingModel.update(query, {
                 rating: data.ratingval
-            }, err, callback) {
+            }, err, callback) 
+            {
                 if (err) {
                     // Check for duplicate key error
 
@@ -169,7 +161,7 @@ Rating.prototype.addRating = function(owner, data, callback) {
 
 
 
-Rating.prototype.updateRating = function(owner, data, callback) {
+Ratings.prototype.updateRating = function(owner, data, callback) {
 
     // Check if the provided owner is same as the
     // session owner. A book can be created by only
@@ -215,66 +207,8 @@ Rating.prototype.updateRating = function(owner, data, callback) {
     });
 };
 
-Rating.prototype.retrieveQwizbookRating = function(qid, callback) {
 
-
-    var mapFunction1 = function() {
-        emit(this.qwizbookId, this.rating);
-        // All other conditions Pass as is TODO: need to cleanup.
-
-    };
-
-    var reduceFunction1 = function(QbId, valuesRatings) {
-        return (Array.sum(valuesRatings) / valuesRatings.length);
-    };
-
-    var o = {};
-    o.map = mapFunction1;
-    o.reduce = reduceFunction1;
-    o.query = {
-        qwizbookId: qid
-    };
-    o.out = {
-        replace: "averageRating"
-    };
-
-    RatingModel.mapReduce(o, function(err, avgrating) {
-        //console.log(o);
-        if (err) {
-            // Check for duplicate key error
-            console.log(err);
-            // All other conditions Pass as is TODO: need to cleanup.
-            callback({
-                Error: "failed to get Qwizbook Average Rating."
-            }, null);
-        } else {
-
-            //avgrating.findById(qbId, function(err, averagerating){
-            //avgrating.find({'_id': 'qbId'}, function(err, averagerating){
-            avgrating.find(function(error, averagerating) {
-
-                if (error) {
-                    console.log(error);
-                    callback({
-                        Error: "failed to get Qwizbook Average Rating."
-                    }, null);
-                } else {
-
-                    callback(null, averagerating);
-
-
-                }
-
-            });
-
-        }
-
-    });
-
-};
-
-
-Rating.prototype.getQwizbookAverageRating = function(qbook, userEmail, callback) {
+Ratings.prototype.getQwizbookAverageRating = function(qbook, userEmail, callback) {
 
     var qid = qbook._id;
     /*
@@ -346,15 +280,78 @@ Rating.prototype.getQwizbookAverageRating = function(qbook, userEmail, callback)
 };
 
 
+function retrieveQwizbookRating(qid, callback) {
+
+
+    var mapFunction1 = function() {
+        emit(this.qwizbookId, this.rating);
+        // All other conditions Pass as is TODO: need to cleanup.
+
+    };
+
+    var reduceFunction1 = function(QbId, valuesRatings) {
+        return (Array.sum(valuesRatings) / valuesRatings.length);
+    };
+
+    var o = {};
+    o.map = mapFunction1;
+    o.reduce = reduceFunction1;
+    o.query = {
+        qwizbookId: qid
+    };
+    o.out = {
+        replace: "averageRating"
+    };
+
+    RatingModel.mapReduce(o, function(err, avgrating) {
+        //console.log(o);
+        if (err) {
+            // Check for duplicate key error
+            console.log(err);
+            // All other conditions Pass as is TODO: need to cleanup.
+            callback({
+                Error: "failed to get Qwizbook Average Rating."
+            }, null);
+        } else {
+
+            //avgrating.findById(qbId, function(err, averagerating){
+            //avgrating.find({'_id': 'qbId'}, function(err, averagerating){
+            avgrating.find(function(error, averagerating) {
+
+                if (error) {
+                    console.log(error);
+                    callback({
+                        Error: "failed to get Qwizbook Average Rating."
+                    }, null);
+                } else {
+
+                    callback(null, averagerating);
+
+
+                }
+
+            });
+
+        }
+
+    });
+
+}
+
+
+
 /**
  * Get the number of ratings with the specified qwizbook id.
  *
  * @api public
- * @return 
+ * @return
  */
+
 function getQwizbookRatingCount(qid, callback) {
 
-    RatingModel.count({ qwizbookId: qid }, function(err, _count) {
+    RatingModel.count({
+        qwizbookId: qid
+    }, function(err, _count) {
         if (err) {
             console.log(err);
             callback({
@@ -373,8 +370,9 @@ function getQwizbookRatingCount(qid, callback) {
  * Get the rating of a quizbook by specific user
  *
  * @api public
- * @return 
+ * @return
  */
+
 function getQwizbookUserRating(user, qwizbookId, callback) {
 
     RatingModel.find({
@@ -396,4 +394,12 @@ function getQwizbookUserRating(user, qwizbookId, callback) {
     });
 
 }
+
+
+/**
+ * Exports.
+ * Return the singleton instance
+ */
+
+module.exports = exports = new Ratings();
 

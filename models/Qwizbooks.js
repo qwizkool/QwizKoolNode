@@ -33,7 +33,8 @@
 /**
  * Module dependencies.
  */
-var QwizbookModel = require('./QwizbookModel');
+var QwizbookModel = require('./QwizbookModel'),
+    logger = require('../utils/logger');
 
 /**
  * Qwizbook model constructor.
@@ -62,6 +63,8 @@ Qwizbook.prototype.createQwizbook = function (owner, data, callback) {
     // Check if the provided owner is same as the
     // session owner. A book can be created by only
     // the session owner
+    
+    logger.info('Inside createQwizbook');
 
     if (owner.email != data.ownerEmail) {
         callback({
