@@ -7,15 +7,20 @@
 
 /**
  * Module dependencies.
+ * winston is a multi-transport async logging library for node.js
+ * winston uses npm log levels by default :
+ *  verbose,
+ *  info,
+ *  warn,
+ *  error.
  */
+ 
 var winston = require('winston'),
     config = require('../config/config');
 
 /**
- * Qwizbook Rating model constructor.
+ * Logger instance created from winston
  *
- * @api public
- * @return {Function} Constructor for Rating type.
  */
 var logger = new (winston.Logger)({
     transports: [
@@ -29,6 +34,9 @@ var logger = new (winston.Logger)({
 /**
   * Exports.
   * Return the singleton instance
+  * Usage:
+  * logger.verbose("This is a verbose log. Log entire messages, data buffers etc at this level");
+  * logger.error("This is an error log. Log failures, errors and exceptions using this level");
   */
 
 module.exports = exports = logger;
