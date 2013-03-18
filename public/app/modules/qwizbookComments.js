@@ -77,6 +77,7 @@ define([
         addComment:function (e) {
         	
             this.trigger('add-qwizbookcomment-event',{qwizbookContentModel:this.options.qwizbookcontentmodel,addComment:$('#qwizbook-comment-text').val(), qwizbookId:this.options.qwizbookId});
+            return false;
         
         }
     });
