@@ -21,22 +21,17 @@ define([
             this.breadcrumb = new Breadcrumb.View();
             this.qwizbookId = this.options.qwizbookId;
             this.qwizbookdetailmodel = this.model;
-            //this.qwizbookDetails = new QwizbookDetails.View({qwizbookId:this.qwizbookId});
-            //this.qwizbookDetails = new QwizbookDetails.View({model:this.qwizbookdetailmodel});
+            this.commentmodel = this.options.commentmodel;
+            
             this.qwizbookDetails = new QwizbookDetails.View({model:this.qwizbookdetailmodel,qwizbookId:this.qwizbookId});
             
-			this.addComments = new QwizbookComments.View({qwizbookId:this.qwizbookId});
+            this.addComments = new QwizbookComments.View({qwizbookcontentmodel: this.qwizbookdetailmodel, commentmodel:this.commentmodel, qwizbookId:this.qwizbookId});
 			
 			this.commentList = this.options.commentmodel;
 			
 			this.commentDetail = new Comments.ListView({model:this.commentList});
 
-			//this.commentList = new Comments.Collection({qwizbookId:this.qwizbookId});
-			//this.commentList.QwizbookComments(this.qwizbookId);
-			//this.commentList.on("reset", this.updateCollection, this);
-            
-			//this.qwizbookDetails = new QwizbookDetails.View({qwizbookId:this.qwizbookId});
-			//this.qwizbookDetails = new QwizbookDetails.View({model:this.qwizbookDetails});
+			
 			
 			this.qwizbookDetails.on("addrating", function (ratingdataObj) {
 
@@ -46,9 +41,12 @@ define([
 			qwizbookratingmodel.addqwizbookrating(qbookId, ratingvalue);
 
 			});
-           
-          
-        },
+			
+			
+           },
+        
+        
+
 
         updateCollection:function () {
 
@@ -56,6 +54,8 @@ define([
 
 
         },
+        
+        
 
         reattachEvents:function () {
             this.addComments.reattachEvents();
@@ -78,6 +78,5 @@ define([
     return QwizbookContent;
 
 });
-
 
 
