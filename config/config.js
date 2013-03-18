@@ -15,7 +15,7 @@ var config = {
     mongodb_url : 'mongodb://localhost:27017/qwizkool',
     
     // Logger log level
-    log_level : 'info',
+    log_level : 'verbose',
     
     // Logger log level
     log_file : 'server.log'

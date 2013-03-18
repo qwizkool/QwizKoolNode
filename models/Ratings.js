@@ -9,7 +9,8 @@
  * Module dependencies.
  */
 var RatingModel = require('./RatingModel'),
-    db = require('../lib/db_connection');
+    db = require('../lib/db_connection'),
+    logger = require('../utils/logger');
 
 /**
  * Qwizbook Rating model constructor.
@@ -87,7 +88,7 @@ Ratings.prototype.addRating = function(owner, data, callback) {
                         } else {
                             instance.getQwizbookRatingCount = count;
 
-                            retrieveQwizbookRating(data.qbookId, function(err, avgRating) {
+                            getQwizbookAverageRating(data.qbookId, function(err, avgRating) {
                                 if (err) {
 
                                 } else {
@@ -111,17 +112,15 @@ Ratings.prototype.addRating = function(owner, data, callback) {
 
             RatingModel.update(query, {
                 rating: data.ratingval
-            }, err, callback) 
-            {
+            }, { multi: false }, function (err, numberAffected, raw) {
                 if (err) {
-                    // Check for duplicate key error
-
-
-                    // All other conditions Pass as is TODO: need to cleanup.
                     callback({
                         Error: "Cannot rate Qwizbook "
                     }, null);
                 } else {
+                
+                    logger.info('The number of updated documents was %d', numberAffected);
+                    logger.verbose('The raw response from Mongo was ', raw);
 
                     getQwizbookRatingCount(data.qbookId, function(err, count) {
                         if (err) {
@@ -130,7 +129,7 @@ Ratings.prototype.addRating = function(owner, data, callback) {
 
                             instance.getQwizbookRatingCount = count;
 
-                            retrieveQwizbookRating(data.qbookId, function(err, avgRating) {
+                            getQwizbookAverageRating(data.qbookId, function(err, avgRating) {
                                 if (err) {
 
                                 } else {
@@ -149,7 +148,7 @@ Ratings.prototype.addRating = function(owner, data, callback) {
 
 
                 }
-            }
+            });
         }
 
 
@@ -244,7 +243,7 @@ Ratings.prototype.getQwizbookAverageRating = function(qbook, userEmail, callback
 
                             }
 
-                            retrieveQwizbookRating(qid, function(err, avgRating) {
+                            getQwizbookAverageRating(qid, function(err, avgRating) {
                                 if (err) {
 
                                 } else {
@@ -280,7 +279,7 @@ Ratings.prototype.getQwizbookAverageRating = function(qbook, userEmail, callback
 };
 
 
-function retrieveQwizbookRating(qid, callback) {
+function getQwizbookAverageRating(qid, callback) {
 
 
     var mapFunction1 = function() {
