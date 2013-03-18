@@ -84,7 +84,10 @@ define([
             "click #signin-button":"signIn",
             "click #register-button":"signUp",
             "keyup #user-password-input":"loginByEnter",
-            "keyup #user-email-input":"loginByEnter"
+            "keyup #user-email-input":"loginByEnter",
+            "keyup #user-reg-name-input":"signupByEnter",
+            "keyup #user-reg-email-input":"signupByEnter",
+            "keyup #user-reg-password-input":"signupByEnter"
         },
 
         reattachEvents:function () {
@@ -98,6 +101,15 @@ define([
 			if (e.keyCode == 13)
 			{
 				this.signIn();
+			}
+        },
+        
+        signupByEnter:function(e)
+        {
+        	
+			if (e.keyCode == 13)
+			{
+				this.signUp();
 			}
         },
 
