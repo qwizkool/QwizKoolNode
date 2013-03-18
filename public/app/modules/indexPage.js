@@ -30,6 +30,8 @@ define([
         show:function (done) {
 
             $("#qpage-header").html(this.header.render().el);
+            $("#qpage-search").empty();
+
             $("#qwizkool-user-settings").html(this.userSettings.render().el);
             this.header.renderSettings();
 
