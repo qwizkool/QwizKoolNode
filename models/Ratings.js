@@ -82,18 +82,25 @@ Ratings.prototype.addRating = function(owner, data, callback) {
 
 						} else {
 							instance.getQwizbookRatingCount = count;
-
+							
 							getQwizbookAverageRating(data.qbookId, function(err, avgRating) {
 								if (err) {
 
 								} else {
-									var avg = avgRating[0].value;
-
-									instance.averageRating = avgRating[0].value;
+									
+									if(avgRating!=null)
+									{
+										instance.averageRating = avgRating.value;
+									}
+									else
+									{
+										instance.averageRating =0;
+									}
 									callback(null, instance);
 								}
 
 							});
+							
 						}
 					});
 				}
@@ -125,19 +132,24 @@ Ratings.prototype.addRating = function(owner, data, callback) {
 						} else {
 
 							instance.getQwizbookRatingCount = count;
-
 							getQwizbookAverageRating(data.qbookId, function(err, avgRating) {
 								if (err) {
 
 								} else {
-									var avg = avgRating[0].value;
-
-									instance.averageRating = avg;
+									console.log(avgRating);
+									if(avgRating!=null)
+									{
+										instance.averageRating = avgRating.value;
+									}
+									else
+									{
+										instance.averageRating =0;
+									}
 									callback(null, instance);
 
 								}
 							});
-
+							
 						}
 					});
 
@@ -195,7 +207,7 @@ Ratings.prototype.updateRating = function(owner, data, callback) {
 	});
 };
 
-Ratings.prototype.getQwizbookAverageRating = function(qbook, userEmail, callback) {
+Ratings.prototype.getQwizbookRating = function(qbook, userEmail, callback) {
 
 	var qid 	= qbook._id;
 	var date 	= qbook.date;
@@ -221,7 +233,7 @@ Ratings.prototype.getQwizbookAverageRating = function(qbook, userEmail, callback
 
 						} else {
 
-							getQwizbookAverageRating(qid,date, function(err, avgRating) {
+							getQwizbookAverageRating(qid, function(err, avgRating) {
 								if (err) {
 
 								} else {
@@ -263,8 +275,8 @@ Ratings.prototype.getQwizbookAverageRating = function(qbook, userEmail, callback
 
 };
 
-function getQwizbookAverageRating(qid, date, callback) {
-
+function getQwizbookAverageRating(qid, callback) {
+console.log(qid);
 	var mapFunction1 = function() {
 		emit(this.qwizbookId, this.rating);
 		// All other conditions Pass as is TODO: need to cleanup.
@@ -300,13 +312,14 @@ function getQwizbookAverageRating(qid, date, callback) {
 
 			// avgrating.find({'_id': qid}) .execFind(function(error, averagerating) {
 			//avgrating.find(function(error, averagerating) {
-				avgrating.findById(qid, function(error, averagerating){
+			  avgrating.findById(qid, function(error, averagerating){
 				if (error) {
 					console.log(error);
 					callback({
 						Error : "failed to get Qwizbook Average Rating."
 					}, null);
 				} else {
+					console.log(averagerating);
 					callback(null, averagerating);
 					
 				}

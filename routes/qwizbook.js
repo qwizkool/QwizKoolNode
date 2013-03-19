@@ -53,7 +53,7 @@ module.exports = {
 						var istrue =false;
 
 						var userEmail = sessionUser.email;
-						QwizbookRating.getQwizbookAverageRating(book,userEmail, function(err, avgratingNcount) {
+						QwizbookRating.getQwizbookRating(book,userEmail, function(err, avgratingNcount) {
 						
 							if (err) {
 								console.log(err);
@@ -120,7 +120,7 @@ module.exports = {
 						qbook = books[i];
 						
 						var userEmail = sessionUser.email;
-						QwizbookRating.getQwizbookAverageRating(qbook,userEmail, function(err, avgratingNcount) {
+						QwizbookRating.getQwizbookRating(qbook,userEmail, function(err, avgratingNcount) {
 						
 							if (err) {
 								console.log(err);
@@ -167,10 +167,10 @@ module.exports = {
 					//console.log("Filter criteria" + JSON.stringify(books));
 					var json ='[';
 					var istrue =false;
-					for (var i in books) {
+					for (i=0;i<book_length;i++) {
 						qbook = books[i];
 						var userEmail = sessionUser.email;
-						QwizbookRating.getQwizbookAverageRating(qbook,userEmail, function(err, avgratingNcount) {
+						QwizbookRating.getQwizbookRating(qbook,userEmail, function(err, books) {
 						
 							if (err) {
 								console.log(err);
@@ -187,7 +187,7 @@ module.exports = {
 								{
 									istrue = true;
 								}
-								json += avgratingNcount;
+								json += books;
 								if(c==book_length)
 								{
 									json += ']';
@@ -222,7 +222,7 @@ module.exports = {
 					for (var i in books) {
 						qbook = books[i];
 						var userEmail = sessionUser.email;
-						QwizbookRating.getQwizbookAverageRating(qbook,userEmail, function(err, avgratingNcount) {
+						QwizbookRating.getQwizbookRating(qbook,userEmail, function(err, avgratingNcount) {
 						
 							if (err) {
 								console.log(err);
@@ -240,7 +240,6 @@ module.exports = {
 									istrue = true;
 								}
 								json += avgratingNcount;
-								console.log('avgratingNcount3');
 								if(c==book_length)
 								{
 									json += ']';

@@ -35,7 +35,7 @@ module.exports = {
 				avgRating : qwizbookratings.averageRating,
 				rating : qwizbookratings.rating,
 				qId : qwizbookratings.qwizbookId,
-				count : qwizbookratings.userratingcount
+				count : qwizbookratings.getQwizbookRatingCount
 				
 			});
 			}
