@@ -56,6 +56,7 @@ define([
         // and attach it to the DOM.
         show:function (done) {
             $("#qpage-header").html(this.header.render().el);
+            $("#qpage-search").empty();
             $("#qwizkool-user-settings").html(this.userSettings.render().el);
             this.header.renderSettings();
             $("#qpage-footer").html(this.footer.render().el);
