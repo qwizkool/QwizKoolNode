@@ -42,11 +42,12 @@ define([
         },
 
         addQwizbookComments:function (comments, qId) {
+        	
         	var commentdesc = "Donec imperdiet egestas lorem, nec feugiat eros gravida et. Pellentesque ultricies consectetur tortor, sit amet hendrerit nibh faucibus ac. Integer imperdiet, leo ut pretium mollis, quam sem malesuada magna, et sollicitudin risus tortor quis tellus. Nunc convallis laoreet mi, in ullamcorper dui molestie quis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet posuere nulla. Nulla molestie aliquet tellus sed tristique. Duis pretium, sapien sed venenatis porttitor, nisl sem fringilla risus, ac ultricies neque quam vel massa.";
         	var commentedDate = Date.now();
         	
         	if(comments!=""){
-        		this.set('comment', comments);
+        	this.set('comment', comments);
             this.set('description', commentdesc);
             this.set('qwizbookId', qId);
             this.set('date', commentedDate);
@@ -71,9 +72,8 @@ define([
             
 
         }
-
-
-
+        
+        
     });
 
     Comments.Collection = Backbone.Collection.extend({
@@ -102,6 +102,7 @@ define([
 
                 success:function (collection, response) {
                     List = qwizbookComments.toJSON();
+                    collection.trigger("retreive-qwizbookcomment-success");
                 }
             });
 

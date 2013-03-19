@@ -116,9 +116,19 @@ define(['modules/user', 'modules/qwizbook'], function (User, Qwizbook) {
                 var charArray = {};
 
                 for (var i = 0; i < 26; i++) {
+                
+                var qb_date = new Date();
+
+                var dateStr = '[' + qb_date.getFullYear().toString() + '.' +
+                    ('00' + (qb_date.getMonth() + 1).toString()).slice(-2) +  '.' +
+                    ('00' + qb_date.getDate().toString()).slice(-2) + ' ' +
+                    ('00' + qb_date.getHours()).slice(-2) + ':' + 
+                    ('00' + qb_date.getMinutes()).slice(-2) + ':' + 
+                    ('00' + qb_date.getSeconds()).slice(-2) + ']';
+                    
                     charArray[String.fromCharCode(a + i)] = String.fromCharCode(a + i);
                     testqwizbookuniqueKey = "uniqueKey" + charArray[String.fromCharCode(a + i)];
-                    testqwizbookTitle = "Title" + charArray[String.fromCharCode(a + i)]+ i.toString();
+                    testqwizbookTitle = "Title" + charArray[String.fromCharCode(a + i)]+ i.toString() + " " + dateStr;
                     testqwizbookDescription = LoremDescription + charArray[String.fromCharCode(a + i)];
 
                     // Add the Qwizbook

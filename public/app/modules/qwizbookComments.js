@@ -1,50 +1,54 @@
 define([
     "app",
     "modules/comments",
+    "modules/user",
+    "modules/qwizbookComments",
     "text!templates/qwizbookComments.html"
-], function (App, Comments, Template) {
+], function (App, Comments, User, QwizbookComments, Template) {
 
     // Create a new module
-    var Comment = App.module();
+    //var Comment = App.module();
 
     // Footer extendings
-    Comment.Model = Backbone.Model.extend({ /* ... */ });
-    Comment.Collection = Backbone.Collection.extend({ /* ... */ });
-    Comment.Router = Backbone.Router.extend({ /* ... */ });
+   // Comment.Model = Backbone.Model.extend({ /* ... */ });
+   // Comment.Collection = Backbone.Collection.extend({ /* ... */ });
+    //Comment.Router = Backbone.Router.extend({ /* ... */ });
+    
+    var QwizbookComments = App.module();
 
-    Comment.View = Backbone.View.extend({
-
+    QwizbookComments.View = Backbone.View.extend({
+    
         template:Template,
 
         initialize:function () {
-            this.qId = this.options.qwizbookId;
-            this.commentdetmodel = this.options.commentmodel;
-            this.model = new Comments.Model();
-            this.qbookCommentCollection = new Comments.Collection({qwizbookId:this.qId});
-            this.model.on("add-qwizbookcomment-success-event",this.commentHandler,this);
-            this.commentDetail = new Comments.ListView({model:this.qbookCommentCollection});
-            //this.qwizbookContent = new QwizbookContent.View({model:this.commentdetmodel, commentmodel:this.qbookCommentCollection, qwizbookId:this.qId});
-            
+            this.usermodel = new User.Model();
+            //this.commentList= this.options.commentmodel;
+            //this.qwizbookcontentmodel = this.options.qwizbookcontentmodel;
+            //this.model = new Comments.Model();
+            //this.model.on("add-qwizbookcomment-success-event",this.commentHandler,this);
+            //this.commentDetail = new Comments.ListView({model:this.commentdetmodel});
+            //this.qwizbookContentCommentview = new QwizbookContent.View({model:this.qwizbookcontentmodel,commentmodel:this.commentList,qwizbookId:this.qId});
+            //this.qwizbookContent = new QwizbookContent.View({model:this.qwizbookcontentmodel, commentmodel:this.commentList, qwizbookId:this.qId});
+            //this.qwizbookMainPage = new QwizbookMainPage.View();
         },
         
-        commentHandler:function() {
-        //alert("ghhfg");	
-         this.qbookCommentCollection.on("reset", this.updateModel, this);
-            
-         this.qbookCommentCollection.QwizbookComments(this.qId);
-         $(this.el).find("#review-content-container").append(this.commentDetail.render().el);	
-        },
-        
-        updateModel:function () {
-        	alert("fksdf");
-        	//$("#qpage-content").html(this.qwizbookContent.render().el);
-            //this.qwizbookContent.reattachEvents();
-        },
-
-        render:function (done) {
+         
+         render:function (done) {
 
             this.el.innerHTML = this.template;
             return this;
+        },
+        
+        renderSearch:function () {
+
+            // Show the settings option based on the user
+            // log in.
+            if (this.usermodel.get('isLoggedIn') === true) {
+                $('#qwizbook-comments-form').show();
+            } else {
+                $('#qwizbook-comments-form').hide();
+            }
+
         },
 
         events:{
@@ -71,15 +75,14 @@ define([
 
 
         addComment:function (e) {
-        	var addComment = $('#qwizbook-comment-text').val();
-            this.model.addQwizbookComments(addComment, this.qId);
-            this.render();
-            this.model.trigger("add-qwizbookcomment-success");
+        	
+            this.trigger('add-qwizbookcomment-event',{qwizbookContentModel:this.options.qwizbookcontentmodel,addComment:$('#qwizbook-comment-text').val(), qwizbookId:this.options.qwizbookId});
             return false;
+        
         }
     });
 
     // Required, return the module for AMD compliance
-    return Comment;
+    return QwizbookComments;
 
 });
