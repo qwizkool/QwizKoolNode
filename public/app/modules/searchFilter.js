@@ -21,18 +21,6 @@ define([
             return this;
 
         },
-        
-        renderSearch:function () {
-
-            // Show the settings option based on the user
-            // log in.
-            if (this.model.get('isLoggedIn') === true) {
-                $("#qpage-search").show();
-            } else {
-                $("#qpage-search").hide();
-            }
-
-        },
 
         events:{
             "keyup #user-search-input":"setsearchParams",
