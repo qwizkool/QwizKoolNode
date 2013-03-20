@@ -88,9 +88,9 @@ Ratings.prototype.addRating = function(owner, data, callback) {
 
 								} else {
 									
-									if(avgRating!=null)
+									if(avgRating.length!=0)
 									{
-										instance.averageRating = avgRating.value;
+										instance.averageRating = avgRating[0].value;
 									}
 									else
 									{
@@ -319,7 +319,6 @@ console.log(qid);
 						Error : "failed to get Qwizbook Average Rating."
 					}, null);
 				} else {
-					console.log(averagerating);
 					callback(null, averagerating);
 					
 				}
