@@ -83,7 +83,7 @@ Ratings.prototype.addRating = function(owner, data, callback) {
 						} else {
 							instance.getQwizbookRatingCount = count;
 							
-							getQwizbookAverageRating(data.qbookId, function(err, avgRating) {
+							getbookAverageRating(data.qbookId, function(err, avgRating) {
 								if (err) {
 
 								} else {
@@ -132,14 +132,14 @@ Ratings.prototype.addRating = function(owner, data, callback) {
 						} else {
 
 							instance.getQwizbookRatingCount = count;
-							getQwizbookAverageRating(data.qbookId, function(err, avgRating) {
+							getbookAverageRating(data.qbookId, function(err, avgRating) {
 								if (err) {
 
 								} else {
-									console.log(avgRating);
-									if(avgRating!=null)
+									
+									if(avgRating.length!=0)
 									{
-										instance.averageRating = avgRating.value;
+										instance.averageRating = avgRating[0].value;
 									}
 									else
 									{
@@ -381,6 +381,60 @@ function getQwizbookUserRating(user, qwizbookId, callback) {
 
 	});
 
+}
+
+function getbookAverageRating(qid, callback) {
+	var mapFunction1 = function() {
+		emit(this.qwizbookId, this.rating);
+		// All other conditions Pass as is TODO: need to cleanup.
+
+	};
+
+	var reduceFunction1 = function(QbId, valuesRatings) {
+
+		return (Array.sum(valuesRatings) / valuesRatings.length);
+	};
+
+	var o = {};
+
+	o.map = mapFunction1;
+	o.reduce = reduceFunction1;
+	o.query = {
+		qwizbookId : qid
+		//date:new Date().getTime()
+	};
+	o.out = {
+		replace : "averageRating"
+	};
+	
+	RatingModel.mapReduce(o, function(err, avgrating) {
+		if (err) {
+			// Check for duplicate key error
+			console.log(err);
+			// All other conditions Pass as is TODO: need to cleanup.
+			callback({
+				Error : "failed to get Qwizbook Average Rating."
+			}, null);
+		} else {
+
+			// avgrating.find({'_id': qid}) .execFind(function(error, averagerating) {
+			avgrating.find(function(error, averagerating) {
+			  //avgrating.findById(qid, function(error, averagerating){
+				if (error) {
+					console.log(error);
+					callback({
+						Error : "failed to get Qwizbook Average Rating."
+					}, null);
+				} else {
+					callback(null, averagerating);
+					
+				}
+
+			});
+
+		}
+
+	});
 }
 
 /**
