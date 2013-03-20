@@ -18,7 +18,7 @@ define([
 
             this.qwizbookList = new QwizBook.Collection();
             this.header = new Header.View();
-            this.userMainContent = new UserMainContent.View({collection:this.qwizbookList});
+            this.userMainContent = new UserMainContent.View({collection:this.qwizbookList, el : '#qpage-content'});
             this.searchfilter = new Searchfilter.View({
                 collection:this.qwizbookList
             });
@@ -50,11 +50,7 @@ define([
 
         updateCollection:function () {
 
-            $("#qpage-content").html(this.userMainContent.render().el);
-            this.reattachEvents();
-        },
-        reattachEvents:function () {
-            this.searchfilter.reattachEvents();
+            this.userMainContent.render()
         },
 
         // Render all the nested views related to this page
@@ -65,7 +61,6 @@ define([
             $("#qwizkool-user-settings").html(this.userSettings.render().el);
             this.header.renderSettings();
             $("#qpage-search").html(this.searchfilter.render().el);
-            this.searchfilter.renderSearch();
             $("#qpage-footer").html(this.footer.render().el);
 
         }

@@ -27,7 +27,7 @@ define([
         render:function () {
 
             this.el.innerHTML = this.template;
-            $(this.el).find("#qwizbooklist-container").append(this.qwizbooklistview.render().el);
+            $(this.el).find("#qwizbooklist-container").html(this.qwizbooklistview.render().el);
 
             return this;
         }
