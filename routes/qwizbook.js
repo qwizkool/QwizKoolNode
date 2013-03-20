@@ -172,6 +172,70 @@ module.exports = {
 					// No error send the unique ID for the newly created book
 
 					//console.log("Filter criteria" + JSON.stringify(books));
+					if(book_length>0)
+					{
+						var json ='[';
+					var istrue =false;
+					for (i=0;i<book_length;i++) {
+						qbook = books[i];
+						var userEmail = sessionUser.email;
+						QwizbookRating.getQwizbookRating(qbook,userEmail, function(err, book) {
+						
+							if (err) {
+								console.log(err);
+								res.send(400, err);
+								return;
+							} else {
+								
+								
+								if(istrue)
+								{
+									json +=',';
+								}
+								else
+								{
+									istrue = true;
+								}
+								json += book;
+								if(c==book_length)
+								{
+									json += ']';
+									res.send(json);
+								}
+							}
+						c++;
+						});
+
+					}
+					}
+					else
+					{
+						res.send({
+						Error : "Cannot rate Qwizbook "
+					}, null);
+					}
+					
+					
+
+				});
+			}
+
+		} else {
+
+			Qwizbook.retrieveQwizbooks(sessionUser, function(err, books) {
+				// If error send the error response
+				var book_length = books.length;
+					var c = 1;
+					if (err) {
+						res.send(400, err);
+						console.log(err);
+						return;
+					}
+					// No error send the unique ID for the newly created book
+
+					//console.log("Filter criteria" + JSON.stringify(books));
+					if(book_length>0)
+					{
 					var json ='[';
 					var istrue =false;
 					for (i=0;i<book_length;i++) {
@@ -206,56 +270,12 @@ module.exports = {
 
 					}
 					
-
-				});
-			}
-
-		} else {
-
-			Qwizbook.retrieveQwizbooks(sessionUser, function(err, books) {
-				// If error send the error response
-				var book_length = books.length;
-					var c = 1;
-					if (err) {
-						res.send(400, err);
-						console.log(err);
-						return;
 					}
-					// No error send the unique ID for the newly created book
-
-					//console.log("Filter criteria" + JSON.stringify(books));
-					var json ='[';
-					var istrue =false;
-					for (i=0;i<book_length;i++) {
-						qbook = books[i];
-						var userEmail = sessionUser.email;
-						QwizbookRating.getQwizbookRating(qbook,userEmail, function(err, book) {
-						
-							if (err) {
-								console.log(err);
-								res.send(400, err);
-								return;
-							} else {
-								
-								
-								if(istrue)
-								{
-									json +=',';
-								}
-								else
-								{
-									istrue = true;
-								}
-								json += book;
-								if(c==book_length)
-								{
-									json += ']';
-									res.send(json);
-								}
-							}
-						c++;
-						});
-
+					else
+					{
+						res.send({
+						Error : "Cannot rate Qwizbook "
+					}, null);
 					}
 
 			})
