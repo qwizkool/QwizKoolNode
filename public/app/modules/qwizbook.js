@@ -82,6 +82,7 @@ define([
                 },
 
                 success:function (model, response) {
+                	
                     model.trigger('retreive-qwizbook-success-event');
 
                 }
@@ -139,6 +140,10 @@ define([
                 success:function (collection, response) {
                     this.isListedqwizBook = true;
                     var List = Array();
+                    if(response == null)
+                    {
+                    	collection.trigger('no-qwizbook-tolist');
+                    }
                     List = qwizbookList.toJSON();
                     collection.trigger('list-qwizbook-event');
                 }

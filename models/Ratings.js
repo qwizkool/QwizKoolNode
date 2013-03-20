@@ -276,7 +276,6 @@ Ratings.prototype.getQwizbookRating = function(qbook, userEmail, callback) {
 };
 
 function getQwizbookAverageRating(qid, callback) {
-console.log(qid);
 	var mapFunction1 = function() {
 		emit(this.qwizbookId, this.rating);
 		// All other conditions Pass as is TODO: need to cleanup.

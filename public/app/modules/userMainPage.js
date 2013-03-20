@@ -27,7 +27,7 @@ define([
             this.qwizbookList.QwizbookList();
             
             this.qwizbookList.on("reset", this.updateCollection, this);
-            
+            this.qwizbookList.on("no-qwizbook-tolist", this.noQwizbook, this);
             
              this.searchfilter.on("searchorfilter", function (searchfilterdataObj) {
 
@@ -47,7 +47,11 @@ define([
 
             });
         },
-
+		noQwizbook:function()
+		{
+			
+			 $("#qwizbook-no-result-found").show();
+		},
         updateCollection:function () {
 
             this.userMainContent.render()
