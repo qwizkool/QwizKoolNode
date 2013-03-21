@@ -96,34 +96,34 @@ var QwizbookSchema = {
             //------- Page reference
             reference: [{
                 description: String,
-                videoLinks: [url: {
-                    type: String
+                videoLinks: [{
+                    url: String
                 }],
-                webLinks: [url: {
-                    type: String
+                webLinks: [{
+                    url: String
                 }],
-                imageLinks: [url: {
-                    type: String
+                imageLinks: [{
+                    url: String
                 }],
-                audioLinks: [url: {
-                    type: String
+                audioLinks: [{
+                    url: String
                 }]
             }],
 
             //------- Re-inforcement
             reinforce: [{
                 description: String,
-                videoLinks: [url: {
-                    type: String
+                videoLinks: [{
+                    url: String
                 }],
-                webLinks: [url: {
-                    type: String
+                webLinks: [{
+                    url: String
                 }],
-                imageLinks: [url: {
-                    type: String
+                imageLinks: [{
+                    url: String
                 }],
-                audioLinks: [url: {
-                    type: String
+                audioLinks: [{
+                    url: String
                 }]
             }],
 
@@ -151,26 +151,26 @@ var QwizbookSchema = {
                 text: {
                     type: String
                 },
-                imageLinks: [url: {
-                    type: String
+                imageLinks: [{
+                    url: String
                 }]
             }],
 
             multiple_choice_question: {
 
                 // question
-                question {
+                question: {
                     text: {
                         type: String
-                    }
-                    videoLinks: [url: {
-                        type: String
+                    },
+                    videoLinks: [{
+                        url: String
                     }],
-                    imageLinks: [url: {
-                        type: String
+                    imageLinks: [{
+                        url: String
                     }],
-                    audioLinks: [url: {
-                        type: String
+                    audioLinks: [{
+                        url: String
                     }]
                 },
 
@@ -179,15 +179,15 @@ var QwizbookSchema = {
                     choice: {
                         text: {
                             type: String
-                        }
-                        videoLinks: [url: {
-                            type: String
+                        },
+                        videoLinks: [{
+                            url: String
                         }],
-                        imageLinks: [url: {
-                            type: String
+                        imageLinks: [{
+                            url: String
                         }],
-                        audioLinks: [url: {
-                            type: String
+                        audioLinks: [{
+                            url: String
                         }]
                     },
 
