@@ -1,7 +1,7 @@
 /*!
- * Copyright(c) 2013 Vibrentt 
+ * Copyright(c) 2013 Vibrentt
  *
- * Module : QwizbookSchema 
+ * Module : QwizbookSchema
  *
  */
 
@@ -28,9 +28,15 @@ var QwizbookSchema = {
         type: Date,
         'default': Date.now
     },
-    userRating:{type:String},
-    userratingcount:{type:String},
-    averageRating:{type:String},
+    userRating: {
+        type: String
+    },
+    userratingcount: {
+        type: String
+    },
+    averageRating: {
+        type: String
+    },
     // Private/Public/Shared
     groupPermission: {
         type: String
@@ -39,6 +45,11 @@ var QwizbookSchema = {
     sharedWith: [{
         email: String
     }],
+    // Published status
+    published: {
+        type: Boolean
+    },
+
 
     //------- Qwizbook comments
     comments: [{
@@ -64,7 +75,7 @@ var QwizbookSchema = {
         videoLinks: [],
         webLinks: [],
         imageLinks: [],
-        pages: []
+        audioLinks: []
     }],
 
     //------- Qwizbook FSM
@@ -80,6 +91,42 @@ var QwizbookSchema = {
 
         //------- Qwizbook pages
         pages: [{
+
+
+            //------- Page reference
+            reference: [{
+                description: String,
+                videoLinks: [{
+                    url: String
+                }],
+                webLinks: [{
+                    url: String
+                }],
+                imageLinks: [{
+                    url: String
+                }],
+                audioLinks: [{
+                    url: String
+                }]
+            }],
+
+            //------- Re-inforcement
+            reinforce: [{
+                description: String,
+                videoLinks: [{
+                    url: String
+                }],
+                webLinks: [{
+                    url: String
+                }],
+                imageLinks: [{
+                    url: String
+                }],
+                audioLinks: [{
+                    url: String
+                }]
+            }],
+
 
             //------- Page comments
             comments: [{
@@ -103,27 +150,48 @@ var QwizbookSchema = {
             hints: [{
                 text: {
                     type: String
-                }
-                //TODO: Add support for Image, Video, Audio
-
+                },
+                imageLinks: [{
+                    url: String
+                }]
             }],
 
-            question: {
+            multiple_choice_question: {
 
-                // question text
-                text: {
-                    type: String
-                },
-
-                //TODO: Add support for Image, Video, Audio
-                // as questions.
-
-                // answer choices
-                choices: [{
+                // question
+                question: {
                     text: {
                         type: String
                     },
-                    answer: {
+                    videoLinks: [{
+                        url: String
+                    }],
+                    imageLinks: [{
+                        url: String
+                    }],
+                    audioLinks: [{
+                        url: String
+                    }]
+                },
+
+                // answer choices
+                answers: [{
+                    choice: {
+                        text: {
+                            type: String
+                        },
+                        videoLinks: [{
+                            url: String
+                        }],
+                        imageLinks: [{
+                            url: String
+                        }],
+                        audioLinks: [{
+                            url: String
+                        }]
+                    },
+
+                    correct: {
                         type: Boolean
                     }
                 }]
@@ -135,6 +203,7 @@ var QwizbookSchema = {
 };
 
 /**
-  * Exports.
-  */
-module.exports  = exports = QwizbookSchema;
+ * Exports.
+ */
+module.exports = exports = QwizbookSchema;
+
