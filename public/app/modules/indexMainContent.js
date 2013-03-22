@@ -116,6 +116,7 @@ define([
         userLoginEvent:function () {
             if (this.model.get('isLoggedIn') === true) {
                 // Go to logged in page.
+                
                 Backbone.history.navigate("#main", true);
             } else {
                 // Trigger event to update status
@@ -142,7 +143,9 @@ define([
 
             if (this.model.get('isRegistered') === true) {
                 // Go to logged in page.
+                 
                 Backbone.history.navigate("#main", true);
+                this.trigger('registration-attempted');
             } else {
                 // Trigger event to update status
                 this.trigger('registration-attempted');
