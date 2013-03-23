@@ -11,6 +11,7 @@ require.config({
       bootstrap: "../vendor/bootstrap/js/bootstrap.min",
       tabs: "../assets/js/libs/tabs",
       sha256: "../assets/js/libs/sha256",
+      sha512: "../assets/js/libs/sha512",
       scion: "../assets/js/libs/SCION/lib/browser/SCXML",
       core_scxml: "../assets/js/libs/SCION/lib/core/scxml/SCXML",
       jsonml_dom: "../assets/js/libs/SCION/lib/external/jsonml/jsonml-dom",

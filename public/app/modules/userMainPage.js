@@ -61,10 +61,10 @@ define([
         // and attach it to the DOM.
         show:function (done) {
 
-            $("#qpage-header").html(this.header.render().el);
-            $("#qwizkool-user-settings").html(this.userSettings.render().el);
+            $("#qwizkool-header").html(this.header.render().el);
+            $("#qwizkool-htbu").html(this.userSettings.render().el);
             this.header.renderSettings();
-            $("#qpage-search").html(this.searchfilter.render().el);
+            $("#qwizkool-search").html(this.searchfilter.render().el);
             $("#qpage-footer").html(this.footer.render().el);
 
         }

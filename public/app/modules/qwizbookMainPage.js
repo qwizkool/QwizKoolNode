@@ -55,9 +55,9 @@ define([
         // Render all the nested views related to this page
         // and attach it to the DOM.
         show:function (done) {
-            $("#qpage-header").html(this.header.render().el);
-            $("#qpage-search").empty();
-            $("#qwizkool-user-settings").html(this.userSettings.render().el);
+            $("#qwizkool-header").html(this.header.render().el);
+            $("#qwizkool-search").empty();
+            $("#qwizkool-htbu").html(this.userSettings.render().el);
             this.header.renderSettings();
             $("#qpage-footer").html(this.footer.render().el);
 

@@ -6,6 +6,7 @@ var express = require('express')
     , config = require('./config/config')
     , routes = require('./routes')
     , user = require('./routes/user')
+    , session = require('./routes/session')
     , qwizbook = require('./routes/qwizbook')
     , qwizbookComment = require('./routes/qwizbookComments')
     , qwizbookrating = require('./routes/qwizbookrating')
@@ -105,6 +106,11 @@ function unsupported(req, res) {
  */
 app.post('/login', passport.authenticate('local'), user.login);
 app.post('/logout', user.logout);
+
+app.post('/sessions', passport.authenticate('local'), session.login);
+app.delete('/sessions/:id', session.logout);
+app.get('/sessions/:id', ensureAuthenticated, session.getUser);
+
 
 /*
  +-----------+-------------------+--------------------+----------------------+----------------+

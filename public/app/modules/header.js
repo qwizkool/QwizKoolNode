@@ -26,9 +26,9 @@ define([
             // Show the settings option based on the user
             // log in.
             if (this.model.get('isLoggedIn') === true) {
-                $("#qwizkool-user-settings").show();
+                $("#qwizkool-htbu").show();
             } else {
-                $("#qwizkool-user-settings").hide();
+                $("#qwizkool-htbu").hide();
             }
 
         }

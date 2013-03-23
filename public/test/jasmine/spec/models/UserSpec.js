@@ -1,4 +1,4 @@
-define(['modules/user'], function (User) {
+define(['modules/user', 'modules/session'], function (User, Session) {
     return describe('Model :: User', function () {
 
         // Create test data for the user model
@@ -12,6 +12,7 @@ define(['modules/user'], function (User) {
 
             done = false;
             this.user = new User.Model();
+            this.session = new Session.Model();
 
 
         });
@@ -157,7 +158,7 @@ define(['modules/user'], function (User) {
 
                 // Login  completed event handler.
                 var userLoginEvent = function () {
-                    if (this.user.get('isLoggedIn') === true) {
+                    if (this.session.get('isAuthenticated') === true) {
                         done = false;
                     } else {
                         done = true;
@@ -167,8 +168,8 @@ define(['modules/user'], function (User) {
                 // Login  the User
                 var email = testEmail + new Date().getTime();
                 var password = testPwd;
-                this.user.on('user-login-event', userLoginEvent, this);
-                this.user.login(email, password);
+                this.session.on('session-login-failed-event', userLoginEvent, this);
+                this.session.login(email, password);
 
                 waitsFor(function () {
                     return done;
@@ -176,10 +177,9 @@ define(['modules/user'], function (User) {
 
                 // Validate the registration
                 runs(function () {
-                    expect(this.user).not.toBe(null);
-                    expect(this.user.get('isLoggedIn')).toEqual(false);
-                    expect(this.user.get('id')).toBeNull();
-                    expect(this.user.get('loginStatus')).toEqual("Unauthorized");
+                    expect(this.session).not.toBe(null);
+                    expect(this.session.get('isAuthenticated')).toEqual(false);
+                    expect(this.session.get('id')).toBeNull();
                 });
 
             });
@@ -189,7 +189,7 @@ define(['modules/user'], function (User) {
 
                 // Login  completed event handler.
                 var userLoginEvent = function () {
-                    if (this.user.get('isLoggedIn') === true) {
+                    if (this.session.get('isAuthenticated') === true) {
                         done = true;
                     } else {
                         done = false;
@@ -199,8 +199,8 @@ define(['modules/user'], function (User) {
                 // Login the User
                 var email = testEmail;
                 var password = testPwd;
-                this.user.on('user-login-event', userLoginEvent, this);
-                this.user.login(email, password);
+                this.session.on('session-login-success-event', userLoginEvent, this);
+                this.session.login(email, password);
 
                 waitsFor(function () {
                     return done;
@@ -208,25 +208,24 @@ define(['modules/user'], function (User) {
 
                 // Validate the registration
                 runs(function () {
-                    expect(this.user).not.toBe(null);
-                    expect(this.user.get('isLoggedIn')).toEqual(true);
-                    expect(this.user.get('id')).toEqual(jasmine.any(String));
-                    expect(this.user.get('loginStatus')).not.toBeNull();
+                    expect(this.session).not.toBe(null);
+                    expect(this.session.get('isAuthenticated')).toEqual(true);
+                    expect(this.session.get('id')).toEqual(jasmine.any(String));
 
                     // Set the ID
-                    this.user.id = this.user.get('id');
+                    //this.user.id = this.user.get('id');
 
                 });
 
             });
 
-            it('should allow to fetch a logged in user', function () {
+            it('should have an authenticated session for a logged in user', function () {
 
                 var done = false;
 
                 // Login  completed event handler.
                 var userLoginEvent = function () {
-                    if (this.user.get('isLoggedIn') === true) {
+                    if (this.session.get('isAuthenticated') === true) {
                         done = true;
                     } else {
                         done = false;
@@ -236,8 +235,8 @@ define(['modules/user'], function (User) {
                 // Login the User
                 var email = testEmail;
                 var password = testPwd;
-                this.user.on('user-login-event', userLoginEvent, this);
-                this.user.login(email, password);
+                this.session.on('session-login-success-event', userLoginEvent, this);
+                this.session.login(email, password);
 
                 waitsFor(function () {
                     return done;
@@ -245,21 +244,20 @@ define(['modules/user'], function (User) {
 
                 // Validate the registration
                 runs(function () {
-                    expect(this.user).not.toBe(null);
-                    expect(this.user.get('isLoggedIn')).toEqual(true);
-                    expect(this.user.get('id')).toEqual(jasmine.any(String));
-                    expect(this.user.get('loginStatus')).not.toBeNull();
+                    expect(this.session).not.toBe(null);
+                    expect(this.session.get('isAuthenticated')).toEqual(true);
+                    expect(this.session.get('id')).toEqual(jasmine.any(String));
 
-                    this.user.action = "none";
-                    this.user.id = this.user.get('id');
-
-
-                    this.user.fetch({
-                        success:function (c) {
-
+                    var sessionStatusEvent = function () {
+                        if (this.session.get('isAuthenticated') === true) {
                             done = true;
+                        } else {
+                            done = false;
                         }
-                    });
+                    };
+                    this.session.on('session-check-success-event', sessionStatusEvent, this);
+                    this.session.isSessionValid();
+
 
                     waitsFor(function () {
                         return done;
@@ -268,10 +266,9 @@ define(['modules/user'], function (User) {
 
                     // Validate the registration
                     runs(function () {
-                        expect(this.user).not.toBe(null);
-                        expect(this.user.get('isLoggedIn')).toEqual(true);
-                        expect(this.user.get('id')).toEqual(jasmine.any(String));
-                        expect(this.user.get('loginStatus')).not.toBeNull();
+                        expect(this.session).not.toBe(null);
+                        expect(this.session.get('isAuthenticated')).toEqual(true);
+                        expect(this.session.get('id')).toEqual(jasmine.any(String));
                     });
 
                 });
@@ -279,6 +276,83 @@ define(['modules/user'], function (User) {
 
             });
 
+            it('should not have an authenticated session for a logged out user', function () {
+                var done = false;
+
+                // Login  completed event handler.
+                var userLoginEvent = function () {
+                    if (this.session.get('isAuthenticated') === true) {
+                        done = true;
+                    } else {
+                        done = false;
+                    }
+                };
+
+                // Login the User
+                var email = testEmail;
+                var password = testPwd;
+                this.session.on('session-login-success-event', userLoginEvent, this);
+                this.session.login(email, password);
+
+                waitsFor(function () {
+                    return done;
+                });
+
+                runs(function () {
+                    done = false;
+
+                    // Login  completed event handler.
+                    var userLoginEvent = function () {
+                        if (this.session.get('isAuthenticated') === true) {
+                            done = false;
+                        } else {
+                            done = true;
+                        }
+                    };
+
+                    // Login the User
+                    var email = testEmail;
+                    var password = testPwd;
+                    this.session.on('session-logout-success-event', userLoginEvent, this);
+                    this.session.logout(email, password);
+
+                    waitsFor(function () {
+                        return done;
+                    });
+
+                    // Validate the registration
+                    runs(function () {
+                        expect(this.session).not.toBe(null);
+                        expect(this.session.get('isAuthenticated')).toEqual(false);
+                        expect(this.session.get('id')).toBeNull();
+
+                        var sessionStatusEvent = function () {
+                            if (this.session.get('isAuthenticated') === false) {
+                                done = true;
+                            } else {
+                                done = false;
+                            }
+                        };
+                        this.session.on('session-check-failed-event', sessionStatusEvent, this);
+                        this.session.isSessionValid();
+
+
+                        waitsFor(function () {
+                            return done;
+                        });
+
+
+                        // Validate the registration
+                        runs(function () {
+                            expect(this.session).not.toBe(null);
+                            expect(this.session.get('isAuthenticated')).toEqual(false);
+                            expect(this.session.get('id')).toBeNull();
+                        });
+
+                    });
+
+                });
+            });
 
         });
     });
