@@ -111,7 +111,7 @@ define([
                     model.set({
                         isRegistered:true,
                        // registrationStatus:"Hello " + model.get('name') + " ! " + "Welcome to QwizKool ! " + "You are user #" + model.get('id') + ".",
-                       registrationStatus:"successful. You may login now.",
+                       registrationStatus:"Registration successful. You may login now.",
                         action:'none'
                     });
                     model.trigger('user-registration-event');
