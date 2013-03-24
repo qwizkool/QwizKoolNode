@@ -29,7 +29,7 @@ app.configure(function () {
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(express.cookieParser());
-    app.use(express.cookieSession({ secret:"qwizkool magic" }));
+    app.use(express.cookieSession({ secret:"qwizkool magic"}));
     // Initialize Passport!  Also use passport.session() middleware, to support
     // persistent login sessions (recommended).
     app.use(passport.initialize());

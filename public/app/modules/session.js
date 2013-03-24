@@ -17,33 +17,33 @@ define([
 
     Session.Model = Backbone.Model.extend({
 
-        urlRoot: "/sessions",
+        urlRoot:"/sessions",
 
-        LOGIN_FAILED_MSG: "Authentication Failed: Invalid ID or password",
-        LOGIN_SUCCESS_MSG: "Authentication successful",
-        LOGOUT_FAILED_MSG: "Logout failed",
-        LOGOUT_SUCCESS_MSG: "Logout successful",
-        SESSION_INVALID_MSG: "Session invalid",
-        SESSION_VALID_MSG: "Session valid",
+        LOGIN_FAILED_MSG:"Authentication Failed: Invalid ID or password",
+        LOGIN_SUCCESS_MSG:"Authentication successful",
+        LOGOUT_FAILED_MSG:"Logout failed",
+        LOGOUT_SUCCESS_MSG:"Logout successful",
+        SESSION_INVALID_MSG:"Session invalid",
+        SESSION_VALID_MSG:"Session valid",
 
-        defaults: {
-            id: null,
-            name: 'user',
-            email: 'user@email.com',
-            password: '',
-            isAuthenticated: false
+        defaults:{
+            id:null,
+            name:'user',
+            email:'user@email.com',
+            password:'',
+            isAuthenticated:false
         },
 
-        initialize: function () {
+        initialize:function () {
 
         },
 
-        isUserAuthenticated: function () {
+        isUserAuthenticated:function () {
             return this.get('isAuthenticated');
         },
 
 
-        login: function (email, password) {
+        login:function (email, password) {
 
             var shaObj = new jsSHA(password, "TEXT");
             var hash = shaObj.getHash("SHA-256", "HEX");
@@ -54,61 +54,79 @@ define([
             this.save({}, {
 
                 // Handle the Login Error condition.
-                error: function (model, response) {
+                error:function (model, response) {
 
                     console.log(response);
-                    model.trigger('session-login-failed-event', {status: this.LOGIN_FAILED_MSG});
+                    model.trigger('session-login-event', {
+                        valid:model.isUserAuthenticated(),
+                        status:model.LOGIN_FAILED_MSG
+                    });
 
                 },
                 // Handle the Login success condition.
-                success: function (model, response) {
+                success:function (model, response) {
 
                     console.log(response);
-                    model.trigger('session-login-success-event', {status: this.LOGIN_SUCCESS_MSG});
+                    model.trigger('session-login-event', {
+                        valid:model.isUserAuthenticated(),
+                        status:model.LOGIN_SUCCESS_MSG
+                    });
                 }
             });
 
         },
 
-        logout: function () {
+        logout:function () {
 
             this.destroy({
 
                 // Handle the Logout Error condition.
-                error: function (model, response) {
+                error:function (model, response) {
                     console.log(response);
-                    model.clear();
-                    model.trigger('session-logout-failed-event', {status: this.LOGOUT_FAILED_MSG});
+                    model.clear().set(model.defaults);
+                    model.trigger('session-logout-event', {
+                        valid:model.isUserAuthenticated(),
+                        status:model.LOGOUT_FAILED_MSG
+                    });
                 },
 
                 // Handle the Logout success condition.
-                success: function (model, response) {
+                success:function (model, response) {
 
                     console.log(response);
                     model.clear().set(model.defaults);
-                    model.trigger('session-logout-success-event', {status: this.LOGOUT_SUCCESS_MSG});
+                    model.trigger('session-logout-event', {
+                        valid:model.isUserAuthenticated(),
+                        status:model.LOGOUT_SUCCESS_MSG
+                    });
 
                 }
             });
 
         },
 
-        isSessionValid: function () {
+        isSessionValid:function () {
 
             this.fetch({
 
                 // Handle the fetch Error condition.
-                error: function (model, response) {
+                error:function (model, response) {
 
                     console.log(response);
-                    model.trigger('session-check-failed-event', {status: this.SESSION_INVALID_MSG});
+                    model.trigger('session-check-event', {
+                        valid:model.isUserAuthenticated(),
+                        status:model.SESSION_INVALID_MSG
+                    });
                 },
 
                 // Handle the fetch success condition.
-                success: function (model, response) {
+                success:function (model, response) {
 
                     console.log(response);
-                    model.trigger('session-check-success-event', {status: this.SESSION_VALID_MSG});
+                    model.trigger('session-check-event', {
+                        valid:model.isUserAuthenticated(),
+                        status:model.SESSION_VALID_MSG
+                    });
 
                 }
             });

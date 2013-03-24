@@ -9,29 +9,35 @@ define([
 
     Header.View = Backbone.View.extend({
 
+        el:'#qwizkool-header',
+
         template:Template,
 
         initialize:function () {
-            this.model = new User.Model();
+
+            // Set the header toolbar upper and lower views
+            // that is passed.
+            this.htbuView = this.options.htbuView;
+            this.htblView = this.options.htblView;
+
         },
 
         render:function () {
 
             this.el.innerHTML = this.template;
+
+            // Render the subviews.
+            if (this.htbuView) {
+                $(this.el).find("#qwizkool-htbu").html(this.htbuView.render().el);
+
+            };
+            if (this.htblView) {
+                $(this.el).find("#qwizkool-htbl").html(this.htblView.render().el);
+            };
+
             return this;
-        },
-
-        renderSettings:function () {
-
-            // Show the settings option based on the user
-            // log in.
-            if (this.model.get('isLoggedIn') === true) {
-                $("#qwizkool-htbu").show();
-            } else {
-                $("#qwizkool-htbu").hide();
-            }
-
         }
+
 
     });
 

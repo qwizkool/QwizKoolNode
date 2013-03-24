@@ -18,7 +18,7 @@ define([
 
             this.qwizbookList = new QwizBook.Collection();
             this.header = new Header.View();
-            this.userMainContent = new UserMainContent.View({collection:this.qwizbookList, el : '#qpage-content'});
+            this.userMainContent = new UserMainContent.View({collection:this.qwizbookList, el : '#qwizkool-content'});
             this.searchfilter = new Searchfilter.View({
                 collection:this.qwizbookList
             });
@@ -65,7 +65,7 @@ define([
             $("#qwizkool-htbu").html(this.userSettings.render().el);
             this.header.renderSettings();
             $("#qwizkool-search").html(this.searchfilter.render().el);
-            $("#qpage-footer").html(this.footer.render().el);
+            $("#qwizkool-footer").html(this.footer.render().el);
 
         }
     });

@@ -58,7 +58,7 @@ define([
                         var commentDetail = selectedQwizbookcommentDetail;
                         var qwizbookContent = new QwizbookContent.View({model:qwizbookContentModel,commentmodel:commentList,qwizbookId:qbookId});
                         
-                        $("#qpage-content").html(qwizbookContent.render().el);
+                        $("#qwizkool-content").html(qwizbookContent.render().el);
                         //view.reattachEvents();
                         //return view;
 
@@ -112,14 +112,14 @@ define([
             
             //this.qwizbookContent = new QwizbookContent.View({model:this.qwizbookData,commentmodel:this.qwizbookcommentList,qwizbookId:this.qId});
             //this.qwizbookContent = new QwizbookContent.View({model:this.qwizbookData,commentmodel:this.qwizbookcommentList,qwizbookId:this.qId});
-            $("#qpage-content").html(this.qwizbookContent.render().el);
+            $("#qwizkool-content").html(this.qwizbookContent.render().el);
             this.qwizbookContent.reattachEvents();
          
         },
         
         updateModel:function () {
         	 alert("in update model");
-        	 $("#qpage-content").html(this.qwizbookContent.render().el);
+        	 $("#qwizkool-content").html(this.qwizbookContent.render().el);
              this.qwizbookContent.reattachEvents();	
          	
           },

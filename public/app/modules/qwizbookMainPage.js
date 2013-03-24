@@ -46,7 +46,7 @@ define([
           
         
           updateModel:function () {
-        	 $("#qpage-content").html(this.qwizbookContent.render().el);
+        	 $("#qwizkool-content").html(this.qwizbookContent.render().el);
              this.qwizbookContent.reattachEvents();	
          	
           },
@@ -59,7 +59,7 @@ define([
             $("#qwizkool-search").empty();
             $("#qwizkool-htbu").html(this.userSettings.render().el);
             this.header.renderSettings();
-            $("#qpage-footer").html(this.footer.render().el);
+            $("#qwizkool-footer").html(this.footer.render().el);
 
 
         }

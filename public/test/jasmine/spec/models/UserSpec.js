@@ -168,7 +168,7 @@ define(['modules/user', 'modules/session'], function (User, Session) {
                 // Login  the User
                 var email = testEmail + new Date().getTime();
                 var password = testPwd;
-                this.session.on('session-login-failed-event', userLoginEvent, this);
+                this.session.on('session-login-event', userLoginEvent, this);
                 this.session.login(email, password);
 
                 waitsFor(function () {
@@ -199,7 +199,7 @@ define(['modules/user', 'modules/session'], function (User, Session) {
                 // Login the User
                 var email = testEmail;
                 var password = testPwd;
-                this.session.on('session-login-success-event', userLoginEvent, this);
+                this.session.on('session-login-event', userLoginEvent, this);
                 this.session.login(email, password);
 
                 waitsFor(function () {
@@ -235,7 +235,7 @@ define(['modules/user', 'modules/session'], function (User, Session) {
                 // Login the User
                 var email = testEmail;
                 var password = testPwd;
-                this.session.on('session-login-success-event', userLoginEvent, this);
+                this.session.on('session-login-event', userLoginEvent, this);
                 this.session.login(email, password);
 
                 waitsFor(function () {
@@ -255,7 +255,7 @@ define(['modules/user', 'modules/session'], function (User, Session) {
                             done = false;
                         }
                     };
-                    this.session.on('session-check-success-event', sessionStatusEvent, this);
+                    this.session.on('session-check-event', sessionStatusEvent, this);
                     this.session.isSessionValid();
 
 
@@ -291,7 +291,7 @@ define(['modules/user', 'modules/session'], function (User, Session) {
                 // Login the User
                 var email = testEmail;
                 var password = testPwd;
-                this.session.on('session-login-success-event', userLoginEvent, this);
+                this.session.on('session-login-event', userLoginEvent, this);
                 this.session.login(email, password);
 
                 waitsFor(function () {
@@ -313,7 +313,7 @@ define(['modules/user', 'modules/session'], function (User, Session) {
                     // Login the User
                     var email = testEmail;
                     var password = testPwd;
-                    this.session.on('session-logout-success-event', userLoginEvent, this);
+                    this.session.on('session-logout-event', userLoginEvent, this);
                     this.session.logout(email, password);
 
                     waitsFor(function () {
@@ -333,7 +333,7 @@ define(['modules/user', 'modules/session'], function (User, Session) {
                                 done = false;
                             }
                         };
-                        this.session.on('session-check-failed-event', sessionStatusEvent, this);
+                        this.session.on('session-check-event', sessionStatusEvent, this);
                         this.session.isSessionValid();
 
 

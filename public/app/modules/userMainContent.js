@@ -1,4 +1,4 @@
-define([
+   define([
     "app",
     "modules/qwizbook",
     "modules/breadcrumbs",

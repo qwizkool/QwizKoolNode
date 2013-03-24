@@ -13,6 +13,8 @@ define([
 
     Footer.View = Backbone.View.extend({
 
+        el:'#qwizkool-footer',
+
         template:Template,
 
         render:function (done) {

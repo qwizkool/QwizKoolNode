@@ -2,14 +2,13 @@ define([
     // Application.
     "app",
     "bootstrap",
-    // Modules
-    "modules/user",
-    "modules/qwizbook",
+    "modules/session",
     "modules/indexPage",
     "modules/userMainPage",
     "modules/qwizbookMainPage",
     "modules/sampleDesign"
-], function (App, Bootstrap, User, Qwizbook, IndexPage, UserMainPage,QwizbookMainPage, SampleDesign) {
+], function (App, Bootstrap, Session, IndexPage, UserMainPage,
+             QwizbookMainPage, SampleDesign) {
 
     // Defining the application router, you can attach sub routers here.
     var Router = Backbone.Router.extend({
@@ -18,62 +17,42 @@ define([
             '':'index',
             'main':'userMain',
             'qwizbookDetails/:id':'qwizbookMain',
-            'design' : 'sampleDesign'
+            'design':'sampleDesign'
 
         },
 
         initialize:function () {
 
+            this.session = new Session.Model();
         },
 
         index:function (hash) {
-
-            var currentUser = new User.Model();
-
-            if (currentUser.isUserAuthenticated() === true) {
-                Backbone.history.navigate("main", true);
-                return;
-            }
-
-            var indexPage = new IndexPage.View();
+            var indexPage = new IndexPage.View({session: this.session});
             indexPage.show();
-
-
-
         },
 
         userMain:function (hash) {
 
-            var currentUser = new User.Model();
-            if (currentUser.isUserAuthenticated() === false) {
-                Backbone.history.navigate("", true);
-                return;
-            }
-
-            var userMainPage = new UserMainPage.View();
+            var userMainPage = new UserMainPage.View({session: this.session});
             userMainPage.show();
 
+        },
+
+        qwizbookMain:function (id) {
+
+            var qwizbookMainPage = new QwizbookMainPage.View({ session: this.session, qwizbookId:id });
+            qwizbookMainPage.show()
 
         },
-        
-        qwizbookMain:function (id){
 
-             // Fetch the specified qwizbook and then trigger all the view creation.
-             var selectedQwizbook = new Qwizbook.Model({id:id});
+        sampleDesign:function (hash) {
 
-        	 var qwizbookMainPage = new QwizbookMainPage.View({ qwizbookId: id });
-             qwizbookMainPage.show();
-        },
-        
-        sampleDesign : function(hash)  {
-        	
-
-            var sampleDesign = new SampleDesign.View();
+            var sampleDesign = new SampleDesign.View({session: this.session});
             sampleDesign.show();
         }
 
     });
- 
+
     return Router;
 
 });
