@@ -162,6 +162,7 @@ module.exports = {
 
 				Qwizbook.retrieveQwizbooksOnFilter(sessionUser, filterstring, function(err, books) {
 					// If error send the error response
+					
 					var book_length = books.length;
 					var c = 1;
 					if (err) {
@@ -178,8 +179,13 @@ module.exports = {
 					var istrue =false;
 					for (i=0;i<book_length;i++) {
 						qbook = books[i];
+						//console.log("routes qwizbook Id" + qbook._id);
+						//bookIdDateSortArr[i] = qbook._id;
+					
+						//console.log("qwizbook retreived" + qbook);
 						var userEmail = sessionUser.email;
-						QwizbookRating.getQwizbookRating(qbook,userEmail, function(err, book) {
+						//QwizbookRating.getQwizbookRating(qbook,userEmail, function(err, book) {
+						QwizbookRating.getQwizbookRating(qbook,userEmail, function(err, book) {	
 						
 							if (err) {
 								console.log(err);
@@ -200,11 +206,15 @@ module.exports = {
 								if(c==book_length)
 								{
 									json += ']';
+									
 									res.send(json);
 								}
+								
+								
 							}
 						c++;
 						});
+                    
 
 					}
 					}
@@ -215,7 +225,7 @@ module.exports = {
 					}, null);
 					}
 					
-					
+				
 
 				});
 			}
@@ -282,7 +292,12 @@ module.exports = {
 		}
 
 	},
+	
+	
+	
 
+      
+    
 	updateBook : function(req, res) {
 		console.log(req.user);
 	},
