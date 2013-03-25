@@ -10,7 +10,7 @@ define([
     "text!templates/qwizbookListItem.html",
     "text!templates/qwizbookList.html"
 
-], function (App,QwizBookRating, TmplQwizbookItem, TmplQwizbookList) {
+], function (App, QwizBookRating, TmplQwizbookItem, TmplQwizbookList) {
 
     // Create a new module
     var QwizBook = App.module();
@@ -27,9 +27,9 @@ define([
             description:"Qwizbook Description",
             ownerEmail:"qwizkool_user@qwizkool.com",
             date:Date.now,
-			userRating:"0",
-			averageRating:"0",
-			userratingcount:"0",
+            userRating:"0",
+            averageRating:"0",
+            userratingcount:"0",
             isAddedqwizBook:false,
             AddedqwizBookAttempted:false,
             AddedqwizBookStatus:null
@@ -67,12 +67,12 @@ define([
             });
 
         },
-        
-        retreive:function() {
 
-        var retreivedQwizbook = this;
-       
-        var jqxhr = retreivedQwizbook.fetch({
+        retreive:function () {
+
+            var retreivedQwizbook = this;
+
+            var jqxhr = retreivedQwizbook.fetch({
 
 
                 error:function (model, response) {
@@ -82,12 +82,12 @@ define([
                 },
 
                 success:function (model, response) {
-                	
+
                     model.trigger('retreive-qwizbook-success-event');
 
                 }
-            });	
-        	
+            });
+
         }
     });
 
@@ -115,7 +115,7 @@ define([
             this.searchval = '';
             this.filterval = 'Recently Updated';
             this.isListedqwizBook = false;
-          },
+        },
 
         qwizbookSearch:function (searchedstring) {
             this.searchval = searchedstring;
@@ -127,7 +127,7 @@ define([
             this.urlroot = this.url();
         },
 
-        QwizbookList:function () {
+        getAllBooks:function () {
             var qwizbookList = this;
             var jqxhr = qwizbookList.fetch({
 
@@ -140,9 +140,8 @@ define([
                 success:function (collection, response) {
                     this.isListedqwizBook = true;
                     var List = Array();
-                    if(response == null)
-                    {
-                    	collection.trigger('no-qwizbook-tolist');
+                    if (response == null) {
+                        collection.trigger('no-qwizbook-tolist');
                     }
                     List = qwizbookList.toJSON();
                     collection.trigger('list-qwizbook-event');
@@ -158,58 +157,58 @@ define([
         template:TmplQwizbookItem,
 
         initialize:function () {
-        	 this.qwizbookratingmodel = new QwizBookRating.Model();
-        	 this.qwizbookratingmodel.on("add-qwizbookrating-event", function (response) {
-				var rating = response.rating;
-				var qId = response.qId;
-				var count = response.count;
-				var avg  =  response.avgRating;
-				 avg = Math.ceil(avg);
-                    var html = '';
+            this.qwizbookratingmodel = new QwizBookRating.Model();
+            this.qwizbookratingmodel.on("add-qwizbookrating-event", function (response) {
+                var rating = response.rating;
+                var qId = response.qId;
+                var count = response.count;
+                var avg = response.avgRating;
+                avg = Math.ceil(avg);
+                var html = '';
 
-                    var i = 1;
-                    if (rating) {
-                        for (i = 1; i <= rating; i++) {
-                            html += '<li id="rating-' + i + '" class="rated" name="rating-' + i + '" value="' + i + '">R</li>';
-                        }
-                        if (i <= 5) {
-                            for (j = i; j <= 5; j++) {
-                                html += '<li id="rating-' + j + '" name="rating-' + j + '" value="' + j + '">R</li>';
-                            }
-                        }
+                var i = 1;
+                if (rating) {
+                    for (i = 1; i <= rating; i++) {
+                        html += '<li id="rating-' + i + '" class="rated" name="rating-' + i + '" value="' + i + '">R</li>';
                     }
-                    else {
-                        for (j = 1; j <= 5; j++) {
+                    if (i <= 5) {
+                        for (j = i; j <= 5; j++) {
                             html += '<li id="rating-' + j + '" name="rating-' + j + '" value="' + j + '">R</li>';
                         }
                     }
-                    
-                    
-					 var avgHtml = '';
-                        i = 1;
-                        if (avg) {
-                            for (i = 1; i <= avg; i++) {
-                                avgHtml += '<li  class="rated" name="rating-' + i + '" value="' + i + '">R</li>';
-                            }
-                            if (i <= 5) {
-                                for (j = i; j <= 5; j++) {
-                                    avgHtml += '<li  name="rating-' + j + '" value="' + j + '">R</li>';
-                                }
-                            }
-                        }
-                        else {
-                            for (j = 1; j <= 5; j++) {
-                                avgHtml += '<li  name="rating-' + j + '" value="' + j + '">R</li>';
-                            }
-                        }
-					var userrating ='rat_'+qId;
-					var ratingCount ='count_'+qId;
-					var averageRating = 'avg_'+qId;
-					$('#'+ratingCount).html(count + ' ratings ');
-                    $('#'+userrating).html(html);
-                    $('#'+averageRating).html(avgHtml);
+                }
+                else {
+                    for (j = 1; j <= 5; j++) {
+                        html += '<li id="rating-' + j + '" name="rating-' + j + '" value="' + j + '">R</li>';
+                    }
+                }
 
-                });
+
+                var avgHtml = '';
+                i = 1;
+                if (avg) {
+                    for (i = 1; i <= avg; i++) {
+                        avgHtml += '<li  class="rated" name="rating-' + i + '" value="' + i + '">R</li>';
+                    }
+                    if (i <= 5) {
+                        for (j = i; j <= 5; j++) {
+                            avgHtml += '<li  name="rating-' + j + '" value="' + j + '">R</li>';
+                        }
+                    }
+                }
+                else {
+                    for (j = 1; j <= 5; j++) {
+                        avgHtml += '<li  name="rating-' + j + '" value="' + j + '">R</li>';
+                    }
+                }
+                var userrating = 'rat_' + qId;
+                var ratingCount = 'count_' + qId;
+                var averageRating = 'avg_' + qId;
+                $('#' + ratingCount).html(count + ' ratings ');
+                $('#' + userrating).html(html);
+                $('#' + averageRating).html(avgHtml);
+
+            });
         },
 
         render:function (done) {
@@ -219,53 +218,51 @@ define([
             qbook_item_template = _.template(this.template, view.model.toJSON());
             //alert(qbook_item_template);
             view.el.innerHTML = qbook_item_template;
-            
+
             var avgRating = $(view.el.innerHTML).find("#book_avgRating").val();
             var userRating = $(view.el.innerHTML).find("#bookuserrating").val();
             var bookId = $(view.el.innerHTML).find("#book_id").val();
-             avgRating = Math.ceil(avgRating);
+            avgRating = Math.ceil(avgRating);
             var avgHtml = '';
-                        var i = 1;
-                         avgHtml += '<ul id="avg_'+bookId+'" class="rating-w-fonts" style="margin: 10px">';
-                        if (avgRating) {
-                            for (i = 1; i <= avgRating; i++) {
-                                avgHtml += '<li  class="rated" name="rating-' + i + '" value="' + i + '">R</li>';
-                            }
-                            if (i <= 5) {
-                                for (j = i; j <= 5; j++) {
-                                    avgHtml += '<li  name="rating-' + j + '" value="' + j + '">R</li>';
-                                }
-                            }
-                        }
-                        else {
-                            for (j = 1; j <= 5; j++) {
-                                avgHtml += '<li  name="rating-' + j + '" value="' + j + '">R</li>';
-                            }
-                        }
-						 avgHtml += '</ul>';
-						
+            var i = 1;
+            avgHtml += '<ul id="avg_' + bookId + '" class="rating-w-fonts" style="margin: 10px">';
+            if (avgRating) {
+                for (i = 1; i <= avgRating; i++) {
+                    avgHtml += '<li  class="rated" name="rating-' + i + '" value="' + i + '">R</li>';
+                }
+                if (i <= 5) {
+                    for (j = i; j <= 5; j++) {
+                        avgHtml += '<li  name="rating-' + j + '" value="' + j + '">R</li>';
+                    }
+                }
+            }
+            else {
+                for (j = 1; j <= 5; j++) {
+                    avgHtml += '<li  name="rating-' + j + '" value="' + j + '">R</li>';
+                }
+            }
+            avgHtml += '</ul>';
 
 
-
-					var ratingHtml = '';
-                        i = 1;
-                        ratingHtml += '<ul id="rat_'+bookId+'" class="rating-w-fonts" style="margin: 10px">';
-                        if (userRating) {
-                            for (i = 1; i <= userRating; i++) {
-                                ratingHtml += '<li id="rating-' + i + '" class="rated" name="rating-' + i + '" value="' + i + '">R</li>';
-                            }
-                            if (i <= 5) {
-                                for (j = i; j <= 5; j++) {
-                                    ratingHtml += '<li id="rating-' + j + '" name="rating-' + j + '" value="' + j + '">R</li>';
-                                }
-                            }
-                        }
-                        else {
-                            for (j = 1; j <= 5; j++) {
-                                ratingHtml += '<li id="rating-' + j + '" name="rating-' + j + '" value="' + j + '">R</li>';
-                            }
-                        }
-						ratingHtml += '</ul>';
+            var ratingHtml = '';
+            i = 1;
+            ratingHtml += '<ul id="rat_' + bookId + '" class="rating-w-fonts" style="margin: 10px">';
+            if (userRating) {
+                for (i = 1; i <= userRating; i++) {
+                    ratingHtml += '<li id="rating-' + i + '" class="rated" name="rating-' + i + '" value="' + i + '">R</li>';
+                }
+                if (i <= 5) {
+                    for (j = i; j <= 5; j++) {
+                        ratingHtml += '<li id="rating-' + j + '" name="rating-' + j + '" value="' + j + '">R</li>';
+                    }
+                }
+            }
+            else {
+                for (j = 1; j <= 5; j++) {
+                    ratingHtml += '<li id="rating-' + j + '" name="rating-' + j + '" value="' + j + '">R</li>';
+                }
+            }
+            ratingHtml += '</ul>';
             $(view.el).find("#qbookaverage_rating").append(avgHtml);
             $(view.el).find("#book_userRating").append(ratingHtml);
             return this;
@@ -279,7 +276,7 @@ define([
             "click #rating-4":"setRating4",
             "click #rating-5":"setRating5"
         },
-		
+
         openQwizbook:function (e) {
             var clickedEl = $(e.currentTarget);
             var id = clickedEl.attr("id");
@@ -287,45 +284,45 @@ define([
 
             //this.trigger('getQwizbook', {qwizbookCriteria: id, openDescription:this.options.collection});
         },
-        
+
         setRating1:function (e) {
-        	var ul_id = e.target.parentNode.id;
-        	var split_id =  ul_id.split("_");
-			var qBook_id = split_id[1];
-			ratingval = $('#rating-1').val();
-			this.qwizbookratingmodel.addqwizbookrating(qBook_id,ratingval );
+            var ul_id = e.target.parentNode.id;
+            var split_id = ul_id.split("_");
+            var qBook_id = split_id[1];
+            ratingval = $('#rating-1').val();
+            this.qwizbookratingmodel.addqwizbookrating(qBook_id, ratingval);
         },
-		
+
         setRating2:function (e) {
-        	var ul_id = e.target.parentNode.id;
-        	var split_id =  ul_id.split("_");
-			var qBook_id = split_id[1];
-			ratingval = $('#rating-2').val();
-			this.qwizbookratingmodel.addqwizbookrating(qBook_id,ratingval );
+            var ul_id = e.target.parentNode.id;
+            var split_id = ul_id.split("_");
+            var qBook_id = split_id[1];
+            ratingval = $('#rating-2').val();
+            this.qwizbookratingmodel.addqwizbookrating(qBook_id, ratingval);
         },
 
         setRating3:function (e) {
-        	var ul_id = e.target.parentNode.id;
-        	var split_id =  ul_id.split("_");
-			var qBook_id = split_id[1];
-			ratingval = $('#rating-3').val();
-			this.qwizbookratingmodel.addqwizbookrating(qBook_id,ratingval );
+            var ul_id = e.target.parentNode.id;
+            var split_id = ul_id.split("_");
+            var qBook_id = split_id[1];
+            ratingval = $('#rating-3').val();
+            this.qwizbookratingmodel.addqwizbookrating(qBook_id, ratingval);
         },
 
         setRating4:function (e) {
-        	var ul_id = e.target.parentNode.id;
-        	var split_id =  ul_id.split("_");
-			var qBook_id = split_id[1];
-			ratingval = $('#rating-4').val();
-			this.qwizbookratingmodel.addqwizbookrating(qBook_id,ratingval );
+            var ul_id = e.target.parentNode.id;
+            var split_id = ul_id.split("_");
+            var qBook_id = split_id[1];
+            ratingval = $('#rating-4').val();
+            this.qwizbookratingmodel.addqwizbookrating(qBook_id, ratingval);
         },
 
         setRating5:function (e) {
-        	var ul_id = e.target.parentNode.id;
-        	var split_id =  ul_id.split("_");
-			var qBook_id = split_id[1];
-			ratingval = $('#rating-5').val();
-			this.qwizbookratingmodel.addqwizbookrating(qBook_id,ratingval );
+            var ul_id = e.target.parentNode.id;
+            var split_id = ul_id.split("_");
+            var qBook_id = split_id[1];
+            ratingval = $('#rating-5').val();
+            this.qwizbookratingmodel.addqwizbookrating(qBook_id, ratingval);
         }
     });
 
@@ -348,16 +345,23 @@ define([
 
             $(view.el).find("#qwizbook-list-container").empty();
 
-            _.each(view.model.models, function (qwizbook) {
+            // If we have items to list , update the list view.
+            // else show nothing to display view.
+            if (view.model.models.length) {
+                _.each(view.model.models, function (qwizbook) {
 
-                var qwizbookView = new QwizBook.View({
-                    model:qwizbook
-                });
-				
-                $(view.el).find("#qwizbook-list-container").append(qwizbookView.render().el);
-                
-                
-            });
+                    var qwizbookView = new QwizBook.View({
+                        model:qwizbook
+                    });
+
+                    $(view.el).find("#qwizbook-list-container").append(qwizbookView.render().el);
+
+
+                })
+
+            } else {
+                $(view.el).find("#qwizbook-no-result-found").show();
+            }
 
             return this;
 

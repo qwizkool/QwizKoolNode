@@ -19,6 +19,8 @@ define([
 
         urlRoot:"/sessions",
 
+        SESSION_STORAGE:"qwizkoolSession",
+
         LOGIN_FAILED_MSG:"Authentication Failed: Invalid ID or password",
         LOGIN_SUCCESS_MSG:"Authentication successful",
         LOGOUT_FAILED_MSG:"Logout failed",
@@ -28,13 +30,30 @@ define([
 
         defaults:{
             id:null,
-            name:'user',
-            email:'user@email.com',
+            name:'new_user',
+            email:'new_user@qwizkool.com',
             password:'',
             isAuthenticated:false
         },
 
         initialize:function () {
+
+            var sessionData = localStorage.getItem(this.SESSION_STORAGE);
+            if(sessionData)
+            {
+
+                sessionInfo = JSON.parse(localStorage.getItem(this.SESSION_STORAGE));
+                if (sessionInfo) {
+
+                    this.set({
+                        name:sessionInfo.name,
+                        id:sessionInfo.id,
+                        email:sessionInfo.email,
+                        isAuthenticated:sessionInfo.isAuthenticated
+                    });
+
+                }
+            }
 
         },
 
@@ -57,6 +76,7 @@ define([
                 error:function (model, response) {
 
                     console.log(response);
+                    localStorage.setItem(model.SESSION_STORAGE, JSON.stringify(model));
                     model.trigger('session-login-event', {
                         valid:model.isUserAuthenticated(),
                         status:model.LOGIN_FAILED_MSG
@@ -67,6 +87,7 @@ define([
                 success:function (model, response) {
 
                     console.log(response);
+                    localStorage.setItem(model.SESSION_STORAGE, JSON.stringify(model));
                     model.trigger('session-login-event', {
                         valid:model.isUserAuthenticated(),
                         status:model.LOGIN_SUCCESS_MSG
@@ -84,6 +105,7 @@ define([
                 error:function (model, response) {
                     console.log(response);
                     model.clear().set(model.defaults);
+                    localStorage.setItem(model.SESSION_STORAGE, JSON.stringify(model));
                     model.trigger('session-logout-event', {
                         valid:model.isUserAuthenticated(),
                         status:model.LOGOUT_FAILED_MSG
@@ -95,6 +117,7 @@ define([
 
                     console.log(response);
                     model.clear().set(model.defaults);
+                    localStorage.setItem(model.SESSION_STORAGE, JSON.stringify(model));
                     model.trigger('session-logout-event', {
                         valid:model.isUserAuthenticated(),
                         status:model.LOGOUT_SUCCESS_MSG
@@ -113,6 +136,7 @@ define([
                 error:function (model, response) {
 
                     console.log(response);
+                    localStorage.setItem(model.SESSION_STORAGE, JSON.stringify(model));
                     model.trigger('session-check-event', {
                         valid:model.isUserAuthenticated(),
                         status:model.SESSION_INVALID_MSG
@@ -123,6 +147,7 @@ define([
                 success:function (model, response) {
 
                     console.log(response);
+                    localStorage.setItem(model.SESSION_STORAGE, JSON.stringify(model));
                     model.trigger('session-check-event', {
                         valid:model.isUserAuthenticated(),
                         status:model.SESSION_VALID_MSG

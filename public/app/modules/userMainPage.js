@@ -16,19 +16,38 @@ define([
 
         initialize:function () {
 
-            this.qwizbookList = new QwizBook.Collection();
-            this.header = new Header.View();
-            this.userMainContent = new UserMainContent.View({collection:this.qwizbookList, el : '#qwizkool-content'});
+            if (_.isEmpty(this.options.session)) {
+                throw "ERROR: Session object is not provided for the view!!"
+            }
+
+            this.session = this.options.session;
+
+            // Create and associate the user setting view with the tool bar upper
+            // view in the Header.
+            this.userSettings = new UserSettings.View({session:this.session});
             this.searchfilter = new Searchfilter.View({
-                collection:this.qwizbookList
+                collection:this.qwizbookCollection
             });
+
+            this.header = new Header.View({htbuView:this.userSettings, htblView:this.searchfilter});
+
             this.footer = new Footer.View();
-            this.userSettings = new UserSettings.View();
-            this.qwizbookList.QwizbookList();
+
+
+            this.qwizbookCollection = new QwizBook.Collection();
+
+            this.userMainContent = new UserMainContent.View({
+                collection:this.qwizbookCollection,
+                el : '#qwizkool-content'});
+
+            this.searchfilter = new Searchfilter.View({
+                collection:this.qwizbookCollection
+            });
+
+            this.qwizbookCollection.getAllBooks();
             
-            this.qwizbookList.on("reset", this.updateCollection, this);
-            this.qwizbookList.on("no-qwizbook-tolist", this.noQwizbook, this);
-            
+            this.qwizbookCollection.on("reset", this.refreshCollectionView, this);
+
              this.searchfilter.on("searchorfilter", function (searchfilterdataObj) {
 
                 var searchorfiltercriteria = searchfilterdataObj.listcriteria;
@@ -37,22 +56,18 @@ define([
 
                 if (filterorsearch == 'user-search-input') {
                     qwizbookList.qwizbookSearch(searchorfiltercriteria);
-                    qwizbookList.QwizbookList();
+                    qwizbookList.getAllBooks();
                 }
 
                 if (filterorsearch == 'user-filter-input') {
                     qwizbookList.qwizbookFilter(searchorfiltercriteria);
-                    qwizbookList.QwizbookList();
+                    qwizbookList.getAllBooks();
                 }
 
             });
         },
-		noQwizbook:function()
-		{
-			
-			 $("#qwizbook-no-result-found").show();
-		},
-        updateCollection:function () {
+
+        refreshCollectionView:function () {
 
             this.userMainContent.render()
         },
@@ -60,13 +75,8 @@ define([
         // Render all the nested views related to this page
         // and attach it to the DOM.
         show:function (done) {
-
-            $("#qwizkool-header").html(this.header.render().el);
-            $("#qwizkool-htbu").html(this.userSettings.render().el);
-            this.header.renderSettings();
-            $("#qwizkool-search").html(this.searchfilter.render().el);
-            $("#qwizkool-footer").html(this.footer.render().el);
-
+            this.header.render();
+            this.footer.render();
         }
     });
 

@@ -20,16 +20,16 @@ define([
 
         initialize:function () {
 
-            this.session = this.options.session;
-
-            if(this.session) {
-                // Register for seesion based events.
-                this.session.on('session-login-event', this.userLoginEvent, this)
-                this.session.on('session-logout-event', this.userLogoutEvent, this)
-                this.session.on('session-check-event', this.sessionCheckEvent, this)
-            } else {
+            if (_.isEmpty(this.options.session)) {
                 throw "ERROR: Session object is not provided for the view!!"
             }
+
+            this.session = this.options.session;
+
+            // Register for seesion based events.
+            this.session.on('session-login-event', this.userLoginEvent, this)
+            this.session.on('session-logout-event', this.userLogoutEvent, this)
+            this.session.on('session-check-event', this.sessionCheckEvent, this)
 
             // Bind the event for toggling the settings view.
             $(document).bind('click', function (e) {
@@ -64,7 +64,7 @@ define([
 
             e.preventDefault();
 
-            if(this.session) {
+            if (this.session) {
 
                 this.session.logout();
             }
@@ -87,7 +87,7 @@ define([
         },
 
         userLoginEvent:function (e) {
-            if(this.session) {
+            if (this.session) {
 
                 if (e.valid === true) {
 
@@ -104,7 +104,7 @@ define([
 
         userLogoutEvent:function (e) {
 
-            if(this.session) {
+            if (this.session) {
 
                 if (e.valid === false) {
                     // Go to logged in page.
@@ -118,7 +118,7 @@ define([
 
         sessionCheckEvent:function (e) {
 
-            if(this.session) {
+            if (this.session) {
 
                 if (e.valid === true) {
 
@@ -127,7 +127,7 @@ define([
                 } else {
 
                     $(this.el).find("#user-settings").hide();
-                 }
+                }
 
             }
         }

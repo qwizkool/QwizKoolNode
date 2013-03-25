@@ -21,19 +21,32 @@ define([
 
         initialize:function () {
 
+            this.session = this.options.session;
+
             // Create and associate the user setting view with the tool bar upper
             // view in the Header.
-            this.userSettings = new UserSettings.View({session:this.options.session});
+            this.userSettings = new UserSettings.View({session:this.session});
             this.header = new Header.View({htbuView:this.userSettings});
 
             this.footer = new Footer.View();
 
-            this.qwizkoolMain = new QwizkoolMain.View({el:'#qwizkool-content', session:this.options.session });
-            this.qwizkoolMain.on("login-attempted", this.logInHandler, this);
-            this.qwizkoolMain.on("registration-attempted", this.registrationHandler, this);
+            this.qwizkoolMain = new QwizkoolMain.View({el:'#qwizkool-content', session:this.session });
+
+            if (this.session) {
+                this.session.on('session-login-event', this.userLoginEvent, this);
+            }
 
         },
 
+        userLoginEvent:function (e) {
+
+            if (this.session) {
+                if (e.valid === true) {
+                   Backbone.history.navigate("#main", true);
+                }
+            }
+
+        },
 
         // Render all the nested views related to this page
         // and attach it to the DOM.
@@ -45,18 +58,6 @@ define([
             this.qwizkoolMain.render();
             this.footer.render();
 
-        },
-
-        // Update the view with the status of the log in operation.
-        logInHandler:function () {
-
-            $("#qwizkool-content").html(this.qwizkoolMain.renderLogInStatus().el);
-
-        },
-
-        // Update the view with the status of the registration operation.
-        registrationHandler:function () {
-            $("#qwizkool-content").html(this.qwizkoolMain.renderRegistrationStatus().el);
         }
     });
 
