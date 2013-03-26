@@ -28,7 +28,7 @@ define(["app"], function(App) {
 
 		},
 
-		addqwizbookrating : function(qbId, rating) {
+		addRating : function(qbId, rating) {
 
 			this.set('qbookId', qbId);
 			this.set('isRatedqwizBook', false);
@@ -39,15 +39,11 @@ define(["app"], function(App) {
 					model.set({
 						isRatedqwizBook : false
 					});
-					model.trigger('add-qwizbookrating-event');
-
-					// alert("Model:Failed to register "+ model.get('name') + " ! " + response.statusText);
+					model.trigger('qwizbookrating-add-event');
 				},
 
 				success : function(model, response) {
-					//console.log(response.rating);
-					model.trigger('add-qwizbookrating-event', response);
-					//model.trigger('show-qwizbookrating-event', response.ratingval);
+					model.trigger('qwizbookrating-add-event', response);
 				}
 			});
 

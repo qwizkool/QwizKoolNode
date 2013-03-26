@@ -157,8 +157,17 @@ define([
         template:TmplQwizbookItem,
 
         initialize:function () {
-            this.qwizbookratingmodel = new QwizBookRating.Model();
-            this.qwizbookratingmodel.on("add-qwizbookrating-event", function (response) {
+
+
+            if (_.isEmpty(this.options.session)) {
+                throw "ERROR: Session object is not provided for the view!!"
+            }
+
+            this.session = this.options.session;
+
+            var currentUserEmail = this.session.get('email');
+            this.qwizbookRating = new QwizBookRating.Model({userEmail : currentUserEmail});
+            this.qwizbookRating.on("qwizbookrating-add-event", function (response) {
                 var rating = response.rating;
                 var qId = response.qId;
                 var count = response.count;
@@ -214,10 +223,8 @@ define([
         render:function (done) {
 
             var view = this;
-            var qbook_item_template;
-            qbook_item_template = _.template(this.template, view.model.toJSON());
-            //alert(qbook_item_template);
-            view.el.innerHTML = qbook_item_template;
+            view.el.innerHTML  = _.template(this.template, view.model.toJSON());
+
 
             var avgRating = $(view.el.innerHTML).find("#book_avgRating").val();
             var userRating = $(view.el.innerHTML).find("#bookuserrating").val();
@@ -290,7 +297,7 @@ define([
             var split_id = ul_id.split("_");
             var qBook_id = split_id[1];
             ratingval = $('#rating-1').val();
-            this.qwizbookratingmodel.addqwizbookrating(qBook_id, ratingval);
+            this.qwizbookRating.addRating(qBook_id, ratingval);
         },
 
         setRating2:function (e) {
@@ -298,7 +305,7 @@ define([
             var split_id = ul_id.split("_");
             var qBook_id = split_id[1];
             ratingval = $('#rating-2').val();
-            this.qwizbookratingmodel.addqwizbookrating(qBook_id, ratingval);
+            this.qwizbookRating.addRating(qBook_id, ratingval);
         },
 
         setRating3:function (e) {
@@ -306,7 +313,7 @@ define([
             var split_id = ul_id.split("_");
             var qBook_id = split_id[1];
             ratingval = $('#rating-3').val();
-            this.qwizbookratingmodel.addqwizbookrating(qBook_id, ratingval);
+            this.qwizbookRating.addRating(qBook_id, ratingval);
         },
 
         setRating4:function (e) {
@@ -314,7 +321,7 @@ define([
             var split_id = ul_id.split("_");
             var qBook_id = split_id[1];
             ratingval = $('#rating-4').val();
-            this.qwizbookratingmodel.addqwizbookrating(qBook_id, ratingval);
+            this.qwizbookRating.addRating(qBook_id, ratingval);
         },
 
         setRating5:function (e) {
@@ -322,7 +329,7 @@ define([
             var split_id = ul_id.split("_");
             var qBook_id = split_id[1];
             ratingval = $('#rating-5').val();
-            this.qwizbookratingmodel.addqwizbookrating(qBook_id, ratingval);
+            this.qwizbookRating.addRating(qBook_id, ratingval);
         }
     });
 
@@ -332,6 +339,13 @@ define([
         template:TmplQwizbookList,
 
         initialize:function () {
+
+
+            if (_.isEmpty(this.options.session)) {
+                throw "ERROR: Session object is not provided for the view!!"
+            }
+
+            this.session = this.options.session;
         },
 
         render:function (done) {
@@ -351,7 +365,8 @@ define([
                 _.each(view.model.models, function (qwizbook) {
 
                     var qwizbookView = new QwizBook.View({
-                        model:qwizbook
+                        model:qwizbook,
+                        session:view.session
                     });
 
                     $(view.el).find("#qwizbook-list-container").append(qwizbookView.render().el);

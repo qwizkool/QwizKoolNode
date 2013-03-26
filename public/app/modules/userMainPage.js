@@ -38,7 +38,8 @@ define([
 
             this.userMainContent = new UserMainContent.View({
                 collection:this.qwizbookCollection,
-                el : '#qwizkool-content'});
+                el : '#qwizkool-content', session:this.session});
+            this.userMainContent.clear();
 
             this.searchfilter = new Searchfilter.View({
                 collection:this.qwizbookCollection
@@ -75,6 +76,7 @@ define([
         // Render all the nested views related to this page
         // and attach it to the DOM.
         show:function (done) {
+
             this.header.render();
             this.footer.render();
         }
