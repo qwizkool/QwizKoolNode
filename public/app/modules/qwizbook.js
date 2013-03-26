@@ -34,9 +34,33 @@ define([
             AddedqwizBookAttempted:false,
             AddedqwizBookStatus:null
         },
+        
+        initialize : function() {
 
-        create:function () {
+			var qwizbook = localStorage.getItem("QwizbookData");
 
+			//if (qwizbook) {
+
+			qwizbookDetails = JSON.parse(localStorage.getItem("QwizbookData"));
+			userInfo = JSON.parse(localStorage.getItem("qwizkoolUser"));
+
+			if (userInfo) {
+				//this.urlroot = this.url();
+				this.set({
+					ownerEmail : userInfo.email,
+					title : this.title,
+					description : this.description
+
+				});
+
+			}
+
+		},
+
+        create:function (qbtitle, qbdescription) {
+        	
+        	this.set('title', qbtitle);
+			this.set('description', qbdescription);
             this.set({
                 AddedqwizBookAttempted:true,
                 isAddedqwizBook:false,
@@ -64,6 +88,7 @@ define([
                     });
                     model.trigger('qwizbook-create-success-event');
                 }
+                
             });
 
         },

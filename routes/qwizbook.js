@@ -9,7 +9,12 @@ module.exports = {
 	createBook : function(req, res) {
 
 		var sessionUser = req.user;
+		
 		var book = req.body;
+		console.log(book);
+		var email = sessionUser.email;
+		var title = book.qbookTitle;
+		var description = book.qbookDescription;
 
 		Qwizbook.createQwizbook(sessionUser, book, function(err, book) {
 			// If error send the error response
@@ -23,7 +28,9 @@ module.exports = {
 			console.log("QwizBook Added:");
 			console.log(JSON.stringify(book));
 			res.send({
-				id : book._id
+				id : book._id,
+				title : book.title,
+				description : book.description
 			});
 			//res.send({id:book.id});
 
