@@ -45,11 +45,8 @@ define([
 			userInfo = JSON.parse(localStorage.getItem("qwizkoolUser"));
 
 			if (userInfo) {
-				//this.urlroot = this.url();
 				this.set({
 					ownerEmail : userInfo.email,
-					title : this.title,
-					description : this.description
 
 				});
 

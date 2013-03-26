@@ -15,11 +15,11 @@ define([
            	    this.userSettings = new UserSettings.View();
 				this.qwizbookAuthoringContent = new QwizbookAuthoringContent.View();
 				
-				this.qwizbookAuthoringContent.on("createqwizbook", function (ratingdataObj) {
+				this.qwizbookAuthoringContent.on("createqwizbook", function (createQwizbookObj) {
 					
-					var qbooktitle = ratingdataObj.qbooktitle;
-					var qbookdescription = ratingdataObj.qbookdesc;
-					var qwizbookratingmodel = ratingdataObj.qwizbookmodel;
+					var qbooktitle = createQwizbookObj.qbooktitle;
+					var qbookdescription = createQwizbookObj.qbookdesc;
+					var qwizbookratingmodel = createQwizbookObj.qwizbookmodel;
 					qwizbookratingmodel.create(qbooktitle, qbookdescription);
 
 					});
