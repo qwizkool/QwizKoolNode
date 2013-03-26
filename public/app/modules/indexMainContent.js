@@ -116,6 +116,7 @@ define([
         userLoginEvent:function () {
             if (this.model.get('isLoggedIn') === true) {
                 // Go to logged in page.
+                
                 Backbone.history.navigate("#main", true);
             } else {
                 // Trigger event to update status
@@ -142,7 +143,9 @@ define([
 
             if (this.model.get('isRegistered') === true) {
                 // Go to logged in page.
+                 
                 Backbone.history.navigate("#main", true);
+                this.trigger('registration-attempted');
             } else {
                 // Trigger event to update status
                 this.trigger('registration-attempted');
@@ -156,8 +159,9 @@ define([
             var username = $('#user-reg-name-input').val();
             var email = $('#user-reg-email-input').val();
             var password = $('#user-reg-password-input').val();
-
-
+   			$('#user-reg-name-input').val('');
+			$('#user-reg-email-input').val('');
+			$('#user-reg-password-input').val('');
             // Register for event to monitor registration status
             this.model.on('user-registration-event', this.userRegisterEvent, this);
 

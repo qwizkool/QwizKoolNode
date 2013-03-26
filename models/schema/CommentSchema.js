@@ -11,9 +11,6 @@ var CommentSchema = {
     comment: {
         type: String
     },
-    description: {
-        type: String
-    },
     username: {
         type: String
     },

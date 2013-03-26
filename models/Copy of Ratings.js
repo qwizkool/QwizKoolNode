@@ -223,9 +223,9 @@ Ratings.prototype.getQwizbookRating = function(qbook, userEmail, callback) {
 		/*'names' contains an array of objects that contain the collection names
 		 if array length is 1 then the collection does  exist.*/
 		
-				
+		
+		
 		if (collectionNames.length === 1) {
-          
 
 			getQwizbookRatingCount(qid, function(err, count) {
 				if (err) {
@@ -260,12 +260,7 @@ Ratings.prototype.getQwizbookRating = function(qbook, userEmail, callback) {
 
 									}
 									qbook.userratingcount = count;
-									
-									//qbook.sort(qwizbookRecentlyUpdatedSort);
-									
 									callback(null, JSON.stringify(qbook));
-									
-									//console.log("Qwizbook Sort if" + qbook);
 								}
 
 							});
@@ -280,15 +275,86 @@ Ratings.prototype.getQwizbookRating = function(qbook, userEmail, callback) {
 			qbook.userRating = 0;
 			qbook.averageRating = 0;
 			callback(null, JSON.stringify(qbook));
-			//console.log("Qwizbook Sort else" + qbook.title);
 		}
 
 	});
-	
-	//console.log("Qwizbook Sort" + qbook);
 
 };
 
+
+Ratings.prototype.getQwizbookRating = function(qbook, userEmail, callback) {
+
+	var qid 	= qbook._id;
+	var date 	= qbook.date;
+	
+	//console.log("Rating Title " + qbook.title);
+	
+	/*
+	 Get the specified collection name from the db to confirm that the
+	 collection exists.
+	 */
+	db.conn.db.collectionNames("qwizbookratings", function(err, collectionNames) {
+
+		/*'names' contains an array of objects that contain the collection names
+		 if array length is 1 then the collection does  exist.*/
+		
+		console.log("Rating inside collection" + qid);
+		
+		if (collectionNames.length === 1) {
+
+			getQwizbookRatingCount(qid, function(err, count) {
+				if (err) {
+					callback({
+						Error : "failed to get Qwizbook Average Rating."
+					}, null);
+				} else {
+
+					getQwizbookUserRating(userEmail, qid, function(err, user_rating) {
+						if (err) {
+
+						} else {
+
+							getQwizbookAverageRating(qid, function(err, avgRating) {
+								if (err) {
+
+								} else {
+									if(avgRating!=null)
+									{
+										qbook.averageRating =avgRating.value;
+									}
+									else
+									{
+										qbook.averageRating =0;
+									}
+
+									if (user_rating.length === 0) {
+										qbook.userRating = 0;
+
+									} else {
+										qbook.userRating = user_rating[0].rating;
+
+									}
+									qbook.userratingcount = count;
+									callback(null, JSON.stringify(qbook));
+								}
+
+							});
+
+						}
+					});
+				}
+			});
+
+		} else {
+			qbook.getQwizbookRatingCount = 0;
+			qbook.userRating = 0;
+			qbook.averageRating = 0;
+			callback(null, JSON.stringify(qbook));
+		}
+
+	});
+
+};
 
 function getQwizbookAverageRating(qid, callback) {
 	var mapFunction1 = function() {

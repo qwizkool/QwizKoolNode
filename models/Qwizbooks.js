@@ -202,6 +202,7 @@ Qwizbook.prototype.retrieveQwizbooksOnSearch = function (owner, searchdata, filt
                     Error: "Retreive Qwizbooks failed."
                 }, null);
             } else {
+            	
                 callback(null, books);
             }
 
@@ -262,9 +263,9 @@ Qwizbook.prototype.retrieveQwizbooksOnFilter = function (owner, filterdata, call
     var qwizbookArray = [];
 
     if (filterdata == "Recently Updated") {
-        QwizbookModel.find({})
-            .sort('field -date')
-            .execFind(function (err, books) {
+    	
+        QwizbookModel.find()
+            .sort({date: -1}).execFind(function (err, books) {
 
             if (err) {
                 // Check for duplicate key error
@@ -275,7 +276,7 @@ Qwizbook.prototype.retrieveQwizbooksOnFilter = function (owner, filterdata, call
                 }, null);
             } else {
                 callback(null, books);
-
+                //console.log("Qwizbook sorted" + books);
             }
 
         });

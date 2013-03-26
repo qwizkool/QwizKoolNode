@@ -43,7 +43,9 @@ module.exports = {
                 console.log(err);
                 return;
             }
-            res.send(JSON.stringify(comments));
+            
+           
+           res.send(JSON.stringify(comments));
 
         })
     }

@@ -25,8 +25,6 @@ module.exports = {
 			}
 			// No error send the unique ID for the newly created
 			// book.
-			console.log("QwizBook Added:");
-			console.log(JSON.stringify(book));
 			res.send({
 				id : book._id,
 				title : book.title,
@@ -60,7 +58,7 @@ module.exports = {
 						var istrue =false;
 
 						var userEmail = sessionUser.email;
-						QwizbookRating.getQwizbookRating(book,userEmail, function(err, avgratingNcount) {
+						QwizbookRating.getQwizbookRating(book,userEmail, function(err, qbook) {
 						
 							if (err) {
 								console.log(err);
@@ -78,7 +76,7 @@ module.exports = {
 								{
 									istrue = true;
 								}
-								json += avgratingNcount;
+								json += qbook;
 
 									res.send(json);
 									//res.send(book);
@@ -109,7 +107,7 @@ module.exports = {
 			var filterstring = searchfilterArr['sort_by'];
 
 			if (searchstring) {
-				//console.log("search entered !!!!!");
+				
 				Qwizbook.retrieveQwizbooksOnSearch(sessionUser, searchstring, filterstring, function(err, books) {
 					var book_length = books.length;
 					var c = 1;
@@ -120,14 +118,15 @@ module.exports = {
 					}
 					// No error send the unique ID for the newly created book
 					//console.log("Filter criteria" + JSON.stringify(books));
-					
-					var json ='[';
+					if(book_length>0)
+					{
+						var json ='[';
 					var istrue =false;
-					for (var i in books) {
+					for (i=0;i<book_length;i++) {
 						qbook = books[i];
 						
 						var userEmail = sessionUser.email;
-						QwizbookRating.getQwizbookRating(qbook,userEmail, function(err, avgratingNcount) {
+						QwizbookRating.getQwizbookRating(qbook,userEmail, function(err, book) {
 						
 							if (err) {
 								console.log(err);
@@ -144,7 +143,7 @@ module.exports = {
 								{
 									istrue = true;
 								}
-								json += avgratingNcount;
+								json += book;
 								if(c==book_length)
 								{
 									json += ']';
@@ -156,12 +155,21 @@ module.exports = {
 						});
 
 					}
+					}
+					
+					else
+					{
+						res.send({
+						Error : "Cannot rate Qwizbook "
+					}, null);
+					}
 
 				})
 			} else {
 
 				Qwizbook.retrieveQwizbooksOnFilter(sessionUser, filterstring, function(err, books) {
 					// If error send the error response
+					
 					var book_length = books.length;
 					var c = 1;
 					if (err) {
@@ -172,12 +180,19 @@ module.exports = {
 					// No error send the unique ID for the newly created book
 
 					//console.log("Filter criteria" + JSON.stringify(books));
-					var json ='[';
+					if(book_length>0)
+					{
+						var json ='[';
 					var istrue =false;
 					for (i=0;i<book_length;i++) {
 						qbook = books[i];
+						//console.log("routes qwizbook Id" + qbook._id);
+						//bookIdDateSortArr[i] = qbook._id;
+					
+						//console.log("qwizbook retreived" + qbook);
 						var userEmail = sessionUser.email;
-						QwizbookRating.getQwizbookRating(qbook,userEmail, function(err, books) {
+						//QwizbookRating.getQwizbookRating(qbook,userEmail, function(err, book) {
+						QwizbookRating.getQwizbookRating(qbook,userEmail, function(err, book) {	
 						
 							if (err) {
 								console.log(err);
@@ -194,18 +209,30 @@ module.exports = {
 								{
 									istrue = true;
 								}
-								json += books;
+								json += book;
 								if(c==book_length)
 								{
 									json += ']';
+									
 									res.send(json);
 								}
+								
+								
 							}
 						c++;
 						});
+                    
 
 					}
+					}
+					else
+					{
+						res.send({
+						Error : "Cannot rate Qwizbook "
+					}, null);
+					}
 					
+				
 
 				});
 			}
@@ -224,12 +251,14 @@ module.exports = {
 					// No error send the unique ID for the newly created book
 
 					//console.log("Filter criteria" + JSON.stringify(books));
+					if(book_length>0)
+					{
 					var json ='[';
 					var istrue =false;
-					for (var i in books) {
+					for (i=0;i<book_length;i++) {
 						qbook = books[i];
 						var userEmail = sessionUser.email;
-						QwizbookRating.getQwizbookRating(qbook,userEmail, function(err, avgratingNcount) {
+						QwizbookRating.getQwizbookRating(qbook,userEmail, function(err, book) {
 						
 							if (err) {
 								console.log(err);
@@ -246,7 +275,7 @@ module.exports = {
 								{
 									istrue = true;
 								}
-								json += avgratingNcount;
+								json += book;
 								if(c==book_length)
 								{
 									json += ']';
@@ -257,12 +286,25 @@ module.exports = {
 						});
 
 					}
+					
+					}
+					else
+					{
+						res.send({
+						Error : "Cannot rate Qwizbook "
+					}, null);
+					}
 
 			})
 		}
 
 	},
+	
+	
+	
 
+      
+    
 	updateBook : function(req, res) {
 		console.log(req.user);
 	},
