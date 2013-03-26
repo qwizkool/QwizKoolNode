@@ -34,30 +34,10 @@ define([
 
 
             this.qbookid = this.options.qwizbookId;
-
-            this.selectedQwizbook = new Qwizbook.Model({id:this.qbookid, session:this.session});
-            this.selectedQwizbook.retreive();
-            this.selectedQwizbook.on("retreive-qwizbook-success-event", this.getComments, this);
-
+            this.qwizbookContent = new QwizbookContent.View({qwizbookId:this.qbookid, el : '#qwizkool-content', session:this.session});
 
         },
 
-        getComments:function () {
-            var view = this;
-            this.qwizbookData = view.selectedQwizbook;
-            this.commentList = new Comments.Collection({qwizbookId:this.qbookid});
-            this.commentList.on("reset", this.updateModel, this);
-
-            this.commentList.QwizbookComments(this.qbookid);
-
-            this.qwizbookContent = new QwizbookContent.View({model:this.qwizbookData, commentmodel:this.commentList, qwizbookId:this.qbookid, el : '#qwizkool-content', session:this.session});
-
-        },
-
-
-        updateModel:function () {
-            this.qwizbookContent.render();
-        },
 
 
         // Render all the nested views related to this page
@@ -66,7 +46,7 @@ define([
 
             this.header.render();
             this.footer.render();
-
+            this.qwizbookContent.render();
 
         }
     });

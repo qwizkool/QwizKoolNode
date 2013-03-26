@@ -141,25 +141,34 @@ define([
             },
 
 
+            addRating: function (ratingdataObj) {
+
+                var ratingvalue = ratingdataObj.ratingval;
+                var qbookId = this.qwizbookId;
+                var qwizbookratingmodel = ratingdataObj.ratingmodel;
+                qwizbookratingmodel.addRating(qbookId, ratingvalue);
+
+            },
+
             setRating1: function () {
 
-                this.trigger('addrating', {ratingval: $('#rating-1').val(), ratingmodel: this.qwizbookRating});
+                this.addRating({ratingval: $('#rating-1').val(), ratingmodel: this.qwizbookRating});
             },
 
             setRating2: function () {
-                this.trigger('addrating', {ratingval: $('#rating-2').val(), ratingmodel: this.qwizbookRating});
+                this.addRating({ratingval: $('#rating-2').val(), ratingmodel: this.qwizbookRating});
             },
 
             setRating3: function () {
-                this.trigger('addrating', {ratingval: $('#rating-3').val(), ratingmodel: this.qwizbookRating});
+                this.addRating({ratingval: $('#rating-3').val(), ratingmodel: this.qwizbookRating});
             },
 
             setRating4: function () {
-                this.trigger('addrating', {ratingval: $('#rating-4').val(), ratingmodel: this.qwizbookRating});
+                this.addRating({ratingval: $('#rating-4').val(), ratingmodel: this.qwizbookRating});
             },
 
             setRating5: function () {
-                this.trigger('addrating', {ratingval: $('#rating-5').val(), ratingmodel: this.qwizbookRating});
+                this.addRating({ratingval: $('#rating-5').val(), ratingmodel: this.qwizbookRating});
             }
 
         });

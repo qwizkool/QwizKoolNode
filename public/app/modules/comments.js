@@ -9,23 +9,12 @@ define([
 
     Comments.Model = Backbone.Model.extend({
 
-        //urlRoot:function () {
-
-            //urlRootBase = "/";
-
-            //if (this.action == "addQwizbookComments") {
-                //return urlRootBase + "comments/";
-            //}
-
-        //},
-        
         urlRoot:"/comments/",
 
         defaults:{
             id:null,
             comment:'qwizbook comments',
-            //description:"Donec imperdiet egestas lorem, nec feugiat eros gravida et. Pellentesque ultricies consectetur tortor, sit amet hendrerit nibh faucibus ac. Integer imperdiet, leo ut pretium mollis, quam sem malesuada magna, et sollicitudin risus tortor quis tellus. Nunc convallis laoreet mi, in ullamcorper dui molestie quis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet posuere nulla. Nulla molestie aliquet tellus sed tristique. Duis pretium, sapien sed venenatis porttitor, nisl sem fringilla risus, ac ultricies neque quam vel massa.",
-            username:'qwizkool_user',
+             username:'qwizkool_user',
             qwizbookId:null,
             date:Date.now
             //commentAddStatus:null
@@ -36,12 +25,8 @@ define([
         
         },
 
-        isUserAuthenticated:function () {
-            var state = this.get('isLoggedIn');
-            return state;
-        },
 
-        addQwizbookComments:function (comments, qId) {
+        add:function (comments, qId) {
         	
         	//var commentdesc = "Donec imperdiet egestas lorem, nec feugiat eros gravida et. Pellentesque ultricies consectetur tortor, sit amet hendrerit nibh faucibus ac. Integer imperdiet, leo ut pretium mollis, quam sem malesuada magna, et sollicitudin risus tortor quis tellus. Nunc convallis laoreet mi, in ullamcorper dui molestie quis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet posuere nulla. Nulla molestie aliquet tellus sed tristique. Duis pretium, sapien sed venenatis porttitor, nisl sem fringilla risus, ac ultricies neque quam vel massa.";
         	var commentedDate = Date.now();
@@ -52,7 +37,7 @@ define([
             this.set('qwizbookId', qId);
             this.set('date', commentedDate);
             
-            this.action = "addQwizbookComments";
+            this.action = "addComments";
 
             var jqxhr = this.save({}, {
 
@@ -89,7 +74,7 @@ define([
 
             return urlRoot;
         },
-        QwizbookComments:function (qwizbookId) {
+        getAll:function (qwizbookId) {
             this.qwizbookId = qwizbookId;
             this.urlroot = this.url();
             
@@ -101,8 +86,6 @@ define([
                 },
 
                 success:function (collection, response) {
-                    List = qwizbookComments.toJSON();
-                    date = Date.toString( 'M/d/yyyy' );
                     collection.trigger("retreive-qwizbookcomment-success");
                 }
             });

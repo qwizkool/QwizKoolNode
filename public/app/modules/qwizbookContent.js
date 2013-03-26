@@ -7,7 +7,7 @@ define([
     "modules/comments",
     "text!templates/qwizbookContent.html"
 
-], function (App, QwizBook, Breadcrumb, QwizbookDetails, QwizbookComments, Comments, Template) {
+], function (App, Qwizbook, Breadcrumb, QwizbookDetails, QwizbookComments, Comments, Template) {
 
     // Create a new module
     var QwizbookContent = App.module();
@@ -25,89 +25,72 @@ define([
             this.session = this.options.session;
 
             this.qwizbookId = this.options.qwizbookId;
-            this.qwizbookdetailmodel = this.model;
-            this.commentmodel = this.options.commentmodel;
 
-            this.qwizbookDetails = new QwizbookDetails.View({model: this.qwizbookdetailmodel, qwizbookId: this.qwizbookId, session:this.session});
+            // Instantiate and sync the qwizbook
+            this.qwizbook = new Qwizbook.Model({id:this.qwizbookId, session:this.session});
+            this.qwizbook.retreive();
+            // On success of retrieving the book. get all its comments.
+            this.qwizbook.on("retreive-qwizbook-success-event", this.getQwizbookComments, this);
 
-            this.commentList = this.options.commentmodel;
+            //Collection of comments
+            this.commentCollection = new Comments.Collection({qwizbookId:this.qwizbookId});
+            this.commentCollection.on("reset", this.updateView, this);
 
-            this.commentDetail = new Comments.ListView({model: this.commentList});
+            // Qwizbook details View
+            this.qwizbookDetails = new QwizbookDetails.View({model: this.qwizbook, qwizbookId: this.qwizbookId, session:this.session});
 
-            this.selectedQwizbookAddcomment = new QwizbookComments.View({qwizbookcontentmodel: this.qwizbookdetailmodel, qwizbookId: this.qwizbookId});
-
-            this.selectedQwizbookAddcomment.on("add-qwizbookcomment-event", this.processCommentAdd, this);
-
-
-            this.qwizbookDetails.on("addrating", function (ratingdataObj) {
-
-                var ratingvalue = ratingdataObj.ratingval;
-                var qbookId = this.qwizbookId;
-                var qwizbookratingmodel = ratingdataObj.ratingmodel;
-                qwizbookratingmodel.addRating(qbookId, ratingvalue);
-
-            });
+            // Add comment form view
+            this.addCommentView = new QwizbookComments.View({qwizbookcontentmodel: this.qwizbook, qwizbookId: this.qwizbookId});
+            this.addCommentView.on("add-qwizbookcomment-event", this.processCommentAdd, this);
 
 
         },
 
-        processCommentAdd: function(commentadddataObj) {
+
+        getQwizbookComments:function () {
+
+            this.commentCollection.getAll(this.qwizbookId);
+
+        },
 
 
-            var selectedQwizbookCommentModel = new Comments.Model();
-            var addedcomment = commentadddataObj.addComment;
-            var qbookId = commentadddataObj.qwizbookId;
-            var qwizbookContentModel = commentadddataObj.qwizbookContentModel;
+        updateView:function () {
+            this.commentDetail = new Comments.ListView({model: this.commentCollection});
+            this.render();
+        },
+
+        processCommentAdd: function(e) {
+
+
+            var comment = new Comments.Model();
+            var newComment = e.addComment;
+            var qbookId = e.qwizbookId;
             var view = this;
 
-            if (addedcomment != '') {
+            if (newComment != '') {
 
-                selectedQwizbookCommentModel.addQwizbookComments(addedcomment, qbookId);
-                selectedQwizbookCommentModel.on("add-qwizbookcomment-success-event", function () {
+                // Add the comment
+                comment.add(newComment, qbookId);
 
-                    var commentList = new Comments.Collection({qwizbookId: this.qwizbookId});
-                    commentList.QwizbookComments(qbookId);
-                    commentList.on("retreive-qwizbookcomment-success", function () {
+                // After successful add of the refresh the comment collection
+                // to trigger view updates.
+                // TODO: can't we add the item to local connection.
+                comment.on("add-qwizbookcomment-success-event", function () {
 
-
-                        var selectedQwizbookcommentDetail = new Comments.ListView({model: commentList});
-                        var qwizbookContent = new QwizbookContent.View({model: qwizbookContentModel, commentmodel: commentList, qwizbookId: qbookId, session:this.session});
-
-                        $("#qwizkool-content").html(qwizbookContent.render().el);
-                        //view.reattachEvents();
-                        //return view;
-
-                    });
-
-                    // view.reattachEvents();
+                    view.commentCollection.getAll(qbookId);
 
                 });
 
-                view.reattachEvents();
-                return false;
             }
 
         },
 
-
-        updateModel: function () {
-            alert("in update model");
-            $("#qwizkool-content").html(this.qwizbookContent.render().el);
-     //       this.qwizbookContent.reattachEvents();
-
-        },
-
-        reattachEvents: function () {
-
-            this.selectedQwizbookAddcomment.reattachEvents();
-        },
-
         template: Template,
 
-        render: function (done) {
+        render: function () {
             this.el.innerHTML = this.template;
             $(this.el).find("#qwizbook-content-container").append(this.qwizbookDetails.render().el);
-            $(this.el).find("#review-content-header").append(this.selectedQwizbookAddcomment.render().el);
+            $(this.el).find("#review-content-header").append(this.addCommentView.render().el);
             $(this.el).find("#review-content-container").append(this.commentDetail.render().el);
 
             return this;
