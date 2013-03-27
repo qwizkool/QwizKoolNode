@@ -30,6 +30,17 @@ var logger = new (winston.Logger)({
   });
 
 
+logger.getServerLogs = function (req, res) {
+
+    res.sendfile('./server.log');
+}
+
+logger.getAppLogs = function (req, res) {
+
+    res.sendfile('./app.log');
+}
+
+
 
 /**
   * Exports.

@@ -15,6 +15,7 @@ var express = require('express')
     , User = require('./models/Users.js')
     , passport = require('passport')
     , LocalStrategy = require('passport-local').Strategy
+    , logger = require('./utils/logger')
     ;
 
 var app = express();
@@ -227,7 +228,10 @@ app.put('/qwizbookrating/:id', ensureAuthenticated, qwizbookrating.updateBookRat
 // Delete this Qwizbook
 //app.delete('/qwizbooks/:id', ensureAuthenticated, qwizbook.deleteBook);
 
-
+// For debugging, provide access to the server logs
+//GET server log
+app.get('/debug/logs/server.log', logger.getServerLogs);
+app.get('/debug/logs/app.log', logger.getAppLogs);
 
 
 // Start the REST server
