@@ -16,6 +16,7 @@
  */
  
 var winston = require('winston'),
+    path = require('path'),
     config = require('../config/config');
 
 /**
@@ -32,13 +33,13 @@ var logger = new (winston.Logger)({
 
 logger.getServerLogs = function (req, res) {
 
-    res.sendfile('./server.log');
-}
+    res.sendfile(path.join(__dirname + '/../server.log'));
+};
 
 logger.getAppLogs = function (req, res) {
 
-    res.sendfile('./app.log');
-}
+    res.sendfile(path.join(__dirname + '/../app.log'));
+};
 
 
 
