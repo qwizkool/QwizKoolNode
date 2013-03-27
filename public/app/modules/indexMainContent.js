@@ -159,8 +159,9 @@ define([
             var username = $('#user-reg-name-input').val();
             var email = $('#user-reg-email-input').val();
             var password = $('#user-reg-password-input').val();
-
-
+   			$('#user-reg-name-input').val('');
+			$('#user-reg-email-input').val('');
+			$('#user-reg-password-input').val('');
             // Register for event to monitor registration status
             this.model.on('user-registration-event', this.userRegisterEvent, this);
 

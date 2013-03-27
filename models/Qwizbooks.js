@@ -74,13 +74,11 @@ Qwizbook.prototype.createQwizbook = function (owner, data, callback) {
     }
 
     var instance = new QwizbookModel();
-
     instance.uniqueKey = data.title + ":" + owner.email;
     instance.title = data.title;
     instance.description = data.description;
     instance.ownerEmail = owner.email;
     instance.groupPermission = data.groupPermission;
-
     instance.save(function (err) {
         if (err) {
             // Check for duplicate key error
@@ -265,9 +263,9 @@ Qwizbook.prototype.retrieveQwizbooksOnFilter = function (owner, filterdata, call
     var qwizbookArray = [];
 
     if (filterdata == "Recently Updated") {
-        QwizbookModel.find({})
-            .sort('field -date')
-            .execFind(function (err, books) {
+    	
+        QwizbookModel.find()
+            .sort({date: -1}).execFind(function (err, books) {
 
             if (err) {
                 // Check for duplicate key error
@@ -278,7 +276,7 @@ Qwizbook.prototype.retrieveQwizbooksOnFilter = function (owner, filterdata, call
                 }, null);
             } else {
                 callback(null, books);
-
+                //console.log("Qwizbook sorted" + books);
             }
 
         });

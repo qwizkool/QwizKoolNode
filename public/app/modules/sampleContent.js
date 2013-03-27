@@ -21,7 +21,7 @@ define([
 
             this.el.innerHTML = this.template;
             //$(this.el).find("#searchfilter-container").append(this.searchfilter.render().el);
-           // $(this.el).find("#qwizbooklist-container").append(this.qwizbooklistview.render().el);
+            // $(this.el).find("#qwizbooklist-container").append(this.qwizbooklistview.render().el);
 
             return this;
         }

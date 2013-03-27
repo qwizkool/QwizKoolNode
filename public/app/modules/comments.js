@@ -142,7 +142,20 @@ define([
 		var comentedYear = d.getFullYear();
 		var commentedMonth = d.getMonth();
 		var commentedDate = d.getDate();
-		var commentedDateString = monthNames[commentedMonth]+" "+commentedDate+', '+comentedYear;
+		var commentedHour = d.getHours();
+		var commentedMinute = d.getMinutes();
+		var commentedSecond = d.getSeconds();
+		var commentedMeridiem = "";
+		if(commentedHour<12)
+		{
+			commentedMeridiem = "am";
+			
+		} else {
+			commentedMeridiem = "pm";
+			
+		}
+		
+		var commentedDateString = monthNames[commentedMonth]+" "+commentedDate+', '+comentedYear+" "+commentedHour+":"+commentedMinute+" "+commentedMeridiem;
 		
   		return commentedDateString;
   

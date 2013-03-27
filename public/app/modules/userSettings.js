@@ -35,7 +35,9 @@ define([
         events:{
             // TODO: implement expandable/collapsible user setting drop down list.
             "click #user-settings":"toggleUserSettings",
-            "click #user-logout":"signOut"
+            "click #user-logout":"signOut",
+            "click #create-qwizbook":"authorQwizbook"
+            
         },
 
         toggleUserSettings:function (e) {
@@ -73,6 +75,11 @@ define([
 
             this.model.logout();
 
+        },
+        
+        authorQwizbook:function(e) {
+        	
+        	Backbone.history.navigate("#authorQwizbook", true);
         }
     });
 

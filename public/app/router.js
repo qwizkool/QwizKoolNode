@@ -8,8 +8,10 @@ define([
     "modules/indexPage",
     "modules/userMainPage",
     "modules/qwizbookMainPage",
-    "modules/sampleDesign"
-], function (App, Bootstrap, User, Qwizbook, IndexPage, UserMainPage,QwizbookMainPage, SampleDesign) {
+    "modules/sampleDesign",
+    "modules/sampleqwizbookAuthoring",
+    "modules/qwizbookAuthoring"
+], function (App, Bootstrap, User, Qwizbook, IndexPage, UserMainPage,QwizbookMainPage, SampleDesign, SampleQwizbookAuthoring, QwizbookAuthoring) {
 
     // Defining the application router, you can attach sub routers here.
     var Router = Backbone.Router.extend({
@@ -18,7 +20,9 @@ define([
             '':'index',
             'main':'userMain',
             'qwizbookDetails/:id':'qwizbookMain',
-            'design' : 'sampleDesign'
+            'design' : 'sampleDesign',
+            'sampleAuthorQwizbook' : 'sampleAuthorQwizbookDesign',
+            'authorQwizbook' : 'authorQwizbook'
 
         },
 
@@ -70,6 +74,20 @@ define([
 
             var sampleDesign = new SampleDesign.View();
             sampleDesign.show();
+        },
+        
+        sampleAuthorQwizbookDesign : function(hash)  {
+        	
+
+            var sampleAuthorQwizbookDesign = new SampleQwizbookAuthoring.View();
+            sampleAuthorQwizbookDesign.show();
+        },
+        
+        authorQwizbook : function(hash)  {
+        	
+
+            var authorQwizbook = new QwizbookAuthoring.View();
+            authorQwizbook.show();
         }
 
     });

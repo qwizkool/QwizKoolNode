@@ -211,6 +211,9 @@ Ratings.prototype.getQwizbookRating = function(qbook, userEmail, callback) {
 
 	var qid 	= qbook._id;
 	var date 	= qbook.date;
+	
+	//console.log("Rating Title " + qbook.title);
+	
 	/*
 	 Get the specified collection name from the db to confirm that the
 	 collection exists.
@@ -219,7 +222,10 @@ Ratings.prototype.getQwizbookRating = function(qbook, userEmail, callback) {
 
 		/*'names' contains an array of objects that contain the collection names
 		 if array length is 1 then the collection does  exist.*/
+		
+				
 		if (collectionNames.length === 1) {
+          
 
 			getQwizbookRatingCount(qid, function(err, count) {
 				if (err) {
@@ -254,7 +260,12 @@ Ratings.prototype.getQwizbookRating = function(qbook, userEmail, callback) {
 
 									}
 									qbook.userratingcount = count;
+									
+									//qbook.sort(qwizbookRecentlyUpdatedSort);
+									
 									callback(null, JSON.stringify(qbook));
+									
+									//console.log("Qwizbook Sort if" + qbook);
 								}
 
 							});
@@ -269,11 +280,15 @@ Ratings.prototype.getQwizbookRating = function(qbook, userEmail, callback) {
 			qbook.userRating = 0;
 			qbook.averageRating = 0;
 			callback(null, JSON.stringify(qbook));
+			//console.log("Qwizbook Sort else" + qbook.title);
 		}
 
 	});
+	
+	//console.log("Qwizbook Sort" + qbook);
 
 };
+
 
 function getQwizbookAverageRating(qid, callback) {
 	var mapFunction1 = function() {

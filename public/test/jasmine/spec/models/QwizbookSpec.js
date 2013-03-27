@@ -136,6 +136,7 @@ define(['modules/user', 'modules/qwizbook'], function (User, Qwizbook) {
                     qwizbook.set('title', testqwizbookTitle);
                     qwizbook.set('description', testqwizbookDescription);
                     qwizbook.set('ownerEmail', owneremail);
+                    qwizbook.set('date', dateStr);
 
                     qwizbook.create();
 

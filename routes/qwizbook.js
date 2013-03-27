@@ -9,7 +9,12 @@ module.exports = {
 	createBook : function(req, res) {
 
 		var sessionUser = req.user;
+		
 		var book = req.body;
+		console.log(book);
+		var email = sessionUser.email;
+		var title = book.qbookTitle;
+		var description = book.qbookDescription;
 
 		Qwizbook.createQwizbook(sessionUser, book, function(err, book) {
 			// If error send the error response
@@ -21,7 +26,9 @@ module.exports = {
 			// No error send the unique ID for the newly created
 			// book.
 			res.send({
-				id : book._id
+				id : book._id,
+				title : book.title,
+				description : book.description
 			});
 			//res.send({id:book.id});
 
@@ -162,6 +169,7 @@ module.exports = {
 
 				Qwizbook.retrieveQwizbooksOnFilter(sessionUser, filterstring, function(err, books) {
 					// If error send the error response
+					
 					var book_length = books.length;
 					var c = 1;
 					if (err) {
@@ -178,8 +186,13 @@ module.exports = {
 					var istrue =false;
 					for (i=0;i<book_length;i++) {
 						qbook = books[i];
+						//console.log("routes qwizbook Id" + qbook._id);
+						//bookIdDateSortArr[i] = qbook._id;
+					
+						//console.log("qwizbook retreived" + qbook);
 						var userEmail = sessionUser.email;
-						QwizbookRating.getQwizbookRating(qbook,userEmail, function(err, book) {
+						//QwizbookRating.getQwizbookRating(qbook,userEmail, function(err, book) {
+						QwizbookRating.getQwizbookRating(qbook,userEmail, function(err, book) {	
 						
 							if (err) {
 								console.log(err);
@@ -200,11 +213,15 @@ module.exports = {
 								if(c==book_length)
 								{
 									json += ']';
+									
 									res.send(json);
 								}
+								
+								
 							}
 						c++;
 						});
+                    
 
 					}
 					}
@@ -215,7 +232,7 @@ module.exports = {
 					}, null);
 					}
 					
-					
+				
 
 				});
 			}
@@ -282,7 +299,12 @@ module.exports = {
 		}
 
 	},
+	
+	
+	
 
+      
+    
 	updateBook : function(req, res) {
 		console.log(req.user);
 	},

@@ -805,7 +805,7 @@ h4 small {
 
 .page-header {
   padding-bottom: 9px;
-  margin: 20px 10px 0px 30px;
+  margin: 20px 10px 10px 30px;
   border-bottom: 1px solid #eeeeee;
 }
 
@@ -1999,6 +1999,7 @@ table {
   background-color: transparent;
   border-collapse: collapse;
   border-spacing: 0;
+  border: 1px solid #EEEEEE;
 }
 
 .table {
@@ -2012,7 +2013,8 @@ table {
   line-height: 20px;
   text-align: left;
   vertical-align: top;
-  border-top: 1px solid #dddddd;
+  
+  /*border-top: 1px solid #dddddd;*/
 }
 
 .table th {
@@ -5588,7 +5590,7 @@ a.thumbnail:focus {
   *overflow: visible;
   zoom: 1;
   text-align: justify;
-  margin-left: 12px;
+  margin-left: 0px;
 }
 
 .media,
@@ -5613,7 +5615,7 @@ a.thumbnail:focus {
 }
 
 .media > .pull-right {
-  margin-left: 10px;
+  margin-left: 0px;
 }
 
 .media-list {
