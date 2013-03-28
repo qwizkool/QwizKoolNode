@@ -117,12 +117,12 @@ define([
             this.isListedqwizBook = false;
         },
 
-        qwizbookSearch:function (searchedstring) {
+        setSearchParams:function (searchedstring) {
             this.searchval = searchedstring;
             this.urlroot = this.url(searchedstring);
         },
 
-        qwizbookFilter:function (filterstring) {
+        setFilterParams:function (filterstring) {
             this.filterval = filterstring;
             this.urlroot = this.url();
         },
