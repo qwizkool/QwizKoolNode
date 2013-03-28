@@ -1,4 +1,4 @@
-define([
+   define([
     "app",
     "modules/qwizbook",
     "modules/breadcrumbs",
@@ -13,16 +13,30 @@ define([
         initialize:function () {
 
             this.qwizbookList = this.collection;
+
+            if (_.isEmpty(this.options.session)) {
+                throw "ERROR: Session object is not provided for the view!!"
+            }
+
+            this.session = this.options.session;
            
             this.qwizbooklistview = new QwizBook.ListView({
-                model:this.qwizbookList
+                model:this.qwizbookList,
+                session:this.session
             });
-			
             
 
         },
 
         template:Template,
+
+        clear:function () {
+
+            // clear all the subviews.
+            this.$el.empty();
+
+            return this;
+        },
 
         render:function () {
 

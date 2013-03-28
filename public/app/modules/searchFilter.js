@@ -33,15 +33,11 @@ define([
         },
 
         setsearchParams:function () {
-
-            //triggering usermaincontent.js event to get the input value and change the URL
-            this.trigger('searchorfilter', {listcriteria:$('#user-search-input').val(), listwithsearchorfilter:'user-search-input', liston:this.options.collection});
+            this.trigger('search', {criteria:$('#user-search-input').val()});
         },
 
         setfilterParams:function () {
-
-            //triggering usermaincontent.js event to get the dropdown value and change the URL
-            this.trigger('searchorfilter', {listcriteria:$('#user-filter-input option:selected').text(), listwithsearchorfilter:'user-filter-input', liston:this.options.collection});
+            this.trigger('filter', {criteria:$('#user-filter-input option:selected').text()});
 
         }
     });

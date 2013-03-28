@@ -1,33 +1,32 @@
- <!--Qwizbook review Item-->
-            <!--<div class="row remove-bottom qwizbook-review-item qwizbook-panel-style">--></div>
-            <div class="qwizbook-comment-style clearfix">
+
+<div class="qwizbook-comment-style clearfix">
 
 
+    <div class="row  qwizbook-review-item-header">
 
+        <!--<div>-->
+        <div class="span10 ">
+            <div style="margin: 10px">
 
-                <div class="row  qwizbook-review-item-header">
-                            
-                            <!--<div>-->
-                        	<div class="span10 ">
-                        	<div style="margin: 10px">	
-                        	<strong>Comment added by </strong><strong><%= username %>,&nbsp; <%= formatted_date %></strong>
-                        	</div>
-                        	</div>
+                <strong><%= username %>,&nbsp; <%= formatted_date %></strong>
+            </div>
 
-                </div>
+        </div>
 
-                <div class="row qwizbook-review-item-content">
-                	
-                    <!--<div>-->
-                    	<div class="span10 ">
-                    	<div style="margin: 10px">		
-                    	<%= comment %>
-                    	
-                       </div>
-                       </div>
+    </div>
 
-                <div class="row qwizbook-review-item-footer">
+    <div class="row qwizbook-review-item-content">
 
-                </div>
+        <!--<div>-->
+        <div class="span10 ">
+            <div style="margin: 10px">
+                <%= comment %>
 
             </div>
+        </div>
+
+        <div class="row qwizbook-review-item-footer">
+
+        </div>
+
+    </div>

@@ -1,3 +1,10 @@
+/*!
+ * Copyright(c) 2013 Vibrentt
+ *
+ * Module : IndexPage
+ * Index page renders the landing page for the qwizbook.
+ *
+ */
 define([
     "app",
     "modules/header",
@@ -14,44 +21,42 @@ define([
 
         initialize:function () {
 
-            this.header = new Header.View();
-            this.qwizkoolMain = new QwizkoolMain.View();
-            this.footer = new Footer.View();
-            this.userSettings = new UserSettings.View();
+            this.session = this.options.session;
 
-            this.qwizkoolMain.on("login-attempted", this.logInHandler, this);
-            this.qwizkoolMain.on("registration-attempted", this.registrationHandler, this);
+            // Create and associate the user setting view with the tool bar upper
+            // view in the Header.
+            this.userSettings = new UserSettings.View({session:this.session});
+            this.header = new Header.View({htbuView:this.userSettings});
+
+            this.footer = new Footer.View();
+
+            this.qwizkoolMain = new QwizkoolMain.View({el:'#qwizkool-content', session:this.session });
+
+            if (this.session) {
+                this.session.on('session-login-event', this.userLoginEvent, this);
+            }
 
         },
 
+        userLoginEvent:function (e) {
+
+            if (this.session) {
+                if (e.valid === true) {
+                   Backbone.history.navigate("#main", true);
+                }
+            }
+
+        },
 
         // Render all the nested views related to this page
         // and attach it to the DOM.
-        show:function (done) {
+        show:function () {
 
-            $("#qpage-header").html(this.header.render().el);
-            $("#qpage-search").empty();
+            $("#qwizkool-search").empty();
 
-            $("#qwizkool-user-settings").html(this.userSettings.render().el);
-            this.header.renderSettings();
-
-            $("#qpage-content").html(this.qwizkoolMain.render().el);
-            $("#qpage-footer").html(this.footer.render().el);
-
-        },
-
-        // Update the view with the status of the log in operation.
-        logInHandler:function () {
-
-            $("#qpage-content").html(this.qwizkoolMain.renderLogInStatus().el);
-            this.qwizkoolMain.reattachEvents();
-
-        },
-
-        // Update the view with the status of the registration operation.
-        registrationHandler:function () {
-            $("#qpage-content").html(this.qwizkoolMain.renderRegistrationStatus().el);
-            this.qwizkoolMain.reattachEvents();
+            this.header.render();
+            this.qwizkoolMain.render();
+            this.footer.render();
 
         }
     });

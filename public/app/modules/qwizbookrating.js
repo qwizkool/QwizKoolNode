@@ -24,27 +24,11 @@ define(["app"], function(App) {
 
 		initialize : function() {
 
-			var qwizbook = localStorage.getItem("QwizbookData");
 
-			//if (qwizbook) {
-
-			qwizbookDetails = JSON.parse(localStorage.getItem("QwizbookData"));
-			userInfo = JSON.parse(localStorage.getItem("qwizkoolUser"));
-
-			if (userInfo) {
-				//this.urlroot = this.url();
-				this.set({
-					userEmail : userInfo.email,
-					qwizbookId : this.qbookId,
-					rating : this.ratingval
-
-				});
-
-			}
 
 		},
 
-		addqwizbookrating : function(qbId, rating) {
+		addRating : function(qbId, rating) {
 
 			this.set('qbookId', qbId);
 			this.set('isRatedqwizBook', false);
@@ -53,24 +37,13 @@ define(["app"], function(App) {
 
 				error : function(model, response) {
 					model.set({
-						isRatedqwizBook : false,
-						action : 'none'
+						isRatedqwizBook : false
 					});
-					model.trigger('add-qwizbookrating-event');
-
-					// alert("Model:Failed to register "+ model.get('name') + " ! " + response.statusText);
+					model.trigger('qwizbookrating-add-event');
 				},
 
 				success : function(model, response) {
-					//alert("Model:Hello " + model.get('name') + " ! " + "Welcome to QwizKool ! " + "You are user #" + model.get('uid') +".");
-
-					model.set({
-						action : 'none'
-					});
-					//console.log(response.rating);
-					localStorage.setItem('qwizkoolUserRating', response.rating);
-					model.trigger('add-qwizbookrating-event', response);
-					//model.trigger('show-qwizbookrating-event', response.ratingval);
+					model.trigger('qwizbookrating-add-event', response);
 				}
 			});
 
@@ -88,7 +61,6 @@ define(["app"], function(App) {
 		}
 	});
 
-	QwizBookRating.Router = Backbone.Router.extend({/* ... */ });
 
 	// Required, return the module for AMD compliance
 	return QwizBookRating;
