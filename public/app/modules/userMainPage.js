@@ -54,23 +54,20 @@ define([
 
         refreshCollectionForSearchEvent: function (e) {
 
-           var criteria = e.criteria;
+            var criteria = e.criteria;
 
-            if(!_.isEmpty(criteria)) {
-                this.qwizbookCollection.setSearchParams(criteria);
-                this.qwizbookCollection.getAllBooks();
-            }
+            this.qwizbookCollection.setSearchParams(criteria);
+
+            this.qwizbookCollection.getAllBooks();
 
         },
 
         refreshCollectionForFilterEvent: function (e) {
 
             var criteria = e.criteria;
+            this.qwizbookCollection.setFilterParams(criteria);
+            this.qwizbookCollection.getAllBooks();
 
-            if(!_.isEmpty(criteria)) {
-                this.qwizbookCollection.setFilterParams(criteria);
-                this.qwizbookCollection.getAllBooks();
-            }
 
         },
 

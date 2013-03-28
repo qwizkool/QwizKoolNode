@@ -36,6 +36,9 @@ define([
             this.commentCollection = new Comments.Collection({qwizbookId:this.qwizbookId});
             this.commentCollection.on("reset", this.updateView, this);
 
+            // comment List view
+            this.commentListView = new Comments.ListView({model: this.commentCollection});
+
             // Qwizbook details View
             this.qwizbookDetails = new QwizbookDetails.View({model: this.qwizbook, qwizbookId: this.qwizbookId, session:this.session});
 
@@ -55,7 +58,7 @@ define([
 
 
         updateView:function () {
-            this.commentDetail = new Comments.ListView({model: this.commentCollection});
+            this.commentListView = new Comments.ListView({model: this.commentCollection});
             this.render();
         },
 
@@ -91,7 +94,7 @@ define([
             this.el.innerHTML = this.template;
             $(this.el).find("#qwizbook-content-container").append(this.qwizbookDetails.render().el);
             $(this.el).find("#review-content-header").append(this.addCommentView.render().el);
-            $(this.el).find("#review-content-container").append(this.commentDetail.render().el);
+            $(this.el).find("#review-content-container").append(this.commentListView.render().el);
 
             return this;
 
