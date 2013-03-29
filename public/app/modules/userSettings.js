@@ -46,11 +46,12 @@ define([
             view.el.innerHTML = _.template(Template, this.session.toJSON());
 
             // Show only the settings if the session is valid.
-            if (this.session && this.session.isUserAuthenticated()) {
-                $(this.el).find("#user-settings").show();
-            } else {
+            if (this.session) {
+                this.session.isSessionValid();
                 $(this.el).find("#user-settings").hide();
+
             }
+
 
             return this;
         },
