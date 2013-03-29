@@ -1,4 +1,4 @@
-define(['modules/user', 'modules/qwizbook'], function (User, Qwizbook) {
+define(['modules/user', 'modules/session', 'modules/qwizbook'], function (User, Session, Qwizbook) {
 
 
     return describe('Model :: Qwizbooks-', function () {
@@ -21,12 +21,12 @@ define(['modules/user', 'modules/qwizbook'], function (User, Qwizbook) {
             var that = this;
             var done = false;
 
-            var userRegisterEvent = function () {
-                if (user.get('isRegistered') === true) {
+            var userRegisterEvent = function (e) {
+                done = false;
+                if (e.valid === true) {
                     done = true;
-                } else {
-                    done = false;
                 }
+
             };
 
             // Register the User
@@ -42,45 +42,43 @@ define(['modules/user', 'modules/qwizbook'], function (User, Qwizbook) {
 
             runs(function () {
             expect(user).not.toBe(null);
-            expect(user.get('isRegistered')).toEqual(true);
             expect(user.get('id')).toEqual(jasmine.any(String));
-            expect(user.get('registrationStatus')).not.toBeNull();
-            });
+           });
         });
 
 
         it('should login the user', function () {
+            var session = new Session.Model();
 
-            var that = this;
             var done = false;
-            var user = new User.Model();
 
+            // Login  completed event handler.
             var userLoginEvent = function () {
-                if (user.get('isLoggedIn') === true) {
+                if (session.get('isAuthenticated') === true) {
                     done = true;
                 } else {
                     done = false;
                 }
             };
 
+            // Login the User
             var email = testEmail;
             var password = testPwd;
-            user.on('user-login-event', userLoginEvent, this);
-            console.log(email);
-            console.log(password);
-
-            user.login(email, password);
+            session.on('session-login-event', userLoginEvent, this);
+            session.login(email, password);
 
             waitsFor(function () {
                 return done;
             });
 
+            // Validate the registration
             runs(function () {
-                expect(user).not.toBe(null);
-                expect(user.get('isLoggedIn')).toEqual(true);
-                expect(user.get('id')).toEqual(jasmine.any(String));
-                expect(user.get('loginStatus')).not.toBeNull();
+                expect(session).not.toBe(null);
+                expect(session.get('isAuthenticated')).toEqual(true);
+                expect(session.get('id')).toEqual(jasmine.any(String));
+
             });
+
         });
 
         beforeEach(function () {

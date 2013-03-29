@@ -47,6 +47,11 @@ mUserSchema.methods.getUserForResponse = function () {
     return { username:this.username, email:this.email, id:this._id  }
 };
 
+mUserSchema.methods.getUserForSession = function () {
+
+    return { name:this.username, email:this.email, id:this._id  }
+};
+
 // Get the mongoose model
 var UserModel = db.conn.model('User', mUserSchema);
 

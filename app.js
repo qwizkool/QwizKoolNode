@@ -6,6 +6,7 @@ var express = require('express')
     , config = require('./config/config')
     , routes = require('./routes')
     , user = require('./routes/user')
+    , session = require('./routes/session')
     , qwizbook = require('./routes/qwizbook')
     , qwizbookComment = require('./routes/qwizbookComments')
     , qwizbookrating = require('./routes/qwizbookrating')
@@ -15,6 +16,7 @@ var express = require('express')
     , User = require('./models/Users.js')
     , passport = require('passport')
     , LocalStrategy = require('passport-local').Strategy
+    , logger = require('./utils/logger')
     ;
 
 var app = express();
@@ -28,7 +30,7 @@ app.configure(function () {
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(express.cookieParser());
-    app.use(express.cookieSession({ secret:"qwizkool magic" }));
+    app.use(express.cookieSession({ secret:"qwizkool magic"}));
     // Initialize Passport!  Also use passport.session() middleware, to support
     // persistent login sessions (recommended).
     app.use(passport.initialize());
@@ -105,6 +107,11 @@ function unsupported(req, res) {
  */
 app.post('/login', passport.authenticate('local'), user.login);
 app.post('/logout', user.logout);
+
+app.post('/sessions', passport.authenticate('local'), session.login);
+app.delete('/sessions/:id', session.logout);
+app.get('/sessions/:id', ensureAuthenticated, session.getUser);
+
 
 /*
  +-----------+-------------------+--------------------+----------------------+----------------+
@@ -227,7 +234,10 @@ app.put('/qwizbookrating/:id', ensureAuthenticated, qwizbookrating.updateBookRat
 // Delete this Qwizbook
 //app.delete('/qwizbooks/:id', ensureAuthenticated, qwizbook.deleteBook);
 
-
+// For debugging, provide access to the server logs
+//GET server log
+app.get('/debug/logs/server.log', logger.getServerLogs);
+app.get('/debug/logs/app.log', logger.getAppLogs);
 
 
 // Start the REST server

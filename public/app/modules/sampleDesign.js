@@ -13,7 +13,7 @@ define([
             },
 
             show:function (done) {
-           		 $("#qpage-content").html(this.sampleContent.render().el);
+           		 $("#qwizkool-content").html(this.sampleContent.render().el);
             }
         });
 

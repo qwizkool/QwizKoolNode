@@ -1,3 +1,10 @@
+/*!
+ * Copyright(c) 2013 Vibrentt
+ *
+ * Module : UserSettings
+ *
+ *
+ */
 define([
     "app",
     "modules/user",
@@ -13,7 +20,16 @@ define([
 
         initialize:function () {
 
-            this.model = new User.Model();
+            if (_.isEmpty(this.options.session)) {
+                throw "ERROR: Session object is not provided for the view!!"
+            }
+
+            this.session = this.options.session;
+
+            // Register for seesion based events.
+            this.session.on('session-login-event', this.userLoginEvent, this)
+            this.session.on('session-logout-event', this.userLogoutEvent, this)
+            this.session.on('session-check-event', this.sessionCheckEvent, this)
 
             // Bind the event for toggling the settings view.
             $(document).bind('click', function (e) {
@@ -27,15 +43,34 @@ define([
         render:function (done) {
 
             var view = this;
-            view.el.innerHTML = _.template(Template, this.model.toJSON());
+            view.el.innerHTML = _.template(Template, this.session.toJSON());
+
+            // Show only the settings if the session is valid.
+            if (this.session && this.session.isUserAuthenticated()) {
+                $(this.el).find("#user-settings").show();
+            } else {
+                $(this.el).find("#user-settings").hide();
+            }
 
             return this;
         },
 
         events:{
-            // TODO: implement expandable/collapsible user setting drop down list.
             "click #user-settings":"toggleUserSettings",
-            "click #user-logout":"signOut"
+            "click #user-logout":"signOut",
+            "click #create-qwizbook":"authorQwizbook"
+            
+        },
+
+        signOut:function (e) {
+
+            e.preventDefault();
+
+            if (this.session) {
+
+                this.session.logout();
+            }
+
         },
 
         toggleUserSettings:function (e) {
@@ -53,30 +88,61 @@ define([
 
         },
 
-        userLogoutEvent:function () {
-            if (this.model.get('isLoggedIn') === false) {
-                // Go to logged in page.
-                Backbone.history.navigate('', true);
-                this.trigger('logout-attempted');
-            } else {
-                // Trigger event to update status
-                this.trigger('logout-attempted');
+        userLoginEvent:function (e) {
+            if (this.session) {
+
+                if (e.valid === true) {
+
+                    $(this.el).find("#user-settings").show();
+
+                } else {
+
+                    $(this.el).find("#user-settings").hide();
+                }
+
             }
+
         },
 
-        signOut:function (e) {
+        userLogoutEvent:function (e) {
 
-            e.preventDefault();
+            if (this.session) {
 
-            // Register for log out status event.
-            this.model.on('user-logout-event', this.userLogoutEvent, this);
+                if (e.valid === false) {
+                    // Go to logged in page.
+                    $(this.el).find("#user-settings").hide();
+                    Backbone.history.navigate('', true);
+                }
 
-            this.model.logout();
+            }
+
+        },
+
+        sessionCheckEvent:function (e) {
+
+            if (this.session) {
+
+                if (e.valid === true) {
+
+                    $(this.el).find("#user-settings").show();
+
+                } else {
+
+                    $(this.el).find("#user-settings").hide();
+                }
+
+            }
+
+        },
+
+        authorQwizbook:function(e) {
+
+            Backbone.history.navigate("#authorQwizbook", true);
 
         }
+
     });
 
-    // Required, return the module for AMD compliance
     return UserSettings;
 
 });

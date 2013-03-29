@@ -14,7 +14,19 @@ define([
         template:Template,
 
         initialize:function () {
+
+            this.session = this.options.session;
+            if (this.session) {
+                // Register for seesion based events.
+                this.session.on('session-login-event', this.userLoginEvent, this)
+
+            } else {
+                throw "ERROR: Session object is not provided for the view!!"
+            }
+
             this.model = new User.Model();
+            this.model.on('user-registration-event', this.userRegisterEvent, this);
+
         },
 
         render:function () {
@@ -25,53 +37,46 @@ define([
 
         },
 
-        renderLogInStatus:function (done) {
+        renderLogInStatus:function (statusObject) {
             var view = this;
             var statusTemplate;
 
             // Update the login status related view elements
             // with appropriate status.
-            if (view.model.get('loginAttempted') === true) {
 
 
-                var data = view.model.toJSON();
-                statusTemplate = _.template(TmplLoginStatus, data);
+            var data = view.model.toJSON();
+            statusTemplate = _.template(TmplLoginStatus, {loginStatus:statusObject.status});
 
-                view.$("#login-status").html(statusTemplate);
+            view.$("#login-status").html(statusTemplate);
 
-                if (view.model.get('isLoggedIn') === true) {
-                    view.$("#login-status").find('.alert').addClass('alert-success');
-                } else {
-                    view.$("#login-status").find('.alert').addClass('alert-error');
-                }
-
-                // Show the login status
-                $("#login-status").show();
-
+            if (statusObject.valid === true) {
+                view.$("#login-status").find('.alert').addClass('alert-success');
+            } else {
+                view.$("#login-status").find('.alert').addClass('alert-error');
             }
+
+            // Show the login status
+            $("#login-status").show();
+
 
             return this;
         },
 
-        renderRegistrationStatus:function (done) {
+        renderRegistrationStatus:function (statusObject) {
 
             var view = this;
             var statusTemplate;
 
-            // Update the registration status related view elements
-            // with appropriate status.
-            if (view.model.get('registrationAttempted') === true) {
-                var data = view.model.toJSON();
-                statusTemplate = _.template(TmplRegStatus, data);
+            var data = view.model.toJSON();
+            statusTemplate = _.template(TmplRegStatus, {registrationStatus:statusObject.status});
 
-                view.$("#registration-status").html(statusTemplate);
+            view.$("#registration-status").html(statusTemplate);
 
-                if (view.model.get('isRegistered') === true) {
-                    view.$("#registration-status").find('.alert').addClass('alert-success');
-                } else {
-                    view.$("#registration-status").find('.alert').addClass('alert-error');
-                }
-
+            if (statusObject.valid === true) {
+                view.$("#registration-status").find('.alert').addClass('alert-success');
+            } else {
+                view.$("#registration-status").find('.alert').addClass('alert-error');
             }
 
             // Show the login status
@@ -94,34 +99,34 @@ define([
             this.undelegateEvents();
             this.delegateEvents(this.events);
         },
-        
-        loginByEnter:function(e)
-        {
-        	
-			if (e.keyCode == 13)
-			{
-				this.signIn();
-			}
-        },
-        
-        signupByEnter:function(e)
-        {
-        	
-			if (e.keyCode == 13)
-			{
-				this.signUp();
-			}
+
+        loginByEnter:function (e) {
+
+            if (e.keyCode == 13) {
+                this.signIn();
+            }
         },
 
-        userLoginEvent:function () {
-            if (this.model.get('isLoggedIn') === true) {
-                // Go to logged in page.
-                
-                Backbone.history.navigate("#main", true);
-            } else {
-                // Trigger event to update status
-                this.trigger('login-attempted');
+        signupByEnter:function (e) {
+
+            if (e.keyCode == 13) {
+                this.signUp();
             }
+        },
+
+
+        userLoginEvent:function (e) {
+
+            if (this.session) {
+
+                if (e.valid === false) {
+
+                    this.renderLogInStatus(e);
+
+                }
+
+            }
+
         },
 
 
@@ -132,24 +137,13 @@ define([
             var email = $('#user-email-input').val();
             var password = $('#user-password-input').val();
 
-            // Register for event to monitor login status.
-            this.model.on('user-login-event', this.userLoginEvent, this);
-
-            this.model.login(email, password);
+            this.session.login(email, password);
 
         },
 
-        userRegisterEvent:function () {
+        userRegisterEvent:function (e) {
 
-            if (this.model.get('isRegistered') === true) {
-                // Go to logged in page.
-                 
-                Backbone.history.navigate("#main", true);
-                this.trigger('registration-attempted');
-            } else {
-                // Trigger event to update status
-                this.trigger('registration-attempted');
-            }
+                this.renderRegistrationStatus(e);
         },
 
         // When the user clicks sign-up, create a new user model and save it

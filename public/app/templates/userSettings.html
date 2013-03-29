@@ -1,9 +1,9 @@
 <!--TODO: clean up the css styles, consolidate to external CSS file.-->
-<div class="navbar clearfix">
+<div class="navbar clearfix" id="user-settings">
 
     <ul class="nav" style="float: right">
 
-        <li class="dropdown" id="user-settings">
+        <li class="dropdown" id="user-settings-dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown">
                 <b style="font-size: 16px;font-weight: 400"><%= email %></b>
                 <b class="caret"></b>
@@ -28,6 +28,12 @@
                 <li class="divider"></li>
                 <li><a>Notification-4</a></li>
             </ul>
+        </li>
+        
+        <li class="dropdown ">
+            <button id="create-qwizbook" class="btn btn-info btn-small" >
+			                            				Create Qwizbook
+			                       					 </button>
         </li>
 
     </ul>
