@@ -82,25 +82,22 @@ Ratings.prototype.addRating = function(owner, data, callback) {
 
 						} else {
 							instance.getQwizbookRatingCount = count;
-							
+
 							getbookAverageRating(data.qbookId, function(err, avgRating) {
 								if (err) {
 
 								} else {
-									
-									if(avgRating.length!=0)
-									{
+
+									if (avgRating.length != 0) {
 										instance.averageRating = avgRating[0].value;
-									}
-									else
-									{
-										instance.averageRating =0;
+									} else {
+										instance.averageRating = 0;
 									}
 									callback(null, instance);
 								}
 
 							});
-							
+
 						}
 					});
 				}
@@ -136,20 +133,17 @@ Ratings.prototype.addRating = function(owner, data, callback) {
 								if (err) {
 
 								} else {
-									
-									if(avgRating.length!=0)
-									{
+
+									if (avgRating.length != 0) {
 										instance.averageRating = avgRating[0].value;
-									}
-									else
-									{
-										instance.averageRating =0;
+									} else {
+										instance.averageRating = 0;
 									}
 									callback(null, instance);
 
 								}
 							});
-							
+
 						}
 					});
 
@@ -209,11 +203,11 @@ Ratings.prototype.updateRating = function(owner, data, callback) {
 
 Ratings.prototype.getQwizbookRating = function(qbook, userEmail, callback) {
 
-	var qid 	= qbook._id;
-	var date 	= qbook.date;
-	
+	var qid = qbook._id;
+	var date = qbook.date;
+
 	//console.log("Rating Title " + qbook.title);
-	
+
 	/*
 	 Get the specified collection name from the db to confirm that the
 	 collection exists.
@@ -221,11 +215,9 @@ Ratings.prototype.getQwizbookRating = function(qbook, userEmail, callback) {
 	db.conn.db.collectionNames("qwizbookratings", function(err, collectionNames) {
 
 		/*'names' contains an array of objects that contain the collection names
-		 if array length is 1 then the collection does  exist.*/
-		
-				
+		 if array length is 1 then the collection does exist.*/
+
 		if (collectionNames.length === 1) {
-          
 
 			getQwizbookRatingCount(qid, function(err, count) {
 				if (err) {
@@ -243,13 +235,10 @@ Ratings.prototype.getQwizbookRating = function(qbook, userEmail, callback) {
 								if (err) {
 
 								} else {
-									if(avgRating!=null)
-									{
-										qbook.averageRating =avgRating.value;
-									}
-									else
-									{
-										qbook.averageRating =0;
+									if (avgRating != null) {
+										qbook.averageRating = avgRating.value;
+									} else {
+										qbook.averageRating = 0;
 									}
 
 									if (user_rating.length === 0) {
@@ -260,11 +249,11 @@ Ratings.prototype.getQwizbookRating = function(qbook, userEmail, callback) {
 
 									}
 									qbook.userratingcount = count;
-									
+
 									//qbook.sort(qwizbookRecentlyUpdatedSort);
-									
+
 									callback(null, JSON.stringify(qbook));
-									
+
 									//console.log("Qwizbook Sort if" + qbook);
 								}
 
@@ -284,11 +273,10 @@ Ratings.prototype.getQwizbookRating = function(qbook, userEmail, callback) {
 		}
 
 	});
-	
+
 	//console.log("Qwizbook Sort" + qbook);
 
 };
-
 
 function getQwizbookAverageRating(qid, callback) {
 	var mapFunction1 = function() {
@@ -313,7 +301,7 @@ function getQwizbookAverageRating(qid, callback) {
 	o.out = {
 		merge : "averageRating"
 	};
-	
+
 	RatingModel.mapReduce(o, function(err, avgrating) {
 		if (err) {
 			// Check for duplicate key error
@@ -326,7 +314,7 @@ function getQwizbookAverageRating(qid, callback) {
 
 			// avgrating.find({'_id': qid}) .execFind(function(error, averagerating) {
 			//avgrating.find(function(error, averagerating) {
-			  avgrating.findById(qid, function(error, averagerating){
+			avgrating.findById(qid, function(error, averagerating) {
 				if (error) {
 					console.log(error);
 					callback({
@@ -334,7 +322,7 @@ function getQwizbookAverageRating(qid, callback) {
 					}, null);
 				} else {
 					callback(null, averagerating);
-					
+
 				}
 
 			});
@@ -419,7 +407,7 @@ function getbookAverageRating(qid, callback) {
 	o.out = {
 		replace : "averageRating"
 	};
-	
+
 	RatingModel.mapReduce(o, function(err, avgrating) {
 		if (err) {
 			// Check for duplicate key error
@@ -432,7 +420,7 @@ function getbookAverageRating(qid, callback) {
 
 			// avgrating.find({'_id': qid}) .execFind(function(error, averagerating) {
 			avgrating.find(function(error, averagerating) {
-			  //avgrating.findById(qid, function(error, averagerating){
+				//avgrating.findById(qid, function(error, averagerating){
 				if (error) {
 					console.log(error);
 					callback({
@@ -440,7 +428,7 @@ function getbookAverageRating(qid, callback) {
 					}, null);
 				} else {
 					callback(null, averagerating);
-					
+
 				}
 
 			});

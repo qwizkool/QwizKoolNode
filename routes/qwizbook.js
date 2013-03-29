@@ -159,7 +159,7 @@ module.exports = {
 
 				})
 			} else {
-
+				
 				Qwizbook.retrieveQwizbooksOnFilter(sessionUser, filterstring, function(err, books) {
 					// If error send the error response
 					
@@ -229,6 +229,95 @@ module.exports = {
 
 				});
 			}
+                
+                /*
+				Qwizbook.retrieveQwizbooksOnFilter(sessionUser, filterstring, function(err, books) {
+					// If error send the error response
+					
+					var book_length = books.length; 
+				    var c = 1;
+				    
+					if (err) {
+						res.send(400, err);
+						console.log(err);
+						return;
+					}
+					// No error send the unique ID for the newly created book
+
+					if(book_length>0)
+					{
+					//var json ='[';	   
+					var istrue =false;
+					for (i=0;i<book_length;i++) {
+						
+						qbook = books[i];
+						
+						var userEmail = sessionUser.email;
+						var qid = qbook._id;
+						
+                    QwizbookRating.getQwizbookRatingCount(qbook, function(err, count, book) {
+                    	
+                    	book.userratingcount = count;
+                    	
+                    	if(err)
+                    	{
+                    		
+                    		
+                    	} else {
+                    		
+                    		QwizbookRating.getQwizbookAverageRating(qbook, function(err, avgRating, book) {
+                    	 if (err) {
+                 
+								}
+								else {
+									
+									if(avgRating!=null)
+									{
+										book.averageRating =avgRating.value;
+									}
+									else
+									{
+										book.averageRating =0;
+									}
+									
+									books[i] = book;
+									
+									//console.log("New Qwizbook"+ book);
+									
+								}
+
+						});	
+						
+						
+                    		
+                    	}
+                    	
+                    	
+                    });
+                    
+                    if(c==book_length)
+									{
+										res.send(JSON.stringify(books));
+									}
+
+                    
+                    c++;
+                    
+
+					} //end of for loop
+					} // endo of if condition for book length
+					else
+					{
+						res.send({
+						Error : "Cannot rate Qwizbook "
+					}, null);
+					}
+					
+				
+
+				});
+			}
+			*/
 
 		} else {
 
