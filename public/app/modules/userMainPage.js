@@ -12,8 +12,8 @@ define([
     "modules/userMainContent",
     "modules/footer",
     "modules/userSettings",
-    "modules/qwizbook"
-], function (App, Header, UserMainContent, Footer, UserSettings, Searchfilter, QwizBook) {
+    "modules/appToolbar"
+], function (App, Header, UserMainContent, Footer, UserSettings, AppToolbar) {
 
     // Create a new module
     var UserMainPage = new App.module();
@@ -33,8 +33,12 @@ define([
             // view in the Header.
             this.userSettings = new UserSettings.View({session: this.session});
 
+            // Create and associate the app tool bar view with the tool bar lower
+            // view in the Header.
+            this.appToolbar = new AppToolbar.View({session: this.session});
+
             // Create the header view
-            this.header = new Header.View({htbuView: this.userSettings});
+            this.header = new Header.View({htbuView: this.userSettings, htblView: this.appToolbar});
 
             this.footer = new Footer.View();
 

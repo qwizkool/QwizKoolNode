@@ -58,9 +58,7 @@ define([
 
         events:{
             "click #user-settings":"toggleUserSettings",
-            "click #user-logout":"signOut",
-            "click #create-qwizbook":"authorQwizbook"
-            
+            "click #user-logout":"signOut"
         },
 
         signOut:function (e) {
@@ -133,12 +131,6 @@ define([
                 }
 
             }
-
-        },
-
-        authorQwizbook:function(e) {
-
-            Backbone.history.navigate("#authorQwizbook", true);
 
         }
 

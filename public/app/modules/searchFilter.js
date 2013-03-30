@@ -8,9 +8,8 @@
 
 define([
     "app",
-    "modules/user",
     "text!templates/searchFilter.html"
-], function (App, User, Template) {
+], function (App, Template) {
 
     // Create a new module
     var Searchfilter = App.module();
@@ -20,7 +19,6 @@ define([
         template: Template,
 
         initialize: function () {
-            this.model = new User.Model();
         },
 
         render: function () {
