@@ -1,3 +1,11 @@
+/*!
+ * Copyright(c) 2013 Vibrentt
+ *
+ * Module : UserMainPage
+ *
+ *
+ */
+
 define([
     "app",
     "modules/header",

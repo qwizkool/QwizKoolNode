@@ -1,3 +1,10 @@
+/*!
+ * Copyright(c) 2013 Vibrentt
+ *
+ * Module : Breadcrumbs
+ *
+ *
+ */
 define([
     "app",
     "text!templates/breadcrumbs.html"

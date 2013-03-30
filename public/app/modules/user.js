@@ -1,3 +1,11 @@
+/*!
+ * Copyright(c) 2013 Vibrentt
+ *
+ * Module : User
+ *
+ *
+ */
+
 define([
     "app",
     "sha256"

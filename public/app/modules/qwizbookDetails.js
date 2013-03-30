@@ -1,3 +1,10 @@
+/*!
+ * Copyright(c) 2013 Vibrentt
+ *
+ * Module : QwizbookDetails
+ *
+ *
+ */
 define([
     "app",
     "modules/qwizbook",

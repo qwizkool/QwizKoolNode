@@ -1,3 +1,10 @@
+/*!
+ * Copyright(c) 2013 Vibrentt
+ *
+ * Module : Router
+ * Top level url router.
+ *
+ */
 define([
     // Application.
     "app",
@@ -30,7 +37,7 @@ define([
         initialize: function () {
             if (_.isEmpty(this.session)) {
                 this.session = new Session.Model();
-           }
+            }
 
             // Global error handler.
             $(document).ajaxError(function (event, xhr) {
@@ -49,14 +56,21 @@ define([
 
         index: function (hash) {
 
+            if (this.session.isUserAuthenticated() === true) {
+                Backbone.history.navigate("main", true);
+                return;
+            }
+
             var indexPage = new IndexPage.View({session: this.session});
             indexPage.show();
         },
+
         pageNotFound: function (hash) {
 
             var pageNotFoundPage = new PageNotFoundPage.View({session: this.session});
             pageNotFoundPage.show();
         },
+
         userMain: function (hash) {
 
             var userMainPage = new UserMainPage.View({session: this.session});

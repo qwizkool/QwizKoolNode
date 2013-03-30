@@ -1,3 +1,10 @@
+/*!
+ * Copyright(c) 2013 Vibrentt
+ *
+ * Module : QwizbookUserRating
+ *
+ *
+ */
 define([
     "app",
     "modules/comments",
@@ -6,14 +13,9 @@ define([
 ], function (App, Comments, QwizBookRating, Template) {
 
     // Create a new module
-    var Comment = App.module();
+    var QwizbookUserRating = App.module();
 
-    // Footer extendings
-    Comment.Model = Backbone.Model.extend({ /* ... */ });
-    Comment.Collection = Backbone.Collection.extend({ /* ... */ });
-    Comment.Router = Backbone.Router.extend({ /* ... */ });
-
-    Comment.View = Backbone.View.extend({
+    QwizbookUserRating.View = Backbone.View.extend({
 
         template:Template,
         initialize:function () {
@@ -57,6 +59,6 @@ define([
     });
 
     // Required, return the module for AMD compliance
-    return Comment;
+    return QwizbookUserRating;
 
 });

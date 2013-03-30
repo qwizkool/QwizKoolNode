@@ -1,3 +1,11 @@
+/*!
+ * Copyright(c) 2013 Vibrentt
+ *
+ * Module : Searchfilter
+ *
+ *
+ */
+
 define([
     "app",
     "modules/user",
@@ -9,35 +17,35 @@ define([
 
     Searchfilter.View = Backbone.View.extend({
 
-        template:Template,
+        template: Template,
 
-        initialize:function () {
-				this.model = new User.Model();
+        initialize: function () {
+            this.model = new User.Model();
         },
 
-        render:function () {
+        render: function () {
 
             this.el.innerHTML = this.template;
             return this;
 
         },
 
-        events:{
-            "keyup #user-search-input":"setsearchParams",
-            "change #user-filter-input":"setfilterParams"
+        events: {
+            "keyup #user-search-input": "setsearchParams",
+            "change #user-filter-input": "setfilterParams"
         },
 
-        reattachEvents:function () {
+        reattachEvents: function () {
             this.undelegateEvents();
             this.delegateEvents(this.events);
         },
 
-        setsearchParams:function () {
-            this.trigger('search', {criteria:$('#user-search-input').val()});
+        setsearchParams: function () {
+            this.trigger('search', {criteria: $('#user-search-input').val()});
         },
 
-        setfilterParams:function () {
-            this.trigger('filter', {criteria:$('#user-filter-input option:selected').text()});
+        setfilterParams: function () {
+            this.trigger('filter', {criteria: $('#user-filter-input option:selected').text()});
 
         }
     });

@@ -1,3 +1,11 @@
+/*!
+ * Copyright(c) 2013 Vibrentt
+ *
+ * Module : QwizBook
+ *
+ *
+ */
+
 /*
  QwizBook represents one full quiz with associated navigation, hints, comments, images, video, audio etc.
  The QwizBook primarily maintains a list of QwizPage references, and the starte transitions between them.

@@ -1,4 +1,12 @@
-   define([
+/*!
+ * Copyright(c) 2013 Vibrentt
+ *
+ * Module : UserMainContent
+ *
+ *
+ */
+
+define([
     "app",
     "modules/qwizbook",
     "modules/breadcrumbs",
@@ -10,7 +18,7 @@
 
     UserMainContent.View = Backbone.View.extend({
 
-        initialize:function () {
+        initialize: function () {
 
             this.qwizbookList = this.collection;
 
@@ -19,18 +27,18 @@
             }
 
             this.session = this.options.session;
-           
+
             this.qwizbooklistview = new QwizBook.ListView({
-                model:this.qwizbookList,
-                session:this.session
+                model: this.qwizbookList,
+                session: this.session
             });
-            
+
 
         },
 
-        template:Template,
+        template: Template,
 
-        clear:function () {
+        clear: function () {
 
             // clear all the subviews.
             this.$el.empty();
@@ -38,7 +46,7 @@
             return this;
         },
 
-        render:function () {
+        render: function () {
 
             this.el.innerHTML = this.template;
             $(this.el).find("#qwizbooklist-container").html(this.qwizbooklistview.render().el);

@@ -1,3 +1,10 @@
+/*!
+ * Copyright(c) 2013 Vibrentt
+ *
+ * Module : Comments
+ *
+ *
+ */
 define([
     "app",
     "text!templates/commentList.html",

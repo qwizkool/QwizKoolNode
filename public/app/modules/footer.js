@@ -1,3 +1,10 @@
+/*!
+ * Copyright(c) 2013 Vibrentt
+ *
+ * Module : Footer
+ *
+ *
+ */
 define([
     "app",
     "text!templates/footer.html"
@@ -13,11 +20,11 @@ define([
 
     Footer.View = Backbone.View.extend({
 
-        el:'#qwizkool-footer',
+        el: '#qwizkool-footer',
 
-        template:Template,
+        template: Template,
 
-        render:function (done) {
+        render: function (done) {
 
             this.el.innerHTML = this.template;
             return this;
