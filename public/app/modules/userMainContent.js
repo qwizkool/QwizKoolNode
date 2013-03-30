@@ -9,10 +9,10 @@
 define([
     "app",
     "modules/qwizbook",
-    "modules/breadcrumbs",
+    "modules/searchFilter",
     "text!templates/userMainContent.html"
 
-], function (App, QwizBook, Breadcrumbs, Template) {
+], function (App, QwizBook, SearchFilter, Template) {
 
     var UserMainContent = App.module();
 
@@ -28,8 +28,19 @@ define([
 
             this.session = this.options.session;
 
+
+            // Create and associate the user search filter view with the tool bar lower
+            // view in the Header.
+            this.searchFilterView = new SearchFilter.View({});
+            this.searchFilterView.on("search", this.refreshCollectionForSearchEvent, this);
+            this.searchFilterView.on("filter", this.refreshCollectionForFilterEvent, this);
+
+            // Create qwizbook collection and associate with its list view.
+            this.qwizbookCollection = new QwizBook.Collection();
+            this.qwizbookCollection.on("reset", this.refreshCollectionView, this);
+
             this.qwizbooklistview = new QwizBook.ListView({
-                model: this.qwizbookList,
+                model: this.qwizbookCollection,
                 session: this.session
             });
 
@@ -37,6 +48,31 @@ define([
         },
 
         template: Template,
+
+        refreshCollectionForSearchEvent: function (e) {
+
+            var criteria = e.criteria;
+
+            this.qwizbookCollection.setSearchParams(criteria);
+
+            this.qwizbookCollection.getAllBooks();
+
+        },
+
+        refreshCollectionForFilterEvent: function (e) {
+
+            var criteria = e.criteria;
+            this.qwizbookCollection.setFilterParams(criteria);
+            this.qwizbookCollection.getAllBooks();
+
+
+        },
+
+        refreshCollectionView: function () {
+
+            $(this.el).find("#user-main-content-container").html(this.qwizbooklistview.render().el);
+
+        },
 
         clear: function () {
 
@@ -49,8 +85,9 @@ define([
         render: function () {
 
             this.el.innerHTML = this.template;
-            $(this.el).find("#qwizbooklist-container").html(this.qwizbooklistview.render().el);
+            $(this.el).find("#user-main-content-header").html(this.searchFilterView.render().el);
 
+            this.qwizbookCollection.getAllBooks();
             return this;
         }
     });
