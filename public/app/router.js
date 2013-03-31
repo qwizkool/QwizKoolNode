@@ -55,12 +55,6 @@ define([
         },
 
         index: function (hash) {
-
-            if (this.session.isUserAuthenticated() === true) {
-                Backbone.history.navigate("main", true);
-                return;
-            }
-
             var indexPage = new IndexPage.View({session: this.session});
             indexPage.show();
         },
