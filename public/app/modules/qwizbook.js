@@ -40,7 +40,13 @@ define([
             userratingcount:"0",
             isAddedqwizBook:false,
             AddedqwizBookAttempted:false,
-            AddedqwizBookStatus:null
+            AddedqwizBookStatus:null,
+            reference: [{
+				        videoLinks: [{link: "www.videolink.com"}],
+				        webLinks: [{link: "www.webLinks.com"}],
+				        imageLinks: [{link: "www.imageLinks.com"}],
+				        audioLinks: [{link: "www.audioLinks.com"}]
+				    	}]
         },
         
         initialize : function() {

@@ -79,6 +79,7 @@ Qwizbook.prototype.createQwizbook = function (owner, data, callback) {
     instance.description = data.description;
     instance.ownerEmail = owner.email;
     instance.groupPermission = data.groupPermission;
+    instance.reference = data.reference;
     instance.save(function (err) {
         if (err) {
             // Check for duplicate key error
