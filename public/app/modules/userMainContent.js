@@ -21,6 +21,7 @@ define([
         initialize: function () {
 
             this.qwizbookList = this.collection;
+            
 
             if (_.isEmpty(this.options.session)) {
                 throw "ERROR: Session object is not provided for the view!!"

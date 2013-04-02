@@ -53,6 +53,7 @@ define([
 
 
             var data = view.model.toJSON();
+            
             statusTemplate = _.template(TmplLoginStatus, {loginStatus: statusObject.status});
 
             view.$("#login-status").html(statusTemplate);
@@ -76,6 +77,7 @@ define([
             var statusTemplate;
 
             var data = view.model.toJSON();
+            
             statusTemplate = _.template(TmplRegStatus, {registrationStatus: statusObject.status});
 
             view.$("#registration-status").html(statusTemplate);

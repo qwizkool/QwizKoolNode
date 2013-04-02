@@ -278,6 +278,64 @@ Ratings.prototype.getQwizbookRating = function(qbook, userEmail, callback) {
 
 };
 
+
+Ratings.prototype.getQwizbookAverageRating = function(qbook, callback) {
+	var qid = qbook._id;
+	var mapFunction1 = function() {
+		emit(this.qwizbookId, this.rating);
+		// All other conditions Pass as is TODO: need to cleanup.
+
+	};
+
+	var reduceFunction1 = function(QbId, valuesRatings) {
+
+		return (Array.sum(valuesRatings) / valuesRatings.length);
+	};
+
+	var o = {};
+
+	o.map = mapFunction1;
+	o.reduce = reduceFunction1;
+	o.query = {
+		qwizbookId : qid
+		//date:new Date().getTime()
+	};
+	o.out = {
+		merge : "averageRating"
+	};
+
+	RatingModel.mapReduce(o, function(err, avgrating) {
+		if (err) {
+			// Check for duplicate key error
+			console.log(err);
+			// All other conditions Pass as is TODO: need to cleanup.
+			callback({
+				Error : "failed to get Qwizbook Average Rating."
+			}, null);
+		} else {
+
+			// avgrating.find({'_id': qid}) .execFind(function(error, averagerating) {
+			//avgrating.find(function(error, averagerating) {
+			avgrating.findById(qid, function(error, averagerating) {
+				if (error) {
+					console.log(error);
+					callback({
+						Error : "failed to get Qwizbook Average Rating."
+					}, null);
+				} else {
+					callback(null, averagerating);
+
+				}
+
+			});
+
+		}
+
+	});
+	
+}
+
+	
 function getQwizbookAverageRating(qid, callback) {
 	var mapFunction1 = function() {
 		emit(this.qwizbookId, this.rating);
@@ -339,6 +397,24 @@ function getQwizbookAverageRating(qid, callback) {
  * @return
  */
 
+Ratings.prototype.getQwizbookRatingCount = function(qbook, callback) {
+var qid = 	qbook._id;
+RatingModel.count({
+		qwizbookId : qid
+	}, function(err, _count) {
+		if (err) {
+			console.log(err);
+			callback({
+				Error : "Failed to get Qwizbook Rating Count."
+			}, null);
+		} else {
+			callback(null, _count);
+		}
+	});
+	
+}	
+
+
 function getQwizbookRatingCount(qid, callback) {
 
 	RatingModel.count({
@@ -362,6 +438,27 @@ function getQwizbookRatingCount(qid, callback) {
  * @return
  */
 
+Ratings.prototype.getQwizbookUserRating = function(user, qwizbookId, callback) {
+	RatingModel.find({
+		$and : [{
+			qwizbookId : qwizbookId,
+			userEmail : user
+		}]
+	}).execFind(function(err, rating) {
+
+		if (err) {
+			// All other conditions Pass as is TODO: need to cleanup.
+			callback({
+				Error : "Retreive Rating failed."
+			}, null);
+		} else {
+			callback(null, rating);
+		}
+
+	});
+	
+}	
+
 function getQwizbookUserRating(user, qwizbookId, callback) {
 
 	RatingModel.find({
@@ -377,7 +474,7 @@ function getQwizbookUserRating(user, qwizbookId, callback) {
 				Error : "Retreive Rating failed."
 			}, null);
 		} else {
-			callback(null, rating);
+			callback(null, rating, qbook);
 		}
 
 	});

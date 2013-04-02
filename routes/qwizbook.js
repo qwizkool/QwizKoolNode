@@ -166,7 +166,7 @@ module.exports = {
 
 				})
 			} else {
-				
+				/*
 				Qwizbook.retrieveQwizbooksOnFilter(sessionUser, filterstring, function(err, books) {
 					// If error send the error response
 					
@@ -182,9 +182,9 @@ module.exports = {
 					//console.log("Filter criteria" + JSON.stringify(books));
 					if(book_length>0)
 					{
-						var json ='[';
-					var istrue =false;
-					for (i=0;i<book_length;i++) {
+					 var json ='[';
+					 var istrue =false;
+					 for (i=0;i<book_length;i++) {
 						qbook = books[i];
 						//console.log("routes qwizbook Id" + qbook._id);
 						//bookIdDateSortArr[i] = qbook._id;
@@ -236,12 +236,12 @@ module.exports = {
 
 				});
 			}
+               */ 
                 
-                /*
 				Qwizbook.retrieveQwizbooksOnFilter(sessionUser, filterstring, function(err, books) {
 					// If error send the error response
 					
-					var book_length = books.length; 
+				    var book_length = books.length; 
 				    var c = 1;
 				    
 					if (err) {
@@ -262,55 +262,74 @@ module.exports = {
 						var userEmail = sessionUser.email;
 						var qid = qbook._id;
 						
-                    QwizbookRating.getQwizbookRatingCount(qbook, function(err, count, book) {
-                    	
-                    	book.userratingcount = count;
+                    	QwizbookRating.getQwizbookRatingCount(qbook, function(err, count) {
                     	
                     	if(err)
-                    	{
+                    	    {
                     		
                     		
-                    	} else {
+                    	    } else {
                     		
-                    		QwizbookRating.getQwizbookAverageRating(qbook, function(err, avgRating, book) {
-                    	 if (err) {
-                 
+                    		    qbook.userratingcount = count;
+                    		    
+                    		
+                    		    QwizbookRating.getQwizbookUserRating(userEmail, qbook, function(err, user_rating) {
+                    			
+                    		    if (err) {
+
+						        } else {	
+                    		
+                    		    if (user_rating.length === 0) {
+								    qbook.userRating = 0;
+								    
+
+								} else {
+								    qbook.userRating = user_rating[0].rating;
+								    
+
 								}
-								else {
 									
-									if(avgRating!=null)
+                    		    QwizbookRating.getQwizbookAverageRating(qbook, function(err, avgRating) {
+                    	            if (err) {
+                 
+								    }else {
+									
+								    if(avgRating!=null)
 									{
-										book.averageRating =avgRating.value;
+										qbook.averageRating =avgRating.value;
+										
 									}
 									else
 									{
-										book.averageRating =0;
+										qbook.averageRating =0;
+										
 									}
 									
-									books[i] = book;
+									books[i] = qbook;
 									
-									//console.log("New Qwizbook"+ book);
+									if(c==book_length)
+									{
+									   
+									   res.send(JSON.stringify(books));
+									}
+									c++;
 									
-								}
-
-						});	
+									}
+								});	
 						
-						
+						      }
                     		
-                    	}
+                            });
+                            
                     	
                     	
+                      }
+                    
                     });
                     
-                    if(c==book_length)
-									{
-										res.send(JSON.stringify(books));
-									}
-
                     
-                    c++;
                     
-
+                    
 					} //end of for loop
 					} // endo of if condition for book length
 					else
@@ -324,7 +343,7 @@ module.exports = {
 
 				});
 			}
-			*/
+			
 
 		} else {
 
