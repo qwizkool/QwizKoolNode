@@ -92,7 +92,7 @@ define([
         authorQwizbook: function (hash) {
 
 
-            var authorQwizbook = new QwizbookAuthoring.View();
+            var authorQwizbook = new QwizbookAuthoring.View({session: this.session});
             authorQwizbook.show();
         }
 

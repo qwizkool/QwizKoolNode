@@ -404,5 +404,24 @@ module.exports = {
 
 	deleteBooks : function(req, res) {
 		console.log(req.user);
+	},
+	
+	getmybooks:function(req,res){
+		var sessionUser = req.user;
+		Qwizbook.retrieveMyQwizbooks(sessionUser, function(err, books){
+			
+			
+			if(err)
+			{
+				res.send(400, err);
+				console.log(err);
+				return;
+			}
+			else
+			{
+				res.send(books);
+			}
+			
+		});
 	}
 }; 

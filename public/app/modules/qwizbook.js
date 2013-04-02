@@ -51,25 +51,12 @@ define([
         
         initialize : function() {
 
-			var qwizbook = localStorage.getItem("QwizbookData");
-
-			//if (qwizbook) {
-
-			qwizbookDetails = JSON.parse(localStorage.getItem("QwizbookData"));
-			userInfo = JSON.parse(localStorage.getItem("qwizkoolUser"));
-
-			if (userInfo) {
-				this.set({
-					ownerEmail : userInfo.email
-
-				});
-
-			}
-
 		},
 
-        create:function () {
-        	
+       // create:function () {
+         create:function (qbtitle, qbdescription) {
+        	this.set('title', qbtitle);
+			this.set('description', qbdescription);	
             this.set({
                 AddedqwizBookAttempted:true,
                 isAddedqwizBook:false,
@@ -130,15 +117,21 @@ define([
         model:QwizBook.Model,
 
         url:function () {
-            var urlRoot = "/qwizbooks";
+            var urlRoot = "/";
 
             if (this.searchval != '') {
-                urlRoot = urlRoot + "?search_str=" + this.searchval + "&sort_by=" + this.filterval;
+                urlRoot = "qwizbooks"+urlRoot + "?search_str=" + this.searchval + "&sort_by=" + this.filterval;
 
 
-            } else {
+            }
+            
+            else if(this.myQwizbook)
+            {
+            	urlRoot ="myQwizbook";
+            }
+             else {
 
-                urlRoot = urlRoot + "?search_str=" + '' + "&sort_by=" + this.filterval;
+                urlRoot = "qwizbooks"+urlRoot + "?search_str=" + '' + "&sort_by=" + this.filterval;
 
             }
             return urlRoot;
@@ -147,6 +140,7 @@ define([
 
         initialize:function () {
             this.searchval = '';
+            this.myQwizbook = false;
             this.filterval = 'Recently Updated';
             this.isListedqwizBook = false;
         },
@@ -160,6 +154,11 @@ define([
             this.filterval = filterstring;
             this.urlroot = this.url();
         },
+        setUserId:function(){
+        	this.myQwizbook =true; 
+        	this.urlroot = this.url();
+        	
+        },
 
         getAllBooks:function () {
             var qwizbookList = this;
@@ -167,7 +166,6 @@ define([
 
                 error:function (collection, response) {
                     this.isListedqwizBook = false;
-                    console.log("Failed to get QwizBooks!");
                     collection.trigger('list-qwizbook-event');
                 },
 
@@ -181,6 +179,29 @@ define([
                     collection.trigger('list-qwizbook-event');
                 }
             });
+        },
+        
+        getMyQwizbook:function(){
+        	
+        	var qwizbookList = this;
+            var jqxhr = qwizbookList.fetch({
+
+                error:function (collection, response) {
+                    this.isListedqwizBook = false;
+                    collection.trigger('list-qwizbook-event');
+                },
+
+                success:function (collection, response) {
+                    this.isListedqwizBook = true;
+                    var List = Array();
+                    if (response == null) {
+                        collection.trigger('no-qwizbook-tolist');
+                    }
+                    List = qwizbookList.toJSON();
+                    collection.trigger('list-qwizbook-event');
+                }
+            });
+        	
         }
         
         
