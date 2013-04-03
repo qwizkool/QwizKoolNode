@@ -36,6 +36,10 @@ define([
 			this.qwizbookUserCollection = new QwizBook.Collection();
 			this.qwizbookUserCollection.setUserId();
 			this.qwizbookUserCollection.getMyQwizbook();
+			this.qwizbooklistview = new QwizBook.ListView({
+                model: this.qwizbookUserCollection,
+                session: this.session
+            });
 
         },
 
