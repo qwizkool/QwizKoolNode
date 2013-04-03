@@ -43,7 +43,7 @@ define([
             AddedqwizBookStatus:null,
             reference: [{
 				        videoLinks: [{link: "www.videolink.com"}],
-				        webLinks: [{link: "www.webLinks.com"}],
+				        webLinks  : [{link: "www.webLinks.com"}],
 				        imageLinks: [{link: "www.imageLinks.com"}],
 				        audioLinks: [{link: "www.audioLinks.com"}]
 				    	}]
@@ -154,6 +154,8 @@ define([
             this.filterval = filterstring;
             this.urlroot = this.url();
         },
+        
+        
         setUserId:function(){
         	this.myQwizbook =true; 
         	this.urlroot = this.url();
@@ -181,7 +183,7 @@ define([
             });
         },
         
-        getMyQwizbook:function(){
+        getMybook:function(){
         	
         	var qwizbookList = this;
             var jqxhr = qwizbookList.fetch({
