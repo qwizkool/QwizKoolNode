@@ -26,6 +26,7 @@ define([
 
             this.session = this.options.session;
             
+            
             this.on("createqwizbook", function (createQwizbookObj) {
 					
 					var qbooktitle = createQwizbookObj.qbooktitle;
