@@ -38,8 +38,7 @@ define([
         },
 
         authorQwizbook:function(e) {
-
-            Backbone.history.navigate("#authorQwizbook", true);
+            Backbone.history.navigate("#createQwizbook", true);
 
         }
 
