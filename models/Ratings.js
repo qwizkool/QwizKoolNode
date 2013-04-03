@@ -278,7 +278,6 @@ Ratings.prototype.getQwizbookRating = function(qbook, userEmail, callback) {
 
 };
 
-
 Ratings.prototype.getQwizbookAverageRating = function(qbook, callback) {
 	var qid = qbook._id;
 	var mapFunction1 = function() {
@@ -332,10 +331,8 @@ Ratings.prototype.getQwizbookAverageRating = function(qbook, callback) {
 		}
 
 	});
-	
-}
 
-	
+}
 function getQwizbookAverageRating(qid, callback) {
 	var mapFunction1 = function() {
 		emit(this.qwizbookId, this.rating);
@@ -398,8 +395,11 @@ function getQwizbookAverageRating(qid, callback) {
  */
 
 Ratings.prototype.getQwizbookRatingCount = function(qbook, callback) {
-var qid = 	qbook._id;
-RatingModel.count({
+	var qid = qbook._id;
+	var is_finished = false;
+	
+	
+	RatingModel.count({
 		qwizbookId : qid
 	}, function(err, _count) {
 		if (err) {
@@ -412,8 +412,7 @@ RatingModel.count({
 		}
 	});
 	
-}	
-
+}
 
 function getQwizbookRatingCount(qid, callback) {
 
@@ -456,9 +455,8 @@ Ratings.prototype.getQwizbookUserRating = function(user, qwizbookId, callback) {
 		}
 
 	});
-	
-}	
 
+}
 function getQwizbookUserRating(user, qwizbookId, callback) {
 
 	RatingModel.find({
