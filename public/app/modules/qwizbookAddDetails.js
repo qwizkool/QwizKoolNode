@@ -10,13 +10,13 @@ define([
     "modules/header",
     "modules/userSettings",
     "modules/footer",
-    "modules/qwizbookAuthoringContent"
+    "modules/qwizbookAddDetailsContent"
 ],
-    function (App, Header, UserSettings, Footer, QwizbookAuthoringContent) {
+    function (App, Header, UserSettings, Footer, QwizbookAddDetailsContent) {
         // Create a new module
-        var QwizbookAuthoring = App.module();
+        var QwizbookAddContent = App.module();
 
-        QwizbookAuthoring.View = Backbone.View.extend({
+        QwizbookAddContent.View = Backbone.View.extend({
 
             initialize:function () {
             	if (_.isEmpty(this.options.session)) {
@@ -27,17 +27,17 @@ define([
             	this.userSettings = new UserSettings.View({session: this.session});
             	this.header = new Header.View({htbuView:this.userSettings});
            	    this.footer = new Footer.View();
-				this.qwizbookAuthoringContent = new QwizbookAuthoringContent.View({ el: '#qwizkool-content',session: this.session});
+				this.qwizbookAddContent = new QwizbookAddDetailsContent.View({ el: '#qwizkool-content',session: this.session});
 				
             },
 
             show:function (done) {
         		this.header.render();
            		this.footer.render();
-                this.qwizbookAuthoringContent.render();
+                this.qwizbookAddContent.render();
             }
         });
 
-        return QwizbookAuthoring;
+        return QwizbookAddContent;
 
     });

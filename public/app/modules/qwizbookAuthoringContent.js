@@ -19,6 +19,20 @@ define([
         initialize: function () {
 
             this.qwizbookModel = new QwizBook.Model();
+            if (_.isEmpty(this.options.session)) {
+                throw "ERROR: Session object is not provided for the view!!"
+            		}
+
+            this.session = this.options.session;
+            
+            this.on("createqwizbook", function (createQwizbookObj) {
+					
+					var qbooktitle = createQwizbookObj.qbooktitle;
+					var qbookdescription = createQwizbookObj.qbookdesc;
+					var qwizbookratingmodel = createQwizbookObj.qwizbookmodel;
+					qwizbookratingmodel.create(qbooktitle, qbookdescription);
+
+					});
 
 
         },
