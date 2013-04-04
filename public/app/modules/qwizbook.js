@@ -98,9 +98,8 @@ define([
 
         retreive:function () {
 
-            var retreivedQwizbook = this;
 
-            var jqxhr = retreivedQwizbook.fetch({
+            var jqxhr = this.fetch({
 
 
                 error:function (model, response) {
@@ -156,8 +155,11 @@ define([
         },
 
         getAllBooks:function () {
-            var qwizbookList = this;
-            var jqxhr = qwizbookList.fetch({
+             var jqxhr = this.fetch({
+
+                // specify fetch to reset the collection instead
+                // of add/merge using set.
+                reset: true,
 
                 error:function (collection, response) {
                     this.isListedqwizBook = false;
@@ -167,11 +169,11 @@ define([
 
                 success:function (collection, response) {
                     this.isListedqwizBook = true;
-                    var List = Array();
+
                     if (response == null) {
                         collection.trigger('no-qwizbook-tolist');
                     }
-                    List = qwizbookList.toJSON();
+
                     collection.trigger('list-qwizbook-event');
                 }
             });

@@ -89,6 +89,10 @@ define([
 
             var jqxhr = qwizbookComments.fetch({
 
+                // specify fetch to reset the collection instead
+                // of add/merge using set.
+                reset: true,
+
                 error:function (collection, response) {
                 },
 
