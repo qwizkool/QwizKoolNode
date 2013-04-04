@@ -167,7 +167,9 @@ Qwizbook.prototype.retrieveMyQwizbooks = function (owner, callback) {
     // Retrieve Qwizbooks, that are shared, public or
     // owned by the 'owner'
     var userEmail = owner.email;
-   QwizbookModel.find({ownerEmail : userEmail}).execFind(function(err, books) {
+   QwizbookModel.find({ownerEmail : userEmail}).sort({
+            date: -1
+        }).execFind(function(err, books) {
 
         if (err) {
             // All other conditions Pass as is TODO: need to cleanup.
