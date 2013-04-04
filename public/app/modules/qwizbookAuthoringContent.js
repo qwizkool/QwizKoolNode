@@ -46,7 +46,8 @@ define([
         events: {
             "click #create-form": "showCreateForm",
             "click #btn-create-qwizbook-submit": "submitCreateForm",
-            "click #btn-create-qwizbook-cancel": "cancelCreateForm"
+            "click #btn-create-qwizbook-cancel": "cancelCreateForm",
+            "click #deleteAllQwizbooks": "selectAllQwizbooks"
 
         },
 
@@ -59,18 +60,25 @@ define([
         submitCreateForm: function (e) {
 
             this.trigger('createqwizbook', {qbooktitle: $('#qwizbook-title').val(), qbookdesc: $('#qwizbook-description').val(), qwizbookmodel: this.qwizbookModel});
-            $('#qwizbook-create-form').hide();
+            $('#').hide();
             $('#qwizbook-title').val('');
             $('#qwizbook-description').val('');
         },
 
         cancelCreateForm: function (e) {
 
-            $('#qwizbook-create-form').hide();
+            $('#').hide();
             $('#qwizbook-title').val('');
             $('#qwizbook-description').val('');
 
         },
+        
+        selectAllQwizbooks: function (e) {
+
+         alert('reached');
+
+        },
+
 
         template: Template,
 
