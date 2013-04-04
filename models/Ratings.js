@@ -278,8 +278,11 @@ Ratings.prototype.getQwizbookRating = function(qbook, userEmail, callback) {
 
 };
 
-Ratings.prototype.getQwizbookAverageRating = function(qbook, callback) {
-	var qid = qbook._id;
+Ratings.prototype.getQwizbookAverageRating = function(qbookwithavgRating, qbookwithavgRatingpos, callback) {
+	var qid = qbookwithavgRating._id;
+	var bookwithavgRating = qbookwithavgRating;
+	var bookwithavgRatingpos = qbookwithavgRatingpos;
+	
 	var mapFunction1 = function() {
 		emit(this.qwizbookId, this.rating);
 		// All other conditions Pass as is TODO: need to cleanup.
@@ -315,14 +318,14 @@ Ratings.prototype.getQwizbookAverageRating = function(qbook, callback) {
 
 			// avgrating.find({'_id': qid}) .execFind(function(error, averagerating) {
 			//avgrating.find(function(error, averagerating) {
-			avgrating.findById(qid, function(error, averagerating) {
+			avgrating.findById(qid, function(error, averagerating, qbookwithavgRating, qbookwithavgRatingpos) {
 				if (error) {
 					console.log(error);
 					callback({
 						Error : "failed to get Qwizbook Average Rating."
-					}, null);
+					}, null, bookwithavgRating, bookwithavgRatingpos);
 				} else {
-					callback(null, averagerating);
+					callback(null, averagerating, bookwithavgRating, bookwithavgRatingpos);
 
 				}
 
@@ -394,23 +397,24 @@ function getQwizbookAverageRating(qid, callback) {
  * @return
  */
 
-Ratings.prototype.getQwizbookRatingCount = function(qbook, callback) {
+Ratings.prototype.getQwizbookRatingCount = function(qbook, qbookpos, callback) {
 	var qid = qbook._id;
-	var is_finished = false;
-	
+	var book = qbook;
+	var bookpos = qbookpos;
 	
 	RatingModel.count({
 		qwizbookId : qid
-	}, function(err, _count) {
+	}, function(err, _count, qbook, qbookpos) {
 		if (err) {
 			console.log(err);
 			callback({
 				Error : "Failed to get Qwizbook Rating Count."
-			}, null);
+			}, null, book, bookpos);
 		} else {
-			callback(null, _count);
+			callback(null, _count, book, bookpos);
 		}
 	});
+	
 	
 }
 
@@ -437,21 +441,25 @@ function getQwizbookRatingCount(qid, callback) {
  * @return
  */
 
-Ratings.prototype.getQwizbookUserRating = function(user, qwizbookId, callback) {
+Ratings.prototype.getQwizbookUserRating = function(user, qbookwithRatingCount, qwizbookwithRatingCountKey, callback) {
+	var qwizbookId = qbookwithRatingCount._id;
+	var bookwithRatingCount = qbookwithRatingCount;
+	var bookwithRatingCountKey = qwizbookwithRatingCountKey;
+	
 	RatingModel.find({
 		$and : [{
 			qwizbookId : qwizbookId,
 			userEmail : user
 		}]
-	}).execFind(function(err, rating) {
+	}).execFind(function(err, rating, qbookwithRatingCount, qwizbookwithRatingCountKey) {
 
 		if (err) {
 			// All other conditions Pass as is TODO: need to cleanup.
 			callback({
 				Error : "Retreive Rating failed."
-			}, null);
+			}, null, bookwithRatingCount, bookwithRatingCountKey);
 		} else {
-			callback(null, rating);
+			callback(null, rating, bookwithRatingCount, bookwithRatingCountKey);
 		}
 
 	});

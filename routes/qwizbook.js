@@ -213,8 +213,8 @@ module.exports = {
 
 					var book_length = books.length;
 					var c = 1;
-
-					if (err) {
+                    
+                    if (err) {
 						res.send(400, err);
 						console.log(err);
 						return;
@@ -222,58 +222,60 @@ module.exports = {
 					// No error send the unique ID for the newly created book
 
 					if (book_length > 0) {
-						//var json ='[';
-						var istrue = false;
-						for ( i = 0; i < book_length; i++) {
+						
+				        var istrue = false;
+						for (var i = 0; i < book_length; i++) {
 
 							qbook = books[i];
-
+                            
+                            var bookwithRatingCountKey=i;
 							var userEmail = sessionUser.email;
 							var qid = qbook._id;
 
-							QwizbookRating.getQwizbookRatingCount(qbook, function(err, count) {
+							QwizbookRating.getQwizbookRatingCount(qbook, bookwithRatingCountKey, function(err, count, bookwithRatingCount, bookwithRatingCountKey) {
 
 								if (err) {
 
 								} else {
                                    
-									qbook.userratingcount = count;
+                                    
+                                    bookwithRatingCount.userratingcount = count;
 									
-									console.log("New Qwizbook "+ qbook);
-
-									QwizbookRating.getQwizbookUserRating(userEmail, qbook, function(err, user_rating) {
+									QwizbookRating.getQwizbookUserRating(userEmail, bookwithRatingCount, bookwithRatingCountKey, function(err, user_rating, bookwithUserRating, bookwithUserRatingpos) {
 
 										if (err) {
 
 										} else {
 
 											if (user_rating.length === 0) {
-												qbook.userRating = 0;
+												bookwithUserRating.userRating = 0;
 
 											} else {
-												qbook.userRating = user_rating[0].rating;
+												bookwithUserRating.userRating = user_rating[0].rating;
 
 											}
 
-											QwizbookRating.getQwizbookAverageRating(qbook, function(err, avgRating) {
+											QwizbookRating.getQwizbookAverageRating(bookwithUserRating, bookwithUserRatingpos, function(err, avgRating, bookwithavgRating, bookwithavgRatingpos) {
 												if (err) {
 
 												} else {
 
 													if (avgRating != null) {
-														qbook.averageRating = avgRating.value;
+														bookwithavgRating.averageRating = avgRating.value;
 
 													} else {
-														qbook.averageRating = 0;
+														bookwithavgRating.averageRating = 0;
 
 													}
-
-													books[i] = qbook;
-
-													if (c == book_length) {
+                                                    
+                                                    
+                                                    books[bookwithavgRatingpos] = bookwithavgRating;
+                                                    
+                                                    if (c == book_length) {
 
 														res.send(JSON.stringify(books));
 													}
+													
 													c++;
 
 												}
@@ -286,8 +288,8 @@ module.exports = {
 								}
 
 							});
-
-						} //end of for loop
+							
+                    	} //end of for loop
 					}// endo of if condition for book length
 					else {
 						res.send({
