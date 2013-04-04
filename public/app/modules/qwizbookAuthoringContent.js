@@ -55,7 +55,8 @@ define([
             "click #create-form": "showCreateForm",
             "click #btn-create-qwizbook-submit": "submitCreateForm",
             "click #btn-create-qwizbook-cancel": "cancelCreateForm",
-            "click #deleteAllQwizbooks": "selectAllQwizbooks"
+            "click #deleteAllQwizbooks": "selectAllQwizbooks",
+            "click #deleteQwizbook": "deleteMyQwizbook"
 
         },
 
@@ -98,12 +99,30 @@ define([
         },
         
 
-        selectAllQwizbooks: function (e) {
+        selectAllQwizbooks: function () {
 
          alert('reached');
 
         },
-
+      
+      deleteMyQwizbook:function(){
+      	
+      	
+      	var selectedQbookCount = $( "input:checked" ).length;
+      		
+      	var selectedQwizbooks = [];
+        $(':checkbox:checked').each(function(i){
+          selectedQwizbooks[i] = $(this).val();
+        });
+      	if(selectedQbookCount==1){
+      		alert('Are you sure you want to delete '+selectedQbookCount+' Qwizbook');
+      		this.qwizbookUserCollection.setDeleteId(selectedQwizbooks);
+      		this.qwizbookUserCollection.deleteMyQwizbook();
+      	}	
+      	
+      	
+      	
+      },
 
         refreshView:function() {
         	 $(this.el).find("#myQwizbookList-container").html(this.qwizbooklistview.render().el);

@@ -109,6 +109,27 @@ define([
                 }
             });
 
+        },
+        deleteMyQwizbook:function()
+        {
+        	var deleteQwizbook =this;
+        	 var jqxhr = deleteQwizbook.destroy({
+
+                error:function (model, response) {
+                    this.isListedqwizBook = false;
+                    collection.trigger('list-qwizbook-event');
+                },
+
+                success:function (model, response) {
+                    this.isListedqwizBook = true;
+                    var List = Array();
+                    if (response == null) {
+                        model.trigger('no-qwizbook-tolist');
+                    }
+                    List = qwizbookList.toJSON();
+                    model.trigger('list-qwizbook-event');
+                }
+            });
         }
     });
 
@@ -129,6 +150,9 @@ define([
             {
             	urlRoot ="myQwizbook";
             }
+            else if(this.deleteQwizbookId){
+            	urlRoot ="deleteQwizbook/"+this.deleteQwizbookId;
+            }
              else {
 
                 urlRoot = "qwizbooks"+urlRoot + "?search_str=" + '' + "&sort_by=" + this.filterval;
@@ -141,6 +165,7 @@ define([
         initialize:function () {
             this.searchval = '';
             this.myQwizbook = false;
+            this.deleteQwizbookId =false;
             this.filterval = 'Recently Updated';
             this.isListedqwizBook = false;
         },
@@ -160,6 +185,10 @@ define([
         	this.myQwizbook =true; 
         	this.urlroot = this.url();
         	
+        },
+        setDeleteId:function(qBookId){
+        	this.deleteQwizbookId = qBookId;
+        	this.urlroot = this.url();
         },
 
         getAllBooks:function () {
@@ -205,6 +234,8 @@ define([
             });
         	
         }
+        
+        
         
         
     });
