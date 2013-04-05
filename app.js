@@ -165,7 +165,9 @@ app.put('/qwizbooks/:id', ensureAuthenticated, qwizbook.updateBook);
 
 
 
+// Retrieve qwizbook of a particular user
 
+app.get('/myQwizbook',ensureAuthenticated, qwizbook.getmybooks);
 
 
 

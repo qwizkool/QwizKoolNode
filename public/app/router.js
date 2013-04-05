@@ -102,6 +102,8 @@ define([
 		authorQwizbook: function (hash) {
 
             var authorQwizbook = new QwizbookAddDetails.View({session: this.session});
+
+
             authorQwizbook.show();
         }
 
