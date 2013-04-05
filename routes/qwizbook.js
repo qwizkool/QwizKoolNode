@@ -11,7 +11,6 @@ module.exports = {
 		var sessionUser = req.user;
 
 		var book = req.body;
-		console.log(book);
 		var email = sessionUser.email;
 		var title = book.qbookTitle;
 		var description = book.qbookDescription;
@@ -360,10 +359,43 @@ module.exports = {
 	},
 
 	deleteBook : function(req, res) {
-		console.log(req.user);
+		
+		Qwizbook.deleteQwizbook(req,function(err,status){
+			
+			
+			if(err)
+			{
+				res.send({Error:"Cannot delete Qwizbook"},null);
+			}
+			else
+			{
+				res.send("asdsds");
+			}
+			
+		});
+		
 	},
 
 	deleteBooks : function(req, res) {
 		console.log(req.user);
+	},
+	
+	getmybooks:function(req,res){
+		var sessionUser = req.user;
+		Qwizbook.retrieveMyQwizbooks(sessionUser, function(err, books){
+			
+			
+			if(err)
+			{
+				res.send(400, err);
+				console.log(err);
+				return;
+			}
+			else
+			{
+				res.send(books);
+			}
+			
+		});
 	}
 };

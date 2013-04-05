@@ -14,7 +14,12 @@ define(['modules/user', 'modules/session', 'modules/qwizbook'], function (User, 
         var testqwizbookTitle = '';
         var testqwizbookDescription = '';
         var LoremDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at elit et urna aliquet dictum. Vestibulum tincidunt neque nec justo pretium lobortis in at metus. Quisque vitae lectus a dui bibendum hendrerit. Donec sed est odio, egestas iaculis nibh. Aliquam viverra adipiscing leo non blandit. Donec pellentesque, lorem et eleifend rhoncus, nisi mi pellentesque arcu, tristique lobortis tellus tortor vel risus. Nulla tristique ipsum eu purus pharetra id luctus leo feugiat. Praesent sollicitudin metus a eros pretium dictum. Sed rhoncus consequat eros, vel blandit ante sollicitudin sit amet. Nam gravida aliquam enim, id congue velit bibendum a. Etiam in mauris vitae ipsum interdum vestibulum. Duis ultrices ullamcorper mauris, vel volutpat risus vestibulum in. Sed diam mi, dapibus at tristique sit amet, sodales eget augue. Pellentesque nulla orci, dapibus tincidunt facilisis sit amet, placerat dignissim ante. In consequat sollicitudin magna, et volutpat dui faucibus at. Nunc iaculis consequat nulla a faucibus.";
-
+		var reference =[{
+				        videoLinks: [{link: "www.videolink_test.com"}],
+				        webLinks: [{link: "www.webLinks_test.com"}],
+				        imageLinks: [{link: "www.imageLinks_test.com"}],
+				        audioLinks: [{link: "www.audioLinks_test.com"}]
+				    	}]
         user = new User.Model();
 
         it('should register the user', function () {
@@ -135,6 +140,7 @@ define(['modules/user', 'modules/session', 'modules/qwizbook'], function (User, 
                     qwizbook.set('description', testqwizbookDescription);
                     qwizbook.set('ownerEmail', owneremail);
                     qwizbook.set('date', dateStr);
+                    qwizbook.set('reference',reference);
 
                     qwizbook.create();
 
