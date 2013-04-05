@@ -26,11 +26,12 @@ define([
 
             this.session = this.options.session;
             
-            
+
             this.on("createqwizbook", function (createQwizbookObj) {
 					
 					var qbooktitle = createQwizbookObj.qbooktitle;
 					var qbookdescription = createQwizbookObj.qbookdesc;
+
 					var qwizbookmodel = createQwizbookObj.qwizbookmodel;
 					qwizbookmodel.create(qbooktitle, qbookdescription);
 					var view = this;
@@ -49,6 +50,7 @@ define([
                 model: this.qwizbookUserCollection,
                 session: this.session
             });
+
         },
 
         events: {
