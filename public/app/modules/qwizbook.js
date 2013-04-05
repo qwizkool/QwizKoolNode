@@ -110,24 +110,21 @@ define([
             });
 
         },
-        deleteMyQwizbook:function()
+        deleteMyQwizbook:function(qBookIds)
         {
-        	var deleteQwizbook =this;
-        	 var jqxhr = deleteQwizbook.destroy({
+        	alert(qBookIds);
+        	this.set('id',qBookIds);
+        	this.destroy({
 
-                error:function (model, response) {
-                    this.isListedqwizBook = false;
-                    collection.trigger('list-qwizbook-event');
+                // Handle the Logout Error condition.
+                error: function (model, response) {
+                   
                 },
 
-                success:function (model, response) {
-                    this.isListedqwizBook = true;
-                    var List = Array();
-                    if (response == null) {
-                        model.trigger('no-qwizbook-tolist');
-                    }
-                    List = qwizbookList.toJSON();
-                    model.trigger('list-qwizbook-event');
+                // Handle the Logout success condition.
+                success: function (model, response) {
+
+                  
                 }
             });
         }
@@ -186,10 +183,7 @@ define([
         	this.urlroot = this.url();
         	
         },
-        setDeleteId:function(qBookId){
-        	this.deleteQwizbookId = qBookId;
-        	this.urlroot = this.url();
-        },
+       
 
         getAllBooks:function () {
             var qwizbookList = this;

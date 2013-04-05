@@ -114,10 +114,12 @@ define([
         $(':checkbox:checked').each(function(i){
           selectedQwizbooks[i] = $(this).val();
         });
+        
+       
       	if(selectedQbookCount==1){
       		alert('Are you sure you want to delete '+selectedQbookCount+' Qwizbook');
-      		this.qwizbookUserCollection.setDeleteId(selectedQwizbooks);
-      		this.qwizbookUserCollection.deleteMyQwizbook();
+      		
+      		this.qwizbookModel.deleteMyQwizbook(selectedQwizbooks);
       	}	
       	
       	
