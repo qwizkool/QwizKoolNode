@@ -7,7 +7,9 @@
                 <!--<img class="img scaled-image" style="max-width: 95%" src="../../assets/img/knowledge.gif"/>-->
                 <div class="hero-unit" id="hero-unit-qwizkoolmain">
 
-                        <h3>Learning redefined. <small>Web is your text book!!</small></h3>
+                    <h3>Learning redefined.
+                        <small>Web is your text book!!</small>
+                    </h3>
 
 
                     <img class="img scaled-image" style="max-width: 95%" src="../../assets/img/knowledge.gif"/>
@@ -40,23 +42,18 @@
         <div class="row">
 
             <div id="sign-in-form" class="panel-style">
-
-                <input class="input-block-level" type="text" placeholder="Email" id="user-email-input"/>
-                <input class="input-block-level" type="password" placeholder="Password" id="user-password-input"/>
+                <legend> Please Sign In</legend>
+                <input type="text" id="user-email-input" class="input-block-level" name="email" placeholder="Email">
+                <input type="password" id="user-password-input" class="input-block-level" name="password"
+                       placeholder="Password">
                 <label class="checkbox">
-                    <input type="checkbox" value="remember-me"> Remember me
+                    <input type="checkbox" name="remember" value="1"> Remember Me
                 </label>
+                <button id="signin-button" class="btn btn-info btn-block">Sign in</button>
 
-                <div class="row">
-                    <div class="span2">
-                        <div class="btn btn-large btn-primary" id="signin-button">
-                            Sign In
-                        </div>
-                    </div>
-                    <div class="span2">
-                        <a href="#" class="forgot_link">Forgot Password?</a>
-                    </div>
-                </div>
+
+                <a href="#" class="forgot_link">Forgot Password?</a>
+
 
                 <div id="login-status"></div>
 
@@ -68,18 +65,19 @@
         <div class="row">
 
             <div id="reg-in-form" class="panel-style">
-                
-                <h4> Sign up and see for yourself.</h4>
 
-                <input class="input-block-level" type="text" placeholder="Username" id="user-reg-name-input"/>
-                <input class="input-block-level" type="text" placeholder="Email" id="user-reg-email-input"/>
-                <input class="input-block-level" type="password" placeholder="Password" id="user-reg-password-input"/>
+                <legend> Please Register</legend>
 
-                <div class="btn btn-large btn-primary" id="register-button">
-                    Sign Up for Qwizkool
-                </div>
+                <input class="input-block-level" type="text" name="name" placeholder="Username"
+                       id="user-reg-name-input"/>
+                <input class="input-block-level" type="text" name="email" placeholder="Email"
+                       id="user-reg-email-input"/>
+                <input class="input-block-level" type="password" name="password" placeholder="Password"
+                       id="user-reg-password-input"/>
 
-                <div  id="registration-status"></div>
+                <button id="register-button" class="btn btn-success btn-block">Sign Up for Qwizkool</button>
+
+                <div id="registration-status"></div>
             </div>
 
         </div>
