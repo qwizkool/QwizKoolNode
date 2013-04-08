@@ -399,7 +399,10 @@ module.exports = {
 
 	deleteBook : function(req, res) {
 		
-		Qwizbook.deleteQwizbook(req,function(err,status){
+		var qbookId = req.route.params.id;
+		
+		
+		Qwizbook.deleteQwizbook(qbookId, function(err,status){
 			
 			
 			if(err)
@@ -408,10 +411,11 @@ module.exports = {
 			}
 			else
 			{
-				res.send("asdsds");
+				res.send("Selected Qwizbooks Are Successfully Deleted");
 			}
 			
 		});
+		
 		
 	},
 

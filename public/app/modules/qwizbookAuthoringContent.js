@@ -41,9 +41,10 @@ define([
 
                 });
 
-					});
+				});
 			this.qwizbookUserCollection = new QwizBook.Collection();
-			this.qwizbookUserCollection.setUserId();
+			//this.qwizbookUserCollection.getMybook();
+			//this.qwizbookUserCollection.setUserId();
 			this.qwizbookUserCollection.on("reset", this.refreshView, this);
 			
 			this.qwizbooklistview = new MyQwizBook.ListMyBook({
@@ -58,7 +59,7 @@ define([
             "click #btn-create-qwizbook-submit": "submitCreateForm",
             "click #btn-create-qwizbook-cancel": "cancelCreateForm",
             "click #deleteAllQwizbooks": "selectAllQwizbooks",
-            "click #deleteQwizbook": "deleteMyQwizbook"
+            "click #deleteQwizbook": "deleteQwizbook"
 
         },
 
@@ -107,9 +108,10 @@ define([
 
         },
       
-      deleteMyQwizbook:function(){
+      deleteQwizbook:function(){
       	
-      	
+      	var selectedQbook = "";
+      	var newQbook ="";
       	var selectedQbookCount = $( "input:checked" ).length;
       		
       	var selectedQwizbooks = [];
@@ -117,11 +119,22 @@ define([
           selectedQwizbooks[i] = $(this).val();
         });
         
-       
-      	if(selectedQbookCount==1){
-      		alert('Are you sure you want to delete '+selectedQbookCount+' Qwizbook');
+        var currentQwizbook = "";
+        
+        
+        
+      	if(selectedQbookCount>=1){
       		
-      		this.qwizbookModel.deleteMyQwizbook(selectedQwizbooks);
+      		alert('Are you sure you want to delete '+selectedQbookCount+' Qwizbook');
+            for(var j=0; j<selectedQbookCount; j++)
+            {
+            	currentQwizbook = selectedQwizbooks[j];
+            	
+            	this.qwizbooklistview.deleteQwizbook(currentQwizbook);
+            	
+            }    		
+      		
+      		
       	}	
       	
       	

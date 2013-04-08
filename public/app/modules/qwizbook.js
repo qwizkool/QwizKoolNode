@@ -112,7 +112,7 @@ define([
         },
         deleteMyQwizbook:function(qBookIds)
         {
-        	alert(qBookIds);
+        	//alert(qBookIds);
         	this.set('id',qBookIds);
         	this.destroy({
 
