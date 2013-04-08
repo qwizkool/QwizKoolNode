@@ -35,11 +35,11 @@ define([
 
             // Render the subviews.
             if (this.htbuView) {
-                $(this.el).find("#qwizkool-htbu").html(this.htbuView.render().el);
+            	$(this.el).find("#qwizkool-htbu").html(this.htbuView.render().el);
 
             };
             if (this.htblView) {
-                $(this.el).find("#qwizkool-htbl").html(this.htblView.render().el);
+            	$(this.el).find("#qwizkool-htbl").html(this.htblView.render().el);
             };
 
             return this;

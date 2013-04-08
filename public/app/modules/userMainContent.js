@@ -21,6 +21,7 @@ define([
         initialize: function () {
 
             this.qwizbookList = this.collection;
+            
 
             if (_.isEmpty(this.options.session)) {
                 throw "ERROR: Session object is not provided for the view!!"
@@ -39,11 +40,7 @@ define([
             this.qwizbookCollection = new QwizBook.Collection();
             this.qwizbookCollection.on("reset", this.refreshCollectionView, this);
 
-            this.qwizbooklistview = new QwizBook.ListView({
-                model: this.qwizbookCollection,
-                session: this.session
-            });
-
+       
 
         },
 
@@ -70,7 +67,16 @@ define([
 
         refreshCollectionView: function () {
 
-            $(this.el).find("#user-main-content-container").html(this.qwizbooklistview.render().el);
+            if (_.isEmpty(this.qwizbooklistview)) {
+
+                this.qwizbooklistview = new QwizBook.ListView({
+                    el: '#user-main-content-container',
+                    model: this.qwizbookCollection,
+                    session: this.session
+                });
+            }
+
+            this.qwizbooklistview.render();
 
         },
 
