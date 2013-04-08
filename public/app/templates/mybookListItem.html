@@ -1,14 +1,24 @@
 <div class="page-header">
-	<h5 style="font-weight: 300"><a><%= title %></a></h5>
+		
+		<div>
+		<div style="float:left;">
+		  <a><%= title %></a>
+		</div>
+		
+		<div style="float:right;">
+		    <input type="checkbox" id="qwizbook_<%= _id %>" value="<%= _id %>" style="margin-right:20px;margin-bottom:5px;">
+		</div>
+		<div style="clear:both; font-size:1px;"></div>
+		</div>
 
 	<div class="media">
 
-		<a class="pull-left" href=""> <img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"> </a>
+	<a class="pull-left" href=""> <img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"> </a>
 
 		<div class="media-body">
 			<%= description %>
 		</div>
-
 	</div>
-
 </div>
+
+

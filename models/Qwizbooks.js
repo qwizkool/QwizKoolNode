@@ -354,6 +354,23 @@ Qwizbook.prototype.updateQwizbook = function (owner, callback) {
  */
 Qwizbook.prototype.deleteQwizbook = function (owner, callback) {
 
+console.log(owner.user._id);
+
+
+
+//QwizbookModel.remove({"_id":owner.user._id},function(err,deleteQbook){
+	QwizbookModel.remove({"_id":owner.user._id},function(err,deleteQbook){
+  
+
+	if(err)
+	{
+		callback({Error:"Cannot delte qwizbook"},null);
+	}
+	else{
+		
+		console.log(deleteQbook);
+	}
+});
 };
 
 

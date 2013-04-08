@@ -109,6 +109,24 @@ define([
                 }
             });
 
+        },
+        deleteMyQwizbook:function(qBookIds)
+        {
+        	alert(qBookIds);
+        	this.set('id',qBookIds);
+        	this.destroy({
+
+                // Handle the Logout Error condition.
+                error: function (model, response) {
+                   
+                },
+
+                // Handle the Logout success condition.
+                success: function (model, response) {
+
+                  
+                }
+            });
         }
     });
 
@@ -129,6 +147,9 @@ define([
             {
             	urlRoot ="myQwizbook";
             }
+            else if(this.deleteQwizbookId){
+            	urlRoot ="deleteQwizbook/"+this.deleteQwizbookId;
+            }
              else {
 
                 urlRoot = "qwizbooks"+urlRoot + "?search_str=" + '' + "&sort_by=" + this.filterval;
@@ -141,6 +162,7 @@ define([
         initialize:function () {
             this.searchval = '';
             this.myQwizbook = false;
+            this.deleteQwizbookId =false;
             this.filterval = 'Recently Updated';
             this.isListedqwizBook = false;
         },
@@ -161,6 +183,7 @@ define([
         	this.urlroot = this.url();
         	
         },
+       
 
         getAllBooks:function () {
             var qwizbookList = this;
@@ -205,6 +228,8 @@ define([
             });
         	
         }
+        
+        
         
         
     });
