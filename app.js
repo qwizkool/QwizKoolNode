@@ -165,10 +165,12 @@ app.put('/qwizbooks/:id', ensureAuthenticated, qwizbook.updateBook);
 
 
 
+// Retrieve qwizbook of a particular user
+
+app.get('/myQwizbook',ensureAuthenticated, qwizbook.getmybooks);
 
 
-
-
+app.delete('/qwizbooks/:id', ensureAuthenticated, qwizbook.deleteBook);
 //POST Adding comments
 app.post('/comments', ensureAuthenticated, qwizbookComment.AddComments);
 
