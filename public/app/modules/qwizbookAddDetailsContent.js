@@ -59,8 +59,11 @@ define([
             "click #icon-image-Option-D": "showOptionDImageDiv",
             "click #icon-audio-Option-D": "showOptionDAudioDiv",
             "click #icon-video-Option-D": "showOptionDVideoDiv",
-            
+            //Show reference container
+            "click #add-more-references": "showReferenceContainer",
+            //Submit Form
             "click #btn-qwizbook-author-submit": "submitAuthorForm",
+            //Cancel Form
             "click #btn-qwizbook-author-cancel": "cancelAuthorForm"
 
         },
@@ -162,17 +165,19 @@ define([
             $('#video-optionD-container').show();
 
         },
+        
+        showReferenceContainer: function (e) {
+        	var html = "<tr><td align='left' style='padding:10px;border: 1px solid #EEEEEE;padding-left:55px;' colspan='2'> Description <br/><textarea class='span5' id='reference-description' name='reference-description'> </textarea></td></tr><tr><td align='right' style='border: 1px solid #EEEEEE;padding:10px;' class='span3'>Link<br /><input type='text' id='reference-link' name='reference-link' ></td><td align='left' style='border: 1px solid #EEEEEE;padding:10px;' class='span9'>Image<br/><input type='text' id='reference-image' name='reference-image' ></td></tr><tr><td align='right' style='border: 1px solid #EEEEEE;padding:10px;' class='span3'>Audio<br/><input type='text' id='reference-audio' name='reference-audio' ></td><td align='left' style='border: 1px solid #EEEEEE;padding:10px;' class='span9'>Video<br/><input type='text' id='reference-video' name='reference-video'/></td></tr>";
+			$(html).insertBefore($((e.target.parentNode).parentNode).closest('tr'));
+        },
+        
         submitAuthorForm: function (e) {
             $('#qwizbook-questionnare-content').hide();
-            //$('#qwizbook-title').val('');
-            //$('#qwizbook-description').val('');
         },
 
         cancelAuthorForm: function (e) {
 
             $('#qwizbook-questionnare-content').hide();
-            //$('#qwizbook-title').val('');
-            //$('#qwizbook-description').val('');
 
         },
 

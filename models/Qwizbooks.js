@@ -63,10 +63,9 @@ Qwizbook.prototype.createQwizbook = function (owner, data, callback) {
     // Check if the provided owner is same as the
     // session owner. A book can be created by only
     // the session owner
-    
     logger.info('Inside createQwizbook');
 
-    if (owner.email != data.ownerEmail) {
+    if (!owner.email) {
         callback({
             Error: "Qwizbook Could not be created, Please Login "
         });
@@ -79,6 +78,7 @@ Qwizbook.prototype.createQwizbook = function (owner, data, callback) {
     instance.description = data.description;
     instance.ownerEmail = owner.email;
     instance.groupPermission = data.groupPermission;
+    instance.reference = data.reference;
     instance.save(function (err) {
         if (err) {
             // Check for duplicate key error
@@ -159,6 +159,31 @@ Qwizbook.prototype.retrieveQwizbooks = function (owner, callback) {
     });
 
 };
+
+
+Qwizbook.prototype.retrieveMyQwizbooks = function (owner, callback) {
+
+    // TODO: Complete the Retrieve Qwizbooks
+    // Retrieve Qwizbooks, that are shared, public or
+    // owned by the 'owner'
+    var userEmail = owner.email;
+   QwizbookModel.find({ownerEmail : userEmail}).sort({
+            date: -1
+        }).execFind(function(err, books) {
+
+        if (err) {
+            // All other conditions Pass as is TODO: need to cleanup.
+            callback({
+                Error: "Retreive Qwizbooks failed."
+            }, null);
+        } else {
+            callback(null, books);
+        }
+
+    });
+
+};
+
 
 
 /**

@@ -77,7 +77,6 @@ define([
                 // Handle the Login Error condition.
                 error: function (model, response) {
 
-                    console.log(response);
                     localStorage.setItem(model.SESSION_STORAGE, JSON.stringify(model));
                     model.trigger('session-login-event', {
                         valid: model.isUserAuthenticated(),
@@ -88,7 +87,6 @@ define([
                 // Handle the Login success condition.
                 success: function (model, response) {
 
-                    console.log(response);
                     localStorage.setItem(model.SESSION_STORAGE, JSON.stringify(model));
                     model.trigger('session-login-event', {
                         valid: model.isUserAuthenticated(),
@@ -105,7 +103,6 @@ define([
 
                 // Handle the Logout Error condition.
                 error: function (model, response) {
-                    console.log(response);
                     model.clear().set(model.defaults);
                     localStorage.setItem(model.SESSION_STORAGE, JSON.stringify(model));
                     model.trigger('session-logout-event', {
@@ -117,7 +114,6 @@ define([
                 // Handle the Logout success condition.
                 success: function (model, response) {
 
-                    console.log(response);
                     model.clear().set(model.defaults);
                     localStorage.setItem(model.SESSION_STORAGE, JSON.stringify(model));
                     model.trigger('session-logout-event', {
@@ -138,7 +134,6 @@ define([
                     // Handle the fetch Error condition.
                     error: function (model, response) {
 
-                        console.log(response);
                         localStorage.setItem(model.SESSION_STORAGE, JSON.stringify(model));
                         model.trigger('session-check-event', {
                             valid: model.isUserAuthenticated(),
@@ -149,7 +144,6 @@ define([
                     // Handle the fetch success condition.
                     success: function (model, response) {
 
-                        console.log(response);
                         localStorage.setItem(model.SESSION_STORAGE, JSON.stringify(model));
                         model.trigger('session-check-event', {
                             valid: model.isUserAuthenticated(),
