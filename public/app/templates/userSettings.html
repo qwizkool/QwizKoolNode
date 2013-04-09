@@ -3,32 +3,24 @@
 
     <ul class="nav" style="float: right">
 
-        <li class="dropdown" id="user-settings-dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown">
-                <b style="font-size: 16px;font-weight: 400"><%= email %></b>
-                <b class="caret"></b>
+        <div class="btn-group pull-right">
+            <a class="btn dropdown-toggle" data-toggle="dropdown">
+                <i class="icon-user"></i> <%= email %>	<span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-                <li></li>
-                <li class="divider"></li>
-                <li><a id="user-logout">Logout</a></li>
-            </ul>
-        </li>
+                <li>
+                    <a>
+                        <p><strong><%= name %></strong></p>
+                        <span class=" badge badge-warning"> <%= notifications %> messages</span>
+                        
+                    </a>
+                </li>
 
-        <li class="dropdown ">
-            <a id="user-notification" class="dropdown-toggle" data-toggle="dropdown">
-                <span class="badge badge-info ">4</span>
-            </a>
-            <ul class="dropdown-menu pull-right">
-                <li><a>Notification-1Notification-1</a></li>
                 <li class="divider"></li>
-                <li><a>Notification-2</a></li>
-                <li class="divider"></li>
-                <li><a>Notification-3</a></li>
-                <li class="divider"></li>
-                <li><a>Notification-4</a></li>
+                <li><a id="user-logout"><i class="icon-signout icon-large"></i> Logout</a></li>
             </ul>
-        </li>
+        </div>
+
 
     </ul>
 
