@@ -1,10 +1,10 @@
 /*!
- * Copyright(c) 2013 Vibrentt
- *
- * Module : QwizbookAuthoringContent
- *
- *
- */
+* Copyright(c) 2013 Vibrentt
+*
+* Module : QwizbookAuthoringContent
+*
+*
+*/
 define([
     "app",
     "modules/qwizbook",
@@ -22,35 +22,35 @@ define([
             this.qwizbookModel = new QwizBook.Model();
             if (_.isEmpty(this.options.session)) {
                 throw "ERROR: Session object is not provided for the view!!"
-            		}
+             }
 
             this.session = this.options.session;
             
 
             this.on("createqwizbook", function (createQwizbookObj) {
-					
-					var qbooktitle = createQwizbookObj.qbooktitle;
-					var qbookdescription = createQwizbookObj.qbookdesc;
 
-					var qwizbookmodel = createQwizbookObj.qwizbookmodel;
-					qwizbookmodel.create(qbooktitle, qbookdescription);
-					var view = this;
-					qwizbookmodel.on("qwizbook-create-success-event", function () {
+var qbooktitle = createQwizbookObj.qbooktitle;
+var qbookdescription = createQwizbookObj.qbookdesc;
+
+var qwizbookmodel = createQwizbookObj.qwizbookmodel;
+qwizbookmodel.create(qbooktitle, qbookdescription);
+var view = this;
+qwizbookmodel.on("qwizbook-create-success-event", function () {
 
                     view.qwizbookUserCollection.getMybook();
 
                 });
 
-				});
-			this.qwizbookUserCollection = new QwizBook.Collection();
-			//this.qwizbookUserCollection.getMybook();
-			//this.qwizbookUserCollection.setUserId();
-			this.qwizbookUserCollection.on("list-qwizbook-event", this.refreshView, this);
-			
-			this.qwizbooklistview = new MyQwizBook.ListMyBook({
+});
+this.qwizbookUserCollection = new QwizBook.Collection();
+this.qwizbookUserCollection.setUserId();
+this.qwizbookUserCollection.on("list-qwizbook-event", this.refreshView, this);
+
+this.qwizbooklistview = new MyQwizBook.ListMyBook({
                 model: this.qwizbookUserCollection,
                 session: this.session
             });
+            
 
         },
 
@@ -65,7 +65,7 @@ define([
 
         showCreateForm: function (e) {
 
-			$("#title-status").hide();
+$("#title-status").hide();
             $('#qwizbook-create-form').show();
 
         },
@@ -73,18 +73,18 @@ define([
         submitCreateForm: function (e) {
 
 
-			if($('#qwizbook-title').val())
-			{
-				this.trigger('createqwizbook', {qbooktitle: $('#qwizbook-title').val(), qbookdesc: $('#qwizbook-description').val(), qwizbookmodel: this.qwizbookModel});
-	            $('#qwizbook-create-form').hide();
-	            $('#qwizbook-title').val('');
-	            $('#qwizbook-description').val('');
-			}
+if($('#qwizbook-title').val())
+{
+this.trigger('createqwizbook', {qbooktitle: $('#qwizbook-title').val(), qbookdesc: $('#qwizbook-description').val(), qwizbookmodel: this.qwizbookModel});
+$('#qwizbook-create-form').hide();
+$('#qwizbook-title').val('');
+$('#qwizbook-description').val('');
+}
             else
             {
-            	$("#title-status").addClass('alert-error');
-            	$("#title-status").html('Please enter a Title');
-            	$("#title-status").show();
+             $("#title-status").addClass('alert-error');
+             $("#title-status").html('Please enter a Title');
+             $("#title-status").show();
             }
 
         },
@@ -93,7 +93,7 @@ define([
 
 
 
-			$("#title-status").hide();
+$("#title-status").hide();
             $('#qwizbook-create-form').hide();
 
             $('#qwizbook-title').val('');
@@ -105,50 +105,44 @@ define([
         selectAllQwizbooks: function () {
 
          alert('reached');
-			        
-			        
-			        
-		$('#myQwizbook-list-container').find(':checkbox').each(function(){
-        
-        
-       //  $(':checkbox').prop("checked", true);
-        $(':checkbox').prop("checked", false);
-         
-         
-         
-        });
 
         },
       
-      
-      
-      
       deleteQwizbook:function(){
-      	
-      	var selectedQbook = "";
-      	var newQbook ="";
-      	var currentQwizbook = "";
-      	var selectedQbookCount = $( "input:checked" ).length;
-      	var selectedQwizbooks = [];
+      
+       var selectedQbook = "";
+       var newQbook ="";
+       var selectedQbookCount = $( "input:checked" ).length;
+      
+       var selectedQwizbooks = [];
         $(':checkbox:checked').each(function(i){
           selectedQwizbooks[i] = $(this).val();
         });
         
-      	if(selectedQbookCount>=1){
-      		if(confirm('Are you sure you want to delete '+selectedQbookCount+' Qwizbook')){
-	            for(var j=0; j<selectedQbookCount; j++)
-	            {
-	            	currentQwizbook = selectedQwizbooks[j];
-	            	
-	            	this.qwizbooklistview.deleteQwizbook(currentQwizbook);
-	            	
-	            }    		
-      	  }	
-      	}
+        var currentQwizbook = "";
+        
+        
+        
+       if(selectedQbookCount>=1){
+      
+       alert('Are you sure you want to delete '+selectedQbookCount+' Qwizbook');
+            for(var j=0; j<selectedQbookCount; j++)
+            {
+             currentQwizbook = selectedQwizbooks[j];
+            
+             this.qwizbooklistview.deleteQwizbook(currentQwizbook);
+            
+            }
+      
+      
+       }
+      
+      
+      
       },
 
         refreshView:function() {
-        	 $(this.el).find("#myQwizbookList-container").html(this.qwizbooklistview.render().el);
+         $(this.el).find("#myQwizbookList-container").html(this.qwizbooklistview.render().el);
         },
 
 
