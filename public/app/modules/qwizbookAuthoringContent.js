@@ -43,14 +43,20 @@ define([
 
 				});
 			this.qwizbookUserCollection = new QwizBook.Collection();
+<<<<<<< HEAD
 			//this.qwizbookUserCollection.getMybook();
 			//this.qwizbookUserCollection.setUserId();
 			this.qwizbookUserCollection.on("reset", this.refreshView, this);
+=======
+			this.qwizbookUserCollection.setUserId();
+			this.qwizbookUserCollection.on("list-qwizbook-event", this.refreshView, this);
+>>>>>>> 702f81804571b27eeba109ea364001d77522f84a
 			
 			this.qwizbooklistview = new MyQwizBook.ListMyBook({
                 model: this.qwizbookUserCollection,
                 session: this.session
             });
+            
 
         },
 

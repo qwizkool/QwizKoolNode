@@ -93,6 +93,7 @@ define([
                         model:qwizbook,
                         session:view.session
                     });
+                    
 
                     $(view.el).find("#myQwizbook-list-container").append(qwizbookView.render().el);
 
