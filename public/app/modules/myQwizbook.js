@@ -95,8 +95,6 @@ define([
                     });
 
                     $(view.el).find("#myQwizbook-list-container").append(qwizbookView.render().el);
-
-
                 })
 
             } else {
@@ -113,21 +111,12 @@ define([
          var view = this;
          var newQbook = "";
          var selectedQbook ="";
-         
-         
          _.each(view.model.models, function (qwizbook) {
-         	
-         	        
                     newQbook = qwizbook.toJSON();
                     if(newQbook._id == currentQwizbook){
-                    	
                     qwizbook.deleteMyQwizbook(currentQwizbook);
-                    	
                     }
-                    
                     })
-                
-       
         }
         
         

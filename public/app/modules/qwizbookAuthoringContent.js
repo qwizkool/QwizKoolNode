@@ -105,40 +105,44 @@ define([
         selectAllQwizbooks: function () {
 
          alert('reached');
+			        
+		$('#myQwizbook-list-container').find(':checkbox').each(function(){
+        
+        
+       //  $(':checkbox').prop("checked", true);
+        $(':checkbox').prop("checked", false);
+         
+         
+         
+        });
 
         },
+      
+      
+      
       
       deleteQwizbook:function(){
       	
       	var selectedQbook = "";
       	var newQbook ="";
+      	var currentQwizbook = "";
       	var selectedQbookCount = $( "input:checked" ).length;
-      		
       	var selectedQwizbooks = [];
         $(':checkbox:checked').each(function(i){
           selectedQwizbooks[i] = $(this).val();
         });
         
-        var currentQwizbook = "";
-        
-        
-        
       	if(selectedQbookCount>=1){
-      		
-      		alert('Are you sure you want to delete '+selectedQbookCount+' Qwizbook');
-            for(var j=0; j<selectedQbookCount; j++)
-            {
-            	currentQwizbook = selectedQwizbooks[j];
-            	
-            	this.qwizbooklistview.deleteQwizbook(currentQwizbook);
-            	
-            }    		
-      		
-      		
-      	}	
-      	
-      	
-      	
+      		if(confirm('Are you sure you want to delete '+selectedQbookCount+' Qwizbook')){
+	            for(var j=0; j<selectedQbookCount; j++)
+	            {
+	            	currentQwizbook = selectedQwizbooks[j];
+	            	
+	            	this.qwizbooklistview.deleteQwizbook(currentQwizbook);
+	            	
+	            }    		
+      	  }	
+      	}
       },
 
         refreshView:function() {
