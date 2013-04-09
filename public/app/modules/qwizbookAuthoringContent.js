@@ -41,16 +41,16 @@ define([
 
                 });
 
-					});
+				});
 			this.qwizbookUserCollection = new QwizBook.Collection();
-			this.qwizbookUserCollection.setUserId();
+			//this.qwizbookUserCollection.getMybook();
+			//this.qwizbookUserCollection.setUserId();
 			this.qwizbookUserCollection.on("list-qwizbook-event", this.refreshView, this);
 			
 			this.qwizbooklistview = new MyQwizBook.ListMyBook({
                 model: this.qwizbookUserCollection,
                 session: this.session
             });
-            
 
         },
 
@@ -59,7 +59,7 @@ define([
             "click #btn-create-qwizbook-submit": "submitCreateForm",
             "click #btn-create-qwizbook-cancel": "cancelCreateForm",
             "click #deleteAllQwizbooks": "selectAllQwizbooks",
-            "click #deleteQwizbook": "deleteMyQwizbook"
+            "click #deleteQwizbook": "deleteQwizbook"
 
         },
 
@@ -105,28 +105,46 @@ define([
         selectAllQwizbooks: function () {
 
          alert('reached');
+			        
+			        
+			        
+		$('#myQwizbook-list-container').find(':checkbox').each(function(){
+        
+        
+       //  $(':checkbox').prop("checked", true);
+        $(':checkbox').prop("checked", false);
+         
+         
+         
+        });
 
         },
       
-      deleteMyQwizbook:function(){
+      
+      
+      
+      deleteQwizbook:function(){
       	
-      	
+      	var selectedQbook = "";
+      	var newQbook ="";
+      	var currentQwizbook = "";
       	var selectedQbookCount = $( "input:checked" ).length;
-      		
       	var selectedQwizbooks = [];
         $(':checkbox:checked').each(function(i){
           selectedQwizbooks[i] = $(this).val();
         });
         
-       
-      	if(selectedQbookCount==1){
-      		alert('Are you sure you want to delete '+selectedQbookCount+' Qwizbook');
-      		
-      		this.qwizbookModel.deleteMyQwizbook(selectedQwizbooks);
-      	}	
-      	
-      	
-      	
+      	if(selectedQbookCount>=1){
+      		if(confirm('Are you sure you want to delete '+selectedQbookCount+' Qwizbook')){
+	            for(var j=0; j<selectedQbookCount; j++)
+	            {
+	            	currentQwizbook = selectedQwizbooks[j];
+	            	
+	            	this.qwizbooklistview.deleteQwizbook(currentQwizbook);
+	            	
+	            }    		
+      	  }	
+      	}
       },
 
         refreshView:function() {
