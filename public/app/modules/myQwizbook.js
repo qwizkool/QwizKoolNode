@@ -24,8 +24,7 @@ define([
     var MyQwizBook = App.module();
 
     MyQwizBook.Model = Backbone.Model.extend({
-    	
-    	
+    	urlRoot:"/qwizbooks/",
     });
 
     MyQwizBook.Collection = Backbone.Collection.extend({
@@ -113,22 +112,29 @@ define([
         
          var view = this;
          var newQbook = "";
-         var selectedQbook ="";
+         //var selectedQbooks = currentQwizbook;
+         //var selectQbooksCount = selectedQbooks.length;
+         var checkedQbook = "";
+         
+         checkedQbook = currentQwizbook;
          
          
          _.each(view.model.models, function (qwizbook) {
-         	
-         	        
-                    newQbook = qwizbook.toJSON();
-                    if(newQbook._id == currentQwizbook){
+         	      
+         	    
+         	   newQbook = qwizbook.toJSON();
+         	         		
+         	    if(newQbook._id == checkedQbook){
                     	
-                    qwizbook.deleteMyQwizbook(currentQwizbook);
+                    qwizbook.deleteMyQwizbook(checkedQbook);
+                     
+                }
                     	
-                    }
-                    
-                    })
-                
-       
+          })	
+         
+         
+         	        	
+          
         }
         
         
