@@ -352,22 +352,19 @@ Qwizbook.prototype.updateQwizbook = function (owner, callback) {
  * @api public
  * @return {Function} Constructor for Qwizbook type.
  */
-Qwizbook.prototype.deleteQwizbook = function (owner, callback) {
+Qwizbook.prototype.deleteQwizbook = function (id, callback) {
+//var qwizbook = qbook;
 
-console.log(owner.user._id);
-
-
-
-//QwizbookModel.remove({"_id":owner.user._id},function(err,deleteQbook){
-	QwizbookModel.remove({"_id":owner.user._id},function(err,deleteQbook){
+QwizbookModel.remove({"_id":id},function(err, deleteQbook){
   
 
 	if(err)
 	{
-		callback({Error:"Cannot delte qwizbook"},null);
+		callback({Error:"Cannot delete qwizbook"}, null);
 	}
 	else{
 		
+		callback(null, deleteQbook);
 		console.log(deleteQbook);
 	}
 });

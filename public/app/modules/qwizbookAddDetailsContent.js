@@ -8,9 +8,10 @@
 define([
     "app",
     "modules/qwizbook",
+    "modules/editQwizbook",
     "text!templates/qwizbookAddDetailsContent.html"
 
-], function (App, QwizBook, Template) {
+], function (App, QwizBook, EditQwizbook , Template) {
 
     var QwizbookAddDetailsContent = App.module();
 
@@ -23,16 +24,10 @@ define([
                 throw "ERROR: Session object is not provided for the view!!"
             		}
            
-            
-            /*this.on("createqwizbook", function (createQwizbookObj) {
-					
-					var qbooktitle = createQwizbookObj.qbooktitle;
-					var qbookdescription = createQwizbookObj.qbookdesc;
-					var qwizbookratingmodel = createQwizbookObj.qwizbookmodel;
-					qwizbookratingmodel.create(qbooktitle, qbookdescription);
-
-					});*/
-
+            this.qwizbookId = this.options.qwizbookId;
+            this.qwizbookModel = new QwizBook.Model({id:this.qwizbookId, session:this.session});
+            this.qwizbookModel.retreive();
+			this.editQwizbook = new EditQwizbook.View({model: this.qwizbookModel, qwizbookId: this.qwizbookId, session:this.session});
 
         },
 
@@ -182,13 +177,10 @@ define([
 
         template: Template,
 
-        render: function (done) {
+        render: function () {
 
-            var view = this;
-            console.log(this.model);
-                view.el.innerHTML = _.template(this.template, this.model.toJSON());
-               // $(view.el).find("#qwizbook-create-form").append(view.el.innerHTML);
-           
+            this.el.innerHTML = this.template;
+            $(this.el).find("#qwizbook-create-form").append(this.editQwizbook.render().el);
             return this;
         }
     });

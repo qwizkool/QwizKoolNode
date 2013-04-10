@@ -109,10 +109,15 @@ define([
             });
 
         },
-        deleteMyQwizbook:function(qBookIds)
+        
+       
+        
+        
+        
+        deleteMyQwizbook:function(qBookId)
         {
-        	alert(qBookIds);
-        	this.set('id',qBookIds);
+        	//alert(qBookId);
+        	this.set('id',qBookId);
         	this.destroy({
 
                 // Handle the Logout Error condition.
@@ -122,11 +127,13 @@ define([
 
                 // Handle the Logout success condition.
                 success: function (model, response) {
-
+                
+                model.trigger('delete-qwizbook-success-event');
                   
                 }
             });
         }
+        
     });
 
     QwizBook.Collection = Backbone.Collection.extend({
