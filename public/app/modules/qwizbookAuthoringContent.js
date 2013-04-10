@@ -25,7 +25,7 @@ define([
             		}
 
             this.session = this.options.session;
-            
+            var view = this;
 
             this.on("createqwizbook", function (createQwizbookObj) {
 					
@@ -42,10 +42,14 @@ define([
                 });
 
 				});
+				
+				
 			this.qwizbookUserCollection = new QwizBook.Collection();
 			//this.qwizbookUserCollection.getMybook();
 			//this.qwizbookUserCollection.setUserId();
 			this.qwizbookUserCollection.on("reset", this.refreshView, this);
+			
+			 view.qwizbookUserCollection.getMybook();
 			
 			this.qwizbooklistview = new MyQwizBook.ListMyBook({
                 model: this.qwizbookUserCollection,
@@ -138,7 +142,7 @@ define([
 
         },
       
-      
+                 
       
       
       deleteQwizbook:function(){
@@ -148,10 +152,13 @@ define([
       	var currentQwizbook = "";
       	var selectedQbookCount = $( "input:checked" ).length;
       	var selectedQwizbooks = [];
-        $(':checkbox:checked').each(function(i){
-          selectedQwizbooks[i] = $(this).val();
-        });
         
+        $('#myQwizbook-list-container').find(':checkbox').each(function(i){
+			
+         selectedQwizbooks[i] = $(this).val();
+			            
+	     });
+
       	if(selectedQbookCount>=1){
       		
       		if(confirm('Are you sure you want to delete '+selectedQbookCount+' Qwizbook')){
@@ -163,7 +170,10 @@ define([
 	            	
 	            }    		
       	  }	
+      	  
       	}
+      	
+      	
       },
 
         refreshView:function() {

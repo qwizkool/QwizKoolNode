@@ -105,7 +105,7 @@ define([
 
         },
         
-        
+    /*    
         deleteQwizbook:function (currentQwizbook) {
         
          var view = this;
@@ -121,6 +121,53 @@ define([
         
         
     });
+*/
+
+
+
+deleteQwizbook:function (currentQwizbook) {
+        
+         var view = this;
+         var newQbook = "";
+         //var selectedQbooks = currentQwizbook;
+         //var selectQbooksCount = selectedQbooks.length;
+         var checkedQbook = "";
+         
+         checkedQbook = currentQwizbook;
+         view.collection = this.model;
+         var ModelData = view.collection.where({_id: currentQwizbook});
+         var qbookModel = ModelData[0];
+         qbookModel.deleteMyQwizbook(currentQwizbook);
+         /*
+         _.each(view.model.models, function (qwizbook) {
+         	      
+         	    
+         	   newQbook = qwizbook.toJSON();
+         	         		
+         	    if(newQbook._id == checkedQbook){
+                    	
+                    qwizbook.deleteMyQwizbook(checkedQbook);
+                     
+                }
+                    	
+          })
+          */	
+         
+         
+         	        	
+          
+        }
+
+  });
+
+
+
+
+
+
+
+
+
 
     return MyQwizBook;
 

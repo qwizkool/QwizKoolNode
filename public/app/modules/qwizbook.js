@@ -110,21 +110,23 @@ define([
             });
 
         },
+       
+       
         deleteMyQwizbook:function(qBookIds)
         {
         	//alert(qBookIds);
         	this.set('id',qBookIds);
         	this.destroy({
 
-                // Handle the Logout Error condition.
                 error: function (model, response) {
+                	
+                	 model.trigger('delete-qwizbook-success-event');
                    
                 },
 
                 // Handle the Logout success condition.
                 success: function (model, response) {
-
-                  
+                   model.trigger('delete-qwizbook-success-event');
                 }
             });
         }
