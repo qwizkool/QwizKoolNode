@@ -59,10 +59,15 @@ define([
             "click #btn-create-qwizbook-submit": "submitCreateForm",
             "click #btn-create-qwizbook-cancel": "cancelCreateForm",
             "click #deleteAllQwizbooks": "selectAllQwizbooks",
-            "click #deleteQwizbook": "deleteMyQwizbook"
+            "click #deleteQwizbook": "deleteMyQwizbook",
+            "click a":"authorQwizbook"
 
         },
 
+		authorQwizbook:function (e){
+			var id = e.target.id;
+			Backbone.history.navigate("#authorQwizbook/" + id, true);
+		},
         showCreateForm: function (e) {
 
 			$("#title-status").hide();
@@ -139,9 +144,8 @@ define([
         render: function () {
 
             this.el.innerHTML = this.template;
+            
             this.qwizbookUserCollection.getMybook();
-            // $(this.el).find("#qwizbooklist-container").append(this.qwizbooklistview.render().el);
-
             return this;
         }
     });

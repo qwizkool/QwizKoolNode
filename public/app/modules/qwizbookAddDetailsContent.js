@@ -17,13 +17,12 @@ define([
     QwizbookAddDetailsContent.View = Backbone.View.extend({
 
         initialize: function () {
-
-            this.qwizbookModel = new QwizBook.Model();
+			this.session = this.options.session;
+            
             if (_.isEmpty(this.options.session)) {
                 throw "ERROR: Session object is not provided for the view!!"
             		}
-
-            this.session = this.options.session;
+           
             
             /*this.on("createqwizbook", function (createQwizbookObj) {
 					
@@ -183,12 +182,13 @@ define([
 
         template: Template,
 
-        render: function () {
+        render: function (done) {
 
-            this.el.innerHTML = this.template;
-            //$(this.el).find("#searchfilter-container").append(this.searchfilter.render().el);
-            // $(this.el).find("#qwizbooklist-container").append(this.qwizbooklistview.render().el);
-
+            var view = this;
+            console.log(this.model);
+                view.el.innerHTML = _.template(this.template, this.model.toJSON());
+               // $(view.el).find("#qwizbook-create-form").append(view.el.innerHTML);
+           
             return this;
         }
     });

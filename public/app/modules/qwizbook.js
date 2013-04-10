@@ -50,7 +50,7 @@ define([
         },
         
         initialize : function() {
-
+			
 		},
 
        // create:function () {
@@ -89,7 +89,7 @@ define([
 
         },
 
-        retreive:function () {
+        retreive:function (qId,session) {
 
 
             var jqxhr = this.fetch({

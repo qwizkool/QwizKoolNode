@@ -10,9 +10,10 @@ define([
     "modules/header",
     "modules/userSettings",
     "modules/footer",
+     "modules/qwizbook",
     "modules/qwizbookAddDetailsContent"
 ],
-    function (App, Header, UserSettings, Footer, QwizbookAddDetailsContent) {
+    function (App, Header, UserSettings, Footer,QwizBook, QwizbookAddDetailsContent) {
         // Create a new module
         var QwizbookAddContent = App.module();
 
@@ -24,10 +25,14 @@ define([
             		}
 
             	this.session = this.options.session;
+            	this.qwizbookId = this.options.qwizbookId;
             	this.userSettings = new UserSettings.View({session: this.session});
             	this.header = new Header.View({htbuView:this.userSettings});
            	    this.footer = new Footer.View();
-				this.qwizbookAddContent = new QwizbookAddDetailsContent.View({ el: '#qwizkool-content',session: this.session});
+           	    this.qwizbookModel = new QwizBook.Model({id:this.qwizbookId, session:this.session});
+            	this.qwizbookModel.retreive();
+            
+				this.qwizbookAddContent = new QwizbookAddDetailsContent.View({ el: '#qwizkool-content',model: this.qwizbookModel,session: this.session});
 				
             },
 
