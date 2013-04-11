@@ -8,32 +8,26 @@
 define([
     "app",
     "modules/qwizbook",
+    "modules/editQwizbook",
     "text!templates/qwizbookAddDetailsContent.html"
 
-], function (App, QwizBook, Template) {
+], function (App, QwizBook, EditQwizbook , Template) {
 
     var QwizbookAddDetailsContent = App.module();
 
     QwizbookAddDetailsContent.View = Backbone.View.extend({
 
         initialize: function () {
-
-            this.qwizbookModel = new QwizBook.Model();
+			this.session = this.options.session;
+            
             if (_.isEmpty(this.options.session)) {
                 throw "ERROR: Session object is not provided for the view!!"
             		}
-
-            this.session = this.options.session;
-            
-            /*this.on("createqwizbook", function (createQwizbookObj) {
-					
-					var qbooktitle = createQwizbookObj.qbooktitle;
-					var qbookdescription = createQwizbookObj.qbookdesc;
-					var qwizbookratingmodel = createQwizbookObj.qwizbookmodel;
-					qwizbookratingmodel.create(qbooktitle, qbookdescription);
-
-					});*/
-
+           
+            this.qwizbookId = this.options.qwizbookId;
+            this.qwizbookModel = new QwizBook.Model({id:this.qwizbookId, session:this.session});
+            this.qwizbookModel.retreive();
+			this.editQwizbook = new EditQwizbook.View({model: this.qwizbookModel, qwizbookId: this.qwizbookId, session:this.session});
 
         },
 
@@ -167,22 +161,7 @@ define([
         },
         
         showReferenceContainer: function (e) {
-        	
-        	
-        	var html = "<tr><td align='right' style='border: 1px solid #EEEEEE;padding:10px;' class='span3'>Description </td><td align='left' style='border: 1px solid #EEEEEE;padding:10px;' class='span9'><textarea class='span5' id='reference-description' name='reference-description'> </textarea></td></tr>";
-						
-			    html += "<tr><td align='right' style='border: 1px solid #EEEEEE;padding:10px;' class='span3'>Link </td><td align='left' style='border: 1px solid #EEEEEE;padding:10px;' class='span9' ><input type='text' id='reference-link' name='reference-link' ></td></tr>";
-				
-				html += "<tr><td align='right' style='border: 1px solid #EEEEEE;padding:10px;' class='span3'>Image </td><td align='left' style='border: 1px solid #EEEEEE;padding:10px;' class='span9' ><input type='text' id='reference-image' name='reference-image' ></td></tr>";
-						
-			    html += "<tr><td align='right' style='border: 1px solid #EEEEEE;padding:10px;' class='span3'>Audio </td><td align='left' style='border: 1px solid #EEEEEE;padding:10px;' class='span9' ><input type='text' id='reference-audio' name='reference-audio' ></td></tr>";
-					   
-					   
-			    html += "<tr><td align='right' style='border: 1px solid #EEEEEE;padding:10px;' class='span3'>Video </td><td align='left' style='border: 1px solid #EEEEEE;padding:10px;' class='span9' ><input type='text' id='reference-video' name='reference-video' ></td></tr>";
-					   						
-						
-        	//var html = "<tr><td align='left' style='padding:10px;border: 1px solid #EEEEEE;padding-left:55px;' colspan='2'> Description <br/><textarea class='span5' id='reference-description' name='reference-description'> </textarea></td></tr><tr><td align='right' style='border: 1px solid #EEEEEE;padding:10px;' class='span3'>Link<br /><input type='text' id='reference-link' name='reference-link' ></td><td align='left' style='border: 1px solid #EEEEEE;padding:10px;' class='span9'>Image<br/><input type='text' id='reference-image' name='reference-image' ></td></tr><tr><td align='right' style='border: 1px solid #EEEEEE;padding:10px;' class='span3'>Audio<br/><input type='text' id='reference-audio' name='reference-audio' ></td><td align='left' style='border: 1px solid #EEEEEE;padding:10px;' class='span9'>Video<br/><input type='text' id='reference-video' name='reference-video'/></td></tr>";
-        	
+        	var html = "<tr><td align='left' style='padding:10px;border: 1px solid #EEEEEE;padding-left:55px;' colspan='2'> Description <br/><textarea class='span5' id='reference-description' name='reference-description'> </textarea></td></tr><tr><td align='right' style='border: 1px solid #EEEEEE;padding:10px;' class='span3'>Link<br /><input type='text' id='reference-link' name='reference-link' ></td><td align='left' style='border: 1px solid #EEEEEE;padding:10px;' class='span9'>Image<br/><input type='text' id='reference-image' name='reference-image' ></td></tr><tr><td align='right' style='border: 1px solid #EEEEEE;padding:10px;' class='span3'>Audio<br/><input type='text' id='reference-audio' name='reference-audio' ></td><td align='left' style='border: 1px solid #EEEEEE;padding:10px;' class='span9'>Video<br/><input type='text' id='reference-video' name='reference-video'/></td></tr>";
 			$(html).insertBefore($((e.target.parentNode).parentNode).closest('tr'));
         },
         
@@ -201,9 +180,7 @@ define([
         render: function () {
 
             this.el.innerHTML = this.template;
-            //$(this.el).find("#searchfilter-container").append(this.searchfilter.render().el);
-            // $(this.el).find("#qwizbooklist-container").append(this.qwizbooklistview.render().el);
-
+            $(this.el).find("#qwizbook-create-form").append(this.editQwizbook.render().el);
             return this;
         }
     });

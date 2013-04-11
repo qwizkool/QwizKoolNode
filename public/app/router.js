@@ -30,7 +30,7 @@ define([
             'qwizbookDetails/:id': 'qwizbookMain',
             'design': 'sampleDesign',
             'sampleAuthorQwizbook': 'sampleAuthorQwizbookDesign',
-            'authorQwizbook': 'authorQwizbook',
+            'authorQwizbook/:id': 'authorQwizbook',
             'createQwizbook' : 'createQwizbook'
 
 
@@ -99,9 +99,9 @@ define([
         },
         
        
-		authorQwizbook: function (hash) {
+		authorQwizbook: function (id) {
 
-            var authorQwizbook = new QwizbookAddDetails.View({session: this.session});
+            var authorQwizbook = new QwizbookAddDetails.View({session: this.session , qwizbookId: id});
 
 
             authorQwizbook.show();
