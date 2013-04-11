@@ -360,7 +360,7 @@ QwizbookModel.remove({"_id":id},function(err,deleteQbook){
 
 	if(err)
 	{
-		callback({Error:"Cannot delte qwizbook"},null);
+		callback({Error:"Cannot delete qwizbook"},null);
 	}
 	else{
 		
