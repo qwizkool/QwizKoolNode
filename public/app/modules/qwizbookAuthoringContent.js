@@ -132,8 +132,7 @@ define([
         
 
         selectAllQwizbooks: function () {
-		
-		
+			
 				if($('#allQwizbooks').is(":checked")){
 					
 						$("#deleteAllQwizbooksBtn").show(); 
@@ -168,8 +167,8 @@ define([
         $('#myQwizbook-list-container').find(':checkbox').each(function(i){
 			
          selectedQwizbooks[i] = $(this).val();
-			            
 	     });
+
 
       	if(selectedQbookCount>=1){
       		
