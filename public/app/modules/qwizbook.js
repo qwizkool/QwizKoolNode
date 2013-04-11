@@ -25,7 +25,7 @@ define([
 
     QwizBook.Model = Backbone.Model.extend({
          
-         idAttribute:"id",
+         idAttribute:"_id",
         //Root of the REST url for QwizBooks
         urlRoot:"/qwizbooks/",
 
@@ -123,13 +123,14 @@ define([
 
                 // Handle the Logout Error condition.
                 error: function (model, response) {
-                   alert("123");
+                	console.log("Failed to delete Qwizbook");
+                   
                 },
 
                 // Handle the Logout success condition.
                 success: function (model, response) {
-                alert("456");
-                //model.trigger('delete-qwizbook-success-event');
+                console.log("Successfully deleted Qwizbook");
+                model.trigger('delete-qwizbook-success-event');
                   
                 }
             });
