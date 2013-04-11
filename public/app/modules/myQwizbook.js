@@ -12,163 +12,92 @@
  A QwizPage could be an intro page, a multiple choice question, summary etc.
  */
 
-define([
-    "app",
-    
-    "text!templates/mybookListItem.html",
-    "text!templates/myBookList.html"
+define(["app", "text!templates/mybookListItem.html", "text!templates/myBookList.html"], function(App, TmplQwizbookItem, TmplQwizbookList) {
 
-], function (App, TmplQwizbookItem, TmplQwizbookList) {
+	// Create a new module
+	var MyQwizBook = App.module();
 
-    // Create a new module
-    var MyQwizBook = App.module();
+	MyQwizBook.Model = Backbone.Model.extend({
 
-    MyQwizBook.Model = Backbone.Model.extend({
-    	
-    	
-    });
+	});
 
-    MyQwizBook.Collection = Backbone.Collection.extend({
-    });
+	MyQwizBook.Collection = Backbone.Collection.extend({
+	});
 
-    MyQwizBook.Router = Backbone.Router.extend({/* ... */ });
+	MyQwizBook.Router = Backbone.Router.extend({/* ... */ });
 
-    MyQwizBook.View = Backbone.View.extend({
+	MyQwizBook.View = Backbone.View.extend({
 
-        template:TmplQwizbookItem,
+		template : TmplQwizbookItem,
 
-        initialize:function () {
+		initialize : function() {
 
+			if (_.isEmpty(this.options.session)) {
+				throw "ERROR: Session object is not provided for the view!!"
+			}
 
-            if (_.isEmpty(this.options.session)) {
-                throw "ERROR: Session object is not provided for the view!!"
-            }
+			this.session = this.options.session;
 
-            this.session = this.options.session;
+		},
 
-           
-        },
+		render : function(done) {
 
-        render:function (done) {
+			var view = this;
 
-            var view = this;
+			view.el.innerHTML = _.template(this.template, view.model.toJSON());
+			return this;
+		}
+	});
 
-            view.el.innerHTML  = _.template(this.template, view.model.toJSON());
-            return this;
-        }
-    });
+	MyQwizBook.ListMyBook = Backbone.View.extend({
 
+		template : TmplQwizbookList,
 
-    MyQwizBook.ListMyBook = Backbone.View.extend({
+		initialize : function() {
 
-        template:TmplQwizbookList,
+			if (_.isEmpty(this.options.session)) {
+				throw "ERROR: Session object is not provided for the view!!"
+			}
 
-        initialize:function () {
+			this.session = this.options.session;
+		},
 
+		render : function() {
 
-            if (_.isEmpty(this.options.session)) {
-                throw "ERROR: Session object is not provided for the view!!"
-            }
+			var view = this;
+			var qbook_list_template;
 
-            this.session = this.options.session;
-        },
+			qbook_list_template = this.template;
 
-        render:function () {
+			view.el.innerHTML = qbook_list_template;
 
-            var view = this;
-            var qbook_list_template;
+			$(view.el).find("#myQwizbook-list-container").empty();
 
-            qbook_list_template = this.template;
+			// If we have items to list , update the list view.
+			// else show nothing to display view.
+			if (view.model.models.length) {
+				_.each(view.model.models, function(qwizbook) {
 
-            view.el.innerHTML = qbook_list_template;
+					var qwizbookView = new MyQwizBook.View({
+						model : qwizbook,
+						session : view.session
+					});
 
-            $(view.el).find("#myQwizbook-list-container").empty();
+					$(view.el).find("#myQwizbook-list-container").append(qwizbookView.render().el);
+				})
+			} else {
+				$(view.el).find("#myBook-no-result-found").show();
+			}
 
-            // If we have items to list , update the list view.
-            // else show nothing to display view.
-            if (view.model.models.length) {
-                _.each(view.model.models, function (qwizbook) {
+			return this;
 
-                    var qwizbookView = new MyQwizBook.View({
-                        model:qwizbook,
-                        session:view.session
-                    });
+		}
 
-                    $(view.el).find("#myQwizbook-list-container").append(qwizbookView.render().el);
-                })
+		
 
-            } else {
-                $(view.el).find("#myBook-no-result-found").show();
-            }
+		
+	});
 
-            return this;
+	return MyQwizBook;
 
-        },
-        
-    /*    
-        deleteQwizbook:function (currentQwizbook) {
-        
-         var view = this;
-         var newQbook = "";
-         var selectedQbook ="";
-         _.each(view.model.models, function (qwizbook) {
-                    newQbook = qwizbook.toJSON();
-                    if(newQbook._id == currentQwizbook){
-                    qwizbook.deleteMyQwizbook(currentQwizbook);
-                    }
-                    })
-        }
-        
-        
-    });
-*/
-
-
-
-deleteQwizbook:function (currentQwizbook) {
-        
-         var view = this;
-         var newQbook = "";
-         //var selectedQbooks = currentQwizbook;
-         //var selectQbooksCount = selectedQbooks.length;
-         var checkedQbook = "";
-         
-         checkedQbook = currentQwizbook;
-         view.collection = this.model;
-         var ModelData = view.collection.where({_id: currentQwizbook});
-         var qbookModel = ModelData[0];
-         qbookModel.deleteMyQwizbook(currentQwizbook);
-         /*
-         _.each(view.model.models, function (qwizbook) {
-         	      
-         	    
-         	   newQbook = qwizbook.toJSON();
-         	         		
-         	    if(newQbook._id == checkedQbook){
-                    	
-                    qwizbook.deleteMyQwizbook(checkedQbook);
-                     
-                }
-                    	
-          })
-          */	
-         
-         
-         	        	
-          
-        }
-
-  });
-
-
-
-
-
-
-
-
-
-
-    return MyQwizBook;
-
-});
+}); 

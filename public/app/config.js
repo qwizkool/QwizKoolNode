@@ -22,7 +22,14 @@ require.config({
       setup_default_opts: "../assets/js/libs/SCION/lib/core/scxml/setup-default-opts",
       scxml_dynamic_name_match_transition_selector: "../assets/js/libs/SCION/lib/core/scxml/scxml-dynamic-name-match-transition-selector",
       scxml_model: "../assets/js/libs/SCION/lib/core/scxml/model"
+
   },
+    map: {
+        // Ensure Lo-Dash is used instead of underscore.
+        "*": { "underscore": "lodash" }
+
+        // Put additional maps here.
+    },
 
   shim: {
     // Put shims here.

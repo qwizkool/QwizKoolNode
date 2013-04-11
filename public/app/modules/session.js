@@ -33,7 +33,8 @@ define([
             name: 'new_user',
             email: 'new_user@qwizkool.com',
             password: '',
-            isAuthenticated: false
+            isAuthenticated: false,
+            notifications:2
         },
 
         initialize: function () {

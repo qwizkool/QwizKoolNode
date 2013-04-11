@@ -1,9 +1,9 @@
 {
   "name": "lodash",
-  "version": "0.9.1",
-  "description": "A drop-in replacement for Underscore.js delivering performance, bug fixes, and additional features.",
+  "version": "1.0.1",
+  "description": "An alternative to Underscore.js, delivering consistency, customization, performance, and extra features.",
   "homepage": "http://lodash.com",
-  "main": "./lodash",
+  "main": "./dist/lodash",
   "keywords": [
     "browser",
     "client",
@@ -24,9 +24,6 @@
     "email": "john.david.dalton@gmail.com",
     "web": "http://allyoucanleet.com/"
   },
-  "dependencies": {
-    "tar": "~0.1.13"
-  },
   "bugs": {
     "url": "https://github.com/bestiejs/lodash/issues"
   },
@@ -46,12 +43,10 @@
     "rhino"
   ],
   "jam": {
-    "main": "./lodash.js",
-    "dependencies": {}
+    "main": "./lodash.js"
   },
   "scripts": {
-    "build": "node build",
-    "test": "node test/test && node test/test-build",
-    "install": "node build/post-install"
+    "build": "node ./build.js",
+    "test": "node ./test/test.js ./dist/lodash.js && node ./test/test.js ./dist/lodash.min.js && node ./test/test-build.js"
   }
 }
