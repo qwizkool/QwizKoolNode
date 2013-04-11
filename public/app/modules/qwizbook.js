@@ -25,7 +25,7 @@ define([
 
     QwizBook.Model = Backbone.Model.extend({
 
-         idAttribute: "id",
+         idAttribute: "_id",
         //Root of the REST url for QwizBooks
         urlRoot:"/qwizbooks/",
 
@@ -113,10 +113,10 @@ define([
         },
        
        
-        deleteMyQwizbook:function(qBookIds)
+        deleteMyQwizbook:function(qBookId)
         {
         	//alert(qBookIds);
-        	this.set('id',qBookIds);
+        	this.set('id',qBookId);
         	this.destroy({
 
                 error: function (model, response) {
