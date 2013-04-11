@@ -198,10 +198,7 @@ define([
                     counter++;
                     
                     
-	            	
-	            	//this.qwizbooklistview.deleteQwizbook(currentQwizbook);
-	            	
-	            }    		
+	          }    		
       	  }	
       	  
       	}
