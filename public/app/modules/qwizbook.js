@@ -25,6 +25,7 @@ define([
 
     QwizBook.Model = Backbone.Model.extend({
 
+         idAttribute: "id",
         //Root of the REST url for QwizBooks
         urlRoot:"/qwizbooks/",
 
@@ -115,7 +116,7 @@ define([
         	//alert(qBookIds);
         	this.set('id',qBookIds);
         	this.destroy({
-
+              
                 // Handle the Logout Error condition.
                 error: function (model, response) {
                    
