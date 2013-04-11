@@ -129,7 +129,7 @@ define(["app", "modules/qwizbook", "modules/myQwizbook", "text!templates/qwizboo
 		deleteQwizbook : function() {
 
 			var currentQwizbook = "";
-			var selectedQbookCount = $("input:checked").length;
+			//var selectedQbookCount = $("input:checked").length;
 			var selectedQwizbooks = [];
 			var counter = 1;
 			var view = this;
@@ -139,7 +139,9 @@ define(["app", "modules/qwizbook", "modules/myQwizbook", "text!templates/qwizboo
 				selectedQwizbooks[i] = $(this).val();
 
 			});
-
+            
+            var  selectedQbookCount = selectedQwizbooks.length;
+            
 			if (selectedQbookCount >= 1) {
 
 				if (confirm('Are you sure you want to delete ' + selectedQbookCount + ' Qwizbook')) {
