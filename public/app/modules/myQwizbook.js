@@ -95,8 +95,6 @@ define([
                     });
 
                     $(view.el).find("#myQwizbook-list-container").append(qwizbookView.render().el);
-
-
                 })
 
             } else {
@@ -107,31 +105,69 @@ define([
 
         },
         
-        
+    /*    
         deleteQwizbook:function (currentQwizbook) {
         
          var view = this;
          var newQbook = "";
          var selectedQbook ="";
-         
-         
          _.each(view.model.models, function (qwizbook) {
-         	
-         	        
                     newQbook = qwizbook.toJSON();
                     if(newQbook._id == currentQwizbook){
-                    	
                     qwizbook.deleteMyQwizbook(currentQwizbook);
-                    	
                     }
-                    
                     })
-                
-       
         }
         
         
     });
+*/
+
+
+
+deleteQwizbook:function (currentQwizbook) {
+        
+         var view = this;
+         var newQbook = "";
+         //var selectedQbooks = currentQwizbook;
+         //var selectQbooksCount = selectedQbooks.length;
+         var checkedQbook = "";
+         
+         checkedQbook = currentQwizbook;
+         view.collection = this.model;
+         var ModelData = view.collection.where({_id: currentQwizbook});
+         var qbookModel = ModelData[0];
+         qbookModel.deleteMyQwizbook(currentQwizbook);
+         /*
+         _.each(view.model.models, function (qwizbook) {
+         	      
+         	    
+         	   newQbook = qwizbook.toJSON();
+         	         		
+         	    if(newQbook._id == checkedQbook){
+                    	
+                    qwizbook.deleteMyQwizbook(checkedQbook);
+                     
+                }
+                    	
+          })
+          */	
+         
+         
+         	        	
+          
+        }
+
+  });
+
+
+
+
+
+
+
+
+
 
     return MyQwizBook;
 

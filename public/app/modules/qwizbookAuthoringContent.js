@@ -35,7 +35,7 @@ define([
             		}
 
             this.session = this.options.session;
-            
+            var view = this;
 
             this.on("createqwizbook", function (createQwizbookObj) {
 					
@@ -52,10 +52,14 @@ define([
                 });
 
 				});
+				
+				
 			this.qwizbookUserCollection = new QwizBook.Collection();
 			//this.qwizbookUserCollection.getMybook();
 			//this.qwizbookUserCollection.setUserId();
 			this.qwizbookUserCollection.on("reset", this.refreshView, this);
+			
+			 view.qwizbookUserCollection.getMybook();
 			
 			this.qwizbooklistview = new MyQwizBook.ListMyBook({
                 model: this.qwizbookUserCollection,
@@ -69,16 +73,30 @@ define([
             "click #btn-create-qwizbook-submit": "submitCreateForm",
             "click #btn-create-qwizbook-cancel": "cancelCreateForm",
             "click #deleteAllQwizbooks": "selectAllQwizbooks",
+            "click #qwizbookList": "showDeleteBtn",
             "click #deleteQwizbook": "deleteQwizbook"
 
         },
 
+        showDeleteBtn: function (e) {
+
+       var selectedQbooksCount = $( "input:checked" ).length;
+       if(selectedQbooksCount==0){
+       	
+       	 $("#deleteAllQwizbooksBtn").hide();
+       }else{
+       	$("#deleteAllQwizbooksBtn").show();
+       }
+
+           
+        },
         showCreateForm: function (e) {
 
 			$("#title-status").hide();
             $('#qwizbook-create-form').show();
 
         },
+
 
         submitCreateForm: function (e) {
 
@@ -113,40 +131,57 @@ define([
         
 
         selectAllQwizbooks: function () {
-
-         alert('reached');
+		
+		
+				if($('#allQwizbooks').is(":checked")){
+					
+						$("#deleteAllQwizbooksBtn").show(); 
+					
+						 $('#myQwizbook-list-container').find(':checkbox').each(function(){
+			                  $(':checkbox').prop("checked", true);
+			             });
+						
+					   }else{
+					   	 $("#deleteAllQwizbooksBtn").hide();
+					   	
+						$('#myQwizbook-list-container').find(':checkbox').each(function(){
+			                  $(':checkbox').prop("checked", false);
+			            });
+				}
+				
 
         },
+      
+                 
+      
       
       deleteQwizbook:function(){
       	
       	var selectedQbook = "";
       	var newQbook ="";
+      	var currentQwizbook = "";
       	var selectedQbookCount = $( "input:checked" ).length;
-      		
       	var selectedQwizbooks = [];
-        $(':checkbox:checked').each(function(i){
-          selectedQwizbooks[i] = $(this).val();
-        });
         
-        var currentQwizbook = "";
-        
-        
-        
+        $('#myQwizbook-list-container').find(':checkbox').each(function(i){
+			
+         selectedQwizbooks[i] = $(this).val();
+			            
+	     });
+
       	if(selectedQbookCount>=1){
       		
-      		alert('Are you sure you want to delete '+selectedQbookCount+' Qwizbook');
-            for(var j=0; j<selectedQbookCount; j++)
-            {
-            	currentQwizbook = selectedQwizbooks[j];
-            	
-            	this.qwizbooklistview.deleteQwizbook(currentQwizbook);
-            	
-            }    		
-      		
-      		
-      	}	
-      	
+      		if(confirm('Are you sure you want to delete '+selectedQbookCount+' Qwizbook')){
+	            for(var j=0; j<selectedQbookCount; j++)
+	            {
+	            	currentQwizbook = selectedQwizbooks[j];
+	            	
+	            	this.qwizbooklistview.deleteQwizbook(currentQwizbook);
+	            	
+	            }    		
+      	  }	
+      	  
+      	}
       	
       	
       },

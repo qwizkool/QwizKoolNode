@@ -372,7 +372,7 @@ module.exports = {
 			}
 			else
 			{
-				res.send("Selected Qwizbooks Are Successfully Deleted");
+				res.send({STATUS:"Selected Qwizbooks Are Successfully Deleted"});
 			}
 			
 		});
