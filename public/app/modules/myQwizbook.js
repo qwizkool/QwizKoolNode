@@ -24,7 +24,7 @@ define([
     var MyQwizBook = App.module();
 
     MyQwizBook.Model = Backbone.Model.extend({
-    	urlRoot:"/qwizbooks/",
+    	urlRoot:"/qwizbooks/"
     });
 
     MyQwizBook.Collection = Backbone.Collection.extend({
@@ -117,8 +117,11 @@ define([
          var checkedQbook = "";
          
          checkedQbook = currentQwizbook;
-         
-         
+         view.collection = this.model;
+         var ModelData = view.collection.where({_id: currentQwizbook});
+         var qbookModel = ModelData[0];
+         qbookModel.deleteMyQwizbook(currentQwizbook);
+         /*
          _.each(view.model.models, function (qwizbook) {
          	      
          	    
@@ -130,7 +133,8 @@ define([
                      
                 }
                     	
-          })	
+          })
+          */	
          
          
          	        	

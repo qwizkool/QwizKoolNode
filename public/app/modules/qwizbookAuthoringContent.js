@@ -46,12 +46,17 @@ define([
 				});
 				
 			
-			
+			this.qwizbookUserModel = new QwizBook.Model();
 			this.qwizbookUserCollection = new QwizBook.Collection();
 			//this.qwizbookUserCollection.setUserId();
 			this.qwizbookUserCollection.on("list-qwizbook-event", this.refreshView, this);
 
-			this.qwizbooklistview = new MyQwizBook.ListMyBook({
+			//this.qwizbooklistview = new MyQwizBook.ListMyBook({
+           //     model: this.qwizbookUserCollection,
+           //     session: this.session
+           // });
+            
+            this.qwizbooklistview = new MyQwizBook.ListMyBook({
                 model: this.qwizbookUserCollection,
                 session: this.session
             });
@@ -118,15 +123,16 @@ define([
        		var selectedQbook = "";
        		var newQbook ="";
        		var selectedQbookCount = $( "input:checked" ).length;
+       		var collection = this.qwizbookUserCollection;
       
        		var selectedQwizbooks = [];
         	$(':checkbox:checked').each(function(i){
           	selectedQwizbooks[i] = $(this).val();
-        	});
+          	});
         
         	var currentQwizbook = "";
-        
-        
+            var currentQwizbookModel = "";
+            
         
        		if(selectedQbookCount>=1){
       
@@ -134,13 +140,18 @@ define([
        		
        		//this.qwizbooklistview.deleteQwizbook(selectedQwizbooks);
        		
+       		
+       		
+       		
             for(var j=0; j<selectedQbookCount; j++)
             {
              currentQwizbook = selectedQwizbooks[j];
-            
+             
+              
              this.qwizbooklistview.deleteQwizbook(currentQwizbook);
             
             }
+            
       
           }
       
