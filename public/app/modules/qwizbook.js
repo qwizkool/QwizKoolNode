@@ -121,8 +121,8 @@ define([
 
                 error: function (model, response) {
                 	
-                	 //model.trigger('delete-qwizbook-success-event');
-                   console.log("Failed to delet QwizBook!");
+                	 model.trigger('delete-qwizbook-success-event');
+                  // console.log("Failed to delet QwizBook!");
                 },
 
                 // Handle the Logout success condition.

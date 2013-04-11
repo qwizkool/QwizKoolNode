@@ -54,6 +54,9 @@ define([
 				});
 				
 				
+				
+				
+				
 			this.qwizbookUserCollection = new QwizBook.Collection();
 			//this.qwizbookUserCollection.getMybook();
 			//this.qwizbookUserCollection.setUserId();
@@ -171,13 +174,26 @@ define([
 
       	if(selectedQbookCount>=1){
       		
+      		
+      		var count=1;
       		if(confirm('Are you sure you want to delete '+selectedQbookCount+' Qwizbook')){
 	            for(var j=0; j<selectedQbookCount; j++)
 	            {
 	            	currentQwizbook = selectedQwizbooks[j];
 	            	
-	            	this.qwizbooklistview.deleteQwizbook(currentQwizbook);
+	            	var qbookModel=this.qwizbooklistview;
+	            	qbookModel.deleteQwizbook(currentQwizbook);
+	            	 var qwizbookModel = new QwizBook.Model();
 	            	
+				            	qbookModel.on("delete-qwizbook-success-event", function () {
+				            		alert('mnj');
+			
+			                    view.qwizbookUserCollection.getMybook();
+			                   });
+	            	
+	            		
+	            	
+	            
 	            }    		
       	  }	
       	  
