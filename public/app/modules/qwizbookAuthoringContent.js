@@ -98,7 +98,7 @@ define(["app",
 				var view = this;
 			    qwizbookmodel.create(qbooktitle, qbookdesc);
 				qwizbookmodel.on("qwizbook-create-success-event", function() {
-					view.qwizbookUserCollection.setUserId();
+					//view.qwizbookUserCollection.setUserId();
 					view.qwizbookUserCollection.getMybook();
 
 				});
