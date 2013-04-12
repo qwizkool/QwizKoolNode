@@ -24,7 +24,8 @@ define([
     var QwizBook = App.module();
 
     QwizBook.Model = Backbone.Model.extend({
-
+         
+         idAttribute:"_id",
         //Root of the REST url for QwizBooks
         urlRoot:"/qwizbooks/",
 
@@ -50,7 +51,7 @@ define([
         },
         
         initialize : function() {
-
+			
 		},
 
        // create:function () {
@@ -89,11 +90,10 @@ define([
 
         },
 
-        retreive:function () {
+        retreive:function (qId,session) {
 
-            var retreivedQwizbook = this;
 
-            var jqxhr = retreivedQwizbook.fetch({
+            var jqxhr = this.fetch({
 
 
                 error:function (model, response) {
@@ -110,24 +110,32 @@ define([
             });
 
         },
-        deleteMyQwizbook:function(qBookIds)
+        
+       
+        
+        
+        
+        deleteMyQwizbook:function(qBookId)
         {
-        	//alert(qBookIds);
-        	this.set('id',qBookIds);
+        	//alert(qBookId);
+        	this.set('id',qBookId);
         	this.destroy({
 
                 // Handle the Logout Error condition.
                 error: function (model, response) {
+                	console.log("Failed to delete Qwizbook");
                    
                 },
 
                 // Handle the Logout success condition.
                 success: function (model, response) {
-
+                console.log("Successfully deleted Qwizbook");
+                model.trigger('delete-qwizbook-success-event');
                   
                 }
             });
         }
+        
     });
 
     QwizBook.Collection = Backbone.Collection.extend({
@@ -186,8 +194,11 @@ define([
        
 
         getAllBooks:function () {
-            var qwizbookList = this;
-            var jqxhr = qwizbookList.fetch({
+             var jqxhr = this.fetch({
+
+                // specify fetch to reset the collection instead
+                // of add/merge using set.
+                reset: true,
 
                 error:function (collection, response) {
                     this.isListedqwizBook = false;
@@ -196,11 +207,11 @@ define([
 
                 success:function (collection, response) {
                     this.isListedqwizBook = true;
-                    var List = Array();
+
                     if (response == null) {
                         collection.trigger('no-qwizbook-tolist');
                     }
-                    List = qwizbookList.toJSON();
+
                     collection.trigger('list-qwizbook-event');
                 }
             });

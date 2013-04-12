@@ -501,7 +501,7 @@ function getQwizbookUserRating(user, qwizbookId, callback) {
                     Error:"Retreive Rating failed."
                 }, null);
             } else {
-                callback(null, rating, qbook);
+                callback(null, rating);
             }
 
         });
