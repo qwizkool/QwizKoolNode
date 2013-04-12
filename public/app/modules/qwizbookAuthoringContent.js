@@ -25,6 +25,7 @@ define(["app",
 			this.session = this.options.session;
 			var view = this;
 
+            /*
 			this.on("createqwizbook", function(createQwizbookObj) {
 
 				var qbooktitle = createQwizbookObj.qbooktitle;
@@ -40,6 +41,7 @@ define(["app",
 				});
 
 			});
+			*/
 			this.qwizbookUserCollection = new QwizBook.Collection();
 			
 			//this.qwizbookUserCollection.on("reset", this.refreshView, this);
@@ -171,7 +173,7 @@ define(["app",
 						if (counter == selectedQbookCount) {
 
 							qbookModel.on("delete-qwizbook-success-event", function() {
-								view.qwizbookUserCollection.setUserId();
+								//view.qwizbookUserCollection.setUserId();
 								view.qwizbookUserCollection.getMybook();
 							});
 
