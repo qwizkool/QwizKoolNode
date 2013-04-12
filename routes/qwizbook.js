@@ -212,8 +212,8 @@ module.exports = {
 
 					var book_length = books.length;
 					var c = 1;
-
-					if (err) {
+                    
+                    if (err) {
 						res.send(400, err);
 						console.log(err);
 						return;
@@ -221,13 +221,13 @@ module.exports = {
 					// No error send the unique ID for the newly created book
 
 					if (book_length > 0) {
-
-						var istrue = false;
+						
+				        var istrue = false;
 						for (var i = 0; i < book_length; i++) {
 
 							qbook = books[i];
-
-							var bookwithRatingCountKey = i;
+                            
+                            var bookwithRatingCountKey=i;
 							var userEmail = sessionUser.email;
 							var qid = qbook._id;
 
@@ -236,9 +236,10 @@ module.exports = {
 								if (err) {
 
 								} else {
-
-									bookwithRatingCount.userratingcount = count;
-
+                                   
+                                    
+                                    bookwithRatingCount.userratingcount = count;
+									
 									QwizbookRating.getQwizbookUserRating(userEmail, bookwithRatingCount, bookwithRatingCountKey, function(err, user_rating, bookwithUserRating, bookwithUserRatingpos) {
 
 										if (err) {
@@ -265,14 +266,15 @@ module.exports = {
 														bookwithavgRating.averageRating = 0;
 
 													}
-
-													books[bookwithavgRatingpos] = bookwithavgRating;
-
-													if (c == book_length) {
+                                                    
+                                                    
+                                                    books[bookwithavgRatingpos] = bookwithavgRating;
+                                                    
+                                                    if (c == book_length) {
 
 														res.send(JSON.stringify(books));
 													}
-
+													
 													c++;
 
 												}
@@ -285,8 +287,8 @@ module.exports = {
 								}
 
 							});
-
-						} //end of for loop
+							
+                    	} //end of for loop
 					}// endo of if condition for book length
 					else {
 						res.send({
@@ -357,41 +359,48 @@ module.exports = {
 	},
 
 	deleteBook : function(req, res) {
-
+		
 		var qbookId = req.route.params.id;
-
-		Qwizbook.deleteQwizbook(qbookId, function(err, status) {
-
-			if (err) {
-				res.send({
-					Error : "Cannot delete Qwizbook"
-				}, null);
-			} else {
-				res.send({
-					STATUS : "Selected Qwizbooks Are Successfully Deleted"
-				});
+		
+		
+		Qwizbook.deleteQwizbook(qbookId, function(err, status){
+			
+			
+			if(err)
+			{
+				res.send({Error:"Cannot delete Qwizbook"},null);
 			}
-
+			else
+			{
+				//res.send(qwizbook);
+				res.send({STATUS:"Successfully deleted Qwizbook"});
+			}
+			
 		});
-
+		
+		
 	},
 
 	deleteBooks : function(req, res) {
 		console.log(req.user);
 	},
-
-	getmybooks : function(req, res) {
+	
+	getmybooks:function(req,res){
 		var sessionUser = req.user;
-		Qwizbook.retrieveMyQwizbooks(sessionUser, function(err, books) {
-
-			if (err) {
+		Qwizbook.retrieveMyQwizbooks(sessionUser, function(err, books){
+			
+			
+			if(err)
+			{
 				res.send(400, err);
 				console.log(err);
 				return;
-			} else {
+			}
+			else
+			{
 				res.send(books);
 			}
-
+			
 		});
 	}
-}; 
+};
