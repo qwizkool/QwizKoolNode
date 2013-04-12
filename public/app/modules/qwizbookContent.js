@@ -34,7 +34,7 @@ define([
             this.qwizbookId = this.options.qwizbookId;
 
             // Instantiate and sync the qwizbook
-            this.qwizbook = new Qwizbook.Model({id:this.qwizbookId, session:this.session});
+            this.qwizbook = new Qwizbook.Model({_id:this.qwizbookId, session:this.session});
             this.qwizbook.retreive();
             // On success of retrieving the book. get all its comments.
             this.qwizbook.on("retreive-qwizbook-success-event", this.getQwizbookComments, this);

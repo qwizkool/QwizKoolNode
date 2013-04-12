@@ -5,7 +5,10 @@
  *
  *
  */
-define(["app", "modules/qwizbook", "modules/myQwizbook", "text!templates/qwizbookAuthoringContent.html"], function(App, QwizBook, MyQwizBook, Template) {
+define(["app", 
+"modules/qwizbook", 
+"modules/myQwizbook", 
+"text!templates/qwizbookAuthoringContent.html"], function(App, QwizBook, MyQwizBook, Template) {
 
 	var QwizbookAuthoringContent = App.module();
 
