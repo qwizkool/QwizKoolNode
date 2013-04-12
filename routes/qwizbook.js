@@ -355,7 +355,28 @@ module.exports = {
 	},
 
 	updateBook : function(req, res) {
-		console.log(req.user);
+		var qbookId = req.route.params.id;
+		
+		var book = req.body;
+		Qwizbook.updateQwizbook(book, function(err, book){
+			
+			
+			if(err)
+			{
+				res.send({Error:"Cannot update Qwizbook"},null);
+			}
+			else
+			{
+				//res.send(qwizbook);
+				res.send({
+				id : book._id,
+				title : book.title,
+				description : book.description
+			});
+			}
+			
+		});
+		
 	},
 
 	deleteBook : function(req, res) {

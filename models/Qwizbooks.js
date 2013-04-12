@@ -327,7 +327,25 @@ Qwizbook.prototype.retrieveQwizbooksOnFilter = function(owner, filterdata, callb
  * @api public
  * @return {Function} Constructor for Qwizbook type.
  */
-Qwizbook.prototype.updateQwizbook = function(owner, callback) {
+Qwizbook.prototype.updateQwizbook = function(book, callback) {
+	
+	var qId = book._id;
+	var new_title = book.title;
+	var new_description = book.description;
+	 QwizbookModel.update({_id:qId}, {$set: { title: new_title , description : new_description }}, {upsert: true}, function(
+	 	err,book)
+	 	{
+	 		if (err) {
+				// Check for duplicate key error
+
+				// All other conditions Pass as is TODO: need to cleanup.
+				callback({
+					Error : "update Qwizbooks failed."
+				}, null);
+			} else {
+				callback(null, book);
+			}
+	 	});
 
 };
 
