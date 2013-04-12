@@ -142,7 +142,7 @@ define(['modules/user', 'modules/session', 'modules/qwizbook'], function (User, 
                     qwizbook.set('date', dateStr);
                     qwizbook.set('reference',reference);
 
-                    qwizbook.create(testqwizbookTitle,testqwizbookDescription);
+                    qwizbook.create(testqwizbookTitle, testqwizbookDescription);
 
                     waitsFor(function () {
                         return done;
