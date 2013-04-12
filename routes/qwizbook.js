@@ -141,7 +141,7 @@ module.exports = {
 					} else {
 						res.send({
 							Error : "Cannot rate Qwizbook "
-						}, null);
+						}, []);
 					}
 
 				})

@@ -208,7 +208,10 @@ define([
                 success:function (collection, response) {
                     this.isListedqwizBook = true;
 
+
                     if (response == null) {
+                    	
+                    	
                         collection.trigger('no-qwizbook-tolist');
                     }
 
