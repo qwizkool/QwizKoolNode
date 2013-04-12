@@ -81,10 +81,16 @@ define(["app", "modules/qwizbook", "modules/myQwizbook", "text!templates/qwizboo
 		submitCreateForm : function(e) {
 
 			if ($('#qwizbook-title').val()) {
-				this.trigger('createqwizbook', {
-					qbooktitle : $('#qwizbook-title').val(),
-					qbookdesc : $('#qwizbook-description').val(),
-					qwizbookmodel : this.qwizbookModel
+				
+				var qwizbookmodel = new QwizBook.Model();
+				var qbooktitle = $('#qwizbook-title').val();
+				var qbookdesc = $('#qwizbook-description').val();
+				var view = this;
+			    qwizbookmodel.create(qbooktitle, qbookdesc);
+				qwizbookmodel.on("qwizbook-create-success-event", function() {
+
+					view.qwizbookUserCollection.getMybook();
+
 				});
 				$('#qwizbook-create-form').hide();
 				$('#qwizbook-title').val('');
@@ -162,7 +168,7 @@ define(["app", "modules/qwizbook", "modules/myQwizbook", "text!templates/qwizboo
 						if (counter == selectedQbookCount) {
 
 							qbookModel.on("delete-qwizbook-success-event", function() {
-
+								view.qwizbookUserCollection.setUserId();
 								view.qwizbookUserCollection.getMybook();
 							});
 
@@ -185,6 +191,7 @@ define(["app", "modules/qwizbook", "modules/myQwizbook", "text!templates/qwizboo
 		render : function() {
 
 			this.el.innerHTML = this.template;
+			this.qwizbookUserCollection.setUserId();
 			this.qwizbookUserCollection.getMybook();
 			// $(this.el).find("#qwizbooklist-container").append(this.qwizbooklistview.render().el);
 
