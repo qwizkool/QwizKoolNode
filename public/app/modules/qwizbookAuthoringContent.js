@@ -130,19 +130,17 @@ define(["app", "modules/qwizbook", "modules/myQwizbook", "text!templates/qwizboo
 		deleteQwizbook : function() {
 
 			var currentQwizbook = "";
-			var selectedQbookCount = $("input:checked").length;
+			//var selectedQbookCount = $("input:checked").length;
 			var selectedQwizbooks = [];
 			var counter = 1;
 			var view = this;
 
-			$('#myQwizbook-list-container').find(':checkbox').each(function(i) {
-				
-                
-                	
-				selectedQwizbooks[i] = $(this).val();
-				
-				
+			$('#myQwizbook-list-container :checked').each(function() {
+				selectedQwizbooks.push($(this).val());
 			});
+
+			var selectedQbookCount = selectedQwizbooks.length;
+			//alert(selectedQbookCount);
 
 			var selectedQboo = selectedQwizbooks.length;
 			
