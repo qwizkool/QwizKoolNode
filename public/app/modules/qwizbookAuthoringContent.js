@@ -146,31 +146,28 @@ define(["app",
 		deleteQwizbook : function() {
 
 			var currentQwizbook = "";
-			var selectedQbookCount = $("input:checked").length;
 			var selectedQwizbooks = [];
+			
 			var counter = 1;
 			var view = this;
-
-			$('#myQwizbook-list-container').find(':checkbox').each(function(i) {
-				
+            
+			$('#myQwizbook-list-container input:checked').each(function() {
                 
+                selectedQwizbooks.push($(this).attr('value'));
                 	
-				selectedQwizbooks[i] = $(this).val();
-				
-				
 			});
-
-			var selectedQboo = selectedQwizbooks.length;
+            
+			var selectedQbookCount = selectedQwizbooks.length;
 			
 			if (selectedQbookCount >= 1) {
 
 				
 				if (confirm('Are you sure you want to delete ' + selectedQbookCount + ' Qwizbook')) {
 					
-					for (var j = 0; j < selectedQbookCount; j++) {
+					for (var j = 0; j < selectedQwizbooks.length; j++) {
 						currentQwizbook = selectedQwizbooks[j];
-                         
-                        var ModelData = view.qwizbookUserCollection.get(currentQwizbook);
+						
+						var ModelData = view.qwizbookUserCollection.get(currentQwizbook);
 
 						var qbookModel = ModelData;
 						qbookModel.deleteMyQwizbook(currentQwizbook);
@@ -178,7 +175,7 @@ define(["app",
 						if (counter == selectedQbookCount) {
 
 							qbookModel.on("delete-qwizbook-success-event", function() {
-								//view.qwizbookUserCollection.setUserId();
+								
 								view.qwizbookUserCollection.getMybook();
 							});
 
