@@ -63,8 +63,16 @@ define([
             //Submit Form
             "click #btn-qwizbook-author-submit": "submitAuthorForm",
             //Cancel Form
-            "click #btn-qwizbook-author-cancel": "cancelAuthorForm"
+            "click #btn-qwizbook-author-cancel": "cancelAuthorForm",
+            
+            //edit qwizbook
+            "click #btn-save-qwizbook" : "editBook"
 
+        },
+        
+        editBook :function ()
+        {
+        	alert('dfdf');
         },
 
         showAuthorForm: function (e) {
