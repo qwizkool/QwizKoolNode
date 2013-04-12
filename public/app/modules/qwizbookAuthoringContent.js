@@ -145,8 +145,7 @@ define(["app", "modules/qwizbook", "modules/myQwizbook", "text!templates/qwizboo
 			});
 
 			var selectedQboo = selectedQwizbooks.length;
-			alert(selectedQbookCount);
-			alert(selectedQboo);
+			
 			if (selectedQbookCount >= 1) {
 
 				
