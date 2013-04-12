@@ -30,8 +30,6 @@ define([
         initialize: function () {
 
             this.qwizbookModel = new QwizBook.Model();
-            
-            
             if (_.isEmpty(this.options.session)) {
                 throw "ERROR: Session object is not provided for the view!!"
             		}
@@ -54,13 +52,17 @@ define([
                 });
 
 				});
+				
+				
+				
+				
+				
 			this.qwizbookUserCollection = new QwizBook.Collection();
-			
+			//this.qwizbookUserCollection.getMybook();
+			//this.qwizbookUserCollection.setUserId();
 			this.qwizbookUserCollection.on("reset", this.refreshView, this);
 			
-			
-			
-			
+			 view.qwizbookUserCollection.getMybook();
 			
 			this.qwizbooklistview = new MyQwizBook.ListMyBook({
                 model: this.qwizbookUserCollection,
@@ -158,47 +160,52 @@ define([
       
       deleteQwizbook:function(){
       	
-      	
+      	var selectedQbook = "";
+      	var newQbook ="";
       	var currentQwizbook = "";
       	var selectedQbookCount = $( "input:checked" ).length;
       	var selectedQwizbooks = [];
-      	var counter =1;
-      	var view = this;
         
         $('#myQwizbook-list-container').find(':checkbox').each(function(i){
 			
          selectedQwizbooks[i] = $(this).val();
+			            
 	     });
 
-var selectedQwizbooks=selectedQwizbooks.length;
       	if(selectedQbookCount>=1){
       		
-      		
-      		var count=1;
       		if(confirm('Are you sure you want to delete '+selectedQbookCount+' Qwizbook')){
 	            for(var j=0; j<selectedQbookCount; j++)
 	            {
 	            	currentQwizbook = selectedQwizbooks[j];
+	            	
+	            	var qbookModel=this.qwizbooklistview;
+	            	this.qwizbooklistview.deleteQwizbook(currentQwizbook);
+	            	
+	            	var view=this;
+	            	 
+	            	qbookModel.on("delete-qwizbook-success-event", function () {
+	            		alert('mnj');
 
-	            	var ModelData = view.qwizbookUserCollection.get(currentQwizbook);
-                    
-                    var qbookModel = ModelData;
-                    qbookModel.deleteMyQwizbook(currentQwizbook);
-                    
-                    
-                    if(counter == selectedQbookCount)
-                    {
-                    	
-                    	qbookModel.on("delete-qwizbook-success-event",function(){
-                    		
-                    		view.qwizbookUserCollection.getMybook();
-                    	});
-                    	
-                    }
-                    counter++;
-                    
-                    
-	          }    		
+                    view.qwizbookUserCollection.getMybook();
+                  
+
+                });
+	            	
+	            
+	            
+	            
+	            
+	            
+	            
+	            
+	            
+	            
+	            
+	            
+	            
+	            	
+	            }    		
       	  }	
       	  
       	}
