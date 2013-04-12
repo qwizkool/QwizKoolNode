@@ -25,10 +25,15 @@ define([
             		}
            
             this.qwizbookId = this.options.qwizbookId;
-            this.qwizbookModel = new QwizBook.Model({id:this.qwizbookId, session:this.session});
+            this.qwizbookModel = new QwizBook.Model({_id:this.qwizbookId, session:this.session});
             this.qwizbookModel.retreive();
+            this.qwizbookModel.on("retreive-qwizbook-success-event", this.updateView, this);
 			this.editQwizbook = new EditQwizbook.View({model: this.qwizbookModel, qwizbookId: this.qwizbookId, session:this.session});
 
+        },
+         updateView : function()
+        {
+        	$(this.el).find("#qwizbook-create-form").append(this.editQwizbook.render().el);
         },
 
        events: {
@@ -180,7 +185,7 @@ define([
         render: function () {
 
             this.el.innerHTML = this.template;
-            $(this.el).find("#qwizbook-create-form").append(this.editQwizbook.render().el);
+            //$(this.el).find("#qwizbook-create-form").append(this.editQwizbook.render().el);
             return this;
         }
     });
