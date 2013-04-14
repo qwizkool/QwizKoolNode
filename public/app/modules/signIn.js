@@ -7,7 +7,7 @@
  */
 define([
     "app",
-     "text!templates/signIn.html"
+    "text!templates/signIn.html"
 ], function (App, Template) {
 
     // Create a new module
@@ -15,9 +15,9 @@ define([
 
     SignIn.View = Backbone.View.extend({
 
-        template:Template,
+        template: Template,
 
-        initialize:function () {
+        initialize: function () {
 
             if (_.isEmpty(this.options.session)) {
                 throw "ERROR: Session object is not provided for the view!!"
@@ -26,92 +26,52 @@ define([
             this.session = this.options.session;
 
         },
-        remove: function() {
-            console.log("removed usersettings")
+        remove: function () {
+            console.log("removed signIn View")
         },
 
-        render:function (done) {
+        render: function (done) {
 
             var view = this;
             view.el.innerHTML = _.template(Template, this.session.toJSON());
 
-            // Show only the settings if the session is valid.
-            if (this.session) {
-                this.session.isSessionValid();
-                $(this.el).find("#user-settings").hide();
-
-            }
-
+            // To prevent closing of drop down when input is selected.
+            $(this.el).find('.dropdown-menu #sign-in-form input').on('click', this.manageClinkInsideDropdown);
 
             return this;
         },
 
-        events:{
-            "click #user-logout":"signOut"
-        },
-
-        signOut:function (e) {
-
-            e.preventDefault();
-
-            if (this.session) {
-
-                this.session.logout();
-            }
+        events: {
+            "click #signin-button": "signIn",
+            "keyup #user-password-input": "signInByEnter",
+            "keyup #user-email-input": "signInByEnter"
 
         },
 
+        manageClinkInsideDropdown: function (e) {
+            e.stopPropagation();
+        },
 
-        reattachEvents:function () {
+        reattachEvents: function () {
             this.undelegateEvents();
             this.delegateEvents(this.events);
 
         },
+        signInByEnter: function (e) {
 
-        userLoginEvent:function (e) {
-            if (this.session) {
-
-                if (e.valid === true) {
-
-                    $(this.el).find("#user-settings").show();
-
-                } else {
-
-                    $(this.el).find("#user-settings").hide();
-                }
-
+            if (e.keyCode == 13) {
+                this.signIn();
             }
 
         },
 
-        userLogoutEvent:function (e) {
+        signIn: function () {
 
-            if (this.session) {
+            // Todo: Validate the input values
+            var email = $('#user-email-input').val();
+            var password = $('#user-password-input').val();
 
-                if (e.valid === false) {
-                    // Go to logged in page.
-                    $(this.el).find("#user-settings").hide();
-                    Backbone.history.navigate('', true);
-                }
-
-            }
-
-        },
-
-        sessionCheckEvent:function (e) {
-
-            if (this.session) {
-
-                if (e.valid === true) {
-
-                    $(this.el).find("#user-settings").show();
-
-                } else {
-
-                    $(this.el).find("#user-settings").hide();
-                }
-
-            }
+            this.session.login(email, password);
 
         }
 

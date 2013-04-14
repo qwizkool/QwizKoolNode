@@ -31,13 +31,9 @@ define([
             this.session.on('session-logout-event', this.userLogoutEvent, this)
             this.session.on('session-check-event', this.sessionCheckEvent, this)
 
-            // Bind the event for toggling the settings view.
-            $(document).bind('click', function (e) {
-                if (e.target.id != $('.dropdown').attr('class')) {
-                    $('.dropdown-slider').slideUp();
-                    $('span.toggle').removeClass('active');
-                }
-            });
+        },
+        remove: function() {
+          console.log("removed usersettings")
         },
 
         render:function (done) {
@@ -57,7 +53,6 @@ define([
         },
 
         events:{
-            "click #user-settings":"toggleUserSettings",
             "click #user-logout":"signOut"
         },
 
@@ -68,15 +63,6 @@ define([
             if (this.session) {
 
                 this.session.logout();
-            }
-
-        },
-
-        toggleUserSettings:function (e) {
-
-            if (e.target.id != $('.dropdown').attr('class')) {
-                $('.dropdown-slider').slideUp();
-                $('span.toggle').removeClass('active');
             }
 
         },

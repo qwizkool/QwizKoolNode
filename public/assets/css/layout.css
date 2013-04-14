@@ -73,6 +73,9 @@ body {
     -moz-box-shadow:0 0 20px #FFFFFF;
 }
 
+.panel-registration {
+    background: #000;
+}
 
 #qwizkool-footer-content {
     text-align: center;
@@ -141,4 +144,12 @@ body {
 .qwizbook-list-item-footer .qwizbook-ratings-container .qwizbook-summary-footer{
     border-right: 1px solid #e3e3e3;
 
+}
+
+
+@media (max-width: 800px) {
+    .full-input-size-800 {
+        width:90% !important;
+
+    }
 }

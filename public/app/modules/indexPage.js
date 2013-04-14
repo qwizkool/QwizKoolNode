@@ -10,7 +10,7 @@ define([
     "modules/header",
     "modules/indexMainContent",
     "modules/footer",
-    "modules/userSettings"
+    "modules/signIn"
 ], function (App, Header, QwizkoolMain, Footer, UserSettings) {
 
     // Create a new module
