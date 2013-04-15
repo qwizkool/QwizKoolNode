@@ -1,22 +1,23 @@
 <!--<link rel="stylesheet" href="../css/font-awesome.min.css">-->
 
 		<div class="qwizbook-item qwizbook-item-style clearfix" id="qwizbooksummary-container">
-			<div class="row">
+			<div class="row-fluid">
 		
-				<div class="span12 qwizbook-summary-header">
+				<div class="span12" id="qwizbook-summary-header">
 					<div class="page-header">
 						<div class="navbar">
 							<div class="navbar-inner">
-								<div class="span1" style="border:0px solid black;margin-left: 43px;margin-top: 5px;">
-									<a class="btn" ><i id="create-form" class="icon-plus"></i> </a>
+								<div class="span1" style="border:0px solid black;">
+									<div class="control-group"><a class="btn" ><i id="create-form" class="icon-plus"></i> </a></div>
+									
 								</div>
-								<div class="span4" style="border:0px solid black;margin-left: 43px;">
+								<div class="span4" style="border:0px solid black;">
 									<form class="form-horizontal" style="margin-top: 0px;margin-bottom: 0px;">
 										<fieldset>
 											<div class="control-group" style="margin-top: 10px;margin-bottom: 0">
 												<label class="control-label" style="padding-top: 5px">View in:</label>
 												<div class="controls">
-													<select id="user-filter-input">
+													<select id="user-filter-input" class="input-medium">
 														<option value="1">Detail</option>
 														<option value="2">Minimal</option>
 														<option value="3">Thumbnail</option>
@@ -28,13 +29,13 @@
 									</form>
 								</div>
 								
-								<div class="span4" style="border:0px solid black;margin-left: 43px;">
+								<div class="span5" style="border:0px solid black;">
 									<form class="form-horizontal" style="margin-top: 0px;margin-bottom: 0px;">
 										<fieldset>
 											<div class="control-group" style="margin-top: 10px;margin-bottom: 10px;">
 												<label class="control-label" style="padding-top: 5px">Sort by:</label>
 												<div class="controls">
-													<select id="user-filter-input">
+													<select id="user-filter-input" class="input-medium">
 														<option value="1">Recently Updated</option>
 														<option value="2">Most Popular</option>
 													</select>
@@ -44,21 +45,59 @@
 		
 									</form>
 								</div>
-								<div class="span1" style="border:0px solid black;margin-left: 43px;margin-top: 5px;display:none;" align="middle" id="deleteAllQwizbooksBtn" >
-<a class="btn" id="deleteQwizbook"><i class="icon-minus"></i> </a>
-</div>
-								<div  style="border:0px solid black;margin-top: 15px;" align="right" id="deleteAllQwizbooks">
-									<input type="checkbox" name="allQwizbooks"  id="allQwizbooks" >
-								</div>
+								
+								<div class="span1">
+								<div style="border:0px solid black; margin-top: 5px;display:none;" align="middle" id="deleteAllQwizbooksBtn" >
+								 <div class="control-group">
+								 <div class="controls">
+								 	<a class="btn" id="deleteQwizbook"><i class="icon-minus"></i> </a>
+								 </div>	
+								 	
+								 </div>
+                                 
+                                </div>
+                               </div>
+                                
+								<div class="span1" style="border:0px solid black;margin-top: 15px;" align="right" id="deleteAllQwizbooks">
+									
+									<div class="control-group">
+										<div class="controls">
+											<input type="checkbox" name="allQwizbooks"  id="allQwizbooks" >
+										
+									    </div>
+									    </div>
+							    </div>
 								
 		
 							</div>
 						</div>
 						
-						<div id="qwizbook-create-form" name="qwizbook-create-form" style="display:none;">
+						<div  id="qwizbook-create-form" name="qwizbook-create-form" style="display:none;">
 						<div class="media">
 		
 							<div class="media-body">
+								
+								<!--
+								<form>
+									<div class="row-fluid">
+								 
+								    <div class="span3" style="border: 1px solid #EEEEEE;"> Title
+								 	
+								    </div>
+								    <div class="span9" style="border: 1px solid #EEEEEE;">
+								 	<input type="text" id="qwizbook-title" name="qwizbook-title">
+								 	<div class="row-fluid">
+								 		<div  id="title-status"  ></div>
+								 	</div>
+								 	
+								    </div>	
+								    
+								    </div>
+									
+								</form>-->
+								
+								    
+								   
 								<table border="0">
 									<tbody><tr>
 										<td align="right" style="padding:10px;" class="span3">Title</td>
@@ -90,6 +129,7 @@
 									
 									
 								</tbody></table>
+							
 		
 							</div>
 		
@@ -102,47 +142,11 @@
 					</div>
 				</div>
 		
-				<!--div class="span12 qwizbook-summary-content">
-		
-					<div class="page-header">
-		
-						<div class="media">
-		
-							<div class="media-body">
-								<table border="1" style="border: 1px solid #EEEEEE;">
-									<tr style="border: 1px solid #EEEEEE;">
-										<td class="span2" align="center" style="border: 1px solid #EEEEEE;"><a><img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"><br/>QB1</a></td>
-										<td class="span2" align="center" style="border: 1px solid #EEEEEE;"><a><img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"><br/>QB2</a></td>
-										<td class="span2" align="center" style="border: 1px solid #EEEEEE;"><a><img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"><br/>QB3</a></td>
-										<td class="span2" align="center" style="border: 1px solid #EEEEEE;"><a><img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"><br/>QB4</a></td>
-										<td class="span2" align="center" style="border: 1px solid #EEEEEE;"><a><img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"><br/>QB5</a></td>
-										<td class="span2" align="center" style="border: 1px solid #EEEEEE;"><a><img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"><br/>QB6</a></td>
-										<td class="span2" align="center" style="border: 1px solid #EEEEEE;"><a><img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"><br/>QB7</a></td>
-									</tr>
-									
-									<tr style="border: 1px solid #EEEEEE;">
-										<td class="span2" align="center" style="border: 1px solid #EEEEEE;"><a><img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"><br/>QB8</a></td>
-										<td class="span2" align="center" style="border: 1px solid #EEEEEE;"><a><img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"><br/>QB9</a></td>
-										<td class="span2" align="center" style="border: 1px solid #EEEEEE;"><a><img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"><br/>QB10</a></td>
-										<td class="span2" align="center" style="border: 1px solid #EEEEEE;"><a><img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"><br/>QB11</a></td>
-										<td class="span2" align="center" style="border: 1px solid #EEEEEE;"><a><img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"><br/>QB12</a></td>
-										<td class="span2" align="center" style="border: 1px solid #EEEEEE;"><a><img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"><br/>QB13</a></td>
-										<td class="span2" align="center" style="border: 1px solid #EEEEEE;"><a><img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"><br/>QB14</a></td>
-									</tr>
-									
-									
-								</table>
-		
-							</div>
-		
-						</div>
-		
-					</div>
-				</div -->
+				
 				
 				
 
-				<div class="span12 qwizbook-list-item-header" id="myQwizbookList-container">
+				<div class="qwizbook-list-item-header" id="myQwizbookList-container">
 
            		 		
            		 		

@@ -1,24 +1,26 @@
 <div class="page-header">
 		
-		<div>
-		<div style="float:left;">
+		<div class="row-fluid">
+		<div class="span11">
 		  <a id ="<%= _id %>"><%= title %></a>
 		</div>
 		
-		<div style="float:right;" id="qwizbookList">
+		<div class="span1" align="right" id="qwizbookList">
 		    <input type="checkbox" id="qwizbook_<%= _id %>" value="<%= _id %>" style="margin-right:20px;margin-bottom:5px;">
 		</div>
-		<div style="clear:both; font-size:1px;"></div>
+		
+		<div class="span12" style="clear:both; font-size:1px;"></div>
 		</div>
-
+    <div class="row-fluid">
 	<div class="media">
-
-	<a class="pull-left" href=""> <img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"> </a>
-
-		<div class="media-body">
+     <a class="pull-left" href=""> <img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"> </a>
+     <div class="media-body">
 			<%= description %>
 		</div>
-	</div>
+		</div>
+	</div>	
 </div>
+
+
 
 
