@@ -36,6 +36,7 @@ define([
             description:"Qwizbook Description",
             ownerEmail:"qwizkool_user@qwizkool.com",
             date:Date.now,
+            archive:false,
             userRating:"0",
             averageRating:"0",
             userratingcount:"0",
@@ -134,6 +135,26 @@ define([
                   
                 }
             });
+        },
+        
+        unArchiveMyQwizbook :function(qBookId)
+        {
+        	this.set('id',qBookId);
+        	this.save({
+
+                // Handle the Logout Error condition.
+                error: function (model, response) {
+                	console.log("Failed to unarchive Qwizbook");
+                   
+                },
+
+                // Handle the Logout success condition.
+                success: function (model, response) {
+                console.log("Successfully unarchived Qwizbook");
+                model.trigger('unArchive-qwizbook-success-event');
+                  
+                }
+            });
         }
         
     });
@@ -155,9 +176,16 @@ define([
             {
             	urlRoot ="myQwizbook";
             }
+            
             else if(this.deleteQwizbookId){
             	urlRoot ="deleteQwizbook/"+this.deleteQwizbookId;
             }
+            
+            else if(this.archiveQwizbook){
+            	urlRoot ="users/"+this.userId+"/qwizbooks?archived=true";
+            }
+            
+            
              else {
 
                 urlRoot = "qwizbooks"+urlRoot + "?search_str=" + '' + "&sort_by=" + this.filterval;
@@ -171,6 +199,7 @@ define([
             this.searchval = '';
             this.myQwizbook = false;
             this.deleteQwizbookId =false;
+            this.archiveQwizbook =false;
             this.filterval = 'Recently Updated';
             this.isListedqwizBook = false;
         },
@@ -190,6 +219,12 @@ define([
         	this.myQwizbook =true; 
         	this.urlroot = this.url();
         	
+        },
+        
+        getArchiveQwizbook: function(session){
+        	this.userId = session.id;
+        	this.archiveQwizbook =true;
+        	this.urlroot = this.url();
         },
        
 

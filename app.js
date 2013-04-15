@@ -129,6 +129,11 @@ app.get('/users', unsupported);
 app.get('/users/:id', ensureAuthenticated, user.getUser);
 app.put('/users', unsupported);
 app.put('/users/:id', ensureAuthenticated, user.updateUser);
+
+//archive Qwizbook
+
+app.get('/users/:id/qwizbooks', ensureAuthenticated, qwizbook.getarchiveBooks)
+
 //app.delete('/users', unsupported);
 //app.delete('/users/:id', unsupported);
 
