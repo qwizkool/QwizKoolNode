@@ -1,0 +1,43 @@
+<!--TODO: clean up the css styles, consolidate to external CSS file.-->
+<div class="navbar clearfix" id="user-signin">
+
+    <ul class="nav" style="float: right">
+
+        <div class="btn-group pull-right">
+            <a class="btn dropdown-toggle" data-toggle="dropdown">
+                <i class="icon-user"></i> SignIn<span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <div id="sign-in-form" class="form-horizontal panel-style-transparent">
+                        <div class="control-group">
+                            <input type="text" id="user-email-input" class="input-block-level" name="email"
+                                   placeholder="Email">
+                        </div>
+                        <div class="control-group">
+                            <input type="password" id="user-password-input" class="input-block-level" name="password"
+                                   placeholder="Password">
+                        </div>
+                        <label class="checkbox">
+                            <input type="checkbox" name="remember" value="1"> Remember Me
+                        </label>
+                        <button id="signin-button" class="btn btn-info btn-block">Sign in</button>
+
+
+                        <a href="#" class="forgot_link">
+                            <small>Forgot Password?</small>
+                        </a>
+
+
+                        <div id="login-status"></div>
+
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+
+
+    </ul>
+
+</div>
