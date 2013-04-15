@@ -5,161 +5,160 @@
  *
  *
  */
-define([
-    "app",
-    "modules/user",
-    "text!templates/indexMainContent.html",
-    "text!templates/loginStatus.html",
-    "text!templates/registrationStatus.html"
-], function (App, User, Template, TmplLoginStatus, TmplRegStatus) {
+define(["app", "modules/user", "text!templates/indexMainContent.html", "text!templates/loginStatus.html", "text!templates/registrationStatus.html"], function(App, User, Template, TmplLoginStatus, TmplRegStatus) {
 
-    // Create a new module
-    var indexMainContent = App.module();
+	// Create a new module
+	var indexMainContent = App.module();
 
-    indexMainContent.View = Backbone.View.extend({
+	indexMainContent.View = Backbone.View.extend({
 
-        template: Template,
+		template : Template,
 
-        initialize: function () {
+		initialize : function() {
 
-            this.session = this.options.session;
-            if (this.session) {
-                // Register for seesion based events.
-                this.session.on('session-login-event', this.userLoginEvent, this)
+			this.session = this.options.session;
+			if (this.session) {
+				// Register for seesion based events.
+				this.session.on('session-login-event', this.userLoginEvent, this)
 
-            } else {
-                throw "ERROR: Session object is not provided for the view!!"
-            }
+			} else {
+				throw "ERROR: Session object is not provided for the view!!"
+			}
 
-            this.model = new User.Model();
-            this.model.on('user-registration-event', this.userRegisterEvent, this);
+			this.model = new User.Model();
+			this.model.on('user-registration-event', this.userRegisterEvent, this);
 
-        },
+		},
 
-        render: function () {
+		render : function() {
 
-            this.el.innerHTML = this.template;
+			this.el.innerHTML = this.template;
 
-            return this;
+			return this;
 
-        },
+		},
 
-        renderLogInStatus: function (statusObject) {
-            var view = this;
-            var statusTemplate;
+		renderLogInStatus : function(statusObject) {
+			var view = this;
+			var statusTemplate;
 
-            // Update the login status related view elements
-            // with appropriate status.
+			// Update the login status related view elements
+			// with appropriate status.
 
+			var data = view.model.toJSON();
 
-            var data = view.model.toJSON();
+			statusTemplate = _.template(TmplLoginStatus, {
+				loginStatus : statusObject.status
+			});
 
-            statusTemplate = _.template(TmplLoginStatus, {loginStatus: statusObject.status});
+			view.$("#login-status").html(statusTemplate);
 
-            view.$("#login-status").html(statusTemplate);
+			if (statusObject.valid === true) {
+				view.$("#login-status").find('.alert').addClass('alert-success');
+			} else {
+				view.$("#login-status").find('.alert').addClass('alert-error');
+			}
 
-            if (statusObject.valid === true) {
-                view.$("#login-status").find('.alert').addClass('alert-success');
-            } else {
-                view.$("#login-status").find('.alert').addClass('alert-error');
-            }
+			// Show the login status
+			$("#login-status").show();
 
-            // Show the login status
-            $("#login-status").show();
+			return this;
+		},
 
+		renderRegistrationStatus : function(statusObject) {
 
-            return this;
-        },
+			var view = this;
+			var statusTemplate;
 
-        renderRegistrationStatus: function (statusObject) {
+			var data = view.model.toJSON();
 
-            var view = this;
-            var statusTemplate;
+			statusTemplate = _.template(TmplRegStatus, {
+				registrationStatus : statusObject.status
+			});
 
-            var data = view.model.toJSON();
+			view.$("#registration-status").html(statusTemplate);
 
-            statusTemplate = _.template(TmplRegStatus, {registrationStatus: statusObject.status});
+			if (statusObject.valid === true) {
+				view.$("#registration-status").find('.alert').addClass('alert-success');
+			} else {
+				view.$("#registration-status").find('.alert').addClass('alert-error');
+			}
 
-            view.$("#registration-status").html(statusTemplate);
+			// Show the login status
+			$("#registration-status").show();
+			return this;
 
-            if (statusObject.valid === true) {
-                view.$("#registration-status").find('.alert').addClass('alert-success');
-            } else {
-                view.$("#registration-status").find('.alert').addClass('alert-error');
-            }
+		},
 
-            // Show the login status
-            $("#registration-status").show();
-            return this;
+		events : {
+			"click #register-button" : "signUp",
+			"keyup #user-reg-name-input" : "signupByEnter",
+			"keyup #user-reg-email-input" : "signupByEnter",
+			"keyup #user-reg-password-input" : "signupByEnter"
 
-        },
+		},
 
-        events: {
-            "click #register-button": "signUp",
-            "keyup #user-reg-name-input": "signupByEnter",
-            "keyup #user-reg-email-input": "signupByEnter",
-            "keyup #user-reg-password-input": "signupByEnter"
+		reattachEvents : function() {
+			this.undelegateEvents();
+			this.delegateEvents(this.events);
+		},
 
-        },
+		loginByEnter : function(e) {
 
-        reattachEvents: function () {
-            this.undelegateEvents();
-            this.delegateEvents(this.events);
-        },
+			if (e.keyCode == 13) {
+				this.signIn();
+			}
+		},
 
-        loginByEnter: function (e) {
+		signupByEnter : function(e) {
 
-            if (e.keyCode == 13) {
-                this.signIn();
-            }
-        },
+			if (e.keyCode == 13) {
+				this.signUp();
+			}
+		},
 
-        signupByEnter: function (e) {
+		userLoginEvent : function(e) {
 
-            if (e.keyCode == 13) {
-                this.signUp();
-            }
-        },
+			if (this.session) {
 
-        userLoginEvent: function (e) {
+				if (e.valid === false) {
 
-            if (this.session) {
+					this.renderLogInStatus(e);
 
-                if (e.valid === false) {
+				}
 
-                    this.renderLogInStatus(e);
+			}
 
-                }
+		},
 
-            }
+		userRegisterEvent : function(e) {
 
-        },
+			this.renderRegistrationStatus(e);
+		},
 
-        userRegisterEvent: function (e) {
+		// When the user clicks sign-up, create a new user model and save it
+		signUp : function() {
 
-            this.renderRegistrationStatus(e);
-        },
+			// Todo: Validate the input values
+			
+			//var username = $('#user-reg-name-input').val();
+			var email = $('#user-reg-email-input').val();
+			var username = email.split("@")[0];
+			// name_bit is used as username
 
-        // When the user clicks sign-up, create a new user model and save it
-        signUp: function () {
+			var password = $('#user-reg-password-input').val();
+			$('#user-reg-name-input').val('');
+			$('#user-reg-email-input').val('');
+			$('#user-reg-password-input').val('');
+			// Register for event to monitor registration status
+			this.model.on('user-registration-event', this.userRegisterEvent, this);
 
-            // Todo: Validate the input values
-            var username = $('#user-reg-name-input').val();
-            var email = $('#user-reg-email-input').val();
-            var password = $('#user-reg-password-input').val();
-            $('#user-reg-name-input').val('');
-            $('#user-reg-email-input').val('');
-            $('#user-reg-password-input').val('');
-            // Register for event to monitor registration status
-            this.model.on('user-registration-event', this.userRegisterEvent, this);
+			this.model.register(username, email, password);
 
-            this.model.register(username, email, password);
+		}
+	});
 
-        }
-
-    });
-
-    // Required, return the module for AMD compliance
-    return indexMainContent;
+	// Required, return the module for AMD compliance
+	return indexMainContent;
 
 });

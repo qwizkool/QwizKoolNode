@@ -49,6 +49,13 @@ var QwizbookSchema = {
     published: {
         type: Boolean
     },
+    
+    //Archive status
+    
+    archive:{
+    	type: Boolean,
+    	'default': false
+    },
 
 
     //------- Qwizbook comments
