@@ -423,5 +423,27 @@ module.exports = {
 			}
 			
 		});
+	},
+	
+	
+	getarchiveBooks:function(req,res){
+	var sessionUser = req.user;
+		Qwizbook.retrieveMyArchivebooks(sessionUser, function(err, books){
+			
+			
+			if(err)
+			{
+				res.send(400, err);
+				console.log(err);
+				return;
+			}
+			else
+			{
+				res.send(books);
+			}
+			
+		});
 	}
 };
+
+	
