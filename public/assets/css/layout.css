@@ -12,6 +12,10 @@ body {
     background-color: #ffffff;
 
 }
+.hero-unit {
+    background-image: url('../img/lined_paper/lined_paper.png');
+
+}
 
 /* Generic scaled image */
 
@@ -56,6 +60,21 @@ body {
     border: thin solid #d0d0d0; /* This is the outer border, inner border will be added to the div contained within*/
     border-radius: 8px; /* Add rounded corners to the form*/
 
+}
+
+
+.panel-style-transparent {
+    background: #F9f9f9;
+    padding: 10px;
+    border-radius: 8px; /* Add rounded corners to the form*/
+
+    box-shadow: 0 0 20px #FFFFFF; /* Add shadow to the form – First two values are shadow offset, third is blur radius*/
+    -webkit-box-shadow: 0 0 20px #FFFFFF;
+    -moz-box-shadow:0 0 20px #FFFFFF;
+}
+
+.panel-registration {
+    background: #000;
 }
 
 #qwizkool-footer-content {
@@ -125,4 +144,12 @@ body {
 .qwizbook-list-item-footer .qwizbook-ratings-container .qwizbook-summary-footer{
     border-right: 1px solid #e3e3e3;
 
+}
+
+
+@media (max-width: 800px) {
+    .full-input-size-800 {
+        width:90% !important;
+
+    }
 }

@@ -53,7 +53,7 @@ define([
 
 
             var data = view.model.toJSON();
-            
+
             statusTemplate = _.template(TmplLoginStatus, {loginStatus: statusObject.status});
 
             view.$("#login-status").html(statusTemplate);
@@ -77,7 +77,7 @@ define([
             var statusTemplate;
 
             var data = view.model.toJSON();
-            
+
             statusTemplate = _.template(TmplRegStatus, {registrationStatus: statusObject.status});
 
             view.$("#registration-status").html(statusTemplate);
@@ -95,13 +95,11 @@ define([
         },
 
         events: {
-            "click #signin-button": "signIn",
             "click #register-button": "signUp",
-            "keyup #user-password-input": "loginByEnter",
-            "keyup #user-email-input": "loginByEnter",
             "keyup #user-reg-name-input": "signupByEnter",
             "keyup #user-reg-email-input": "signupByEnter",
             "keyup #user-reg-password-input": "signupByEnter"
+
         },
 
         reattachEvents: function () {
@@ -123,7 +121,6 @@ define([
             }
         },
 
-
         userLoginEvent: function (e) {
 
             if (this.session) {
@@ -135,18 +132,6 @@ define([
                 }
 
             }
-
-        },
-
-
-        // When the user clicks sign-in, create a new user model and save it
-        signIn: function () {
-
-            // Todo: Validate the input values
-            var email = $('#user-email-input').val();
-            var password = $('#user-password-input').val();
-
-            this.session.login(email, password);
 
         },
 
