@@ -368,11 +368,10 @@ module.exports = {
 			else
 			{
 				//res.send(qwizbook);
+				console.log(book);
 				res.send({
-				id : book._id,
-				title : book.title,
-				description : book.description
-			});
+  "STATUS": "Successfully deleted Qwizbook"
+});
 			}
 			
 		});
@@ -408,7 +407,17 @@ module.exports = {
 	
 	getmybooks:function(req,res){
 		var sessionUser = req.user;
-		Qwizbook.retrieveMyQwizbooks(sessionUser, function(err, books){
+		var parameter = req.query;
+		var archiveParameter = new Array();
+			for (var i in parameter) {
+
+				archiveParameter[i] = parameter[i];
+			}
+
+			var archiveParameter = archiveParameter['archived'];
+		if(archiveParameter)
+		{
+			Qwizbook.retrieveMyArchivebooks(sessionUser, function(err, books){
 			
 			
 			if(err)
@@ -423,12 +432,14 @@ module.exports = {
 			}
 			
 		});
-	},
-	
-	
-	getarchiveBooks:function(req,res){
-	var sessionUser = req.user;
-		Qwizbook.retrieveMyArchivebooks(sessionUser, function(err, books){
+		
+		
+		}
+		
+		
+		else
+		{
+			Qwizbook.retrieveMyQwizbooks(sessionUser, function(err, books){
 			
 			
 			if(err)
@@ -443,6 +454,8 @@ module.exports = {
 			}
 			
 		});
+		}
+		
 	}
 };
 

@@ -28,7 +28,7 @@ define(["app",
 			this.qwizbookUserCollection = new QwizBook.Collection();
 			
 
-			this.qwizbookUserCollection.on("list-qwizbook-event", this.refreshView, this);
+			this.qwizbookUserCollection.on('list-qwizbook-event', this.refreshView, this);
 
 			this.qwizbooklistview = new MyQwizBook.ListMyBook({
 				model : this.qwizbookUserCollection,
@@ -114,11 +114,10 @@ define(["app",
 						qbookModel.unArchiveMyQwizbook(currentQwizbook);
 
 						if (counter == selectedQbookCount) {
-
-							qbookModel.on("unArchive-qwizbook-success-event", function() {
-								
+							qbookModel.on('unArchive-qwizbook-success-event', function() {
 								view.qwizbookUserCollection.getMybook();
 							});
+							
 
 						}
 						counter++;

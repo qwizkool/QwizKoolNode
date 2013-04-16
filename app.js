@@ -132,7 +132,7 @@ app.put('/users/:id', ensureAuthenticated, user.updateUser);
 
 //archive Qwizbook
 
-app.get('/users/:id/qwizbooks', ensureAuthenticated, qwizbook.getarchiveBooks)
+app.get('/users/:id/qwizbooks', ensureAuthenticated, qwizbook.getmybooks)
 
 //app.delete('/users', unsupported);
 //app.delete('/users/:id', unsupported);
@@ -172,7 +172,7 @@ app.put('/qwizbooks/:id', ensureAuthenticated, qwizbook.updateBook);
 
 // Retrieve qwizbook of a particular user
 
-app.get('/myQwizbook',ensureAuthenticated, qwizbook.getmybooks);
+//app.get('/myQwizbook',ensureAuthenticated, qwizbook.getmybooks);
 
 
 app.delete('/qwizbooks/:id', ensureAuthenticated, qwizbook.deleteBook);

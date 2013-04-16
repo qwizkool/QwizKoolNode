@@ -370,6 +370,7 @@ Qwizbook.prototype.retrieveQwizbooksOnFilter = function(owner, filterdata, callb
 Qwizbook.prototype.updateQwizbook = function(book, callback) {
 	
 	var qId = book._id;
+	var Qbook = book;
 	var new_title = book.title;
 	var new_description = book.description;
 	console.log(new_title);
@@ -384,7 +385,7 @@ Qwizbook.prototype.updateQwizbook = function(book, callback) {
 					Error : "update Qwizbooks failed."
 				}, null);
 			} else {
-				callback(null, book);
+				callback(null, Qbook);
 			}
 	 	});
 

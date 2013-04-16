@@ -76,8 +76,8 @@ define(["app", "text!templates/mybookListItem.html", "text!templates/myBookList.
 			// If we have items to list , update the list view.
 			// else show nothing to display view.
 			if (view.model.models.length) {
+				
 				_.each(view.model.models, function(qwizbook) {
-
 					var qwizbookView = new MyQwizBook.View({
 						model : qwizbook,
 						session : view.session

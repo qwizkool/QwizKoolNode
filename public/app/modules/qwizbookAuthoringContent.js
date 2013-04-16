@@ -43,15 +43,15 @@ define(["app",
 			});
 			*/
 			this.qwizbookUserCollection = new QwizBook.Collection();
-			
+			this.qwizbookUserCollection.on('list-qwizbook-event', this.refreshView, this);
 			//this.qwizbookUserCollection.on("reset", this.refreshView, this);
-
-			this.qwizbookUserCollection.on("list-qwizbook-event", this.refreshView, this);
-
 			this.qwizbooklistview = new MyQwizBook.ListMyBook({
 				model : this.qwizbookUserCollection,
 				session : this.session
 			});
+			
+		
+			
 
 		},
 
@@ -190,6 +190,7 @@ define(["app",
 		},
 
 		refreshView : function() {
+			
 			$(this.el).find("#myQwizbookList-container").html(this.qwizbooklistview.render().el);
 		},
 
@@ -198,9 +199,9 @@ define(["app",
 		render : function() {
 
 			this.el.innerHTML = this.template;
-			this.qwizbookUserCollection.setUserId();
+			this.qwizbookUserCollection.setUserId(this.session);
 			this.qwizbookUserCollection.getMybook();
-			// $(this.el).find("#qwizbooklist-container").append(this.qwizbooklistview.render().el);
+			 //$(this.el).find("#qwizbooklist-container").append(this.qwizbooklistview.render().el);
 
 			return this;
 		}

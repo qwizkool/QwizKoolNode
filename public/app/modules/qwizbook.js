@@ -81,7 +81,7 @@ define([
 
                     model.set({
                         isAddedqwizBook:true,
-                        AddedqwizBookStatus:"Successfully Added Qwizbook" + model.get('title') + "Qwizbook id is #" + model.get('id') + ".",
+                        //AddedqwizBookStatus:"Successfully Added Qwizbook" + model.get('title') + "Qwizbook id is #" + model.get('id') + ".",
                         action:'none'
                     });
                     model.trigger('qwizbook-create-success-event');
@@ -119,7 +119,7 @@ define([
         deleteMyQwizbook:function(qBookId)
         {
         	//alert(qBookId);
-        	this.set('id',qBookId);
+        	//this.set('id',qBookId);
         	this.destroy({
 
                 // Handle the Logout Error condition.
@@ -130,7 +130,6 @@ define([
 
                 // Handle the Logout success condition.
                 success: function (model, response) {
-                console.log("Successfully deleted Qwizbook");
                 model.trigger('delete-qwizbook-success-event');
                   
                 }
@@ -139,21 +138,19 @@ define([
         
         unArchiveMyQwizbook :function(qBookId)
         {
-        	this.set('id',qBookId);
-        	this.save({
+        	
+        	//this.set('id',qBookId);
+             var jqxhr = this.save({}, {
 
-                // Handle the Logout Error condition.
-                error: function (model, response) {
-                	console.log("Failed to unarchive Qwizbook");
-                   
+                error:function (model, response) {
+                   console.log("Failed to unarchive Qwizbook");
+
                 },
 
-                // Handle the Logout success condition.
-                success: function (model, response) {
-                console.log("Successfully unarchived Qwizbook");
-                model.trigger('unArchive-qwizbook-success-event');
-                  
+                success:function (model, response) {
+                   model.trigger('unArchive-qwizbook-success-event');
                 }
+                
             });
         }
         
@@ -174,7 +171,8 @@ define([
             
             else if(this.myQwizbook)
             {
-            	urlRoot ="myQwizbook";
+            	//urlRoot ="myQwizbook";
+            	urlRoot ="users/"+this.userId+"/qwizbooks";
             }
             
             else if(this.deleteQwizbookId){
@@ -215,8 +213,9 @@ define([
         },
         
         
-        setUserId:function(){
+        setUserId:function(session){
         	this.myQwizbook =true; 
+        	this.userId = session.id;
         	this.urlroot = this.url();
         	
         },
@@ -271,7 +270,6 @@ define([
                     if (response == null) {
                         collection.trigger('no-qwizbook-tolist');
                     }
-                    List = qwizbookList.toJSON();
                     collection.trigger('list-qwizbook-event');
                 }
             });
