@@ -40,8 +40,6 @@ define(["app", "modules/user", "text!templates/indexMainContent.html", "text!tem
             var view = this;
             var statusTemplate;
 
-            var data = view.model.toJSON();
-
             statusTemplate = _.template(TmplRegStatus, {
                 registrationStatus:statusObject.status
             });
