@@ -12,9 +12,9 @@ define(["app", "modules/user", "text!templates/indexMainContent.html", "text!tem
 
     indexMainContent.View = Backbone.View.extend({
 
-        template: Template,
+        template:Template,
 
-        initialize: function () {
+        initialize:function () {
 
             this.session = this.options.session;
             if (this.session) {
@@ -25,47 +25,17 @@ define(["app", "modules/user", "text!templates/indexMainContent.html", "text!tem
                 throw "ERROR: Session object is not provided for the view!!"
             }
 
-            this.model = new User.Model();
-            this.model.on('user-registration-event', this.userRegisterEvent, this);
 
         },
 
-        render: function () {
+        render:function () {
 
             this.el.innerHTML = this.template;
 
             return this;
 
         },
-
-        renderLogInStatus: function (statusObject) {
-            var view = this;
-            var statusTemplate;
-
-            // Update the login status related view elements
-            // with appropriate status.
-
-            var data = view.model.toJSON();
-
-            statusTemplate = _.template(TmplLoginStatus, {
-                loginStatus: statusObject.status
-            });
-
-            view.$("#login-status").html(statusTemplate);
-
-            if (statusObject.valid === true) {
-                view.$("#login-status").find('.alert').addClass('alert-success');
-            } else {
-                view.$("#login-status").find('.alert').addClass('alert-error');
-            }
-
-            // Show the login status
-            $("#login-status").show();
-
-            return this;
-        },
-
-        renderRegistrationStatus: function (statusObject) {
+        renderRegistrationStatus:function (statusObject) {
 
             var view = this;
             var statusTemplate;
@@ -73,7 +43,7 @@ define(["app", "modules/user", "text!templates/indexMainContent.html", "text!tem
             var data = view.model.toJSON();
 
             statusTemplate = _.template(TmplRegStatus, {
-                registrationStatus: statusObject.status
+                registrationStatus:statusObject.status
             });
 
             view.$("#registration-status").html(statusTemplate);
@@ -90,34 +60,27 @@ define(["app", "modules/user", "text!templates/indexMainContent.html", "text!tem
 
         },
 
-        events: {
-            "click #register-button": "signUp",
-            "keyup #user-reg-name-input": "signupByEnter",
-            "keyup #user-reg-email-input": "signupByEnter",
-            "keyup #user-reg-password-input": "signupByEnter"
+        events:{
+            "click #register-button":"signUp",
+            "keyup #user-reg-name-input":"signupByEnter",
+            "keyup #user-reg-email-input":"signupByEnter",
+            "keyup #user-reg-password-input":"signupByEnter"
 
         },
 
-        reattachEvents: function () {
+        reattachEvents:function () {
             this.undelegateEvents();
             this.delegateEvents(this.events);
         },
 
-        loginByEnter: function (e) {
-
-            if (e.keyCode == 13) {
-                this.signIn();
-            }
-        },
-
-        signupByEnter: function (e) {
+        signupByEnter:function (e) {
 
             if (e.keyCode == 13) {
                 this.signUp();
             }
         },
 
-        userLoginEvent: function (e) {
+        userLoginEvent:function (e) {
 
             if (this.session) {
 
@@ -131,13 +94,13 @@ define(["app", "modules/user", "text!templates/indexMainContent.html", "text!tem
 
         },
 
-        userRegisterEvent: function (e) {
+        userRegisterEvent:function (e) {
 
             this.renderRegistrationStatus(e);
         },
 
         // When the user clicks sign-up, create a new user model and save it
-        signUp: function () {
+        signUp:function () {
 
             // Email Validation
             var email = $('#user-reg-email-input').val();
@@ -145,7 +108,7 @@ define(["app", "modules/user", "text!templates/indexMainContent.html", "text!tem
             var atpos = email.indexOf("@");
             var dotpos = email.lastIndexOf(".");
             if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= email.length) {
-                this.renderRegistrationStatus({status: "Not a valid email address!"});
+                this.renderRegistrationStatus({status:"Not a valid email address!"});
                 return;
             }
 
@@ -158,26 +121,28 @@ define(["app", "modules/user", "text!templates/indexMainContent.html", "text!tem
 
             if (password != "" && password == confirmPassword) {
                 if (password.length < 6) {
-                    this.renderRegistrationStatus({status: "Password must contain at least six characters!"});
+                    this.renderRegistrationStatus({status:"Password must contain at least six characters!"});
                     return;
                 }
                 if (password === username) {
-                    this.renderRegistrationStatus({status: "Password must be different from Username!"});
+                    this.renderRegistrationStatus({status:"Password must be different from Username!"});
                     return;
                 }
             } else {
 
-                this.renderRegistrationStatus({status: "Please check that you've entered and confirmed your password!"});
+                this.renderRegistrationStatus({status:"Please check that you've entered and confirmed your password!"});
                 return;
 
             }
 
             // Clear all fields
-            $('#user-reg-name-input').val('');
             $('#user-reg-email-input').val('');
             $('#user-reg-password-input').val('');
+            $('#user-reg-confirm-password-input').val('');
 
             // Register a new user.
+            this.model = new User.Model();
+            this.model.on('user-registration-event', this.userRegisterEvent, this);
             this.model.register(username, email, password);
 
         }
