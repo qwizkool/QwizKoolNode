@@ -258,6 +258,7 @@ define([
         	
         	var qwizbookList = this;
             var jqxhr = qwizbookList.fetch({
+             reset: true,
 
                 error:function (collection, response) {
                     this.isListedqwizBook = false;

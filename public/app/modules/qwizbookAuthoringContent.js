@@ -43,8 +43,8 @@ define(["app",
 			});
 			*/
 			this.qwizbookUserCollection = new QwizBook.Collection();
-			this.qwizbookUserCollection.on('list-qwizbook-event', this.refreshView, this);
-			//this.qwizbookUserCollection.on("reset", this.refreshView, this);
+			//this.qwizbookUserCollection.on('list-qwizbook-event', this.refreshView, this);
+			this.qwizbookUserCollection.on("reset", this.refreshView, this);
 			this.qwizbooklistview = new MyQwizBook.ListMyBook({
 				model : this.qwizbookUserCollection,
 				session : this.session
