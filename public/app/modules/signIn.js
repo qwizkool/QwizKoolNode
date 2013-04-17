@@ -7,30 +7,32 @@
  */
 define([
     "app",
+    "text!templates/loginStatus.html",
     "text!templates/signIn.html"
-], function (App, Template) {
+], function (App, TmplLoginStatus, Template) {
 
     // Create a new module
     var SignIn = App.module();
 
     SignIn.View = Backbone.View.extend({
 
-        template: Template,
+        template:Template,
 
-        initialize: function () {
+        initialize:function () {
 
             if (_.isEmpty(this.options.session)) {
                 throw "ERROR: Session object is not provided for the view!!"
             }
 
             this.session = this.options.session;
+            this.session.on('session-login-event', this.userLoginEvent, this)
 
         },
-        remove: function () {
+        remove:function () {
             console.log("removed signIn View")
         },
 
-        render: function (done) {
+        render:function (done) {
 
             var view = this;
             view.el.innerHTML = _.template(Template, this.session.toJSON());
@@ -41,23 +43,63 @@ define([
             return this;
         },
 
-        events: {
-            "click #signin-button": "signIn",
-            "keyup #user-password-input": "signInByEnter",
-            "keyup #user-email-input": "signInByEnter"
+        renderLogInStatus:function (statusObject) {
+
+            var view = this;
+            var statusTemplate;
+
+            // Update the login status related view elements
+            // with appropriate status.
+
+            statusTemplate = _.template(TmplLoginStatus, {
+                loginStatus:statusObject.status
+            });
+
+            view.$("#login-status").html(statusTemplate);
+
+            if (statusObject.valid === true) {
+                view.$("#login-status").find('.alert').addClass('alert-success');
+            } else {
+                view.$("#login-status").find('.alert').addClass('alert-error');
+            }
+
+            // Show the login status
+            $("#login-status").show();
+
+            return this;
+        },
+
+        userLoginEvent:function (e) {
+
+            if (this.session) {
+
+                if (e.valid === false) {
+
+                    this.renderLogInStatus(e);
+
+                }
+
+            }
 
         },
 
-        manageClinkInsideDropdown: function (e) {
+        events:{
+            "click #signin-button":"signIn",
+            "keyup #user-password-input":"signInByEnter",
+            "keyup #user-email-input":"signInByEnter"
+
+        },
+
+        manageClinkInsideDropdown:function (e) {
             e.stopPropagation();
         },
 
-        reattachEvents: function () {
+        reattachEvents:function () {
             this.undelegateEvents();
             this.delegateEvents(this.events);
 
         },
-        signInByEnter: function (e) {
+        signInByEnter:function (e) {
 
             if (e.keyCode == 13) {
                 this.signIn();
@@ -65,7 +107,7 @@ define([
 
         },
 
-        signIn: function () {
+        signIn:function () {
 
             // Todo: Validate the input values
             var email = $('#user-email-input').val();
