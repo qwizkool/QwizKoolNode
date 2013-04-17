@@ -139,7 +139,7 @@ define([
         unArchiveMyQwizbook :function(qBookId)
         {
         	
-        	//this.set('id',qBookId);
+        	//this.set('_id',qBookId);
              var jqxhr = this.save({}, {
 
                 error:function (model, response) {
