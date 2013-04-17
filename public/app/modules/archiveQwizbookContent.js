@@ -42,8 +42,15 @@ define(["app",
 			"click #myQwizbook-list-container input" : "showunArchiveBtn",
 			"click #allQwizbooks" : "selectAllQwizbooks",
 			"click #unArchiveQwizbook" : "unArchiveQwizbook",
-            "click #myQwizbook-list-container a":"authorQwizbook"
+            "click #myQwizbook-list-container a":"authorQwizbook",
+            "keyup #qwizbook_searchKeyword" : "qwizbook_search"
 
+		},
+		
+		qwizbook_search : function (e) {
+			var searchparam = e.target.value;
+			 this.qwizbookUserCollection.setSearchParameter(this.session,searchparam);
+            this.qwizbookUserCollection.getAllBooks();
 		},
 
 		authorQwizbook:function (e){
@@ -132,6 +139,14 @@ define(["app",
 		refreshView : function() {
 			$(this.el).find("#archiveQwizbookList-container").html(this.qwizbooklistview.render().el);
 		},
+		
+		clear: function () {
+
+            // clear all the subviews.
+            this.$el.empty();
+
+            return this;
+        },
 
 		template : Template,
 

@@ -16,7 +16,7 @@ define(["app",
 
 		initialize : function() {
 
-			this.qwizbookModel = new QwizBook.Model();
+		//	this.qwizbookModel = new QwizBook.Model();
 
 			if (_.isEmpty(this.options.session)) {
 				throw "ERROR: Session object is not provided for the view!!"
@@ -25,23 +25,7 @@ define(["app",
 			this.session = this.options.session;
 			var view = this;
 
-            /*
-			this.on("createqwizbook", function(createQwizbookObj) {
-
-				var qbooktitle = createQwizbookObj.qbooktitle;
-				var qbookdescription = createQwizbookObj.qbookdesc;
-
-				var qwizbookmodel = createQwizbookObj.qwizbookmodel;
-				qwizbookmodel.create(qbooktitle, qbookdescription);
-				var view = this;
-				qwizbookmodel.on("qwizbook-create-success-event", function() {
-
-					view.qwizbookUserCollection.getMybook();
-
-				});
-
-			});
-			*/
+           
 			this.qwizbookUserCollection = new QwizBook.Collection();
 			//this.qwizbookUserCollection.on('list-qwizbook-event', this.refreshView, this);
 			this.qwizbookUserCollection.on("reset", this.refreshView, this);
@@ -168,7 +152,6 @@ define(["app",
 						currentQwizbook = selectedQwizbooks[j];
 						
 						var ModelData = view.qwizbookUserCollection.get(currentQwizbook);
-
 						var qbookModel = ModelData;
 						qbookModel.deleteMyQwizbook(currentQwizbook);
 
@@ -193,6 +176,14 @@ define(["app",
 			
 			$(this.el).find("#myQwizbookList-container").html(this.qwizbooklistview.render().el);
 		},
+		
+		clear: function () {
+
+            // clear all the subviews.
+            this.$el.empty();
+
+            return this;
+        },
 
 		template : Template,
 
