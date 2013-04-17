@@ -15,7 +15,7 @@ define(["app",
 	ArchiveQwizbookContent.View = Backbone.View.extend({
 
 		initialize : function() {
-
+            
 			this.qwizbookModel = new QwizBook.Model();
 
 			if (_.isEmpty(this.options.session)) {
@@ -31,6 +31,7 @@ define(["app",
 			this.qwizbookUserCollection.on('list-qwizbook-event', this.refreshView, this);
 
 			this.qwizbooklistview = new MyQwizBook.ListMyBook({
+				idAttribute:"_id",
 				model : this.qwizbookUserCollection,
 				session : this.session
 			});
@@ -133,7 +134,6 @@ define(["app",
 				}
 
 			}
-
 		},
 
 		refreshView : function() {

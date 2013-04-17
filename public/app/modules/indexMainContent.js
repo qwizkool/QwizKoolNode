@@ -5,7 +5,12 @@
  *
  *
  */
-define(["app", "modules/user", "text!templates/indexMainContent.html", "text!templates/loginStatus.html", "text!templates/registrationStatus.html"], function (App, User, Template, TmplLoginStatus, TmplRegStatus) {
+define([
+    "app",
+    "modules/user",
+    "text!templates/indexMainContent.html",
+    "text!templates/registrationStatus.html"
+],function (App, User, Template, TmplRegStatus) {
 
     // Create a new module
     var indexMainContent = App.module();
