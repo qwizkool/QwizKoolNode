@@ -139,7 +139,7 @@ define([
         unArchiveMyQwizbook :function(qBookId)
         {
         	
-        	//this.set('id',qBookId);
+        	//this.set('_id',qBookId);
              var jqxhr = this.save({}, {
 
                 error:function (model, response) {
@@ -175,9 +175,24 @@ define([
             	urlRoot ="users/"+this.userId+"/qwizbooks";
             }
             
+             else if(this.search)
+            {
+            	if(this.searchParam != '')
+            	{
+            		urlRoot ="users/"+this.userId+"/qwizbooks?search_str=" + this.searchParam;
+            	}
+            	else{
+            		urlRoot ="users/"+this.userId+"/qwizbooks?archived=true";
+            	}
+            	
+            }
+            
+            
             else if(this.deleteQwizbookId){
             	urlRoot ="deleteQwizbook/"+this.deleteQwizbookId;
             }
+            
+           
             
             else if(this.archiveQwizbook){
             	urlRoot ="users/"+this.userId+"/qwizbooks?archived=true";
@@ -195,6 +210,8 @@ define([
 
         initialize:function () {
             this.searchval = '';
+            this.searchParam ='';
+            this.search =false;
             this.myQwizbook = false;
             this.deleteQwizbookId =false;
             this.archiveQwizbook =false;
@@ -218,6 +235,13 @@ define([
         	this.userId = session.id;
         	this.urlroot = this.url();
         	
+        },
+        setSearchParameter : function(session,seachPArameter)
+        {
+        	this.search = true;
+        	this.userId = session.id;
+        	this.searchParam = seachPArameter;
+        	this.urlroot = this.url();
         },
         
         getArchiveQwizbook: function(session){

@@ -418,6 +418,78 @@ Qwizbook.prototype.deleteQwizbook = function(qId, callback) {
 	});
 };
 
+Qwizbook.prototype.retrieveQwizbookSearchResults = function(owner, searchparameter, callback) {
+
+	// TODO: Complete the Retrieve Qwizbooks
+	// Retrieve Qwizbooks, that are shared, public or
+	// owned by the 'owner'
+
+		var userEmail = owner.email;
+		if(searchparameter != '')
+		{
+			QwizbookModel.find({
+			ownerEmail : userEmail,
+			archive :true,
+			$or : [{
+				title : {
+					$regex : searchparameter,
+					$options : 'i'
+				}
+			}, {
+				description : {
+					$regex : searchparameter,
+					$options : 'i'
+				}
+			}]
+			}).sort({
+			date : -1
+			}).execFind(function(err, books) {
+
+			if (err) {
+				// Check for duplicate key error
+
+				// All other conditions Pass as is TODO: need to cleanup.
+				callback({
+					Error : "Retreive Qwizbooks failed."
+				}, null);
+			} else {
+
+				callback(null, books);
+			}
+
+			});
+		}
+		
+		else{
+			
+			QwizbookModel.find({
+			ownerEmail : userEmail,
+			archive :true
+			}).sort({
+			date : -1
+			}).execFind(function(err, books) {
+
+			if (err) {
+				// Check for duplicate key error
+
+				// All other conditions Pass as is TODO: need to cleanup.
+				callback({
+					Error : "Retreive Qwizbooks failed."
+				}, null);
+			} else {
+
+				callback(null, books);
+			}
+
+			});
+		}
+		
+
+
+	
+
+};
+
 /**
  * Exports.
  * Return the singleton instance
