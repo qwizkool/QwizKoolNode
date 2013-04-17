@@ -46,7 +46,7 @@ define(["app",
 			"click #deleteAllQwizbooks" : "selectAllQwizbooks",
 			"click #qwizbookList" : "showDeleteBtn",
 			"click #deleteQwizbook" : "deleteQwizbook",
-			"click #myQwizbook-list-container":"authorQwizbookOnclickDiv",
+			//"click #myQwizbook-list-container":"authorQwizbookOnclickDiv",
             "click #myQwizbook-list-container a":"authorQwizbook"
 
 		},
