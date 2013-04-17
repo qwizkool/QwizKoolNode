@@ -17,27 +17,27 @@ define([
 
     Session.Model = Backbone.Model.extend({
 
-        urlRoot: "/sessions",
+        urlRoot:"/sessions",
 
-        SESSION_STORAGE: "qwizkoolSession",
+        SESSION_STORAGE:"qwizkoolSession",
 
-        LOGIN_FAILED_MSG: "Authentication Failed: Invalid ID or password",
-        LOGIN_SUCCESS_MSG: "Authentication successful",
-        LOGOUT_FAILED_MSG: "Logout failed",
-        LOGOUT_SUCCESS_MSG: "Logout successful",
-        SESSION_INVALID_MSG: "Session invalid",
-        SESSION_VALID_MSG: "Session valid",
+        LOGIN_FAILED_MSG:"Authentication Failed: Invalid ID or password",
+        LOGIN_SUCCESS_MSG:"Authentication successful",
+        LOGOUT_FAILED_MSG:"Logout failed",
+        LOGOUT_SUCCESS_MSG:"Logout successful",
+        SESSION_INVALID_MSG:"Session invalid",
+        SESSION_VALID_MSG:"Session valid",
 
-        defaults: {
-            id: null,
-            name: 'new_user',
-            email: 'new_user@qwizkool.com',
-            password: '',
-            isAuthenticated: false,
+        defaults:{
+            id:null,
+            name:'new_user',
+            email:'new_user@qwizkool.com',
+            password:'',
+            isAuthenticated:false,
             notifications:2
         },
 
-        initialize: function () {
+        initialize:function () {
 
             var sessionData = localStorage.getItem(this.SESSION_STORAGE);
             if (sessionData) {
@@ -46,10 +46,10 @@ define([
                 if (sessionInfo) {
 
                     this.set({
-                        name: sessionInfo.name,
-                        id: sessionInfo.id,
-                        email: sessionInfo.email,
-                        isAuthenticated: sessionInfo.isAuthenticated
+                        name:sessionInfo.name,
+                        id:sessionInfo.id,
+                        email:sessionInfo.email,
+                        isAuthenticated:sessionInfo.isAuthenticated
                     });
 
                 }
@@ -57,12 +57,12 @@ define([
 
         },
 
-        isUserAuthenticated: function () {
+        isUserAuthenticated:function () {
             return this.get('isAuthenticated');
         },
 
 
-        login: function (email, password) {
+        login:function (email, password) {
 
             // clear all states.
             this.clear().set(this.defaults);
@@ -76,50 +76,56 @@ define([
             this.save({}, {
 
                 // Handle the Login Error condition.
-                error: function (model, response) {
+                error:function (model, response) {
 
                     localStorage.setItem(model.SESSION_STORAGE, JSON.stringify(model));
                     model.trigger('session-login-event', {
-                        valid: model.isUserAuthenticated(),
-                        status: model.LOGIN_FAILED_MSG
+                        valid:model.isUserAuthenticated(),
+                        status:model.LOGIN_FAILED_MSG
                     });
 
                 },
                 // Handle the Login success condition.
-                success: function (model, response) {
+                success:function (model, response) {
 
                     localStorage.setItem(model.SESSION_STORAGE, JSON.stringify(model));
                     model.trigger('session-login-event', {
-                        valid: model.isUserAuthenticated(),
-                        status: model.LOGIN_SUCCESS_MSG
+                        valid:model.isUserAuthenticated(),
+                        status:model.LOGIN_SUCCESS_MSG
                     });
                 }
             });
 
         },
 
-        logout: function () {
+        clearLocal:function () {
+            this.clear().set(this.defaults);
+            localStorage.clear(this.SESSION_STORAGE);
+
+        },
+
+        logout:function () {
 
             this.destroy({
 
                 // Handle the Logout Error condition.
-                error: function (model, response) {
+                error:function (model, response) {
                     model.clear().set(model.defaults);
                     localStorage.setItem(model.SESSION_STORAGE, JSON.stringify(model));
                     model.trigger('session-logout-event', {
-                        valid: model.isUserAuthenticated(),
-                        status: model.LOGOUT_FAILED_MSG
+                        valid:model.isUserAuthenticated(),
+                        status:model.LOGOUT_FAILED_MSG
                     });
                 },
 
                 // Handle the Logout success condition.
-                success: function (model, response) {
+                success:function (model, response) {
 
                     model.clear().set(model.defaults);
                     localStorage.setItem(model.SESSION_STORAGE, JSON.stringify(model));
                     model.trigger('session-logout-event', {
-                        valid: model.isUserAuthenticated(),
-                        status: model.LOGOUT_SUCCESS_MSG
+                        valid:model.isUserAuthenticated(),
+                        status:model.LOGOUT_SUCCESS_MSG
                     });
 
                 }
@@ -127,28 +133,28 @@ define([
 
         },
 
-        isSessionValid: function () {
+        isSessionValid:function () {
 
             if (!_.isEmpty(this.id)) {
                 this.fetch({
 
                     // Handle the fetch Error condition.
-                    error: function (model, response) {
+                    error:function (model, response) {
 
                         localStorage.setItem(model.SESSION_STORAGE, JSON.stringify(model));
                         model.trigger('session-check-event', {
-                            valid: model.isUserAuthenticated(),
-                            status: model.SESSION_INVALID_MSG
+                            valid:model.isUserAuthenticated(),
+                            status:model.SESSION_INVALID_MSG
                         });
                     },
 
                     // Handle the fetch success condition.
-                    success: function (model, response) {
+                    success:function (model, response) {
 
                         localStorage.setItem(model.SESSION_STORAGE, JSON.stringify(model));
                         model.trigger('session-check-event', {
-                            valid: model.isUserAuthenticated(),
-                            status: model.SESSION_VALID_MSG
+                            valid:model.isUserAuthenticated(),
+                            status:model.SESSION_VALID_MSG
                         });
 
                     }
