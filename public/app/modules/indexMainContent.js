@@ -5,7 +5,12 @@
  *
  *
  */
-define(["app", "modules/user", "text!templates/indexMainContent.html", "text!templates/loginStatus.html", "text!templates/registrationStatus.html"], function (App, User, Template, TmplLoginStatus, TmplRegStatus) {
+define([
+    "app",
+    "modules/user",
+    "text!templates/indexMainContent.html",
+    "text!templates/registrationStatus.html"
+],function (App, User, Template, TmplRegStatus) {
 
     // Create a new module
     var indexMainContent = App.module();
@@ -18,8 +23,6 @@ define(["app", "modules/user", "text!templates/indexMainContent.html", "text!tem
 
             this.session = this.options.session;
             if (this.session) {
-                // Register for seesion based events.
-                this.session.on('session-login-event', this.userLoginEvent, this)
 
             } else {
                 throw "ERROR: Session object is not provided for the view!!"
@@ -35,6 +38,7 @@ define(["app", "modules/user", "text!templates/indexMainContent.html", "text!tem
             return this;
 
         },
+
         renderRegistrationStatus:function (statusObject) {
 
             var view = this;
@@ -76,20 +80,6 @@ define(["app", "modules/user", "text!templates/indexMainContent.html", "text!tem
             if (e.keyCode == 13) {
                 this.signUp();
             }
-        },
-
-        userLoginEvent:function (e) {
-
-            if (this.session) {
-
-                if (e.valid === false) {
-
-                    this.renderLogInStatus(e);
-
-                }
-
-            }
-
         },
 
         userRegisterEvent:function (e) {

@@ -28,7 +28,7 @@ define([
             	this.header = new Header.View({htbuView:this.userSettings});
            	    this.footer = new Footer.View();
 				this.archiveQwizbookContent = new ArchiveQwizbookContent.View({ el: '#qwizkool-content',session: this.session});
-				
+				this.archiveQwizbookContent.clear();
             },
 
             show:function (done) {

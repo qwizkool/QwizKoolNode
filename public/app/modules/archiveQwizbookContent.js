@@ -15,7 +15,7 @@ define(["app",
 	ArchiveQwizbookContent.View = Backbone.View.extend({
 
 		initialize : function() {
-
+            
 			this.qwizbookModel = new QwizBook.Model();
 
 			if (_.isEmpty(this.options.session)) {
@@ -31,6 +31,7 @@ define(["app",
 			this.qwizbookUserCollection.on('list-qwizbook-event', this.refreshView, this);
 
 			this.qwizbooklistview = new MyQwizBook.ListMyBook({
+				idAttribute:"_id",
 				model : this.qwizbookUserCollection,
 				session : this.session
 			});
@@ -42,8 +43,15 @@ define(["app",
 			"click #myQwizbook-list-container input" : "showunArchiveBtn",
 			"click #allQwizbooks" : "selectAllQwizbooks",
 			"click #unArchiveQwizbook" : "unArchiveQwizbook",
-            "click #myQwizbook-list-container a":"authorQwizbook"
+            "click #myQwizbook-list-container a":"authorQwizbook",
+            "keyup #qwizbook_searchKeyword" : "qwizbook_search"
 
+		},
+		
+		qwizbook_search : function (e) {
+			var searchparam = e.target.value;
+			 this.qwizbookUserCollection.setSearchParameter(this.session,searchparam);
+            this.qwizbookUserCollection.getAllBooks();
 		},
 
 		authorQwizbook:function (e){
@@ -126,12 +134,19 @@ define(["app",
 				}
 
 			}
-
 		},
 
 		refreshView : function() {
 			$(this.el).find("#archiveQwizbookList-container").html(this.qwizbooklistview.render().el);
 		},
+		
+		clear: function () {
+
+            // clear all the subviews.
+            this.$el.empty();
+
+            return this;
+        },
 
 		template : Template,
 
