@@ -62,10 +62,8 @@ define([
                 } else if (xhr.status == 404) {
                     // page not found
                     Backbone.history.navigate("notfound", true);
-                } else {
-                    // TODO this page need to be added.
-                    Backbone.history.navigate("unknownError", true);
                 }
+                //TODO: need to handle other errors
             });
 
         },
