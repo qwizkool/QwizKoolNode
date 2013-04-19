@@ -88,13 +88,16 @@ Users.prototype.authenticate = function (email, password, callback) {
 */
 Users.prototype.activate = function(token, callback){
     UserModel.findOne({activationCode: token}, function(err, user){
-        // @TODO 
         if(err){
+            console.log("error occured")
             return callback(err)
         }
-        // invalid token
         if(!user){
             return callback(null, false)
+        }
+        if(user.activationStatus == true){
+            console.log(user.activationStatus)
+            return callback(false, user)
         }
         user.activationStatus = true;
         user.save();

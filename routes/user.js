@@ -94,11 +94,16 @@ module.exports = {
     activate:function(req,res){
         var token = req.params.token
         User.activate(token, function(err, user){
-            console.log(err);
-            if(user){
-                console.log(user);
+            if(err === false){
+                status = 2;
             }
-            res.send({status:"activated", user: user});
+            else if(user === false){
+                status = -1;
+            }
+            else if(user){
+                status = 1;
+            }
+            res.render("activate.jade",{activationStatus:status, title:"User Account Activation"})
         });
     }
 
