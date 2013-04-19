@@ -96,7 +96,7 @@ define([
         	html += '<td align="right" style="border: 1px solid #EEEEEE;padding:10px;" class="span3">Description </td>';
         	html += '<td align="left" class="span9" style="border: 1px solid #EEEEEE;padding:10px;">';
 			html +='<div style="float:left">';
-			html +='<textarea name="reference_description"'+count+' id="reference_description"'+count+'> </textarea>';
+			html +='<textarea name="reference_description'+count+'" id="reference_description'+count+'"> </textarea>';
 			html +='</div>'	;
 			html +='<div style="float: right;width:72%;padding-top:18px;">';
 			html +='<a class="btn" id="reference-link-'+count+'_show" title="Add Link"><i class="icon-external-link"></i> </a>';
