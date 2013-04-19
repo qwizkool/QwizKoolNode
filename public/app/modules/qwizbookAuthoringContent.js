@@ -161,7 +161,7 @@ define(["app",
 			
 			if (selectedQbookCount >= 1) {
 
-				var confirmMsg = confirm('Are you sure you want to delete ' + selectedQbookCount + ' Qwizbook');
+				var confirmMsg = confirm('Are you sure you want to delete ' + selectedQbookCount + ' Qwizbook')
 				if (confirmMsg==true) {
 					
 					for (var j = 0; j < selectedQwizbooks.length; j++) {
@@ -183,11 +183,9 @@ define(["app",
 						counter++;
 
 					}
-					
-					this.undelegateEvents();
-                    this.delegateEvents(this.events);
 				}
-
+                    this.undelegateEvents();
+                    this.delegateEvents(this.events);
 			}
 
 		},
