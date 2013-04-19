@@ -1,7 +1,7 @@
 /*!
  * Copyright(c) 2013 Vibrentt
  *
- * Module : RatingSchema
+ * Module : UserSchema
  *
  */
 
@@ -18,6 +18,14 @@ var UserSchema = {
     hash: {
         type: String,
         required: true
+    },
+    activationCode: {
+        type: String,
+        required: true
+    },
+    activationStatus: {
+        type: Boolean,
+        default: false
     }
 };
 

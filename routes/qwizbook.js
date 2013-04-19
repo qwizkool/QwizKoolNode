@@ -408,13 +408,14 @@ module.exports = {
 	getmybooks:function(req,res){
 		var sessionUser = req.user;
 		var parameter = req.query;
-		var archiveParameter = new Array();
+		var qbookParameter = new Array();
 			for (var i in parameter) {
 
-				archiveParameter[i] = parameter[i];
+				qbookParameter[i] = parameter[i];
 			}
 
-			var archiveParameter = archiveParameter['archived'];
+			var archiveParameter = qbookParameter['archived'];
+			var searchString = qbookParameter['search_str'];
 		if(archiveParameter)
 		{
 			Qwizbook.retrieveMyArchivebooks(sessionUser, function(err, books){
@@ -436,6 +437,25 @@ module.exports = {
 		
 		}
 		
+		else if(searchString)
+		{
+			
+			Qwizbook.retrieveQwizbookSearchResults(sessionUser,searchString, function(err, books){
+			
+			
+			if(err)
+			{
+				res.send(400, err);
+				console.log(err);
+				return;
+			}
+			else
+			{
+				res.send(books);
+			}
+			
+		});
+		}
 		
 		else
 		{

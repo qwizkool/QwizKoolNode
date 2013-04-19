@@ -17,7 +17,7 @@
 											<div class="control-group" style="margin-top: 10px;margin-bottom: 0">
 												<label class="control-label" style="padding-top: 5px">View in:</label>
 												<div class="controls">
-													<select id="user-filter-input" class="input-medium">
+													<select id="user-filter-input" class="input-block-level">
 														<option value="1">Detail</option>
 														<option value="2">Minimal</option>
 														<option value="3">Thumbnail</option>
@@ -35,7 +35,7 @@
 											<div class="control-group" style="margin-top: 10px;margin-bottom: 10px;">
 												<label class="control-label" style="padding-top: 5px">Sort by:</label>
 												<div class="controls">
-													<select id="user-filter-input" class="input-medium">
+													<select id="user-filter-input" class="input-block-level">
 														<option value="1">Recently Updated</option>
 														<option value="2">Most Popular</option>
 													</select>
@@ -73,45 +73,23 @@
 						</div>
 						
 						<div  id="qwizbook-create-form" name="qwizbook-create-form" style="display:none;">
-						<div class="media">
-		
-							<div class="media-body">
-								
-								<!--
-								<form>
-									<div class="row-fluid">
-								 
-								    <div class="span3" style="border: 1px solid #EEEEEE;"> Title
+						
+								<table class="table table-bordered">
 								 	
-								    </div>
-								    <div class="span9" style="border: 1px solid #EEEEEE;">
-								 	<input type="text" id="qwizbook-title" name="qwizbook-title">
-								 	<div class="row-fluid">
-								 		<div  id="title-status"  ></div>
-								 	</div>
-								 	
-								    </div>	
-								    
-								    </div>
-									
-								</form>-->
-								
-								    
-								   
-								<table border="0">
-									<tbody><tr>
+									<tbody>
+										<tr>
 										<td align="right" style="padding:10px;" class="span3">Title</td>
 										<td align="left" style="border: 1px solid #EEEEEE;padding:10px;" class="span9">
-											<input type="text" id="qwizbook-title" name="qwizbook-title">
+											<input type="text" id="qwizbook-title" name="qwizbook-title" class="input-block-level" style="width: 210px;">
 											
-											<div  id="title-status"  ></div>
+											<div id="title-status"></div>
 										</td>
 									</tr>
 									
 									<tr>
 										<td align="right" style="border: 1px solid #EEEEEE;padding:10px;" class="span3">Description</td>
 										<td align="left" style="border: 1px solid #EEEEEE;padding:10px;" class="span9">
-											<textarea id="qwizbook-description" name="qwizbook-description"> </textarea>
+											<textarea id="qwizbook-description" name="qwizbook-description" class="input-block-level" style="width: 210px;"> </textarea>
 										</td>
 									</tr>
 									<tr>
@@ -129,15 +107,8 @@
 									
 									
 								</tbody></table>
-							
-		
-							</div>
-		
+						
 						</div>
-						
-					</div>
-						
-						
 						
 					</div>
 				</div>

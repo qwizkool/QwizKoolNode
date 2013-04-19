@@ -30,7 +30,7 @@ define([
             	this.header = new Header.View({htbuView:this.userSettings,htblView:this.archiveToolbar});
            	    this.footer = new Footer.View();
 				this.qwizbookAuthoringContent = new QwizbookAuthoringContent.View({ el: '#qwizkool-content',session: this.session});
-				
+				this.qwizbookAuthoringContent.clear();
             },
 
             show:function (done) {
