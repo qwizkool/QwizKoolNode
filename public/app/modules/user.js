@@ -21,6 +21,7 @@ define([
 
         REGISTRATION_SUCCESS_MSG: "Registration Successful. You may login now.",
         REGISTRATION_FAILED_MSG: "Could not complete the registration.",
+        USER_ALREADY_EXISTS_MSG:"User already exist with the same email ID",
 
         defaults:{
             id:null,
@@ -49,11 +50,13 @@ define([
             var jqxhr = this.save({}, {
 
                 error:function (model, response) {
-
+                    var json = JSON.parse(response.responseText),
+                        status = ( "user_already_exists" == json.Error )
+                                    ? model.USER_ALREADY_EXISTS_MSG
+                                    : model.REGISTRATION_FAILED_MSG ;
                     model.trigger('user-registration-event', {
                         valid:false,
-                        status:model.REGISTRATION_FAILED_MSG
-
+                        status:status
                     });
 
                  },
