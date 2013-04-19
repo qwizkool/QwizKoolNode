@@ -1,14 +1,21 @@
 <div class="page-header">
+	
+	<div class="span1"  id="qwizbookList">
+		    <input type="checkbox" id="qwizbook_<%= _id %>" value="<%= _id %>" style="margin-bottom:5px;"></div>
+		
 	   <input type="hidden"  id="myqbook_id" value ="<%= _id %>" />
-		<div class="row-fluid">
+		
+		<div id="qwizBook"> <!-- for authorQwizbook function -->
+		
+		<div class="row-fluid"  >
+			
+			
 		<div class="span11">
 			
 		  <a id ="<%= _id %>"><%= title %></a>
 		</div>
 		
-		<div class="span1" align="right" id="qwizbookList">
-		    <input type="checkbox" id="qwizbook_<%= _id %>" value="<%= _id %>" style="margin-right:20px;margin-bottom:5px;">
-		</div>
+		
 		
 		<div class="span12" style="clear:both; font-size:1px;"></div>
 		</div>
@@ -20,6 +27,8 @@
 		</div>
 		</div>
 	</div>	
+
+</div>
 
 </div>
 

@@ -46,20 +46,21 @@ define(["app",
 			"click #deleteAllQwizbooks" : "selectAllQwizbooks",
 			"click #qwizbookList" : "showDeleteBtn",
 			"click #deleteQwizbook" : "deleteQwizbook",
-			//"click #myQwizbook-list-container":"authorQwizbookOnclickDiv",
-            "click #myQwizbook-list-container a":"authorQwizbook"
+		//	"click #qwizbookList":"authorQwizbookOnclickDiv",
+            "click #qwizBook":"authorQwizbook"
+            // "click #myQwizbook-list-container a":"authorQwizbook"
 
 		},
 
-        authorQwizbookOnclickDiv:function (e){
+        authorQwizbook:function (e){
         	var id = $('#myqbook_id').val();
         	Backbone.history.navigate("#authorQwizbook/" + id, true);
 		},
 		
-		authorQwizbook:function (e){
+		/*authorQwizbook:function (e){
 			var id = e.target.id;
 			Backbone.history.navigate("#authorQwizbook/" + id, true);
-		},
+		},*/
 		showDeleteBtn : function(e) {
 
 			var selectedQbooksCount = $("input:checked").length;
