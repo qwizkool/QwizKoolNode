@@ -21,13 +21,16 @@ define(["app",
 			if (_.isEmpty(this.options.session)) {
 				throw "ERROR: Session object is not provided for the view!!"
 			}
+			$(this.el).find("#archiveQwizbookList-container").html('<i class="icon-spinner icon-spin">dcd</i>cd');
 
 			this.session = this.options.session;
 			var view = this;
 
 			this.qwizbookUserCollection = new QwizBook.Collection();
 			
-
+			this.qwizbookUserCollection.on("fetch", function() {
+		     this.html('<i class="icon-spinner icon-spin"></i>');
+		    }, this);
 			this.qwizbookUserCollection.on('list-qwizbook-event', this.refreshView, this);
 
 			this.qwizbooklistview = new MyQwizBook.ListMyBook({
@@ -137,6 +140,8 @@ define(["app",
 		},
 
 		refreshView : function() {
+			
+			
 			$(this.el).find("#archiveQwizbookList-container").html(this.qwizbooklistview.render().el);
 		},
 		
@@ -155,8 +160,7 @@ define(["app",
 			this.el.innerHTML = this.template;
 			this.qwizbookUserCollection.getArchiveQwizbook(this.session);
 			this.qwizbookUserCollection.getMybook();
-
-			return this;
+			return ;
 		}
 	});
 
