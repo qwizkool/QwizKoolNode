@@ -31,6 +31,8 @@ define(["app",
 			this.qwizbookUserCollection.on("fetch", function() {
 		     this.html('<i class="icon-spinner icon-spin"></i>');
 		    }, this);
+			this.qwizbookUserCollection.on('no-qwizbook-tolist', this.notFoundView, this);
+			
 			this.qwizbookUserCollection.on('list-qwizbook-event', this.refreshView, this);
 
 			this.qwizbooklistview = new MyQwizBook.ListMyBook({
@@ -143,6 +145,11 @@ define(["app",
 			
 			
 			$(this.el).find("#archiveQwizbookList-container").html(this.qwizbooklistview.render().el);
+		},
+		
+		notFoundView : function()
+		{
+			$(this.el).find("#archiveQwizbookList-container").html('<p class="lead"><p class="text-warning" style="text-align:center;">You dont have any  unarchived Qwizbooks.</p></p>');
 		},
 		
 		clear: function () {
