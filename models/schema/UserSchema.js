@@ -7,8 +7,7 @@
 
 var UserSchema = {
     username: {
-        type: String,
-        unique: true
+        type: String
     },
     email: {
         type: String,
