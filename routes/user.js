@@ -103,7 +103,7 @@ module.exports = {
             else if(user){
                 status = 1;
             }
-            res.render("activate.jade",{activationStatus:status, title:"User Account Activation"})
+            res.render("activate.jade",{activationStatus:status, title:"Account Activation"})
         });
     }
 

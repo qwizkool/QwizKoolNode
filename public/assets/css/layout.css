@@ -36,6 +36,16 @@ body {
     /*color: #0088cc;*/
 }
 
+.server-padding {
+    padding-left: 10px;
+}
+
+.activation-banner {
+    background-color: #d0d0d0;
+    padding: 10px;
+    margin: 10px;
+}
+
 #qwizkool-logo span {
     font-family: 'Lato', sans-serif;
     font-size: 34px;
@@ -152,4 +162,25 @@ body {
         width:90% !important;
 
     }
+}
+
+
+/* Large desktop */
+@media (min-width: 1200px) {
+
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+
 }
