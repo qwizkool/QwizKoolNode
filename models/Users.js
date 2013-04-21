@@ -87,14 +87,13 @@ Users.prototype.authenticate = function (email, password, callback) {
 *  - Already activated
 */
 Users.prototype.activate = function(token, callback){
-    var oneDay = 86400000
     UserModel.findOne({activationCode: token}, function(err, user){
         if(err){
             console.log("error occured")
             return callback(err)
         }
         // check if its a valid token
-        if(!user || (user && (user._id.getTimestamp().getTime() + oneDay) < Date.now())){
+        if(!user || (user && (user._id.getTimestamp().getTime() + config.token_expiration) < Date.now())){
             return callback(null, false)
         }
         if(user.activationStatus == true){

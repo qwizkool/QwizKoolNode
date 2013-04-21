@@ -28,7 +28,10 @@ var defaults = {
     smtp : {
         username : "qzauthmail@gmail.com",
         password : "qzmail@123"
-    }
+    },
+
+    // user account activation expiration
+    token_expiration : 86400000
 }
  
 var production = {
@@ -38,7 +41,8 @@ var production = {
 
 var test = {
     env : "test",
-    mongodb_url : 'mongodb://localhost:27017/qwizkool_test'
+    mongodb_url : 'mongodb://localhost:27017/qwizkool_test',
+    token_expiration : 60000 // one minute expiration
 }
 
 var development = {
