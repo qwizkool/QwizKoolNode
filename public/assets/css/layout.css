@@ -157,13 +157,6 @@ body {
 }
 
 
-@media (max-width: 800px) {
-    .full-input-size-800 {
-        width:90% !important;
-
-    }
-}
-
 
 /* Large desktop */
 @media (min-width: 1200px) {
@@ -172,15 +165,27 @@ body {
 
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 979px) {
-
+    .reg-form-margin-media {
+        margin-top: 5px;
+    }
 }
 
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {
-
+    .reg-form-margin-media {
+        margin-top: 5px;
+    }
 }
 
 /* Landscape phones and down */
 @media (max-width: 480px) {
+    .reg-form-margin-media {
+        margin-top: 5px;
+    }
+}
 
+
+.reg-form-margin-media-block {
+    display: block;
+    width: 100%
 }
