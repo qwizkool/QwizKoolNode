@@ -141,6 +141,8 @@ define(['modules/user', 'modules/session', 'modules/qwizbook'], function (User, 
                     qwizbook.set('ownerEmail', owneremail);
                     qwizbook.set('date', dateStr);
                     qwizbook.set('reference',reference);
+                    qwizbook.set('archive',false);
+                    qwizbook.set('published',false);
 
                     qwizbook.create(testqwizbookTitle, testqwizbookDescription);
 

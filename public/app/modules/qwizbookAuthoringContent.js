@@ -106,7 +106,7 @@ define(["app",
 
         authorQwizbook:function (e){
         	//var id = $('#myqbookid_').val();
-        	console.log(e);
+        	console.log($(this).next().find('input:hidden').val(););
         	var id = $("input[id^='myqbook_']").val();
         	Backbone.history.navigate("#authorQwizbook/" + id, true);
 		},
