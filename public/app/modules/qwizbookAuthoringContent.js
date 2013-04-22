@@ -156,7 +156,7 @@ define(["app",
 					
 					for (var j = 0; j < selectedQwizbooks.length; j++) {
 						currentQwizbook = selectedQwizbooks[j];
-						
+						console.log(view.qwizbookUserCollection);
 						var ModelData = view.qwizbookUserCollection.get(currentQwizbook);
 						var qbookModel = ModelData;
 						qbookModel.deleteMyQwizbook(currentQwizbook);

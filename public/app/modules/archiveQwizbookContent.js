@@ -26,8 +26,10 @@ define(["app",
 			var view = this;
 
 			this.qwizbookUserCollection = new QwizBook.Collection();
-			
-
+			//this.qwizbookUserCollection.on("fetch", function() {
+		  //  this.html('<i class="icon-spinner icon-spin"></i>');
+		   // }, this);	
+			$(this.el).find("#archiveQwizbookList-container").html('<i class="icon-spinner icon-spin"></i>');
 			this.qwizbookUserCollection.on('list-qwizbook-event', this.refreshView, this);
 
 			this.qwizbooklistview = new MyQwizBook.ListMyBook({
@@ -137,7 +139,8 @@ define(["app",
 		},
 
 		refreshView : function() {
-			$(this.el).find("#archiveQwizbookList-container").html(this.qwizbooklistview.render().el);
+			$(this.el).find("#archiveQwizbookList-container").html('<div align="center"><i class="icon-spinner icon-spin"></i></div>');
+			//$(this.el).find("#archiveQwizbookList-container").html(this.qwizbooklistview.render().el);
 		},
 		
 		clear: function () {
