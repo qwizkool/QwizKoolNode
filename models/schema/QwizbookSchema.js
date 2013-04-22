@@ -47,7 +47,8 @@ var QwizbookSchema = {
     }],
     // Published status
     published: {
-        type: Boolean
+        type: Boolean,
+        'default': false
     },
     
     //Archive status

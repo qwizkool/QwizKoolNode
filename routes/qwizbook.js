@@ -370,8 +370,8 @@ module.exports = {
 				//res.send(qwizbook);
 				console.log(book);
 				res.send({
-  "STATUS": "Successfully deleted Qwizbook"
-});
+ 				 "STATUS": "Successfully updated Qwizbook"
+				});
 			}
 			
 		});
@@ -416,7 +416,7 @@ module.exports = {
 
 			var archiveParameter = qbookParameter['archived'];
 			var searchString = qbookParameter['search_str'];
-		if(archiveParameter)
+		if(archiveParameter =='true')
 		{
 			Qwizbook.retrieveMyArchivebooks(sessionUser, function(err, books){
 			
@@ -437,6 +437,30 @@ module.exports = {
 				{
 					res.send({page: "Archive"});
 				}
+				
+			}
+			
+		});
+		
+		
+		}
+		
+		else if(archiveParameter =='false')
+		{
+			Qwizbook.retrieveMyUnarchiveSearchbooks(sessionUser,searchString, function(err, books){
+			
+			
+			if(err)
+			{
+				res.send(400, err);
+				console.log(err);
+				return;
+			}
+			else
+			{
+				
+					res.send(books);
+				
 				
 			}
 			

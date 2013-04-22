@@ -77,6 +77,7 @@ Qwizbook.prototype.createQwizbook = function(owner, data, callback) {
 	instance.groupPermission = data.groupPermission;
 	instance.reference = data.reference;
 	instance.archive = data.archive;
+	instance.published = data.published;
 	instance.save(function(err) {
 		if (err) {
 			// Check for duplicate key error
@@ -162,7 +163,7 @@ Qwizbook.prototype.retrieveMyQwizbooks = function(owner, callback) {
 	var userEmail = owner.email;
 	QwizbookModel.find({
 		ownerEmail : userEmail,
-		archive :false
+		archive :false,
 	}).sort({
 		date : -1
 	}).execFind(function(err, books) {
@@ -209,7 +210,77 @@ Qwizbook.prototype.retrieveMyArchivebooks = function(owner, callback) {
 };
 
 
+Qwizbook.prototype.retrieveMyUnarchiveSearchbooks = function(owner, searchparameter, callback) {
 
+	// TODO: Complete the Retrieve Qwizbooks
+	// Retrieve Qwizbooks, that are shared, public or
+	// owned by the 'owner'
+
+		var userEmail = owner.email;
+		if(searchparameter != '')
+		{
+			QwizbookModel.find({
+			ownerEmail : userEmail,
+			archive :false,
+			$or : [{
+				title : {
+					$regex : searchparameter,
+					$options : 'i'
+				}
+			}, {
+				description : {
+					$regex : searchparameter,
+					$options : 'i'
+				}
+			}]
+			}).sort({
+			date : -1
+			}).execFind(function(err, books) {
+
+			if (err) {
+				// Check for duplicate key error
+
+				// All other conditions Pass as is TODO: need to cleanup.
+				callback({
+					Error : "Retreive Qwizbooks failed."
+				}, null);
+			} else {
+
+				callback(null, books);
+			}
+
+			});
+		}
+		
+		else{
+			
+			QwizbookModel.find({
+			ownerEmail : userEmail,
+			archive :false
+			}).sort({
+			date : -1
+			}).execFind(function(err, books) {
+
+			if (err) {
+				// Check for duplicate key error
+
+				// All other conditions Pass as is TODO: need to cleanup.
+				callback({
+					Error : "Retreive Qwizbooks failed."
+				}, null);
+			} else {
+
+				callback(null, books);
+			}
+
+			});
+		}
+		
+
+
+	
+
+};
 
 /**
  * Retrieve Qwizbook on search.
@@ -230,6 +301,7 @@ Qwizbook.prototype.retrieveQwizbooksOnSearch = function(owner, searchdata, filte
 		//console.log(searchdata);
 		QwizbookModel.find({
 			archive :false,
+			published:true,
 			$or : [{
 				title : {
 					$regex : searchdata,
@@ -265,6 +337,7 @@ Qwizbook.prototype.retrieveQwizbooksOnSearch = function(owner, searchdata, filte
 		//console.log(searchdata);
 		QwizbookModel.find({
 			archive :false,
+			published:true,
 			$or : [{
 				title : {
 					$regex : searchdata,
@@ -315,7 +388,8 @@ Qwizbook.prototype.retrieveQwizbooksOnFilter = function(owner, filterdata, callb
 	if (filterdata == "Recently Updated") {
 
 		QwizbookModel.find({
-			archive :false
+			archive :false,
+			published:true
 		}).sort({
 			date : -1
 		}).execFind(function(err, books) {
@@ -337,7 +411,8 @@ Qwizbook.prototype.retrieveQwizbooksOnFilter = function(owner, filterdata, callb
 	}
 	if (filterdata == "Most Popular") {
 		QwizbookModel.find({
-		archive :false
+		archive :false,
+		published:true
 	}).execFind(function(err, books)
 	{
 
@@ -373,8 +448,8 @@ Qwizbook.prototype.updateQwizbook = function(book, callback) {
 	var Qbook = book;
 	var new_title = book.title;
 	var new_description = book.description;
-	console.log(new_title);
-	QwizbookModel.update({_id:qId}, {$set: { title: new_title , description : new_description ,archive :false }}, {upsert: true}, 
+	var new_publish = book.published;
+	QwizbookModel.update({_id:qId}, {$set: { title: new_title , description : new_description ,archive :false,published:new_publish }}, {upsert: true}, 
 		function(err,book)
 	 	{
 	 		if (err) {
