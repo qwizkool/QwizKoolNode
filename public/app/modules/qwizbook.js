@@ -292,8 +292,9 @@ define([
                 success:function (collection, response) {
                     this.isListedqwizBook = true;
                     var List = Array();
-                    if (response == null) {
+                    if (response && response.page == "Archive") {
                         collection.trigger('no-qwizbook-tolist');
+                        return;
                     }
                     collection.trigger('list-qwizbook-event');
                 }

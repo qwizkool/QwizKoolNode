@@ -429,7 +429,15 @@ module.exports = {
 			}
 			else
 			{
-				res.send(books);
+				if(books.length>0)
+				{
+					res.send(books);
+				}
+				else
+				{
+					res.send({page: "Archive"});
+				}
+				
 			}
 			
 		});

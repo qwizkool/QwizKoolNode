@@ -19,8 +19,16 @@ define([
 
         urlRoot:"/users",
 
-        REGISTRATION_SUCCESS_MSG: "Registration Successful. You may login now.",
+        REGISTRATION_SUCCESS_MSG: function() {
+            return "Your account has been created and an activation link has been sent to the " + this.get("email") +
+            " Please activate the account by clicking on the activation link before you can log in.";
+        },
+
         REGISTRATION_FAILED_MSG: "Could not complete the registration.",
+
+        USER_ALREADY_EXISTS_MSG: function() {
+            return "User already exist with the same email ID: " + this.get("email")+ ".";
+        },
 
         defaults:{
             id:null,
@@ -49,11 +57,13 @@ define([
             var jqxhr = this.save({}, {
 
                 error:function (model, response) {
-
+                    var json = JSON.parse(response.responseText),
+                        status = ( "user_already_exists" == json.Error )
+                                    ? model.USER_ALREADY_EXISTS_MSG()
+                                    : model.REGISTRATION_FAILED_MSG ;
                     model.trigger('user-registration-event', {
                         valid:false,
-                        status:model.REGISTRATION_FAILED_MSG
-
+                        status:status
                     });
 
                  },
@@ -61,7 +71,7 @@ define([
                 success:function (model, response) {
                     model.trigger('user-registration-event', {
                         valid:true,
-                        status:model.REGISTRATION_SUCCESS_MSG
+                        status:model.REGISTRATION_SUCCESS_MSG()
                     });
                 }
             });

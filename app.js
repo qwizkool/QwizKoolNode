@@ -124,6 +124,7 @@ app.get('/sessions/:id', ensureAuthenticated, session.getUser);
  */
 
 app.post('/users', user.register);
+app.get('/activate/:token', user.activate)
 app.post('/users/:id', unsupported);
 app.get('/users', unsupported);
 app.get('/users/:id', ensureAuthenticated, user.getUser);

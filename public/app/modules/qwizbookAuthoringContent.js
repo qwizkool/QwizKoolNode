@@ -46,20 +46,21 @@ define(["app",
 			"click #deleteAllQwizbooks" : "selectAllQwizbooks",
 			"click #qwizbookList" : "showDeleteBtn",
 			"click #deleteQwizbook" : "deleteQwizbook",
-			//"click #myQwizbook-list-container":"authorQwizbookOnclickDiv",
-            "click #myQwizbook-list-container a":"authorQwizbook"
+		//	"click #qwizbookList":"authorQwizbookOnclickDiv",
+            "click #qwizBook":"authorQwizbook"
+            // "click #myQwizbook-list-container a":"authorQwizbook"
 
 		},
 
-        authorQwizbookOnclickDiv:function (e){
+        authorQwizbook:function (e){
         	var id = $('#myqbook_id').val();
         	Backbone.history.navigate("#authorQwizbook/" + id, true);
 		},
 		
-		authorQwizbook:function (e){
+		/*authorQwizbook:function (e){
 			var id = e.target.id;
 			Backbone.history.navigate("#authorQwizbook/" + id, true);
-		},
+		},*/
 		showDeleteBtn : function(e) {
 
 			var selectedQbooksCount = $("input:checked").length;
@@ -151,7 +152,7 @@ define(["app",
 			
 			if (selectedQbookCount >= 1) {
 
-				var confirmMsg = confirm('Are you sure you want to delete ' + selectedQbookCount + ' Qwizbook');
+				var confirmMsg = confirm('Are you sure you want to delete ' + selectedQbookCount + ' Qwizbook')
 				if (confirmMsg==true) {
 					
 					for (var j = 0; j < selectedQwizbooks.length; j++) {
@@ -172,11 +173,9 @@ define(["app",
 						counter++;
 
 					}
-					
-					this.undelegateEvents();
-                    this.delegateEvents(this.events);
 				}
-
+                    this.undelegateEvents();
+                    this.delegateEvents(this.events);
 			}
 
 		},

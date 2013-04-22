@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    .activation-banner
+     .server-padding
+        h3= title
+        .server-padding
+            p
+          case activationStatus
+            when 1
+                .lead Congratulations! Your account has been activated. Please <a class="btn btn-info" href="/">login</a> to continue.
+            when 2
+                .lead Your account is already activated. Please <a class="btn btn-info" href="/">login</a> to continue.
+            when -1
+                .lead Sorry! This account activation link is invalid/expired.
+            default
+                .lead Sorry! Something went wrong while activating your account.
+
+    hr

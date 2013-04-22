@@ -1,14 +1,13 @@
 /*!
  * Copyright(c) 2013 Vibrentt
  *
- * Module : RatingSchema
+ * Module : UserSchema
  *
  */
 
 var UserSchema = {
     username: {
-        type: String,
-        unique: true
+        type: String
     },
     email: {
         type: String,
@@ -18,6 +17,14 @@ var UserSchema = {
     hash: {
         type: String,
         required: true
+    },
+    activationCode: {
+        type: String,
+        required: true
+    },
+    activationStatus: {
+        type: Boolean,
+        default: false
     }
 };
 
