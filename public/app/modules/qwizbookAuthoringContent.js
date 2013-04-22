@@ -112,7 +112,11 @@ define(["app",
 
 			$('#qwizbook-title').val('');
 			$('#qwizbook-description').val('');
-			$('#myBook-no-result-found').show();
+			
+			if(this.qwizbookUserCollection.length==0){
+			$('#myBook-no-result-found').show();	
+			}
+			
 
 		},
 
