@@ -40,6 +40,7 @@ define(["app",
 		},
 
 		events : {
+			//"keyup #qwizbook-description": "maxLength",
 			"click #create-form" : "showCreateForm",
 			"click #btn-create-qwizbook-submit" : "submitCreateForm",
 			"click #btn-create-qwizbook-cancel" : "cancelCreateForm",
@@ -51,7 +52,13 @@ define(["app",
             // "click #myQwizbook-list-container a":"authorQwizbook"
 
 		},
-
+		
+		
+        //maxLength:function(){
+        	
+        	 
+        //},
+        
         authorQwizbook:function (e){
         	//var id = $('#myqbookid_').val();
         	
