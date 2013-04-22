@@ -105,7 +105,9 @@ define(["app",
 		},
 
         authorQwizbook:function (e){
-        	var id = $('#myqbook_id').val();
+        	//var id = $('#myqbookid_').val();
+        	console.log(e);
+        	var id = $("input[id^='myqbook_']").val();
         	Backbone.history.navigate("#authorQwizbook/" + id, true);
 		},
 		
@@ -128,6 +130,7 @@ define(["app",
 
 			$("#title-status").hide();
 			$('#qwizbook-create-form').show();
+			$('#myBook-no-result-found').hide();
 
 		},
 
@@ -163,6 +166,11 @@ define(["app",
 
 			$('#qwizbook-title').val('');
 			$('#qwizbook-description').val('');
+			
+			if(this.qwizbookUserCollection.length==0){
+			$('#myBook-no-result-found').show();	
+			}
+			
 
 		},
 
