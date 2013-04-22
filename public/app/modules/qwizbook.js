@@ -296,6 +296,7 @@ define([
                         collection.trigger('no-qwizbook-tolist');
                         return;
                     }
+                    console.log(collection);
                     collection.trigger('list-qwizbook-event');
                 }
             });

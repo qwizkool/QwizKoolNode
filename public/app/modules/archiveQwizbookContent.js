@@ -16,7 +16,6 @@ define(["app",
 
 		initialize : function() {
             
-			this.qwizbookModel = new QwizBook.Model();
 
 			if (_.isEmpty(this.options.session)) {
 				throw "ERROR: Session object is not provided for the view!!"
@@ -116,9 +115,9 @@ define(["app",
 			
 			if (selectedQbookCount >= 1) {
 
-				
-				if (confirm('Are you sure you want to unarchive ' + selectedQbookCount + ' Qwizbook')) {
-					
+				var con = confirm ('Are you sure you want to unarchive ' + selectedQbookCount + ' Qwizbook');
+				if (con) {
+					alert(selectedQwizbooks.length);
 					for (var j = 0; j < selectedQwizbooks.length; j++) {
 						currentQwizbook = selectedQwizbooks[j];
 						
@@ -136,7 +135,13 @@ define(["app",
 						counter++;
 
 					}
+					$('#myQwizbook-list-container').find(':checkbox').each(function() {
+					$(':checkbox').prop("checked", false);
+				});
 				}
+				
+				this.undelegateEvents();
+                this.delegateEvents(this.events);
 
 			}
 		},

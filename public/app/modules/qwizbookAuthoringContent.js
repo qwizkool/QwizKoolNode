@@ -28,7 +28,7 @@ define(["app",
            
 			this.qwizbookUserCollection = new QwizBook.Collection();
 			//this.qwizbookUserCollection.on('list-qwizbook-event', this.refreshView, this);
-			this.qwizbookUserCollection.on("reset", this.refreshView, this);
+			this.qwizbookUserCollection.on('reset', this.refreshView, this);
 			this.qwizbooklistview = new MyQwizBook.ListMyBook({
 				model : this.qwizbookUserCollection,
 				session : this.session
@@ -153,12 +153,13 @@ define(["app",
 			if (selectedQbookCount >= 1) {
 
 				var confirmMsg = confirm('Are you sure you want to delete ' + selectedQbookCount + ' Qwizbook')
-				if (confirmMsg==true) {
+				if (confirmMsg) {
 					
 					for (var j = 0; j < selectedQwizbooks.length; j++) {
 						currentQwizbook = selectedQwizbooks[j];
 						
 						var ModelData = view.qwizbookUserCollection.get(currentQwizbook);
+						console.log(view.qwizbookUserCollection);
 						var qbookModel = ModelData;
 						qbookModel.deleteMyQwizbook(currentQwizbook);
 
@@ -173,6 +174,10 @@ define(["app",
 						counter++;
 
 					}
+					
+					$('#myQwizbook-list-container').find(':checkbox').each(function() {
+					$(':checkbox').prop("checked", false);
+				});
 				}
                     this.undelegateEvents();
                     this.delegateEvents(this.events);
@@ -181,7 +186,6 @@ define(["app",
 		},
 
 		refreshView : function() {
-			
 			$(this.el).find("#myQwizbookList-container").html(this.qwizbooklistview.render().el);
 		},
 		
