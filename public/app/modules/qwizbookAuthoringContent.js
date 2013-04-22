@@ -76,6 +76,7 @@ define(["app",
 
 			$("#title-status").hide();
 			$('#qwizbook-create-form').show();
+			$('#myBook-no-result-found').hide();
 
 		},
 
@@ -111,6 +112,7 @@ define(["app",
 
 			$('#qwizbook-title').val('');
 			$('#qwizbook-description').val('');
+			$('#myBook-no-result-found').show();
 
 		},
 

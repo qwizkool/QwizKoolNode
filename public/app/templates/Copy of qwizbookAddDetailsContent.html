@@ -1,0 +1,781 @@
+<!--Questionnare form-->
+<div class="qwizbook-item qwizbook-item-style clearfix" id="qwizbook-questionnare-container" style="border: 0px">
+	<div class="row">
+
+		<div class="span12 qwizbook-create-header">
+			<div class="page-header" style="border-bottom: 0px">
+				<div id="qwizbook-create-form" name="qwizbook-create-form">
+
+				</div>
+
+			</div>
+		</div>
+
+		<div class="span12 qwizbook-questionnare-content" id="qwizbook-questionnare-content" style="display:none;">
+			<div class="page-header" style="border:0px;">
+
+				<div id="qwizbook-questionnare-form" name="qwizbook-questionnare-form">
+					<div class="media">
+
+						<div class="media-body">
+
+							<table border="0">
+								<tbody>
+									<tr>
+										<td align="right" style="border: 1px solid #EEEEEE;padding:10px;" class="span3">Question Type </td>
+										<td align="left" style="border: 1px solid #EEEEEE;padding:10px;" class="span9">
+										<div class="controls">
+											<select id="question-type">
+												<option value="1">Multiple Choice</option>
+												<option value="2">Match the following</option>
+												<option value="3">Descriptive</option>
+											</select>
+										</div></td>
+									</tr>
+
+									<tr>
+										<td align="right" style="padding:10px;" class="span3">Question</td>
+										<td align="left" style="border: 1px solid #EEEEEE;padding:10px;" class="span9">
+										<div style="float:left">
+											<textarea id="question" name="question"> </textarea>
+										</div>
+										<div style="float: right;width:72%;padding-top:18px;">
+											<a title="Add Image" id="image-question_show" class="btn"><i class="icon-picture"></i> </a>
+											<a title="Add Audio" id="audio-question_show" class="btn"><i class="icon-volume-up"></i> </a>
+											<a title="Add Video" id="video-question_show" class="btn"><i class="icon-facetime-video"></i> </a>
+										</div></td>
+									</tr>
+
+									<tr id="image-question-container" style="display:none;">
+										<td></td>
+										<td style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left;">
+											<input type="text" id="image-question_input" name="image-Question">
+										</div>
+										<div id="image-question" >
+											<div class="span1">
+												<i class="icon-picture"></i>
+											</div>
+											<a class="btn" id="image-question_hide"><i class="icon-minus"></i> </a>
+										</div></td>
+									</tr>
+
+									<tr id="audio-question-container" style="display:none;">
+										<td></td>
+										<td style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left;">
+											<input type="text" id="audio-question_input" name="audio-Question">
+										</div>
+										<div id="audio-question">
+
+											<div class="span1">
+
+												<i class="icon-volume-up"></i>
+											</div>
+											<a id="audio-question_hide" class="btn"><i class="icon-minus"></i> </a>
+
+										</div></td>
+									</tr>
+
+									<tr id="video-question-container" style="display:none;">
+										<td></td>
+										<td style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left;">
+											<input type="text" id="video-question_input" name="video-Question">
+										</div>
+										<div id="video-question">
+											<div class="span1">
+												<i class="icon-facetime-video"></i>
+											</div>
+											<a class="btn" id="video-question_hide"><i class="icon-minus"></i> </a>
+
+										</div></td>
+									</tr>
+
+									<tr>
+										<td align="right" style="border: 1px solid #EEEEEE;padding:10px;" class="span3">Option A</td>
+										<td align="left" style="border: 1px solid #EEEEEE;padding:10px;" class="span9">
+										<div style="float:left;">
+											<input type="text" id="option-A" name="option-A">
+										</div>
+										<div style="float:right;width:72%">
+											<a class="btn" title="Add Image" id="image-optionA_show"><i class="icon-picture"></i> </a>
+											<a class="btn" title="Add Audio" id="audio-optionA_show"><i class="icon-volume-up"></i> </a>
+											<a class="btn" title="Add Video" id="video-optionA_show"><i class="icon-facetime-video"></i> </a>
+											<input type="checkbox" id="answer-A" value="1">
+										</div></td>
+									</tr>
+
+									<tr id="image-optionA-container" style="display:none;">
+										<td></td>
+										<td style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left;">
+											<input type="text" id="image-optionA_input" name="image-option-A">
+										</div>
+										<div id="image-optionA">
+											<div class="span1">
+												<i class="icon-picture"></i>
+											</div>
+											<a class="btn" id="image-optionA_hide"><i class="icon-minus"></i> </a>
+										</div></td>
+									</tr>
+
+									<tr id="audio-optionA-container" style="display:none;">
+										<td></td>
+										<td style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left;">
+											<input type="text" id="audio-optionA_input" name="audio-option-A">
+										</div>
+										<div id="audio-optionA" >
+											<div class="span1">
+												<i class="icon-volume-up"></i>
+											</div>
+											<a class="btn" id="audio-optionA_hide"><i class="icon-minus"></i> </a>
+
+										</div></td>
+									</tr>
+
+									<tr id="video-optionA-container" style="display:none;">
+										<td></td>
+										<td style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left;">
+											<input type="text" id="video-optionA_input" name="video-option-A">
+										</div>
+										<div id="video-optionA">
+											<div class="span1">
+												<i class="icon-facetime-video"></i>
+											</div>
+											<a class="btn" id="video-optionA_hide"><i class="icon-minus"></i> </a>
+
+										</div></td>
+									</tr>
+
+									<tr>
+										<td align="right" style="padding:10px;border: 1px solid #EEEEEE;" class="span3">Option B</td>
+										<td align="left" style="border: 1px solid #EEEEEE;padding:10px;" class="span9">
+										<div style="float:left;">
+											<input type="text" id="option-B" name="option-B">
+										</div>
+										<div style="float:right;width:72%">
+											<a class="btn" title="Add Image" id="image-optionB_show"><i class="icon-picture"></i> </a>
+											<a class="btn" title="Add Audio" id="audio-optionB_show"><i class="icon-volume-up"></i> </a>
+											<a class="btn" title="Add Video" id="video-optionB_show"><i class="icon-facetime-video"></i> </a>
+											<input type="checkbox" id="answer-B" value="1">
+										</div></td>
+									</tr>
+
+									<tr id="image-optionB-container" style="display:none">
+										<td></td>
+										<td style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left;">
+											<input type="text" id="image-optionB_input" name="image-option-B">
+										</div>
+										<div id="image-optionB" >
+											<div class="span1">
+												<i class="icon-picture"></i>
+											</div>
+											<a class="btn" id="image-optionB_hide"><i class="icon-minus"></i> </a>
+										</div></td>
+									</tr>
+
+									<tr id="audio-optionB-container" style="display:none">
+										<td></td>
+										<td style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left;">
+											<input type="text" id="audio-optionB_input" name="audio-option-B">
+										</div>
+										<div id="audio-optionB">
+											<div class="span1">
+												<i class="icon-volume-up"></i>
+											</div>
+											<a class="btn" id="audio-optionB_hide"><i class="icon-minus"></i> </a>
+
+										</div></td>
+									</tr>
+
+									<tr id="video-optionB-container" style="display:none">
+										<td></td>
+										<td style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left;">
+											<input type="text" id="video-optionB_input" name="video-option-B">
+										</div>
+										<div id="video-optionB">
+											<div class="span1">
+												<i class="icon-facetime-video"></i>
+											</div>
+											<a class="btn" id="video-optionB_hide"><i class="icon-minus"></i> </a>
+
+										</div></td>
+									</tr>
+
+									<tr>
+										<td align="right" style="padding:10px;border: 1px solid #EEEEEE;" class="span3">Option C</td>
+										<td align="left" style="border: 1px solid #EEEEEE;padding:10px;" class="span9">
+										<div style="float:left;">
+											<input type="text" id="option-C" name="option-C">
+										</div>
+										<div style="float:right;width:72%">
+											<a class="btn" title="Add Image" id="image-optionC_show"><i class="icon-picture"></i> </a>
+											<a class="btn" title="Add Audio" id="audio-optionC_show"><i class="icon-volume-up"></i> </a>
+											<a class="btn" title="Add Video" id="video-optionC_show"><i class="icon-facetime-video"></i> </a>
+											<input type="checkbox" id="answer-C" value="1">
+										</div></td>
+									</tr>
+
+									<tr id="image-optionC-container" style="display:none">
+										<td></td>
+										<td style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left;">
+											<input type="text" id="image-optionC_input" name="image-option-C">
+										</div>
+										<div id="image-optionC">
+											<div class="span1">
+												<i class="icon-picture"></i>
+											</div>
+											<a class="btn" id="image-optionC_hide"><i class="icon-minus"></i> </a>
+										</div></td>
+									</tr>
+
+									<tr id="audio-optionC-container" style="display:none">
+										<td></td>
+										<td style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left;">
+											<input type="text" id="audio-optionC_input" name="audio-option-C">
+										</div>
+										<div id="audio-optionC" >
+											<div class="span1">
+												<i class="icon-volume-up"></i>
+											</div>
+											<a class="btn" id="audio-optionC_hide"><i class="icon-minus"></i> </a>
+
+										</div></td>
+									</tr>
+
+									<tr id="video-optionC-container" style="display:none">
+										<td></td>
+										<td style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left;">
+											<input type="text" id="video-optionC_input" name="video-option-C">
+										</div>
+										<div id="video-optionC">
+											<div class="span1">
+												<i class="icon-facetime-video"></i>
+											</div>
+											<a class="btn" id="video-optionC_hide"><i class="icon-minus"></i> </a>
+
+										</div></td>
+									</tr>
+									<tr>
+										<td align="right" style="padding:10px;border: 1px solid #EEEEEE;" class="span3">Option D</td>
+										<td align="left" style="border: 1px solid #EEEEEE;padding:10px;" class="span9">
+										<div style="float:left;">
+											<input type="text" id="option-D" name="option-D">
+										</div>
+										<div style="float:right;width:72%">
+											<a class="btn" title="Add Image" id="image-optionD_show"><i class="icon-picture"></i> </a>
+											<a class="btn" title="Add Audio" id="audio-optionD_show"><i class="icon-volume-up"></i> </a>
+											<a class="btn" title="Add Video" id="video-optionD_show"><i class="icon-facetime-video"></i> </a>
+											<input type="checkbox" id="answer-D" value="1">
+										</div></td>
+									</tr>
+
+									<tr id="image-optionD-container" style="display:none">
+										<td></td>
+										<td style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left;">
+											<input type="text" id="image-optionD_input" name="image-option-D">
+										</div>
+										<div id="image-optionD">
+											<div class="span1">
+												<i class="icon-picture"></i>
+											</div>
+											<a class="btn" id="image-optionD_hide"><i class="icon-minus"></i> </a>
+										</div></td>
+									</tr>
+
+									<tr id="audio-optionD-container" style="display:none">
+										<td></td>
+										<td style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left;">
+											<input type="text" id="audio-optionD_input" name="audio-option-D">
+										</div>
+										<div id="audio-optionD">
+											<div class="span1">
+												<i class="icon-volume-up"></i>
+											</div>
+											<a class="btn" id="audio-optionD_hide"><i class="icon-minus"></i> </a>
+
+										</div></td>
+									</tr>
+
+									<tr id="video-optionD-container" style="display:none">
+										<td></td>
+										<td style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left;">
+											<input type="text" id="video-optionD_input" name="video-option-D">
+										</div>
+										<div id="video-optionD">
+											<div class="span1">
+												<i class="icon-facetime-video"></i>
+											</div>
+											<a class="btn" id="video-optionD_hide"><i class="icon-minus"></i> </a>
+
+										</div></td>
+									</tr>
+
+									<tr>
+										<td class="span3" align="left"><h4  style="margin-left:55px;">Hints</h4></td>
+										<td></td>
+									</tr>
+
+									<tr>
+										<td align="right" style="border: 1px solid #EEEEEE;padding:10px;" class="span3">Hints</td>
+										<td align="left" style="border: 1px solid #EEEEEE;padding:10px;" class="span9" >										<textarea id="hint-description" name="hint-description" > </textarea></td>
+									</tr>
+									<tr>
+										<td align="right" style="border: 1px solid #EEEEEE;padding:10px;" class="span3">Image</td>
+										<td align="left" style="border: 1px solid #EEEEEE;padding:10px;" class="span9">
+										<input type="text" id="hint-image" name="hint-image" >
+										</td>
+									</tr>
+
+									<tr>
+										<td class="span3" align="left" colspan="2"><h4  style="margin-left:55px;">Reinforcement Information</h4></td>
+										<td></td>
+									</tr>
+
+									<tr>
+										<td align="right" style="border: 1px solid #EEEEEE;padding:10px;" class="span3">Description</td>
+										<td align="left" class="span9" style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left">
+											<textarea name="description" id="description"> </textarea>
+										</div>
+										<div style="float: right;width:72%;padding-top:18px;">
+											<a class="btn" id="reinforcement-link_show" title="Add Link"><i class="icon-external-link"></i> </a>
+											<a class="btn" id="reinforcement-image_show" title="Add Image"><i class="icon-picture"></i> </a>
+											<a class="btn" id="reinforcement-audio_show" title="Add Audio"><i class="icon-volume-up"></i> </a>
+											<a class="btn" id="reinforcement-video_show" title="Add Video"><i class="icon-facetime-video"></i> </a>
+										</div></td>
+									</tr>
+
+									<tr id="reinforcement-link-container" style="display:none;">
+										<td align="right" style="border: 1px solid #EEEEEE;padding:10px;" class="span3">Link </td>
+										<td style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left;">
+											<input type="text" name="reinforcement-link_input" id="reinforcement-link_input">
+										</div>
+										<div id="reinforcement-link">
+											<div class="span1">
+												<i class="icon-external-link"></i>
+											</div>
+											<a id="reinforcement-link_hide" class="btn"><i class="icon-minus"></i> </a>
+										</div></td>
+									</tr>
+
+									<tr id="reinforcement-image-container" style="display:none;">
+										<td align="right" style="border: 1px solid #EEEEEE;padding:10px;" class="span3">Image </td>
+										<td style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left;">
+											<input type="text" name="reinforcement-image_input" id="reinforcement-image_input">
+										</div>
+										<div id="reinforcement-image">
+											<div class="span1">
+												<i class="icon-picture"></i>
+											</div>
+											<a id="reinforcement-image_hide" class="btn"><i class="icon-minus"></i> </a>
+										</div></td>
+									</tr>
+
+									<tr id="reinforcement-audio-container" style="display:none;">
+										<td align="right" style="border: 1px solid #EEEEEE;padding:10px;" class="span3">Audio </td>
+										<td style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left;">
+											<input type="text" name="reinforcement-audio_input" id="reinforcement-audio_input">
+										</div>
+										<div id="reinforcement-audio">
+											<div class="span1">
+												<i class="icon-picture"></i>
+											</div>
+											<a id="reinforcement-audio_hide" class="btn"><i class="icon-minus"></i> </a>
+										</div></td>
+									</tr>
+
+									<tr id="reinforcement-video-container" style="display:none;">
+										<td align="right" style="border: 1px solid #EEEEEE;padding:10px;" class="span3">Video </td>
+										<td style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left;">
+											<input type="text" name="reinforcement-video_input" id="reinforcement-video_input">
+										</div>
+										<div id="reinforcement-video">
+											<div class="span1">
+												<i class="icon-picture"></i>
+											</div>
+											<a id="reinforcement-video_hide" class="btn"><i class="icon-minus"></i> </a>
+										</div></td>
+									</tr>
+
+									<tr>
+										<td class="span3" align="left" ><h4  style="margin-left:55px;">References</h4>
+											<input type="hidden" value="1" name="reference_count" id="reference_count"/>
+										</td>
+										<td></td>
+									</tr>
+
+									<tr>
+										<td align="right" style="border: 1px solid #EEEEEE;padding:10px;" class="span3">Description</td>
+										<td align="left" class="span9" style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left">
+											<textarea name="reference_description" id="reference_description"> </textarea>
+										</div>
+										<div style="float: right;width:72%;padding-top:18px;">
+											<a class="btn" id="reference-link_show" title="Add Link"><i class="icon-external-link"></i> </a>
+											<a class="btn" id="reference-image_show" title="Add Image"><i class="icon-picture"></i> </a>
+											<a class="btn" id="reference-audio_show" title="Add Audio"><i class="icon-volume-up"></i> </a>
+											<a class="btn" id="reference-video_show" title="Add Video"><i class="icon-facetime-video"></i> </a>
+										</div></td>
+									</tr>
+
+									<tr id="reference-link-container" style="display:none;">
+										<td align="right" style="border: 1px solid #EEEEEE;padding:10px;" class="span3">Link </td>
+										<td style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left;">
+											<input type="text" name="reference-link_input" id="reference-link_input">
+										</div>
+										<div id="reference-link">
+											<div class="span1">
+												<i class="icon-external-link"></i>
+											</div>
+											<a id="reference-link_hide" class="btn"><i class="icon-minus"></i> </a>
+										</div></td>
+									</tr>
+
+									<tr id="reference-image-container" style="display:none;">
+										<td align="right" style="border: 1px solid #EEEEEE;padding:10px;" class="span3">Image </td>
+										<td style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left;">
+											<input type="text" name="reference-image_input" id="reference-image_input">
+										</div>
+										<div id="reference-image">
+											<div class="span1">
+												<i class="icon-picture"></i>
+											</div>
+											<a id="reference-image_hide" class="btn"><i class="icon-minus"></i> </a>
+										</div></td>
+									</tr>
+
+									<tr id="reference-audio-container" style="display:none;">
+										<td align="right" style="border: 1px solid #EEEEEE;padding:10px;" class="span3">Audio </td>
+										<td style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left;">
+											<input type="text" name="reference-audio_input" id="reference-audio_input">
+										</div>
+										<div id="reference-audio">
+											<div class="span1">
+												<i class="icon-picture"></i>
+											</div>
+											<a id="reference-audio_hide" class="btn"><i class="icon-minus"></i> </a>
+										</div></td>
+									</tr>
+
+									<tr id="reference-video-container" style="display:none;">
+										<td align="right" style="border: 1px solid #EEEEEE;padding:10px;" class="span3">Video </td>
+										<td style="border: 1px solid #EEEEEE;padding:10px;">
+										<div style="float:left;">
+											<input type="text" name="reference-video_input" id="reference-video_input">
+										</div>
+										<div id="reference-video">
+											<div class="span1">
+												<i class="icon-picture"></i>
+											</div>
+											<a id="reference-video_hide" class="btn"><i class="icon-minus"></i> </a>
+										</div></td>
+									</tr>
+
+									<tr>
+										<td></td>
+										<td align="left" style="border: 1px solid #EEEEEE;padding:10px;"><a id="add-more-references">Add more References</a></td>
+									</tr>
+
+									<tr>
+										<td class="span3" style="border: 1px solid #EEEEEE;" ></td>
+										<td class="span9" style="border: 1px solid #EEEEEE;padding:10px;" >
+										<button id="btn-qwizbook-author-submit" class="btn btn-info btn-small" >
+											Submit
+										</button>
+										<button id="btn-qwizbook-author-cancel" class="btn btn-info btn-small">
+											Cancel
+										</button></td>
+									</tr>
+								</tbody>
+							</table>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+		<div id="qwizbooksummary-container" class="qwizbook-item qwizbook-item-style clearfix">
+			<div class="row">
+				<div class="span12 qwizbook-author-toolbar">
+					<div class="page-header" style="border-bottom: 0px">
+						<div class="navbar">
+							<div class="navbar-inner">
+								<div class="span1" style="border:0px solid black;margin-left: 43px;margin-top: 5px;">
+									<a class="btn" id="icon-author-content"><i class="icon-plus"></i> </a>
+								</div>
+								<div class="span4" style="border:0px solid black;margin-left: 43px;">
+									<form class="form-horizontal" style="margin-top: 0px;margin-bottom: 0px;">
+										<fieldset>
+											<div class="control-group" style="margin-top: 10px;margin-bottom: 0">
+												<label class="control-label" style="padding-top: 5px">View in:</label>
+												<div class="controls">
+													<select id="user-filter-input">
+														<option value="1">Detail</option>
+														<option value="2">Minimal</option>
+														<option value="3">Thumbnail</option>
+													</select>
+												</div>
+											</div>
+										</fieldset>
+
+									</form>
+								</div>
+								<div class="span4" style="border:0px solid black;margin-left: 43px;">
+									<form class="form-horizontal" style="margin-top: 0px;margin-bottom: 0px;">
+										<fieldset>
+											<div class="control-group" style="margin-top: 10px;margin-bottom: 10px;">
+												<label class="control-label" style="padding-top: 5px">Sort by:</label>
+												<div class="controls">
+													<select id="user-filter-input">
+														<option value="1">Recently Updated</option>
+														<option value="2">Most Popular</option>
+													</select>
+												</div>
+											</div>
+										</fieldset>
+
+									</form>
+								</div>
+								<div class="span1" style="border:0px solid black;margin-left: 43px;margin-top: 5px;" align="right">
+									<a href="#" class="btn"><i class="icon-minus"></i> </a>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<!--
+				<div class="span12 qwizbook-summary-content">
+
+				<div class="page-header">
+
+				<div class="media">
+
+				<div class="media-body">
+				<table border="0" style="border: 1px solid #EEEEEE;">
+				<tr style="border: 1px solid #EEEEEE;">
+				<td class="span2" align="center" style="border: 1px solid #EEEEEE;padding-top:10px;"><a><img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"><br/>PG1</a>
+				</td>
+				<td class="span2" align="center" style="border: 1px solid #EEEEEE;padding-top:10px;"><a><img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"><br/>PG2</a></td>
+				<td class="span2" align="center" style="border: 1px solid #EEEEEE;padding-top:10px;"><a><img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"><br/>PG3</a></td>
+				<td class="span2" align="center" style="border: 1px solid #EEEEEE;padding-top:10px;"><a><img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"><br/>PG4</a></td>
+				<td class="span2" align="center" style="border: 1px solid #EEEEEE;padding-top:10px;"><a><img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"><br/>PG5</a></td>
+				<td class="span2" align="center" style="border: 1px solid #EEEEEE;padding-top:10px;"><a><img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"><br/>PG6</a></td>
+				<td class="span2" align="center" style="border: 1px solid #EEEEEE;padding-top:10px;"><a><img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif"><br/>PG7</a></td>
+				</tr>
+
+				</table>
+
+				</div>
+
+				</div>
+
+				</div>
+				</div> -->
+
+				<!--To change pages to List view instead of thumbnail view -->
+				<div id="QwizbookList-container" class="span12 qwizbook-list-item-header">
+					<div>
+						<div id="Qwizbookpage-list-container">
+							<div class="page-header">
+
+								<div>
+									<div style="float:left;">
+										<a>PG1</a>
+									</div>
+
+									<div style="float:right;">
+										<input type="checkbox" id="qwizbook_<%= _id %>" value="<%= _id %>" style="margin-right:20px;margin-bottom:5px;">
+									</div>
+									<div style="clear:both; font-size:1px;"></div>
+								</div>
+
+								<div class="media">
+
+									<a >  </a>
+
+								</div>
+
+							</div>
+
+						</div>
+
+						<div id="Qwizbookpage-list-container">
+							<div class="page-header">
+
+								<div>
+									<div style="float:left;">
+										<a>PG2</a>
+									</div>
+
+									<div style="float:right;">
+										<input type="checkbox" id="qwizbook_<%= _id %>" value="<%= _id %>" style="margin-right:20px;margin-bottom:5px;">
+									</div>
+									<div style="clear:both; font-size:1px;"></div>
+								</div>
+
+								<div class="media">
+
+									<a >  </a>
+
+								</div>
+
+							</div>
+
+						</div>
+
+						<div id="Qwizbookpage-list-container">
+							<div class="page-header">
+
+								<div>
+									<div style="float:left;">
+										<a>PG3</a>
+									</div>
+
+									<div style="float:right;">
+										<input type="checkbox" id="qwizbook_<%= _id %>" value="<%= _id %>" style="margin-right:20px;margin-bottom:5px;">
+									</div>
+									<div style="clear:both; font-size:1px;"></div>
+								</div>
+
+								<div class="media">
+
+									<a >  </a>
+
+								</div>
+
+							</div>
+
+						</div>
+
+						<div id="Qwizbookpage-list-container">
+							<div class="page-header">
+
+								<div>
+									<div style="float:left;">
+										<a>PG4</a>
+									</div>
+
+									<div style="float:right;">
+										<input type="checkbox" id="qwizbook_<%= _id %>" value="<%= _id %>" style="margin-right:20px;margin-bottom:5px;">
+									</div>
+									<div style="clear:both; font-size:1px;"></div>
+								</div>
+
+								<div class="media">
+
+									<a >  </a>
+
+								</div>
+
+							</div>
+
+						</div>
+
+						<div id="Qwizbookpage-list-container">
+							<div class="page-header">
+
+								<div>
+									<div style="float:left;">
+										<a>PG5</a>
+									</div>
+
+									<div style="float:right;">
+										<input type="checkbox" id="qwizbook_<%= _id %>" value="<%= _id %>" style="margin-right:20px;margin-bottom:5px;">
+									</div>
+									<div style="clear:both; font-size:1px;"></div>
+								</div>
+
+								<div class="media">
+
+									<a >  </a>
+
+								</div>
+
+							</div>
+
+						</div>
+
+						<div id="Qwizbookpage-list-container">
+							<div class="page-header">
+
+								<div>
+									<div style="float:left;">
+										<a>PG6</a>
+									</div>
+
+									<div style="float:right;">
+										<input type="checkbox" id="qwizbook_<%= _id %>" value="<%= _id %>" style="margin-right:20px;margin-bottom:5px;">
+									</div>
+									<div style="clear:both; font-size:1px;"></div>
+								</div>
+
+								<div class="media">
+
+									<a >  </a>
+
+								</div>
+
+							</div>
+
+						</div>
+
+						<div id="Qwizbookpage-list-container">
+							<div class="page-header">
+
+								<div>
+									<div style="float:left;">
+										<a>PG7</a>
+									</div>
+
+									<div style="float:right;">
+										<input type="checkbox" id="qwizbook_<%= _id %>" value="<%= _id %>" style="margin-right:20px;margin-bottom:5px;">
+									</div>
+									<div style="clear:both; font-size:1px;"></div>
+								</div>
+
+								<div class="media">
+
+									<a >  </a>
+
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!-- Code Ends -->
+
+	</div>
+</div>
