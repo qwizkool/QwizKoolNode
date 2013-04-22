@@ -1,21 +1,25 @@
 define([
-  "backbone.layoutmanager"
+  "backbone.layoutmanager",
+  "app_config"
 
   // Include additional libraries installed with JamJS or placed in the
   // `vendor/js` directory, here.
 ],
 
-function(LayoutManager) {
+function(LayoutManager, AppConfig) {
 
   // Provide a global location to place configuration settings and module
   // creation.
   var app = {
     // The root path to run the application.
-    root: "/"
+    root: "/",
+    // Qwizkool Container object to hold configuration parameters
+    appConfig :{}
   };
 
   // Localize or create a new JavaScript Template object.
   var JST = window.JST = window.JST || {};
+
 
   // Configure LayoutManager with Backbone Boilerplate defaults.
   LayoutManager.configure({
@@ -44,7 +48,7 @@ function(LayoutManager) {
   });
 
   // Mix Backbone.Events, modules, and layout management into the app object.
-  return _.extend(app, {
+  return _.extend(app, AppConfig, {
     // Create a custom object with a nested Views object.
     module: function(additionalProps) {
       return _.extend({ Views: {} }, additionalProps);

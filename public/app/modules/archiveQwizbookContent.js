@@ -5,17 +5,14 @@
  *
  *
  */
-define(["app", 
-"modules/qwizbook", 
-"modules/myQwizbook", 
-"text!templates/archiveQwizbookContent.html"], function(App, QwizBook, MyQwizBook, Template) {
+define(["app", "modules/qwizbook", "modules/myQwizbook", "text!templates/archiveQwizbookContent.html"], function(App, QwizBook, MyQwizBook, Template) {
 
 	var ArchiveQwizbookContent = App.module();
 
 	ArchiveQwizbookContent.View = Backbone.View.extend({
 
 		initialize : function() {
-            
+
 
 			if (_.isEmpty(this.options.session)) {
 				throw "ERROR: Session object is not provided for the view!!"
@@ -26,16 +23,16 @@ define(["app",
 			var view = this;
 
 			this.qwizbookUserCollection = new QwizBook.Collection();
-			
+
 			this.qwizbookUserCollection.on("fetch", function() {
-		     this.html('<i class="icon-spinner icon-spin"></i>');
-		    }, this);
+				this.html('<i class="icon-spinner icon-spin"></i>');
+			}, this);
 			this.qwizbookUserCollection.on('no-qwizbook-tolist', this.notFoundView, this);
-			
+
 			this.qwizbookUserCollection.on('list-qwizbook-event', this.refreshView, this);
 
 			this.qwizbooklistview = new MyQwizBook.ListMyBook({
-				idAttribute:"_id",
+				idAttribute : "_id",
 				model : this.qwizbookUserCollection,
 				session : this.session
 			});
@@ -43,26 +40,28 @@ define(["app",
 		},
 
 		events : {
-			
+
 			"click #myQwizbook-list-container input" : "showunArchiveBtn",
 			"click #allQwizbooks" : "selectAllQwizbooks",
 			"click #unArchiveQwizbook" : "unArchiveQwizbook",
-            "click #myQwizbook-list-container a":"authorQwizbook",
-            "keyup #qwizbook_searchKeyword" : "qwizbook_search"
+			"click #myQwizbook-list-container a" : "authorQwizbook",
+			"keyup #qwizbook_searchKeyword" : "qwizbook_search"
+			
 
 		},
 		
-		qwizbook_search : function (e) {
+
+		qwizbook_search : function(e) {
 			var searchparam = e.target.value;
-			 this.qwizbookUserCollection.setSearchParameter(this.session,searchparam);
-            this.qwizbookUserCollection.getAllBooks();
+			this.qwizbookUserCollection.setSearchParameter(this.session, searchparam);
+			this.qwizbookUserCollection.getAllBooks();
 		},
 
-		authorQwizbook:function (e){
+		authorQwizbook : function(e) {
 			var id = e.target.id;
 			Backbone.history.navigate("#authorQwizbook/" + id, true);
 		},
-		
+
 		showunArchiveBtn : function(e) {
 
 			var selectedQbooksCount = $("input:checked").length;
@@ -74,8 +73,6 @@ define(["app",
 			}
 
 		},
-		
-		
 
 		selectAllQwizbooks : function() {
 
@@ -101,26 +98,28 @@ define(["app",
 
 			var currentQwizbook = "";
 			var selectedQwizbooks = [];
-			
+
 			var counter = 1;
 			var view = this;
-            
+
 			$('#archiveQwizbookList-container input:checked').each(function() {
-                
-                selectedQwizbooks.push($(this).attr('value'));
-                	
+
+				selectedQwizbooks.push($(this).attr('value'));
+
 			});
-            
+
 			var selectedQbookCount = selectedQwizbooks.length;
-			
+
 			if (selectedQbookCount >= 1) {
+
 
 				var con = confirm ('Are you sure you want to unarchive ' + selectedQbookCount + ' Qwizbook');
 				if (con) {
 					alert(selectedQwizbooks.length);
+
 					for (var j = 0; j < selectedQwizbooks.length; j++) {
 						currentQwizbook = selectedQwizbooks[j];
-						
+
 						var ModelData = view.qwizbookUserCollection.get(currentQwizbook);
 						var qbookModel = ModelData;
 						qbookModel.unArchiveMyQwizbook(currentQwizbook);
@@ -129,7 +128,6 @@ define(["app",
 							qbookModel.on('unArchive-qwizbook-success-event', function() {
 								view.qwizbookUserCollection.getMybook();
 							});
-							
 
 						}
 						counter++;
@@ -147,23 +145,21 @@ define(["app",
 		},
 
 		refreshView : function() {
-			
-			
+
 			$(this.el).find("#archiveQwizbookList-container").html(this.qwizbooklistview.render().el);
 		},
-		
-		notFoundView : function()
-		{
-			$(this.el).find("#archiveQwizbookList-container").html('<p class="lead"><p class="text-warning" style="text-align:center;">You dont have any  unarchived Qwizbooks.</p></p>');
+
+		notFoundView : function() {
+			$(this.el).find("#archiveQwizbookList-container").html('<p class="lead"><p class="text-warning" style="text-align:center;">You dont have any unarchived Qwizbooks.</p></p>');
 		},
-		
-		clear: function () {
 
-            // clear all the subviews.
-            this.$el.empty();
+		clear : function() {
 
-            return this;
-        },
+			// clear all the subviews.
+			this.$el.empty();
+
+			return this;
+		},
 
 		template : Template,
 
@@ -172,7 +168,7 @@ define(["app",
 			this.el.innerHTML = this.template;
 			this.qwizbookUserCollection.getArchiveQwizbook(this.session);
 			this.qwizbookUserCollection.getMybook();
-			return ;
+			return;
 		}
 	});
 

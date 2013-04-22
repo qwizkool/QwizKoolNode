@@ -45,6 +45,16 @@ define(["app", "text!templates/mybookListItem.html", "text!templates/myBookList.
 			var view = this;
 
 			view.el.innerHTML = _.template(this.template, view.model.toJSON());
+			id = view.model.id;
+			var getPublishOrunpublish = $(view.el).find("#published_"+id).val();
+			if(getPublishOrunpublish == 'true')
+			{
+				$(view.el).find("#qwizbookPublishOrUnpublish_"+id).html("Unpublish");
+			}
+			else
+			{
+				$(view.el).find("#qwizbookPublishOrUnpublish_"+id).html("Publish");
+			}
 			return this;
 		}
 	});

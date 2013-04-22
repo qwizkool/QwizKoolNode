@@ -46,10 +46,62 @@ define(["app",
 			"click #deleteAllQwizbooks" : "selectAllQwizbooks",
 			"click #qwizbookList" : "showDeleteBtn",
 			"click #deleteQwizbook" : "deleteQwizbook",
+			"click #qwizbookList a" : "qwizbookAction",
+			"keyup #search-qwizbook" : "qwizbook_search",
 		//	"click #qwizbookList":"authorQwizbookOnclickDiv",
             "click #qwizBook":"authorQwizbook"
             // "click #myQwizbook-list-container a":"authorQwizbook"
 
+		},
+		qwizbook_search : function(e) {
+			var searchparam = e.target.value;
+			this.qwizbookUserCollection.setSearchParameter(this.session, searchparam);
+			this.qwizbookUserCollection.getMybook();
+		},
+		
+		qwizbookAction :function(e)
+		{
+			var id = e.target.id;
+			var view = this;
+			if(id)
+			{
+				var split_id = id.split("_");
+				var qId = split_id[1];
+				var ModelData = view.qwizbookUserCollection.get(qId);
+				var qbookModel = ModelData;
+				if(split_id[0] == "qwizbookArchive")
+				{
+					var confirmMsg = confirm('Are you sure you want to delete this Qwizbook')
+				if (confirmMsg) {
+						
+						qbookModel.deleteMyQwizbook(qId);
+						qbookModel.on("delete-qwizbook-success-event", function() {
+								
+								view.qwizbookUserCollection.getMybook();
+							});
+						}
+				}
+				else if(split_id[0] == "qwizbookPublishOrUnpublish")
+				{
+					var publishedOrNot = $('#published_'+qId).val();
+					var publishOrunpublish = true;
+					if(publishedOrNot == "true")
+					{
+						publishOrunpublish = false; 
+					}
+					else
+					{
+						publishOrunpublish = true;
+					}
+					
+						qbookModel.publishOrunpublishQwizbook(qId,publishOrunpublish);
+						qbookModel.on("publishOrunpublish-qwizbook-success-event", function() {
+								
+								view.qwizbookUserCollection.getMybook();
+							});
+				}
+			}
+			
 		},
 
         authorQwizbook:function (e){
@@ -157,9 +209,7 @@ define(["app",
 					
 					for (var j = 0; j < selectedQwizbooks.length; j++) {
 						currentQwizbook = selectedQwizbooks[j];
-						
-						var ModelData = view.qwizbookUserCollection.get(currentQwizbook);
-						console.log(view.qwizbookUserCollection);
+						var ModelData = this.qwizbookUserCollection.get(currentQwizbook);
 						var qbookModel = ModelData;
 						qbookModel.deleteMyQwizbook(currentQwizbook);
 

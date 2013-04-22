@@ -37,6 +37,7 @@ define([
             ownerEmail:"qwizkool_user@qwizkool.com",
             date:Date.now,
             archive:false,
+            published:false,
             userRating:"0",
             averageRating:"0",
             userratingcount:"0",
@@ -112,7 +113,42 @@ define([
 
         },
         
-       
+        
+        
+          publishOrunpublishQwizbook:function(qId,publishOrunpublish) {
+        	
+			this.set('published', publishOrunpublish);	
+            this.set({
+                AddedqwizBookAttempted:true,
+                isAddedqwizBook:false,
+                AddedqwizBookStatus:null
+            });
+
+            var jqxhr = this.save({}, {
+
+                error:function (model, response) {
+                    model.set({
+                        isAddedqwizBook:false,
+                        AddedqwizBookStatus:response.statusText,
+                        action:'none'
+                    });
+                    model.trigger('qwizbook-create-failed-event');
+
+                },
+
+                success:function (model, response) {
+
+                    model.set({
+                        isAddedqwizBook:true,
+                        //AddedqwizBookStatus:"Successfully Added Qwizbook" + model.get('title') + "Qwizbook id is #" + model.get('id') + ".",
+                        action:'none'
+                    });
+                    model.trigger('publishOrunpublish-qwizbook-success-event');
+                }
+                
+            });
+
+        },
         
         
         
@@ -173,6 +209,13 @@ define([
             {
             	//urlRoot ="myQwizbook";
             	urlRoot ="users/"+this.userId+"/qwizbooks";
+            	if(this.search)
+            {
+            	if(this.searchParam != '')
+            	{
+            		urlRoot ="users/"+this.userId+"/qwizbooks?search_str=" + this.searchParam+"&archived=false";
+            	}
+            }
             }
             
              else if(this.search)
@@ -296,7 +339,6 @@ define([
                         collection.trigger('no-qwizbook-tolist');
                         return;
                     }
-                    console.log(collection);
                     collection.trigger('list-qwizbook-event');
                 }
             });

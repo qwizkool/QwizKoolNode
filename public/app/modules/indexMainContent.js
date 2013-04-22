@@ -108,7 +108,7 @@ define([
             var confirmPassword = $('#user-reg-confirm-password-input').val();
 
             if (password != "" && password == confirmPassword) {
-                if (password.length < 6) {
+                if (password.length < App.appConfig.MIN_PASSWORD_LENGTH_IN_CHARS) {
                     this.renderRegistrationStatus({status:"Password must contain at least six characters!"});
                     return;
                 }
