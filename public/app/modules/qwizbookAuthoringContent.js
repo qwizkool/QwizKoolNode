@@ -53,7 +53,9 @@ define(["app",
 		},
 
         authorQwizbook:function (e){
-        	var id = $('#myqbook_id').val();
+        	//var id = $('#myqbookid_').val();
+        	
+        	var id = $("input[id^='myqbookid_']").val();
         	Backbone.history.navigate("#authorQwizbook/" + id, true);
 		},
 		
