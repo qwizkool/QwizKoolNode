@@ -150,7 +150,7 @@ define(["app", "modules/qwizbook", "modules/myQwizbook", "text!templates/archive
 		},
 
 		notFoundView : function() {
-			$(this.el).find("#archiveQwizbookList-container").html('<p class="lead"><p class="text-warning" style="text-align:center;">You dont have any unarchived Qwizbooks.</p></p>');
+			$(this.el).find("#archiveQwizbookList-container").html('<p class="lead"><p class="text-warning" style="text-align:center;">You dont have any archived Qwizbooks.</p></p>');
 		},
 
 		clear : function() {

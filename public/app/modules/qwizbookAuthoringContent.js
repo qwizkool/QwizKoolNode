@@ -49,7 +49,7 @@ define(["app",
 			"click #qwizbookList a" : "qwizbookAction",
 			"keyup #search-qwizbook" : "qwizbook_search",
 		//	"click #qwizbookList":"authorQwizbookOnclickDiv",
-            "click #qwizBook":"authorQwizbook"
+            //"click #qwizBook":"authorQwizbook"
             // "click #myQwizbook-list-container a":"authorQwizbook"
 
 		},
@@ -106,7 +106,6 @@ define(["app",
 
         authorQwizbook:function (e){
         	//var id = $('#myqbookid_').val();
-        	console.log($(this).next().find('input:hidden').val(););
         	var id = $("input[id^='myqbook_']").val();
         	Backbone.history.navigate("#authorQwizbook/" + id, true);
 		},
