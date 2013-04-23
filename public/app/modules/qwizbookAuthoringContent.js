@@ -40,6 +40,7 @@ define(["app",
 		},
 
 		events : {
+			//"keyup #qwizbook-description": "maxLength",
 			"click #create-form" : "showCreateForm",
 			"click #btn-create-qwizbook-submit" : "submitCreateForm",
 			"click #btn-create-qwizbook-cancel" : "cancelCreateForm",
@@ -53,6 +54,7 @@ define(["app",
             // "click #myQwizbook-list-container a":"authorQwizbook"
 
 		},
+
 		qwizbook_search : function(e) {
 			var searchparam = e.target.value;
 			this.qwizbookUserCollection.setSearchParameter(this.session, searchparam);
@@ -103,6 +105,7 @@ define(["app",
 			}
 			
 		},
+
 
         authorQwizbook:function (e){
         	//var id = $('#myqbookid_').val();
