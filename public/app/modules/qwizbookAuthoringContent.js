@@ -50,7 +50,7 @@ define(["app",
 			"click #qwizbookList a" : "qwizbookAction",
 			"keyup #search-qwizbook" : "qwizbook_search",
 		//	"click #qwizbookList":"authorQwizbookOnclickDiv",
-            "click #qwizBook":"authorQwizbook"
+            //"click #qwizBook":"authorQwizbook"
             // "click #myQwizbook-list-container a":"authorQwizbook"
 
 		},

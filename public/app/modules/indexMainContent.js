@@ -20,7 +20,7 @@ define([
         template:Template,
 
         initialize:function () {
-
+        	
             this.session = this.options.session;
             if (this.session) {
 
@@ -76,9 +76,62 @@ define([
         },
 
         signupByEnter:function (e) {
-
+        	
+        	var email = $('#user-reg-email-input').val();
+            var emailLength = email.length;
+            var newEmail = "";
+            
+            var password = $('#user-reg-password-input').val();
+            var passwordLength = password.length;
+            var newPassword = "";
+            
+            var confirmPassword = $('#user-reg-confirm-password-input').val();
+            var confirmPasswordLength = confirmPassword.length;
+            var newConfirmPassword ="";
+            
+            
             if (e.keyCode == 13) {
                 this.signUp();
+            }
+            else {
+            	
+            	if(emailLength>0 && emailLength > App.appConfig.MAX_EMAIL_LENGTH_IN_CHARS)
+            	{
+            		//alert("123");
+            		
+            		//$('#user-reg-email-input').
+            		newEmail = email.substring(0,App.appConfig.MAX_EMAIL_LENGTH_IN_CHARS);
+            		$('#user-reg-email-input').val(newEmail);
+            		$('#user-reg-email-input').popover('show');
+            		$('#user-reg-password-input').popover('hide');
+            		$('#user-reg-confirm-password-input').popover('hide');
+            	}
+            	
+            	if((passwordLength>0) && (passwordLength < App.appConfig.MIN_PASSWORD_LENGTH_IN_CHARS || passwordLength > App.appConfig.MAX_PASSWORD_LENGTH_IN_CHARS))
+            	{
+            		//alert("123");
+            		
+            		//$('#user-reg-email-input').
+            		newPassword = password.substring(0,App.appConfig.MAX_PASSWORD_LENGTH_IN_CHARS);
+            		$('#user-reg-password-input').val(newPassword);
+            		$('#user-reg-password-input').popover('show');
+            		$('#user-reg-email-input').popover('hide');
+            		$('#user-reg-confirm-password-input').popover('hide');
+            	}
+            	
+            	if((confirmPasswordLength>0) && (confirmPasswordLength < App.appConfig.MIN_PASSWORD_LENGTH_IN_CHARS || confirmPasswordLength > App.appConfig.MAX_PASSWORD_LENGTH_IN_CHARS))
+            	{
+            		//alert("123");
+            		
+            		//$('#user-reg-email-input').
+            		newConfirmPassword = confirmPassword.substring(0,App.appConfig.MAX_PASSWORD_LENGTH_IN_CHARS);
+            		$('#user-reg-confirm-password-input').val(newConfirmPassword);
+            		$('#user-reg-confirm-password-input').popover('show');
+            		$('#user-reg-password-input').popover('hide');
+            		$('#user-reg-email-input').popover('hide');
+            		
+            	}
+            	
             }
         },
 
@@ -89,7 +142,7 @@ define([
 
         // When the user clicks sign-up, create a new user model and save it
         signUp:function () {
-
+            
             // Email Validation
             var email = $('#user-reg-email-input').val();
 
