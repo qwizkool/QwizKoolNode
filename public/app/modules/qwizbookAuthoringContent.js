@@ -49,10 +49,50 @@ define(["app",
 			"click #deleteQwizbook" : "deleteQwizbook",
 			"click #qwizbookList a" : "qwizbookAction",
 			"keyup #search-qwizbook" : "qwizbook_search",
+			"keyup #qwizbook-title":"addQwizbookByEnter",
+			"keyup #qwizbook-description":"addQwizbookByEnter",
 		//	"click #qwizbookList":"authorQwizbookOnclickDiv",
             //"click #qwizBook":"authorQwizbook"
             // "click #myQwizbook-list-container a":"authorQwizbook"
 
+		},
+		
+		addQwizbookByEnter: function(e) {
+			
+			var qwizbookTitle = $('#qwizbook-title').val();
+            var qwizbookTitleLength = qwizbookTitle.length;
+            var newQwizbookTitle = "";
+            
+            var qwizbookDescription = $('#qwizbook-description').val();
+            var qwizbookDescriptionLength = qwizbookDescription.length;
+            var newQwizbookDescription = "";
+            
+            
+			if (e.keyCode == 13) {
+                this.submitCreateForm();
+           } else {
+           	
+           	if(qwizbookTitleLength>0 && qwizbookTitleLength > App.appConfig.MAX_QWIZBOOK_TITLE_SIZE_IN_CHARS)
+            	{
+            		//alert("123");
+            		
+            		//$('#user-reg-email-input').
+            		newQwizbookTitle = qwizbookTitle.substring(0,App.appConfig.MAX_QWIZBOOK_TITLE_SIZE_IN_CHARS);
+            		$('#qwizbook-title').val(newQwizbookTitle);
+            		
+            	}
+            	
+            	if(qwizbookDescriptionLength>0 && qwizbookDescriptionLength > App.appConfig.MAX_QWIZBOOK_DESCRIPTION_SIZE_IN_CHARS)
+            	{
+            		//alert("123");
+            		
+            		//$('#user-reg-email-input').
+            		newQwizbookDescription = qwizbookDescription.substring(0,App.appConfig.MAX_QWIZBOOK_DESCRIPTION_SIZE_IN_CHARS);
+            		$('#qwizbook-description').val(newQwizbookDescription);
+            		
+            	}
+           	
+           }
 		},
 
 		qwizbook_search : function(e) {
