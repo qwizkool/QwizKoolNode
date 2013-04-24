@@ -33,7 +33,8 @@ define([
 
             "click #cancelComment": "commentDiv",
             "click #qwizbook-comments-form": "addCommentDiv",
-            "click #addcomment": "addComment"
+            "click #addcomment": "addComment",
+            "keyup #qwizbook-comment-text":"addCommentByEnter"
         },
 
         reattachEvents: function () {
@@ -57,7 +58,31 @@ define([
             this.trigger('add-qwizbookcomment-event', {addComment: $('#qwizbook-comment-text').val(), qwizbookId: this.options.qwizbookId});
             return false;
 
+        },
+        
+        addCommentByEnter: function(e) {
+        	
+        	var userComment = $('#qwizbook-comment-text').val();
+            var userCommentLength = userComment.length;
+            var newComment = "";
+        	
+        	if (e.keyCode == 13) {
+                this.addComment();
+            }
+            else {
+            	
+            	if(userCommentLength>0 && userCommentLength > App.appConfig.MAX_COMMENT_SIZE_IN_CHARS)
+            	{
+            		//alert("123");
+            		
+            		//$('#user-reg-email-input').
+            		newComment = userComment.substring(0,App.appConfig.MAX_COMMENT_SIZE_IN_CHARS);
+            		$('#qwizbook-comment-text').val(newComment);
+            		
+            	}
+            }
         }
+        
     });
 
     // Required, return the module for AMD compliance
