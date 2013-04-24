@@ -20,21 +20,12 @@ define([
         template:Template,
 
         initialize:function () {
-        	
-            this.session = this.options.session;
-            if (this.session) {
-
-            } else {
-                throw "ERROR: Session object is not provided for the view!!"
-            }
-
 
         },
 
         render:function () {
 
-            this.el.innerHTML = this.template;
-
+            this.$el.html(this.template);
             return this;
 
         },
@@ -95,34 +86,26 @@ define([
             }
             else {
             	
-            	
+            	// TODO: Need cleanup of this validation.
             	if(emailLength>0 && emailLength > App.appConfig.MAX_EMAIL_LENGTH_IN_CHARS)
             	{
-            		//alert("123");
-            		
-            		//$('#user-reg-email-input').
-            		newEmail = email.substring(0,App.appConfig.MAX_EMAIL_LENGTH_IN_CHARS);
+             		newEmail = email.substring(0,App.appConfig.MAX_EMAIL_LENGTH_IN_CHARS);
             		$('#user-reg-email-input').val(newEmail);
             		
             	}
             	
-            	if((passwordLength>0) && (passwordLength < App.appConfig.MIN_PASSWORD_LENGTH_IN_CHARS || passwordLength > App.appConfig.MAX_PASSWORD_LENGTH_IN_CHARS))
+            	if((passwordLength>0) && (passwordLength < App.appConfig.MIN_PASSWORD_LENGTH_IN_CHARS ||
+                    passwordLength > App.appConfig.MAX_PASSWORD_LENGTH_IN_CHARS))
             	{
-            		//alert("123");
-            		
-            		//$('#user-reg-email-input').
-            		newPassword = password.substring(0,App.appConfig.MAX_PASSWORD_LENGTH_IN_CHARS);
+             		newPassword = password.substring(0,App.appConfig.MAX_PASSWORD_LENGTH_IN_CHARS);
             		$('#user-reg-password-input').val(newPassword);
             		
             	}
             	
-            	if((confirmPasswordLength>0) && (confirmPasswordLength < App.appConfig.MIN_PASSWORD_LENGTH_IN_CHARS || confirmPasswordLength > App.appConfig.MAX_PASSWORD_LENGTH_IN_CHARS))
+            	if((confirmPasswordLength>0) && (confirmPasswordLength < App.appConfig.MIN_PASSWORD_LENGTH_IN_CHARS ||
+                    confirmPasswordLength > App.appConfig.MAX_PASSWORD_LENGTH_IN_CHARS))
             	{
-            		
-            		
-            		//$('#user-reg-email-input').
-            		newConfirmPassword = confirmPassword.substring(0,App.appConfig.MAX_PASSWORD_LENGTH_IN_CHARS);
-            		
+             		newConfirmPassword = confirmPassword.substring(0,App.appConfig.MAX_PASSWORD_LENGTH_IN_CHARS);
             		$('#user-reg-confirm-password-input').val(newConfirmPassword);
             		
             	}
