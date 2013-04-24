@@ -287,7 +287,9 @@ define(["app",
 		},
 
 		refreshView : function() {
+			
 			$(this.el).find("#myQwizbookList-container").html(this.qwizbooklistview.render().el);
+			
 		},
 		
 		clear: function () {

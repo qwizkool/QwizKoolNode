@@ -77,6 +77,8 @@ define([
             });
 
         },
+        
+        
 
         index:function (hash) {
 
@@ -122,21 +124,20 @@ define([
 
         createQwizbook:function (hash) {
 
+           
             var createQwizbook = new QwizbookAuthoring.View({session:this.session});
             createQwizbook.show();
         },
 
 
         authorQwizbook:function (id) {
-
+        	
             var authorQwizbook = new QwizbookAddDetails.View({session:this.session, qwizbookId:id});
-
-
             authorQwizbook.show();
         },
 
         archiveQwizbook:function () {
-            var archiveQwizbook = new ArchiveQwizbooks.View({session:this.session});
+        	var archiveQwizbook = new ArchiveQwizbooks.View({session:this.session});
             archiveQwizbook.show();
         }
 
