@@ -64,9 +64,9 @@ define([
 
         events:{
             "click #register-button":"signUp",
-            "keyup #user-reg-name-input":"signupByEnter",
             "keyup #user-reg-email-input":"signupByEnter",
-            "keyup #user-reg-password-input":"signupByEnter"
+            "keyup #user-reg-password-input":"signupByEnter",
+            "keyup #user-reg-confirm-password-input":"signupByEnter"
 
         },
 
@@ -95,6 +95,7 @@ define([
             }
             else {
             	
+            	
             	if(emailLength>0 && emailLength > App.appConfig.MAX_EMAIL_LENGTH_IN_CHARS)
             	{
             		//alert("123");
@@ -102,9 +103,7 @@ define([
             		//$('#user-reg-email-input').
             		newEmail = email.substring(0,App.appConfig.MAX_EMAIL_LENGTH_IN_CHARS);
             		$('#user-reg-email-input').val(newEmail);
-            		$('#user-reg-email-input').popover('show');
-            		$('#user-reg-password-input').popover('hide');
-            		$('#user-reg-confirm-password-input').popover('hide');
+            		
             	}
             	
             	if((passwordLength>0) && (passwordLength < App.appConfig.MIN_PASSWORD_LENGTH_IN_CHARS || passwordLength > App.appConfig.MAX_PASSWORD_LENGTH_IN_CHARS))
@@ -114,21 +113,17 @@ define([
             		//$('#user-reg-email-input').
             		newPassword = password.substring(0,App.appConfig.MAX_PASSWORD_LENGTH_IN_CHARS);
             		$('#user-reg-password-input').val(newPassword);
-            		$('#user-reg-password-input').popover('show');
-            		$('#user-reg-email-input').popover('hide');
-            		$('#user-reg-confirm-password-input').popover('hide');
+            		
             	}
             	
             	if((confirmPasswordLength>0) && (confirmPasswordLength < App.appConfig.MIN_PASSWORD_LENGTH_IN_CHARS || confirmPasswordLength > App.appConfig.MAX_PASSWORD_LENGTH_IN_CHARS))
             	{
-            		//alert("123");
+            		
             		
             		//$('#user-reg-email-input').
             		newConfirmPassword = confirmPassword.substring(0,App.appConfig.MAX_PASSWORD_LENGTH_IN_CHARS);
+            		
             		$('#user-reg-confirm-password-input').val(newConfirmPassword);
-            		$('#user-reg-confirm-password-input').popover('show');
-            		$('#user-reg-password-input').popover('hide');
-            		$('#user-reg-email-input').popover('hide');
             		
             	}
             	
