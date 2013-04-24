@@ -22,19 +22,13 @@ define([
         },
 
         render: function () {
-
-            this.el.innerHTML = this.template;
+            this.$el.html(this.template);
             return this;
 
         },
 
         events: {
             "click #create-qwizbook":"authorQwizbook"
-        },
-
-        reattachEvents: function () {
-            this.undelegateEvents();
-            this.delegateEvents(this.events);
         },
 
         authorQwizbook:function(e) {
