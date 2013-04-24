@@ -23,7 +23,7 @@ define([
 
         render: function () {
 
-            this.el.innerHTML = this.template;
+            this.$el.html(this.template);
             return this;
 
         },

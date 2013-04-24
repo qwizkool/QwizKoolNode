@@ -161,8 +161,10 @@ define([
 
             // Register a new user.
             this.model = new User.Model();
-            this.model.on('user-registration-event', this.userRegisterEvent, this);
+            this.listenTo(this.model, "user-registration-event", this.userRegisterEvent);
             this.model.register(username, email, password);
+
+
 
         }
     });

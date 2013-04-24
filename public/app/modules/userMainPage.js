@@ -45,9 +45,6 @@ define([
             this.userMainContent = new UserMainContent.View({
                 el: '#qwizkool-content', session: this.session});
 
-            this.userMainContent.clear();
-
-
         },
 
 
