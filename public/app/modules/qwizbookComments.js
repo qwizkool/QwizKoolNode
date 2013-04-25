@@ -34,7 +34,7 @@ define([
             "click #cancelComment": "commentDiv",
             "click #qwizbook-comments-form": "addCommentDiv",
             "click #addcomment": "addComment",
-            "keyup #qwizbook-comment-text":"addCommentByEnter"
+            "keyup #qwizbook-comment-text":"checkCommentSize"
         },
 
         reattachEvents: function () {
@@ -60,16 +60,13 @@ define([
 
         },
         
-        addCommentByEnter: function(e) {
+        checkCommentSize: function(e) {
         	
         	var userComment = $('#qwizbook-comment-text').val();
             var userCommentLength = userComment.length;
             var newComment = "";
         	
-        	if (e.keyCode == 13) {
-                this.addComment();
-            }
-            else {
+        	
             	
             	if(userCommentLength>0 && userCommentLength > App.appConfig.MAX_COMMENT_SIZE_IN_CHARS)
             	{
@@ -80,7 +77,7 @@ define([
             		$('#qwizbook-comment-text').val(newComment);
             		
             	}
-            }
+            
         }
         
     });
