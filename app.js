@@ -2,7 +2,8 @@
  * Module dependencies.
  */
 
-var express = require('express')
+var express = require('express'),
+    Recaptcha = require('recaptcha').Recaptcha
     , config = require('./config/config')
     , routes = require('./routes')
     , user = require('./routes/user')
@@ -19,6 +20,9 @@ var express = require('express')
     , logger = require('./utils/logger')
     ;
 
+var PUBLIC_KEY  = '6Ld3buASAAAAADKscITxGr_e-yGBBbKvBqeR1X43',
+    PRIVATE_KEY = '6Ld3buASAAAAACu8MyHl6vm-t4CMD5lr8Elf2zVf';
+    
 var app = express();
 
 app.configure(function () {
@@ -102,6 +106,40 @@ function unsupported(req, res) {
 
 
 
+app.get('/public/app/templates/qwizbookComments.html', function(req, res) {
+    var recaptcha = new Recaptcha(PUBLIC_KEY, PRIVATE_KEY);
+
+    res.render('form.jade', {
+        layout: false,
+        locals: {
+            recaptcha_form: recaptcha.toHTML()
+        }
+    });
+});
+
+app.post('/', function(req, res) {
+    var data = {
+        remoteip:  req.connection.remoteAddress,
+        challenge: req.body.recaptcha_challenge_field,
+        response:  req.body.recaptcha_response_field
+    };
+    var recaptcha = new Recaptcha(PUBLIC_KEY, PRIVATE_KEY, data);
+
+    recaptcha.verify(function(success, error_code) {
+        if (success) {
+            res.send('Recaptcha response valid.');
+        }
+        else {
+            // Redisplay the form.
+            res.render('form.jade', {
+                layout: false,
+                locals: {
+                    recaptcha_form: recaptcha.toHTML()
+                }
+            });
+        }
+    });
+    });
 /*
  * User Access related routes
  */

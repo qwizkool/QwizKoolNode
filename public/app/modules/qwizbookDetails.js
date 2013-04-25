@@ -142,7 +142,7 @@ define([
 
             events: {
             	
-            	"click #qwizbook-list-item-controls-icon a": "showtabDiv",
+            	"click #qwizbook-list-item-controls-icons li": "showtabDiv",
             	
             	"click #rating-1": "setRating1",
                 "click #rating-2": "setRating2",
@@ -164,20 +164,11 @@ define([
             showtabDiv: function (e) {
             	
             	e.preventDefault();
+            	//for (var k in e)
+            	
                 $(this).tab('show');
                 
-            	//if (id=="share-qwizbook"){
-            		
-            	//$('#qwizbook-share').show();	
-            	//} 
-            	//if (id=="qwizbook-statistics"){
-            		
-            	//$('#qwizbook-statistics').show();	
-            	//}
-            	//if(id=="qwizbook-report") {
-            		
-            		//$('#qwizbook-report').show();
-            	//}
+            	
             	
             	
             },
