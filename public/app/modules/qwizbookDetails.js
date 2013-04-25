@@ -142,7 +142,10 @@ define([
             },
 
             events: {
-                "click #rating-1": "setRating1",
+            	
+            	"click #qwizbook-list-item-controls-icon a": "showtabDiv",
+            	
+            	"click #rating-1": "setRating1",
                 "click #rating-2": "setRating2",
                 "click #rating-3": "setRating3",
                 "click #rating-4": "setRating4",
@@ -158,6 +161,29 @@ define([
                 qwizbookratingmodel.addRating(qbookId, ratingvalue);
 
             },
+            
+            showtabDiv: function (e) {
+            	
+            	e.preventDefault();
+                $(this).tab('show');
+                
+            	//if (id=="share-qwizbook"){
+            		
+            	//$('#qwizbook-share').show();	
+            	//} 
+            	//if (id=="qwizbook-statistics"){
+            		
+            	//$('#qwizbook-statistics').show();	
+            	//}
+            	//if(id=="qwizbook-report") {
+            		
+            		//$('#qwizbook-report').show();
+            	//}
+            	
+            	
+            },
+            
+            
 
             setRating1: function () {
 

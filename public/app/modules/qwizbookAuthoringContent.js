@@ -53,7 +53,7 @@ define(["app",
 			"keyup #qwizbook-description":"addQwizbookByEnter",
 		//	"click #qwizbookList":"authorQwizbookOnclickDiv",
             //"click #qwizBook":"authorQwizbook"
-            // "click #myQwizbook-list-container a":"authorQwizbook"
+             "click #myQwizbook-list-container a":"authorQwizbook"
 
 		},
 		
