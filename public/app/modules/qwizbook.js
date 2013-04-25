@@ -367,7 +367,7 @@ define([
 
             var currentUserEmail = this.session.get('email');
             this.qwizbookRating = new QwizBookRating.Model({userEmail : currentUserEmail});
-            this.qwizbookRating.on("qwizbookrating-add-event", function (response) {
+            this.listenTo(this.qwizbookRating, "qwizbookrating-add-event", function (response) {
                 var rating = response.rating;
                 var qId = response.qId;
                 var count = response.count;

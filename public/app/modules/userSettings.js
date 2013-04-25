@@ -27,9 +27,9 @@ define([
             this.session = this.options.session;
 
             // Register for seesion based events.
-            this.session.on('session-login-event', this.userLoginEvent, this)
-            this.session.on('session-logout-event', this.userLogoutEvent, this)
-            this.session.on('session-check-event', this.sessionCheckEvent, this)
+            this.listenTo(this.session, "session-login-event", this.userLoginEvent);
+            this.listenTo(this.session, "session-logout-event", this.userLogoutEvent);
+            this.listenTo(this.session, "session-check-event", this.sessionCheckEvent);
 
         },
         remove: function() {

@@ -37,7 +37,7 @@ define([
             this.qwizkoolMain = new QwizkoolMain.View({el:'#qwizkool-content', session:this.session });
 
             if (this.session) {
-                this.session.on('session-login-event', this.userLoginEvent, this);
+                this.listenTo(this.session, "session-login-event", this.userLoginEvent);
             }
 
         },

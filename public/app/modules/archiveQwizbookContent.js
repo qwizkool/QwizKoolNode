@@ -24,12 +24,15 @@ define(["app", "modules/qwizbook", "modules/myQwizbook", "text!templates/archive
 
 			this.qwizbookUserCollection = new QwizBook.Collection();
 
-			this.qwizbookUserCollection.on("fetch", function() {
+            // TODO: cleanup mix of static html in javascripy
+
+            this.listenTo(this.qwizbookUserCollection, "fetch", function() {
 				this.html('<i class="icon-spinner icon-spin"></i>');
 			}, this);
-			this.qwizbookUserCollection.on('no-qwizbook-tolist', this.notFoundView, this);
 
-			this.qwizbookUserCollection.on('list-qwizbook-event', this.refreshView, this);
+            this.listenTo(this.qwizbookUserCollection, "no-qwizbook-tolist", this.notFoundView);
+
+            this.listenTo(this.qwizbookUserCollection, "list-qwizbook-event", this.refreshView);
 
 			this.qwizbooklistview = new MyQwizBook.ListMyBook({
 				idAttribute : "_id",
@@ -125,7 +128,7 @@ define(["app", "modules/qwizbook", "modules/myQwizbook", "text!templates/archive
 						qbookModel.unArchiveMyQwizbook(currentQwizbook);
 
 						if (counter == selectedQbookCount) {
-							qbookModel.on('unArchive-qwizbook-success-event', function() {
+                            this.listenTo(qbookModel, "unArchive-qwizbook-success-event", function() {
 								view.qwizbookUserCollection.getMybook();
 							});
 

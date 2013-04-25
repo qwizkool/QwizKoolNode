@@ -37,11 +37,11 @@ define([
             this.qwizbook = new Qwizbook.Model({_id:this.qwizbookId, session:this.session});
             this.qwizbook.retreive();
             // On success of retrieving the book. get all its comments.
-            this.qwizbook.on("retreive-qwizbook-success-event", this.getQwizbookComments, this);
+            this.listenTo(this.qwizbook, "retreive-qwizbook-success-event", this.getQwizbookComments);
 
             //Collection of comments
             this.commentCollection = new Comments.Collection({qwizbookId:this.qwizbookId});
-            this.commentCollection.on("reset", this.updateView, this);
+            this.listenTo(this.commentCollection, "reset", this.updateView);
 
             // comment List view
             this.commentListView = new Comments.ListView({model: this.commentCollection});
@@ -51,7 +51,7 @@ define([
 
             // Add comment form view
             this.addCommentView = new QwizbookComments.View({qwizbookcontentmodel: this.qwizbook, qwizbookId: this.qwizbookId});
-            this.addCommentView.on("add-qwizbookcomment-event", this.processCommentAdd, this);
+            this.listenTo(this.addCommentView, "add-qwizbookcomment-event", this.processCommentAdd);
 
 
         },
@@ -85,12 +85,11 @@ define([
                 // After successful add of the refresh the comment collection
                 // to trigger view updates.
                 // TODO: can't we add the item to local connection.
-                comment.on("add-qwizbookcomment-success-event", function () {
+                this.listenTo(comment, "add-qwizbookcomment-success-event", function () {
 
                     view.commentCollection.getAll(qbookId);
 
                 });
-
             }
 
         },
