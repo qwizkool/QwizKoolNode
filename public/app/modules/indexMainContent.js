@@ -20,21 +20,12 @@ define([
         template:Template,
 
         initialize:function () {
-        	
-            this.session = this.options.session;
-            if (this.session) {
-
-            } else {
-                throw "ERROR: Session object is not provided for the view!!"
-            }
-
 
         },
 
         render:function () {
 
-            this.el.innerHTML = this.template;
-
+            this.$el.html(this.template);
             return this;
 
         },
@@ -64,9 +55,9 @@ define([
 
         events:{
             "click #register-button":"signUp",
-            "keyup #user-reg-name-input":"signupByEnter",
             "keyup #user-reg-email-input":"signupByEnter",
-            "keyup #user-reg-password-input":"signupByEnter"
+            "keyup #user-reg-password-input":"signupByEnter",
+            "keyup #user-reg-confirm-password-input":"signupByEnter"
 
         },
 
@@ -95,40 +86,27 @@ define([
             }
             else {
             	
+            	// TODO: Need cleanup of this validation.
             	if(emailLength>0 && emailLength > App.appConfig.MAX_EMAIL_LENGTH_IN_CHARS)
             	{
-            		//alert("123");
-            		
-            		//$('#user-reg-email-input').
-            		newEmail = email.substring(0,App.appConfig.MAX_EMAIL_LENGTH_IN_CHARS);
+             		newEmail = email.substring(0,App.appConfig.MAX_EMAIL_LENGTH_IN_CHARS);
             		$('#user-reg-email-input').val(newEmail);
-            		$('#user-reg-email-input').popover('show');
-            		$('#user-reg-password-input').popover('hide');
-            		$('#user-reg-confirm-password-input').popover('hide');
+            		
             	}
             	
-            	if((passwordLength>0) && (passwordLength < App.appConfig.MIN_PASSWORD_LENGTH_IN_CHARS || passwordLength > App.appConfig.MAX_PASSWORD_LENGTH_IN_CHARS))
+            	if((passwordLength>0) && (passwordLength < App.appConfig.MIN_PASSWORD_LENGTH_IN_CHARS ||
+                    passwordLength > App.appConfig.MAX_PASSWORD_LENGTH_IN_CHARS))
             	{
-            		//alert("123");
-            		
-            		//$('#user-reg-email-input').
-            		newPassword = password.substring(0,App.appConfig.MAX_PASSWORD_LENGTH_IN_CHARS);
+             		newPassword = password.substring(0,App.appConfig.MAX_PASSWORD_LENGTH_IN_CHARS);
             		$('#user-reg-password-input').val(newPassword);
-            		$('#user-reg-password-input').popover('show');
-            		$('#user-reg-email-input').popover('hide');
-            		$('#user-reg-confirm-password-input').popover('hide');
+            		
             	}
             	
-            	if((confirmPasswordLength>0) && (confirmPasswordLength < App.appConfig.MIN_PASSWORD_LENGTH_IN_CHARS || confirmPasswordLength > App.appConfig.MAX_PASSWORD_LENGTH_IN_CHARS))
+            	if((confirmPasswordLength>0) && (confirmPasswordLength < App.appConfig.MIN_PASSWORD_LENGTH_IN_CHARS ||
+                    confirmPasswordLength > App.appConfig.MAX_PASSWORD_LENGTH_IN_CHARS))
             	{
-            		//alert("123");
-            		
-            		//$('#user-reg-email-input').
-            		newConfirmPassword = confirmPassword.substring(0,App.appConfig.MAX_PASSWORD_LENGTH_IN_CHARS);
+             		newConfirmPassword = confirmPassword.substring(0,App.appConfig.MAX_PASSWORD_LENGTH_IN_CHARS);
             		$('#user-reg-confirm-password-input').val(newConfirmPassword);
-            		$('#user-reg-confirm-password-input').popover('show');
-            		$('#user-reg-password-input').popover('hide');
-            		$('#user-reg-email-input').popover('hide');
             		
             	}
             	
@@ -183,8 +161,10 @@ define([
 
             // Register a new user.
             this.model = new User.Model();
-            this.model.on('user-registration-event', this.userRegisterEvent, this);
+            this.listenTo(this.model, "user-registration-event", this.userRegisterEvent);
             this.model.register(username, email, password);
+
+
 
         }
     });

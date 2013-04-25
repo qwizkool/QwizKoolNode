@@ -21,6 +21,10 @@ define([
 
         initialize:function () {
 
+            if (_.isEmpty(this.options.session)) {
+                throw "ERROR: Session object is not provided for the view!!"
+            }
+
             this.session = this.options.session;
 
             // Create and associate the user setting view with the tool bar upper
@@ -33,7 +37,7 @@ define([
             this.qwizkoolMain = new QwizkoolMain.View({el:'#qwizkool-content', session:this.session });
 
             if (this.session) {
-                this.session.on('session-login-event', this.userLoginEvent, this);
+                this.listenTo(this.session, "session-login-event", this.userLoginEvent);
             }
 
         },
@@ -51,8 +55,6 @@ define([
         // Render all the nested views related to this page
         // and attach it to the DOM.
         show:function () {
-
-            $("#qwizkool-search").empty();
 
             this.header.render();
             this.qwizkoolMain.render();

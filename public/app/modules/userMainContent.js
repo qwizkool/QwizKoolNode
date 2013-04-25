@@ -21,7 +21,6 @@ define([
         initialize: function () {
 
             this.qwizbookList = this.collection;
-            
 
             if (_.isEmpty(this.options.session)) {
                 throw "ERROR: Session object is not provided for the view!!"
@@ -33,13 +32,12 @@ define([
             // Create and associate the user search filter view with the tool bar lower
             // view in the Header.
             this.searchFilterView = new SearchFilter.View({});
-            this.searchFilterView.on("search", this.refreshCollectionForSearchEvent, this);
-            this.searchFilterView.on("filter", this.refreshCollectionForFilterEvent, this);
+            this.listenTo(this.searchFilterView, "search", this.refreshCollectionForSearchEvent);
+            this.listenTo(this.searchFilterView, "filter", this.refreshCollectionForFilterEvent);
 
             // Create qwizbook collection and associate with its list view.
             this.qwizbookCollection = new QwizBook.Collection();
-            this.qwizbookCollection.on("reset", this.refreshCollectionView, this);
-
+            this.listenTo(this.qwizbookCollection, "reset", this.refreshCollectionView);
        
 
         },
@@ -80,17 +78,9 @@ define([
 
         },
 
-        clear: function () {
-
-            // clear all the subviews.
-            this.$el.empty();
-
-            return this;
-        },
-
         render: function () {
 
-            this.el.innerHTML = this.template;
+            this.$el.html(this.template);
             $(this.el).find("#user-main-content-header").html(this.searchFilterView.render().el);
 
             this.qwizbookCollection.getAllBooks();

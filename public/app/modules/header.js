@@ -31,7 +31,7 @@ define([
 
         render:function () {
 
-            this.el.innerHTML = this.template;
+            this.$el.html(this.template);
 
             // Render the subviews.
             if (this.htbuView) {

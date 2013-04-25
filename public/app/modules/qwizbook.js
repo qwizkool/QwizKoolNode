@@ -364,7 +364,7 @@ define([
 
             var currentUserEmail = this.session.get('email');
             this.qwizbookRating = new QwizBookRating.Model({userEmail : currentUserEmail});
-            this.qwizbookRating.on("qwizbookrating-add-event", function (response) {
+            this.listenTo(this.qwizbookRating, "qwizbookrating-add-event", function (response) {
                 var rating = response.rating;
                 var qId = response.qId;
                 var count = response.count;
@@ -423,9 +423,9 @@ define([
 
             view.el.innerHTML  = _.template(this.template, view.model.toJSON());
 
-            var avgRating = $(view.el.innerHTML).find("#book_avgRating").val();
-            var userRating = $(view.el.innerHTML).find("#bookuserrating").val();
-            var bookId = $(view.el.innerHTML).find("#book_id").val();
+            var avgRating = $(view.el.innerHTML).find(".book_avgRating").val();
+            var userRating = $(view.el.innerHTML).find(".book_userrating").val();
+            var bookId = $(view.el.innerHTML).find(".book_id").val();
             avgRating = Math.ceil(avgRating);
             var avgHtml = '';
             var i = 1;

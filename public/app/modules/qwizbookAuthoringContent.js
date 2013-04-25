@@ -27,8 +27,7 @@ define(["app",
 
            
 			this.qwizbookUserCollection = new QwizBook.Collection();
-			//this.qwizbookUserCollection.on('list-qwizbook-event', this.refreshView, this);
-			this.qwizbookUserCollection.on('reset', this.refreshView, this);
+            this.listenTo(this.qwizbookUserCollection, "reset", this.refreshView);
 			this.qwizbooklistview = new MyQwizBook.ListMyBook({
 				model : this.qwizbookUserCollection,
 				session : this.session
@@ -49,10 +48,50 @@ define(["app",
 			"click #deleteQwizbook" : "deleteQwizbook",
 			"click .qwizboo-list-item a.qwizbook-title" : "authorQwizbook",
 			"keyup #search-qwizbook" : "qwizbook_search",
+			"keyup #qwizbook-title":"addQwizbookByEnter",
+			"keyup #qwizbook-description":"addQwizbookByEnter",
 		//	"click #qwizbookList":"authorQwizbookOnclickDiv",
             //"click #qwizBook":"authorQwizbook"
             // "click #myQwizbook-list-container a":"authorQwizbook"
 
+		},
+		
+		addQwizbookByEnter: function(e) {
+			
+			var qwizbookTitle = $('#qwizbook-title').val();
+            var qwizbookTitleLength = qwizbookTitle.length;
+            var newQwizbookTitle = "";
+            
+            var qwizbookDescription = $('#qwizbook-description').val();
+            var qwizbookDescriptionLength = qwizbookDescription.length;
+            var newQwizbookDescription = "";
+            
+            
+			if (e.keyCode == 13) {
+                this.submitCreateForm();
+           } else {
+           	
+           	if(qwizbookTitleLength>0 && qwizbookTitleLength > App.appConfig.MAX_QWIZBOOK_TITLE_SIZE_IN_CHARS)
+            	{
+            		//alert("123");
+            		
+            		//$('#user-reg-email-input').
+            		newQwizbookTitle = qwizbookTitle.substring(0,App.appConfig.MAX_QWIZBOOK_TITLE_SIZE_IN_CHARS);
+            		$('#qwizbook-title').val(newQwizbookTitle);
+            		
+            	}
+            	
+            	if(qwizbookDescriptionLength>0 && qwizbookDescriptionLength > App.appConfig.MAX_QWIZBOOK_DESCRIPTION_SIZE_IN_CHARS)
+            	{
+            		//alert("123");
+            		
+            		//$('#user-reg-email-input').
+            		newQwizbookDescription = qwizbookDescription.substring(0,App.appConfig.MAX_QWIZBOOK_DESCRIPTION_SIZE_IN_CHARS);
+            		$('#qwizbook-description').val(newQwizbookDescription);
+            		
+            	}
+           	
+           }
 		},
 
 		qwizbook_search : function(e) {
@@ -77,7 +116,7 @@ define(["app",
 				if (confirmMsg) {
 						
 						qbookModel.deleteMyQwizbook(qId);
-						qbookModel.on("delete-qwizbook-success-event", function() {
+                        this.listenTo(qbookModel, "delete-qwizbook-success-event", function() {
 								
 								view.qwizbookUserCollection.getMybook();
 							});
@@ -97,7 +136,7 @@ define(["app",
 					}
 					
 						qbookModel.publishOrunpublishQwizbook(qId,publishOrunpublish);
-						qbookModel.on("publishOrunpublish-qwizbook-success-event", function() {
+                        this.listenTo(qbookModel, "publishOrunpublish-qwizbook-success-event", function() {
 								
 								view.qwizbookUserCollection.getMybook();
 							});
@@ -146,7 +185,7 @@ define(["app",
 				var qbookdesc = $('#qwizbook-description').val();
 				var view = this;
 			    qwizbookmodel.create(qbooktitle, qbookdesc);
-				qwizbookmodel.on("qwizbook-create-success-event", function() {
+                this.listenTo(qwizbookmodel, "qwizbook-create-success-event", function() {
 					//view.qwizbookUserCollection.setUserId();
 					view.qwizbookUserCollection.getMybook();
 
@@ -226,8 +265,7 @@ define(["app",
 
 						if (counter == selectedQbookCount) {
 
-							qbookModel.on("delete-qwizbook-success-event", function() {
-								
+                            this.listenTo(qbookModel, "delete-qwizbook-success-event", function() {
 								view.qwizbookUserCollection.getMybook();
 							});
 
@@ -247,7 +285,9 @@ define(["app",
 		},
 
 		refreshView : function() {
+			
 			$(this.el).find("#myQwizbookList-container").html(this.qwizbooklistview.render().el);
+			
 		},
 		
 		clear: function () {

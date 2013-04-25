@@ -25,7 +25,7 @@ define([
             }
 
             this.session = this.options.session;
-            this.session.on('session-login-event', this.userLoginEvent, this)
+            this.listenTo(this.session, "session-login-event", this.userLoginEvent);
 
         },
         remove:function () {
