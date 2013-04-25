@@ -27,8 +27,7 @@ define(["app",
 
            
 			this.qwizbookUserCollection = new QwizBook.Collection();
-			//this.qwizbookUserCollection.on('list-qwizbook-event', this.refreshView, this);
-			this.qwizbookUserCollection.on('reset', this.refreshView, this);
+            this.listenTo(this.qwizbookUserCollection, "reset", this.refreshView);
 			this.qwizbooklistview = new MyQwizBook.ListMyBook({
 				model : this.qwizbookUserCollection,
 				session : this.session
@@ -117,7 +116,7 @@ define(["app",
 				if (confirmMsg) {
 						
 						qbookModel.deleteMyQwizbook(qId);
-						qbookModel.on("delete-qwizbook-success-event", function() {
+                        this.listenTo(qbookModel, "delete-qwizbook-success-event", function() {
 								
 								view.qwizbookUserCollection.getMybook();
 							});
@@ -137,7 +136,7 @@ define(["app",
 					}
 					
 						qbookModel.publishOrunpublishQwizbook(qId,publishOrunpublish);
-						qbookModel.on("publishOrunpublish-qwizbook-success-event", function() {
+                        this.listenTo(qbookModel, "publishOrunpublish-qwizbook-success-event", function() {
 								
 								view.qwizbookUserCollection.getMybook();
 							});
@@ -186,7 +185,7 @@ define(["app",
 				var qbookdesc = $('#qwizbook-description').val();
 				var view = this;
 			    qwizbookmodel.create(qbooktitle, qbookdesc);
-				qwizbookmodel.on("qwizbook-create-success-event", function() {
+                this.listenTo(qwizbookmodel, "qwizbook-create-success-event", function() {
 					//view.qwizbookUserCollection.setUserId();
 					view.qwizbookUserCollection.getMybook();
 
@@ -266,8 +265,7 @@ define(["app",
 
 						if (counter == selectedQbookCount) {
 
-							qbookModel.on("delete-qwizbook-success-event", function() {
-								
+                            this.listenTo(qbookModel, "delete-qwizbook-success-event", function() {
 								view.qwizbookUserCollection.getMybook();
 							});
 

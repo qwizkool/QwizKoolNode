@@ -27,7 +27,7 @@ define([
             this.qwizbookId = this.options.qwizbookId;
             this.qwizbookModel = new QwizBook.Model({_id:this.qwizbookId, session:this.session});
             this.qwizbookModel.retreive();
-            this.qwizbookModel.on("retreive-qwizbook-success-event", this.updateView, this);
+            this.listenTo(qwizbookModel, "retreive-qwizbook-success-event", this.updateView);
 			this.editQwizbook = new EditQwizbook.View({model: this.qwizbookModel, qwizbookId: this.qwizbookId, session:this.session});
 
         },
