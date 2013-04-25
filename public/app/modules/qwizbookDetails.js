@@ -94,8 +94,8 @@ define([
                 qbook_itemdetail_template = _.template(this.template, this.model.toJSON());
                 view.el.innerHTML = qbook_itemdetail_template;
               
-                var avgRating = $(view.el.innerHTML).find("#book_avgRating").val();
-                var userRating = $(view.el.innerHTML).find("#book_userrating").val();
+                var avgRating = $(view.el.innerHTML).find(".book_avgRating").val();
+                var userRating = $(view.el.innerHTML).find(".book_userrating").val();
                 avgRating = Math.ceil(avgRating);
                 var avgHtml = '';
                 var i = 1;

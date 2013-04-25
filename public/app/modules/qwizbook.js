@@ -426,9 +426,9 @@ define([
 
             view.el.innerHTML  = _.template(this.template, view.model.toJSON());
 
-            var avgRating = $(view.el.innerHTML).find("#book_avgRating").val();
-            var userRating = $(view.el.innerHTML).find("#bookuserrating").val();
-            var bookId = $(view.el.innerHTML).find("#book_id").val();
+            var avgRating = $(view.el.innerHTML).find(".book_avgRating").val();
+            var userRating = $(view.el.innerHTML).find(".book_userrating").val();
+            var bookId = $(view.el.innerHTML).find(".book_id").val();
             avgRating = Math.ceil(avgRating);
             var avgHtml = '';
             var i = 1;
