@@ -11,10 +11,6 @@ var QwizbookSchema = {
 
     // A combination of title and owner email to create uniqueness
     // This is with assumption that email is unique @ qwizkool.
-    uniqueKey: {
-        type: String,
-        unique: true
-    },
     title: {
         type: String
     },

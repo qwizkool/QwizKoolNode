@@ -21,7 +21,7 @@ module.exports = {
     register:function (req, res) {
 
         var user = req.body,
-            activationCode = "tessss";
+            activationCode = "";
         console.log('User Add request for: ');
         console.log(JSON.stringify(user));
 

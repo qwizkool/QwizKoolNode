@@ -25,7 +25,7 @@ define([
 
     QwizBook.Model = Backbone.Model.extend({
          
-         idAttribute:"_id",
+        idAttribute:"_id",
         //Root of the REST url for QwizBooks
         urlRoot:"/qwizbooks/",
 
@@ -56,8 +56,8 @@ define([
 			
 		},
 
-       // create:function () {
-         create:function (qbtitle, qbdescription) {
+        // create:function () {
+        create:function (qbtitle, qbdescription) {
         	this.set('title', qbtitle);
 			this.set('description', qbdescription);	
             this.set({
@@ -89,12 +89,9 @@ define([
                 }
                 
             });
-
         },
 
         retreive:function (qId,session) {
-
-
             var jqxhr = this.fetch({
 
 
@@ -105,9 +102,7 @@ define([
                 },
 
                 success:function (model, response) {
-
                     model.trigger('retreive-qwizbook-success-event');
-
                 }
             });
 
@@ -133,19 +128,16 @@ define([
                         action:'none'
                     });
                     model.trigger('qwizbook-create-failed-event');
-
                 },
 
                 success:function (model, response) {
-
                     model.set({
                         isAddedqwizBook:true,
                         //AddedqwizBookStatus:"Successfully Added Qwizbook" + model.get('title') + "Qwizbook id is #" + model.get('id') + ".",
                         action:'none'
                     });
                     model.trigger('publishOrunpublish-qwizbook-success-event');
-                }
-                
+                }                
             });
 
         },
@@ -188,6 +180,11 @@ define([
                 }
                 
             });
+        },
+
+        validate: function(attr, options){
+            console.log(attr);
+            console.log(options);
         }
         
     });

@@ -17,6 +17,7 @@ var db = require('../lib/db_connection'),
 
 // Create mongoose schema
 var mQwizbookSchema = db.Schema(qwizbookSchema);
+mQwizbookSchema.index({ownerEmail:1,title:1},{unique:true})
 
 mQwizbookSchema.methods.getQwizbookForResponse = function () {
 

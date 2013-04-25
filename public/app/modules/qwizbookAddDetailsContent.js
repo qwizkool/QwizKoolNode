@@ -163,6 +163,46 @@ define([
         },
         
         submitAuthorForm: function (e) {
+
+            var questionType    = $("#question-type").val();
+
+            var question        = $("#question").val();
+
+            var optionA         = $("#option-A").val();
+            var optionB         = $("#option-B").val();
+            var optionC         = $("#option-C").val();
+            var optionD         = $("#option-D").val();
+
+            var questionImage   = $("#image-question_input").val();
+            var questionAudio   = $('#audio-question_input').val();
+            var questionVideo   = $('#video-question_input').val();
+
+            var optionAImage    = $('#image-optionA_input').val();
+            var optionAAudio    = $('#audio-optionA_input').val();
+            var optionAVideo    = $('#video-optionA_input').val();
+
+            var optionBImage    = $('#image-optionB_input').val();
+            var optionBAudio    = $('#audio-optionB_input').val();
+            var optionBVideo    = $('#video-optionB_input').val();
+
+            var optionCImage    = $('#image-optionC_input').val();
+            var optionCAudio    = $('#audio-optionC_input').val();
+            var optionCVideo    = $('#video-optionC_input').val();
+
+            var optionDImage    = $('#image-optionD_input').val();
+            var optionDAudio    = $('#audio-optionD_input').val();
+            var optionDVideo    = $('#video-optionD_input').val();
+
+            var hintDescription = $('#hint-description').val();
+            
+            var riDescription   = $('#reinforcement-description').val();
+            var riLink          = $('#reinforcement-link_input').val();
+            var riImage         = $('#reinforcement-image_input').val();
+            var riAudio         = $('#reinforcement-audio_input').val();
+            var riVideo         = $('#reinforcement-video_input').val();
+
+
+
             $('#qwizbook-questionnare-content').hide();
         },
 
