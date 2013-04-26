@@ -8,8 +8,9 @@
 
 define([
     "app",
+    "bootstrap_select",
     "text!templates/searchFilter.html"
-], function (App, Template) {
+], function (App, BootstrapSelect, Template) {
 
     // Create a new module
     var Searchfilter = App.module();
@@ -24,13 +25,14 @@ define([
         render: function () {
 
             this.$el.html(this.template);
-            return this;
+            $(this.el).find('.filter-selection').selectpicker();
+           return this;
 
         },
 
         events: {
             "keyup #user-search-input": "setsearchParams",
-            "change #user-filter-input": "setfilterParams"
+            "change .filter-selection": "setfilterParams"
         },
 
         reattachEvents: function () {
@@ -43,7 +45,10 @@ define([
         },
 
         setfilterParams: function () {
-            this.trigger('filter', {criteria: $('#user-filter-input option:selected').text()});
+
+            var filterCriteria =  $(this.el).find('.filter-selection').val();
+            console.log(filterCriteria);
+           this.trigger('filter', {criteria: filterCriteria});
 
         }
     });

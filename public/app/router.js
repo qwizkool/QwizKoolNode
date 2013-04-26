@@ -32,8 +32,8 @@ define([
             'design': 'sampleDesign',
             'sampleAuthorQwizbook': 'sampleAuthorQwizbookDesign',
             'authorQwizbook/:id': 'authorQwizbook',
-            'createQwizbook': 'createQwizbook',
-            'archiveQwizbook': 'archiveQwizbook'
+            'myQwizbooks': 'myQwizbooks',
+            'qwizbookArchives': 'qwizbookArchives'
         },
 
         initialize: function () {
@@ -109,7 +109,7 @@ define([
         },
 
 
-        createQwizbook: function (hash) {
+        myQwizbooks: function (hash) {
 
 
             var createQwizbook = new QwizbookAuthoring.View({session: this.session});
@@ -123,7 +123,7 @@ define([
             authorQwizbook.show();
         },
 
-        archiveQwizbook: function () {
+        qwizbookArchives: function () {
             var archiveQwizbook = new ArchiveQwizbooks.View({session: this.session});
             archiveQwizbook.show();
         }
