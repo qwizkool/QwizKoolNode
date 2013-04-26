@@ -29,7 +29,8 @@ define([
 
         events: {
             "click #my-qwizbooks":"myQwizbooks",
-            "click #qwizbook-archive":"qwizbookArchive"
+            "click #qwizbook-archive":"qwizbookArchive",
+            "click #my-dashboard":"goHome"
         },
 
         myQwizbooks:function(e) {
@@ -39,6 +40,10 @@ define([
         qwizbookArchive:function(e) {
             Backbone.history.navigate("#qwizbookArchives", true);
 
+        },
+        goHome:function(e) {
+            Backbone.history.navigate("#main", true);
+
         }
 
     });
@@ -46,6 +51,3 @@ define([
     return AppToolbar;
 
 });
-
-
-archiveQwizbook
