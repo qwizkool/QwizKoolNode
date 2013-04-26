@@ -1,8 +1,9 @@
 <!--TODO: clean up the css styles, consolidate to external CSS file.-->
 <div class="qwizbook-item qwizbook-item-style clearfix" id="qwizbookitem-container">
-<div class="row">
-<input type="hidden"  class="book_avgRating" value ="<%= averageRating %>" />
-<input type="hidden"  class="book_userrating" value ="<%= userRating %>" />
+    <div class="row">
+        <input type="hidden" class="book_avgRating" value="<%= averageRating %>"/>
+        <input type="hidden" class="book_userrating" value="<%= userRating %>"/>
+
         <div class="span12 qwizbook-list-item-header" style=";background-color: #f8f8f8">
             <div class="page-header" style="margin: 10px">
                 <h1 style="font-weight: 300"><%= title %></h1>
@@ -26,77 +27,79 @@
                     </div>
 
                 </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row" id="qwizbook-list-item-footer">
+        <div class="span12">
+            <div class="span5">
+                <div class="qwizbook-ratings-container">
+                    <p class="muted text-left" style="margin-left: 10px; margin-bottom: 0px" id="ratingCount"> <%=
+                        userratingcount %> ratings</p>
+                    <ul id="average-rating" class="rating-w-fonts" style="margin: 10px">
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="span4">
+                <div class="qwizbook-ratings-container">
+                    <p class="muted text-left" style="margin-left: 10px"> Click to rate: </p>
+                    <ul id="qwizbookUserrating" class="rating-w-fonts text-left"
+                        style="margin: 10px;margin-bottom: 0px">
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="span2">
+                <div style="padding-top:20px;padding-left:20px;">
+
+                    <button class="btn btn-info btn-large btn-block  qwizbookListItem">
+                        Start
+                    </button>
+                </div>
 
             </div>
         </div>
-      </div>
-      
-        <div class="row" id="qwizbook-list-item-controls">
-        	<div class="span12" id="qwizbook-list-item-controls-icon">
-        	
-        	
-        		    
-        			<ul class="nav nav-tabs" id="qwizbook-list-item-controls-icons">
-        			<li class="active"><a id="share-qwizbook" data-toggle="tab">Share </a></li>
-        			<li><a id="qwizbook-statistics" data-toggle="tab"><i class="icon-signal"></i> </a></li>
-        			<li><a id="qwizbook-report" data-toggle="tab"><i class="icon-flag"></i> </a></li>
-        		    </ul>
-        		    
-        			
-        		
-        	</div>
-        		
-        		
-        		
-        	 <div class="span12" id="qwizbook-list-item-controls-tabcontent">
-        	    	 <div class="page-header" style="margin: 10px">	
-        	    	     <div class="tab-content">
-                             <div class="tab-pane active" id="qwizbook-share">Share</div>
-                             <div class="tab-pane" id="qwizbook-statistics">Statistics</div>
-                             <div class="tab-pane" id="qwizbook-report">Report</div>
-                         </div>
+
+
+        <div class="span12 text-align-right" id="qwizbook-list-item-controls-tab" >
+
+            <div class="tabbable">
+
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#qwizbook-share" data-bypass data-toggle="tab"><i
+                            class="icon-share"></i> </a></li>
+                    <li><a href="#qwizbook-statistics" data-bypass data-toggle="tab"><i class="icon-bar-chart"></i> </a>
+                    </li>
+                    <li><a href="#qwizbook-flag-issue" data-bypass data-toggle="tab"><i class="icon-flag"></i> </a></li>
+                </ul>
+
+                <div class="tab-content">
+
+                    <div id="qwizbook-share" class="tab-pane active">
+                        <h4>Pane 1 Share Content</h4>
+                   </div>
+
+                    <div id="qwizbook-statistics" class="tab-pane">
+                        <h4>Pane 2 Stats Content</h4>
                     </div>
-                        
-        	   </div>
-        	        
-                                
+
+                    <div id="qwizbook-flag-issue" class="tab-pane">
+                        <h4>Pane 3 flag Content</h4>
+                    </div>
+
+                </div>
+                <!-- /.tab-content -->
+            </div>
+
         </div>
-        	   
-        	
 
-            <div class="row" id="qwizbook-list-item-footer" >
-            	<div class="span12">
-            	    <div class="span5" >
-                        <div class="qwizbook-ratings-container">
-                            <p class="muted text-left" style="margin-left: 10px; margin-bottom: 0px" id= "ratingCount"> <%= userratingcount %> ratings</p>
-                            <ul id="average-rating"  class="rating-w-fonts" style="margin: 10px">
+    </div>
 
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="span4">
-                        <div class="qwizbook-ratings-container">
-                            <p class="muted text-left" style="margin-left: 10px"> Click to rate: </p>
-                            <ul id="qwizbookUserrating" class="rating-w-fonts text-left" style="margin: 10px;margin-bottom: 0px">
-
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="span2">
-                        <div style="padding-top:20px;padding-left:20px;">
-                        	
-                            <button class="btn btn-info btn-large btn-block  qwizbookListItem" >
-                                Start
-                            </button>
-                        </div>
-
-                    </div>
-                 </div>
-               </div>
-        <!--</div>-->
-    <!--</div>-->
 </div>
 
 
