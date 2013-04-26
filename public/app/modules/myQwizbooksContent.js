@@ -1,14 +1,14 @@
 /*!
  * Copyright(c) 2013 Vibrentt
  *
- * Module : QwizbookAuthoringContent
- *
+ * Module : myQwizbooksContent
+ * Container that holds the my qwizbooks content inside a page.
  *
  */
 define(["app", 
 "modules/qwizbook", 
 "modules/myQwizbook", 
-"text!templates/qwizbookAuthoringContent.html"], function(App, QwizBook, MyQwizBook, Template) {
+"text!templates/myQwizbooksContent.html"], function(App, QwizBook, MyQwizbook, Template) {
 
 	var QwizbookAuthoringContent = App.module();
 
@@ -28,7 +28,7 @@ define(["app",
            
 			this.qwizbookUserCollection = new QwizBook.Collection();
             this.listenTo(this.qwizbookUserCollection, "reset", this.refreshView);
-			this.qwizbooklistview = new MyQwizBook.ListMyBook({
+			this.qwizbooklistview = new MyQwizbook.ListMyBook({
 				model : this.qwizbookUserCollection,
 				session : this.session
 			});
