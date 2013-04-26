@@ -6,102 +6,101 @@
  *
  */
 
-define(["app", "text!templates/mybookListItem.html", "text!templates/myBookList.html"], function(App, TmplQwizbookItem, TmplQwizbookList) {
+define([
+    "app",
+    "text!templates/mybookListItem.html",
+    "text!templates/myBookList.html"
+], function (App, TmplQwizbookItem, TmplQwizbookList) {
 
-	// Create a new module
-	var MyQwizBook = App.module();
+    // Create a new module
+    var MyQwizBook = App.module();
 
-	MyQwizBook.Model = Backbone.Model.extend({
+    MyQwizBook.Model = Backbone.Model.extend({
 
-	});
+    });
 
-	MyQwizBook.Collection = Backbone.Collection.extend({
-	});
+    MyQwizBook.Collection = Backbone.Collection.extend({
+    });
 
-	MyQwizBook.Router = Backbone.Router.extend({/* ... */ });
+    MyQwizBook.Router = Backbone.Router.extend({/* ... */ });
 
-	MyQwizBook.View = Backbone.View.extend({
+    MyQwizBook.View = Backbone.View.extend({
 
-		template : TmplQwizbookItem,
+        template: TmplQwizbookItem,
 
-		initialize : function() {
+        initialize: function () {
 
-			if (_.isEmpty(this.options.session)) {
-				throw "ERROR: Session object is not provided for the view!!"
-			}
+            if (_.isEmpty(this.options.session)) {
+                throw "ERROR: Session object is not provided for the view!!"
+            }
 
-			this.session = this.options.session;
+            this.session = this.options.session;
 
-		},
+        },
 
-		render : function(done) {
+        render: function (done) {
 
-			var view = this;
+            var view = this;
 
-			view.el.innerHTML = _.template(this.template, view.model.toJSON());
-			id = view.model.id;
-			var getPublishOrunpublish = $(view.el).find("#published_"+id).val();
-			if(getPublishOrunpublish == 'true')
-			{
-				$(view.el).find("#qwizbookPublishOrUnpublish_"+id).html("Unpublish");
-			}
-			else
-			{
-				$(view.el).find("#qwizbookPublishOrUnpublish_"+id).html("Publish");
-			}
-			return this;
-		}
-	});
+            view.el.innerHTML = _.template(this.template, view.model.toJSON());
+            id = view.model.id;
+            var getPublishOrunpublish = $(view.el).find("#published_" + id).val();
+            if (getPublishOrunpublish == 'true') {
+                $(view.el).find("#qwizbookPublishOrUnpublish_" + id).html("Unpublish");
+            }
+            else {
+                $(view.el).find("#qwizbookPublishOrUnpublish_" + id).html("Publish");
+            }
+            return this;
+        }
+    });
 
-	MyQwizBook.ListMyBook = Backbone.View.extend({
+    MyQwizBook.ListMyBook = Backbone.View.extend({
 
-		template : TmplQwizbookList,
+        template: TmplQwizbookList,
 
-		initialize : function() {
+        initialize: function () {
 
-			if (_.isEmpty(this.options.session)) {
-				throw "ERROR: Session object is not provided for the view!!"
-			}
+            if (_.isEmpty(this.options.session)) {
+                throw "ERROR: Session object is not provided for the view!!"
+            }
 
-			this.session = this.options.session;
-		},
+            this.session = this.options.session;
+        },
 
-		render : function() {
+        render: function () {
 
-			var view = this;
-			var qbook_list_template;
+            var view = this;
+            var qbook_list_template;
 
-			qbook_list_template = this.template;
+            qbook_list_template = this.template;
 
-			view.el.innerHTML = qbook_list_template;
+            view.el.innerHTML = qbook_list_template;
 
-			$(view.el).find("#myQwizbook-list-container").empty();
+            $(view.el).find("#myQwizbook-list-container").empty();
 
-			// If we have items to list , update the list view.
-			// else show nothing to display view.
-			if (view.model.models.length) {
-				
-				_.each(view.model.models, function(qwizbook) {
-					var qwizbookView = new MyQwizBook.View({
-						model : qwizbook,
-						session : view.session
-					});
+            // If we have items to list , update the list view.
+            // else show nothing to display view.
+            if (view.model.models.length) {
 
-					$(view.el).find("#myQwizbook-list-container").append(qwizbookView.render().el);
-				})
-			} else {
-				$(view.el).find("#myBook-no-result-found").show();
-			}
+                _.each(view.model.models, function (qwizbook) {
+                    var qwizbookView = new MyQwizBook.View({
+                        model: qwizbook,
+                        session: view.session
+                    });
 
-			return this;
+                    $(view.el).find("#myQwizbook-list-container").append(qwizbookView.render().el);
+                })
+            } else {
+                $(view.el).find("#myBook-no-result-found").show();
+            }
 
-		}
+            return this;
 
-		
+        }
 
-		
-	});
+    });
 
-	return MyQwizBook;
+    return MyQwizBook;
 
-}); 
+});

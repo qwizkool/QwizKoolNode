@@ -5,290 +5,280 @@
  * Container that holds the my qwizbooks content inside a page.
  *
  */
-define(["app", 
-"modules/qwizbook", 
-"modules/myQwizbook", 
-"text!templates/myQwizbooksContent.html"], function(App, QwizBook, MyQwizbook, Template) {
+define(["app",
+    "modules/qwizbook",
+    "modules/myQwizbook",
+    "text!templates/myQwizbooksContent.html"], function (App, QwizBook, MyQwizbook, Template) {
 
-	var QwizbookAuthoringContent = App.module();
+    var QwizbookAuthoringContent = App.module();
 
-	QwizbookAuthoringContent.View = Backbone.View.extend({
+    QwizbookAuthoringContent.View = Backbone.View.extend({
 
-		initialize : function() {
+        initialize: function () {
 
-		//	this.qwizbookModel = new QwizBook.Model();
+            //	this.qwizbookModel = new QwizBook.Model();
 
-			if (_.isEmpty(this.options.session)) {
-				throw "ERROR: Session object is not provided for the view!!"
-			}
+            if (_.isEmpty(this.options.session)) {
+                throw "ERROR: Session object is not provided for the view!!"
+            }
 
-			this.session = this.options.session;
-			var view = this;
+            this.session = this.options.session;
+            var view = this;
 
-           
-			this.qwizbookUserCollection = new QwizBook.Collection();
+
+            this.qwizbookUserCollection = new QwizBook.Collection();
             this.listenTo(this.qwizbookUserCollection, "reset", this.refreshView);
-			this.qwizbooklistview = new MyQwizbook.ListMyBook({
-				model : this.qwizbookUserCollection,
-				session : this.session
-			});
-			
-		
-			
+            this.qwizbooklistview = new MyQwizbook.ListMyBook({
+                model: this.qwizbookUserCollection,
+                session: this.session
+            });
 
-		},
 
-		events : {
-			//"keyup #qwizbook-description": "maxLength",
-			"click #create-form" : "showCreateForm",
-			"click #btn-create-qwizbook-submit" : "submitCreateForm",
-			"click #btn-create-qwizbook-cancel" : "cancelCreateForm",
-			"click #deleteAllQwizbooks" : "selectAllQwizbooks",
-			"click #qwizbookList" : "showDeleteBtn",
-			"click #deleteQwizbook" : "deleteQwizbook",
-			"click #qwizbookList a" : "qwizbookAction",
-			"keyup #search-qwizbook" : "qwizbook_search",
-			"keyup #qwizbook-title":"checkQwizbookTitleLength",
-			"keyup #qwizbook-description":"checkQwizbookDescriptionLength",
-		//	"click #qwizbookList":"authorQwizbookOnclickDiv",
+        },
+
+        events: {
+            //"keyup #qwizbook-description": "maxLength",
+            "click #create-form": "showCreateForm",
+            "click #btn-create-qwizbook-submit": "submitCreateForm",
+            "click #btn-create-qwizbook-cancel": "cancelCreateForm",
+            "click #deleteAllQwizbooks": "selectAllQwizbooks",
+            "click #qwizbookList": "showDeleteBtn",
+            "click #deleteQwizbook": "deleteQwizbook",
+            "click #qwizbookList a": "qwizbookAction",
+            "keyup #search-qwizbook": "qwizbook_search",
+            "keyup #qwizbook-title": "checkQwizbookTitleLength",
+            "keyup #qwizbook-description": "checkQwizbookDescriptionLength",
+            //	"click #qwizbookList":"authorQwizbookOnclickDiv",
             //"click #qwizBook":"authorQwizbook"
-             "click #myQwizbook-list-container a":"authorQwizbook"
+            "click #myQwizbook-list-container a": "authorQwizbook"
 
-		},
-		
-		checkQwizbookTitleLength: function(e) {
-			
-			var qwizbookTitle = $('#qwizbook-title').val();
+        },
+
+        checkQwizbookTitleLength: function (e) {
+
+            var qwizbookTitle = $('#qwizbook-title').val();
             var qwizbookTitleLength = qwizbookTitle.length;
             var newQwizbookTitle = "";
-            
-            if(qwizbookTitleLength>0 && qwizbookTitleLength > App.appConfig.MAX_QWIZBOOK_TITLE_SIZE_IN_CHARS)
-            	{
-            		//alert("123");
-            		
-            		//$('#user-reg-email-input').
-            		newQwizbookTitle = qwizbookTitle.substring(0,App.appConfig.MAX_QWIZBOOK_TITLE_SIZE_IN_CHARS);
-            		$('#qwizbook-title').val(newQwizbookTitle);
-            		
-            	}
-            	
+
+            if (qwizbookTitleLength > 0 && qwizbookTitleLength > App.appConfig.MAX_QWIZBOOK_TITLE_SIZE_IN_CHARS) {
+                //alert("123");
+
+                //$('#user-reg-email-input').
+                newQwizbookTitle = qwizbookTitle.substring(0, App.appConfig.MAX_QWIZBOOK_TITLE_SIZE_IN_CHARS);
+                $('#qwizbook-title').val(newQwizbookTitle);
+
+            }
+
         },
-		
-		checkQwizbookDescriptionLength: function(e) {
-			
-			var qwizbookDescription = $('#qwizbook-description').val();
+
+        checkQwizbookDescriptionLength: function (e) {
+
+            var qwizbookDescription = $('#qwizbook-description').val();
             var qwizbookDescriptionLength = qwizbookDescription.length;
             var newQwizbookDescription = "";
-            
-            
-			if(qwizbookDescriptionLength>0 && qwizbookDescriptionLength > App.appConfig.MAX_QWIZBOOK_DESCRIPTION_SIZE_IN_CHARS)
-            	{
-            		
-            		newQwizbookDescription = qwizbookDescription.substring(0,App.appConfig.MAX_QWIZBOOK_DESCRIPTION_SIZE_IN_CHARS);
-            		$('#qwizbook-description').val(newQwizbookDescription);
-            		
-            	}
-           	
-           
-		},
-
-		qwizbook_search : function(e) {
-			var searchparam = e.target.value;
-			this.qwizbookUserCollection.setSearchParameter(this.session, searchparam);
-			this.qwizbookUserCollection.getMybook();
-		},
-		
-		qwizbookAction :function(e)
-		{
-			var id = e.target.id;
-			var view = this;
-			if(id)
-			{
-				var split_id = id.split("_");
-				var qId = split_id[1];
-				var ModelData = view.qwizbookUserCollection.get(qId);
-				var qbookModel = ModelData;
-				if(split_id[0] == "qwizbookArchive")
-				{
-					var confirmMsg = confirm('Are you sure you want to delete this Qwizbook')
-				if (confirmMsg) {
-						
-						qbookModel.deleteMyQwizbook(qId);
-                        this.listenTo(qbookModel, "delete-qwizbook-success-event", function() {
-								
-								view.qwizbookUserCollection.getMybook();
-							});
-						}
-				}
-				else if(split_id[0] == "qwizbookPublishOrUnpublish")
-				{
-					var publishedOrNot = $('#published_'+qId).val();
-					var publishOrunpublish = true;
-					if(publishedOrNot == "true")
-					{
-						publishOrunpublish = false; 
-					}
-					else
-					{
-						publishOrunpublish = true;
-					}
-					
-						qbookModel.publishOrunpublishQwizbook(qId,publishOrunpublish);
-                        this.listenTo(qbookModel, "publishOrunpublish-qwizbook-success-event", function() {
-								
-								view.qwizbookUserCollection.getMybook();
-							});
-				}
-			}
-			
-		},
 
 
-        authorQwizbook:function (e){
-        	//var id = $('#myqbookid_').val();
+            if (qwizbookDescriptionLength > 0 && qwizbookDescriptionLength > App.appConfig.MAX_QWIZBOOK_DESCRIPTION_SIZE_IN_CHARS) {
 
-        	var id = $("input[id^='myqbook_']").val();
-        	Backbone.history.navigate("#authorQwizbook/" + id, true);
-		},
-		
-		/*authorQwizbook:function (e){
-			var id = e.target.id;
-			Backbone.history.navigate("#authorQwizbook/" + id, true);
-		},*/
-		showDeleteBtn : function(e) {
+                newQwizbookDescription = qwizbookDescription.substring(0, App.appConfig.MAX_QWIZBOOK_DESCRIPTION_SIZE_IN_CHARS);
+                $('#qwizbook-description').val(newQwizbookDescription);
 
-			var selectedQbooksCount = $("input:checked").length;
-			if (selectedQbooksCount == 0) {
+            }
 
-				$("#deleteAllQwizbooksBtn").hide();
-			} else {
-				$("#deleteAllQwizbooksBtn").show();
-			}
 
-		},
-		showCreateForm : function(e) {
+        },
 
-			$("#title-status").hide();
-			$('#qwizbook-create-form').show();
-			$('#myBook-no-result-found').hide();
+        qwizbook_search: function (e) {
+            var searchparam = e.target.value;
+            this.qwizbookUserCollection.setSearchParameter(this.session, searchparam);
+            this.qwizbookUserCollection.getMybook();
+        },
 
-		},
+        qwizbookAction: function (e) {
+            var id = e.target.id;
+            var view = this;
+            if (id) {
+                var split_id = id.split("_");
+                var qId = split_id[1];
+                var ModelData = view.qwizbookUserCollection.get(qId);
+                var qbookModel = ModelData;
+                if (split_id[0] == "qwizbookArchive") {
+                    var confirmMsg = confirm('Are you sure you want to delete this Qwizbook')
+                    if (confirmMsg) {
 
-		submitCreateForm : function(e) {
+                        qbookModel.deleteMyQwizbook(qId);
+                        this.listenTo(qbookModel, "delete-qwizbook-success-event", function () {
 
-			if ($('#qwizbook-title').val()) {
-				
-				var qwizbookmodel = new QwizBook.Model();
-				var qbooktitle = $('#qwizbook-title').val();
-				var qbookdesc = $('#qwizbook-description').val();
-				var view = this;
-			    qwizbookmodel.create(qbooktitle, qbookdesc);
-                this.listenTo(qwizbookmodel, "qwizbook-create-success-event", function() {
-					//view.qwizbookUserCollection.setUserId();
-					view.qwizbookUserCollection.getMybook();
+                            view.qwizbookUserCollection.getMybook();
+                        });
+                    }
+                }
+                else if (split_id[0] == "qwizbookPublishOrUnpublish") {
+                    var publishedOrNot = $('#published_' + qId).val();
+                    var publishOrunpublish = true;
+                    if (publishedOrNot == "true") {
+                        publishOrunpublish = false;
+                    }
+                    else {
+                        publishOrunpublish = true;
+                    }
 
-				});
-				$('#qwizbook-create-form').hide();
-				$('#qwizbook-title').val('');
-				$('#qwizbook-description').val('');
-			} else {
-				$("#title-status").addClass('alert-error');
-				$("#title-status").html('Please enter a Title');
-				$("#title-status").show();
-			}
+                    qbookModel.publishOrunpublishQwizbook(qId, publishOrunpublish);
+                    this.listenTo(qbookModel, "publishOrunpublish-qwizbook-success-event", function () {
 
-		},
+                        view.qwizbookUserCollection.getMybook();
+                    });
+                }
+            }
 
-		cancelCreateForm : function(e) {
+        },
 
-			$("#title-status").hide();
-			$('#qwizbook-create-form').hide();
 
-			$('#qwizbook-title').val('');
-			$('#qwizbook-description').val('');
-			
-			if(this.qwizbookUserCollection.length==0){
-			$('#myBook-no-result-found').show();	
-			}
-			
+        authorQwizbook: function (e) {
+            //var id = $('#myqbookid_').val();
 
-		},
+            var id = $("input[id^='myqbook_']").val();
+            Backbone.history.navigate("#authorQwizbook/" + id, true);
+        },
 
-		selectAllQwizbooks : function() {
+        /*authorQwizbook:function (e){
+         var id = e.target.id;
+         Backbone.history.navigate("#authorQwizbook/" + id, true);
+         },*/
+        showDeleteBtn: function (e) {
 
-			if ($('#allQwizbooks').is(":checked")) {
+            var selectedQbooksCount = $("input:checked").length;
+            if (selectedQbooksCount == 0) {
 
-				$("#deleteAllQwizbooksBtn").show();
+                $("#deleteAllQwizbooksBtn").hide();
+            } else {
+                $("#deleteAllQwizbooksBtn").show();
+            }
 
-				$('#myQwizbook-list-container').find(':checkbox').each(function() {
-					$(':checkbox').prop("checked", true);
-				});
+        },
+        showCreateForm: function (e) {
 
-			} else {
-				$("#deleteAllQwizbooksBtn").hide();
+            $("#title-status").hide();
+            $('#qwizbook-create-form').show();
+            $('#myBook-no-result-found').hide();
 
-				$('#myQwizbook-list-container').find(':checkbox').each(function() {
-					$(':checkbox').prop("checked", false);
-				});
-			}
+        },
 
-		},
+        submitCreateForm: function (e) {
 
-		deleteQwizbook : function() {
+            if ($('#qwizbook-title').val()) {
 
-			var currentQwizbook = "";
-			var selectedQwizbooks = [];
-			
-			var counter = 1;
-			var view = this;
-            
-			$('#myQwizbook-list-container input:checked').each(function() {
-                
+                var qwizbookmodel = new QwizBook.Model();
+                var qbooktitle = $('#qwizbook-title').val();
+                var qbookdesc = $('#qwizbook-description').val();
+                var view = this;
+                qwizbookmodel.create(qbooktitle, qbookdesc);
+                this.listenTo(qwizbookmodel, "qwizbook-create-success-event", function () {
+                    //view.qwizbookUserCollection.setUserId();
+                    view.qwizbookUserCollection.getMybook();
+
+                });
+                $('#qwizbook-create-form').hide();
+                $('#qwizbook-title').val('');
+                $('#qwizbook-description').val('');
+            } else {
+                $("#title-status").addClass('alert-error');
+                $("#title-status").html('Please enter a Title');
+                $("#title-status").show();
+            }
+
+        },
+
+        cancelCreateForm: function (e) {
+
+            $("#title-status").hide();
+            $('#qwizbook-create-form').hide();
+
+            $('#qwizbook-title').val('');
+            $('#qwizbook-description').val('');
+
+            if (this.qwizbookUserCollection.length == 0) {
+                $('#myBook-no-result-found').show();
+            }
+
+
+        },
+
+        selectAllQwizbooks: function () {
+
+            if ($('#allQwizbooks').is(":checked")) {
+
+                $("#deleteAllQwizbooksBtn").show();
+
+                $('#myQwizbook-list-container').find(':checkbox').each(function () {
+                    $(':checkbox').prop("checked", true);
+                });
+
+            } else {
+                $("#deleteAllQwizbooksBtn").hide();
+
+                $('#myQwizbook-list-container').find(':checkbox').each(function () {
+                    $(':checkbox').prop("checked", false);
+                });
+            }
+
+        },
+
+        deleteQwizbook: function () {
+
+            var currentQwizbook = "";
+            var selectedQwizbooks = [];
+
+            var counter = 1;
+            var view = this;
+
+            $('#myQwizbook-list-container input:checked').each(function () {
+
                 selectedQwizbooks.push($(this).attr('value'));
-                	
-			});
-            
-			var selectedQbookCount = selectedQwizbooks.length;
-			
-			if (selectedQbookCount >= 1) {
 
-				var confirmMsg = confirm('Are you sure you want to delete ' + selectedQbookCount + ' Qwizbook')
-				if (confirmMsg) {
-					
-					for (var j = 0; j < selectedQwizbooks.length; j++) {
-						currentQwizbook = selectedQwizbooks[j];
-						var ModelData = this.qwizbookUserCollection.get(currentQwizbook);
-						var qbookModel = ModelData;
-						qbookModel.deleteMyQwizbook(currentQwizbook);
+            });
 
-						if (counter == selectedQbookCount) {
+            var selectedQbookCount = selectedQwizbooks.length;
 
-                            this.listenTo(qbookModel, "delete-qwizbook-success-event", function() {
-								view.qwizbookUserCollection.getMybook();
-							});
+            if (selectedQbookCount >= 1) {
 
-						}
-						counter++;
+                var confirmMsg = confirm('Are you sure you want to delete ' + selectedQbookCount + ' Qwizbook')
+                if (confirmMsg) {
 
-					}
-					
-					$('#myQwizbook-list-container').find(':checkbox').each(function() {
-					$(':checkbox').prop("checked", false);
-				});
-				}
-                    this.undelegateEvents();
-                    this.delegateEvents(this.events);
-			}
+                    for (var j = 0; j < selectedQwizbooks.length; j++) {
+                        currentQwizbook = selectedQwizbooks[j];
+                        var ModelData = this.qwizbookUserCollection.get(currentQwizbook);
+                        var qbookModel = ModelData;
+                        qbookModel.deleteMyQwizbook(currentQwizbook);
 
-		},
+                        if (counter == selectedQbookCount) {
 
-		refreshView : function() {
-			
-			$(this.el).find("#myQwizbookList-container").html(this.qwizbooklistview.render().el);
-			
-		},
-		
-		clear: function () {
+                            this.listenTo(qbookModel, "delete-qwizbook-success-event", function () {
+                                view.qwizbookUserCollection.getMybook();
+                            });
+
+                        }
+                        counter++;
+
+                    }
+
+                    $('#myQwizbook-list-container').find(':checkbox').each(function () {
+                        $(':checkbox').prop("checked", false);
+                    });
+                }
+                this.undelegateEvents();
+                this.delegateEvents(this.events);
+            }
+
+        },
+
+        refreshView: function () {
+
+            $(this.el).find("#myQwizbookList-container").html(this.qwizbooklistview.render().el);
+
+        },
+
+        clear: function () {
 
             // clear all the subviews.
             this.$el.empty();
@@ -296,20 +286,20 @@ define(["app",
             return this;
         },
 
-		template : Template,
+        template: Template,
 
-		render : function() {
+        render: function () {
 
-			this.el.innerHTML = this.template;
-			this.qwizbookUserCollection.setUserId(this.session);
-			this.qwizbookUserCollection.getMybook();
-			 //$(this.el).find("#qwizbooklist-container").append(this.qwizbooklistview.render().el);
+            this.el.innerHTML = this.template;
+            this.qwizbookUserCollection.setUserId(this.session);
+            this.qwizbookUserCollection.getMybook();
+            //$(this.el).find("#qwizbooklist-container").append(this.qwizbooklistview.render().el);
 
-			return this;
-		}
-	});
+            return this;
+        }
+    });
 
-	return QwizbookAuthoringContent;
+    return QwizbookAuthoringContent;
 
 });
 

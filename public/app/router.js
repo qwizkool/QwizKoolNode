@@ -16,8 +16,8 @@ define([
     "modules/qwizbookMainPage",
     "modules/myQwizbooksPage",
     "modules/qwizbookAddDetails",
-    "modules/archiveQwizbooks"
-], function (App, Bootstrap, Session, IndexPage, PageNotFoundPage, UserMainPage, QwizbookMainPage,QwizbookAuthoring, QwizbookAddDetails, ArchiveQwizbooks) {
+    "modules/qwizbookArchivePage"
+], function (App, Bootstrap, Session, IndexPage, PageNotFoundPage, UserMainPage, QwizbookMainPage,MyQwizbooksPage, QwizbookAddDetails, QwizbooksArchivePage) {
 
     // Defining the application router, you can attach sub routers here.
     var Router = Backbone.Router.extend({
@@ -95,7 +95,7 @@ define([
         myQwizbooks: function (hash) {
 
 
-            var createQwizbook = new QwizbookAuthoring.View({session: this.session});
+            var createQwizbook = new MyQwizbooksPage.View({session: this.session});
             createQwizbook.show();
         },
 
@@ -107,7 +107,7 @@ define([
         },
 
         qwizbookArchives: function () {
-            var archiveQwizbook = new ArchiveQwizbooks.View({session: this.session});
+            var archiveQwizbook = new QwizbooksArchivePage.View({session: this.session});
             archiveQwizbook.show();
         }
 
