@@ -1,8 +1,8 @@
 /*!
  * Copyright(c) 2013 Vibrentt
  *
- * Module : QwizbookAuthoring
- *
+ * Module : myQwizbooksPage
+ * Page container that holds all my qwizbooks.
  *
  */
 define([
@@ -10,10 +10,10 @@ define([
     "modules/header",
     "modules/userSettings",
     "modules/footer",
-    "modules/archiveToolbar",
-    "modules/qwizbookAuthoringContent"
+    "modules/appToolbar",
+    "modules/myQwizbooksContent"
 ],
-    function (App, Header, UserSettings, Footer,ArchiveToolbar,  QwizbookAuthoringContent) {
+    function (App, Header, UserSettings, Footer,AppToolbar,  MyQwizbooksContent) {
         // Create a new module
         var QwizbookAuthoring = App.module();
 
@@ -26,10 +26,10 @@ define([
 
             	this.session = this.options.session;
             	this.userSettings = new UserSettings.View({session: this.session});
-            	this.archiveToolbar = new ArchiveToolbar.View({session: this.session});
-            	this.header = new Header.View({htbuView:this.userSettings,htblView:this.archiveToolbar});
+            	this.appToolbar = new AppToolbar.View({session: this.session});
+            	this.header = new Header.View({htbuView:this.userSettings,htblView:this.appToolbar});
            	    this.footer = new Footer.View();
-				this.qwizbookAuthoringContent = new QwizbookAuthoringContent.View({ el: '#qwizkool-content',session: this.session});
+				this.qwizbookAuthoringContent = new MyQwizbooksContent.View({ el: '#qwizkool-content',session: this.session});
 				//this.qwizbookAuthoringContent.clear();
             },
 

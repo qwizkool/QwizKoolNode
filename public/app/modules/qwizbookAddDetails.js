@@ -11,7 +11,7 @@ define([
     "modules/userSettings",
     "modules/footer",
     "modules/qwizbookAddDetailsContent",
-     "text!templates/qwizbookAuthoringContent.html"
+     "text!templates/myQwizbooksContent.html"
 ],
     function (App, Header, UserSettings, Footer, QwizbookAddDetailsContent,Template) {
         // Create a new module
