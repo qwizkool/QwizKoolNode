@@ -37,8 +37,10 @@ define(["app",
         },
 
         events: {
-            //"keyup #qwizbook-description": "maxLength",
-            "click #create-form": "showCreateForm",
+            "click #all-items-selector": "toggleSelAllQwizbooks",
+            "click #create-form-btn": "showCreateForm",
+
+
             "click #btn-create-qwizbook-submit": "submitCreateForm",
             "click #btn-create-qwizbook-cancel": "cancelCreateForm",
             "click #deleteAllQwizbooks": "selectAllQwizbooks",
@@ -52,6 +54,48 @@ define(["app",
             //"click #qwizBook":"authorQwizbook"
             "click #myQwizbook-list-container a": "authorQwizbook"
 
+        },
+
+        toggleSelAllQwizbooks: function (e) {
+
+            if ($('a#all-items-selector').button().hasClass('active')) {
+                // Currently active , after this it will become in active
+                this.deactivateSelAll();
+
+                // de select all qwizbooks
+                this.deselectAllQwizbooks();
+            } else {
+                // Currently inactive,  now it will become active
+                this.activateSelAll();
+
+                // Select all qwizbooks
+                this.selectAllQwizbooks();
+            }
+
+        },
+
+        activateSelAll: function () {
+            // Currently inactive,  now it will become active
+            if ($('a#all-items-selector i').hasClass('icon-circle-blank')) {
+
+                $('a#all-items-selector i').removeClass('icon-circle-blank')
+                $('a#all-items-selector i').addClass('icon-ok-circle')
+
+                // Show the archive all button
+                $('a#archive-all-btn').button().removeClass('disabled')
+
+            }
+        },
+
+        deactivateSelAll: function () {
+
+            if ($('a#all-items-selector i').hasClass('icon-ok-circle')) {
+                $('a#all-items-selector i').removeClass('icon-ok-circle')
+                $('a#all-items-selector i').addClass('icon-circle-blank')
+
+                // hide archive all button
+                $('a#archive-all-btn').button().addClass('disabled')
+            }
         },
 
         checkQwizbookTitleLength: function (e) {
@@ -206,23 +250,25 @@ define(["app",
 
         selectAllQwizbooks: function () {
 
-            if ($('#allQwizbooks').is(":checked")) {
 
-                $("#deleteAllQwizbooksBtn").show();
+            $('#myQwizbook-list-container').find(':checkbox').each(function () {
+                $(':checkbox').prop("checked", true);
+            });
 
-                $('#myQwizbook-list-container').find(':checkbox').each(function () {
-                    $(':checkbox').prop("checked", true);
-                });
-
-            } else {
-                $("#deleteAllQwizbooksBtn").hide();
-
-                $('#myQwizbook-list-container').find(':checkbox').each(function () {
-                    $(':checkbox').prop("checked", false);
-                });
-            }
 
         },
+
+
+        deselectAllQwizbooks: function () {
+
+
+            $('#myQwizbook-list-container').find(':checkbox').each(function () {
+                $(':checkbox').prop("checked", false);
+            });
+
+
+        },
+
 
         deleteQwizbook: function () {
 
@@ -292,7 +338,7 @@ define(["app",
 
             this.el.innerHTML = this.template;
 
-           // $(this.el).find('.my-qwizbooks-filter-selection').selectpicker();
+            // $(this.el).find('.my-qwizbooks-filter-selection').selectpicker();
 
             this.qwizbookUserCollection.setUserId(this.session);
             this.qwizbookUserCollection.getMybook();

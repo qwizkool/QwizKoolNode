@@ -1,28 +1,34 @@
 <!--Qwizbook List Item-->
 <!--TODO: clean up the css styles, consolidate to external CSS file.-->
 <div class="qwizbook-list-item qwizbook-item-style clearfix">
+
     <div class="row">
+
         <input type="hidden" class="book_avgRating" value="<%= averageRating %>"/>
         <input type="hidden" class="book_userrating" value="<%= userRating %>"/>
         <input type="hidden" class="book_id" value="<%= _id %>"/>
 
         <div class="span12 qwizbook-list-item-header" style=";background-color: #f8f8f8">
             <div class="" style="margin: 10px">
+
                 <div class="btn-group pull-right">
-                    <a  data-toggle="dropdown" class="btn dropdown-toggle">
+                    <a data-toggle="dropdown" class="btn dropdown-toggle">
                         <i class="icon-chevron-down"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li ><a id="qwizbookArchive_<%= _id %>"><i class="icon-briefcase"></i>Archive</a></li>
+                        <li><a id="qwizbookArchive_<%= _id %>"><i class="icon-briefcase"></i>Archive</a></li>
                         <li class="divider"></li>
                         <li><a id="qwizbookPublishOrUnpublish_<%= _id %>">Publish/Unpublish</a></li>
 
                     </ul>
-                    <input type="hidden" name="published_<%= _id %>" id="published_<%= _id %>" value="<%= published %>" />
+                    <input type="hidden" name="published_<%= _id %>" id="published_<%= _id %>"
+                           value="<%= published %>"/>
                 </div>
+
                 <input type="checkbox" id="qwizbook_<%= _id %>" value="<%= _id %>">
-               <h1 style="font-weight: 300"><%= title %></h1>
-           </div>
+
+                <h1 style="font-weight: 300"><%= title %></h1>
+            </div>
 
         </div>
 
@@ -50,8 +56,8 @@
             </div>
         </div>
 
+    </div>
 </div>
-
 <!--Qwizbook List Item ends-->
 
 
