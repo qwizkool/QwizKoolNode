@@ -141,7 +141,10 @@ define([
             },
 
             events: {
-                "click #rating-1": "setRating1",
+            	
+            	"click #qwizbook-list-item-controls-icons li": "showtabDiv",
+            	
+            	"click #rating-1": "setRating1",
                 "click #rating-2": "setRating2",
                 "click #rating-3": "setRating3",
                 "click #rating-4": "setRating4",
@@ -157,6 +160,20 @@ define([
                 qwizbookratingmodel.addRating(qbookId, ratingvalue);
 
             },
+            
+            showtabDiv: function (e) {
+            	
+            	e.preventDefault();
+            	//for (var k in e)
+            	
+                $(this).tab('show');
+                
+            	
+            	
+            	
+            },
+            
+            
 
             setRating1: function () {
 

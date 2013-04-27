@@ -1,27 +1,15 @@
 <!--TODO: clean up the css styles, consolidate to external CSS file.-->
 
-<div class="navbar" >
-    <div class="navbar-inner">
-
-        <form class="navbar-search pull-left" id="" style="margin-top: 10px">
-            <input type="text" class="search-query" id="user-search-input" placeholder="Search">
-        </form>
-
-        <form class="form-horizontal" style="margin-top: 0px;margin-bottom: 10px; float: right">
-            <fieldset>
-                <div class="control-group" style="margin-top: 10px;margin-bottom: 0">
-                    <label class="control-label" style="padding-top: 5px" >Sort by:</label>
-                    <div class="controls">
-                        <select id="user-filter-input">
-                           <option value="1">Recently Updated</option>
-                           <option value="2">Most Popular</option>
-                        </select>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-
-    </div>
+<div class="navbar">
+    <div class="navbar-inner navbar-simple">
+            <form class="navbar-search pull-left">
+                <input type="text" class="search-query" id="user-search-input" placeholder="Search">
+            </form>
+        <select class="filter-selection pull-right">
+            <option>Recently Updated</option>
+            <option>Most Popular</option>
+        </select>
+     </div>
 </div>
 
 

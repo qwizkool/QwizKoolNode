@@ -1,7 +1,7 @@
 /*!
  * Copyright(c) 2013 Vibrentt
  *
- * Module : QwizbookAuthoring
+ * Module : QwizbookArchivePage
  *
  *
  */
@@ -10,13 +10,14 @@ define([
     "modules/header",
     "modules/userSettings",
     "modules/footer",
-    "modules/archiveQwizbookContent"
+    "modules/appToolbar",
+    "modules/qwizbookArchiveContent"
 ],
-    function (App, Header, UserSettings, Footer,  ArchiveQwizbookContent) {
+    function (App, Header, UserSettings, Footer, AppToolbar, QwizbookArchiveContent) {
         // Create a new module
-        var ArchiveQwizbook = App.module();
+        var QwizbookArchivePage = App.module();
 
-        ArchiveQwizbook.View = Backbone.View.extend({
+        QwizbookArchivePage.View = Backbone.View.extend({
 
             initialize:function () {
             	if (_.isEmpty(this.options.session)) {
@@ -25,9 +26,10 @@ define([
 
             	this.session = this.options.session;
             	this.userSettings = new UserSettings.View({session: this.session});
-            	this.header = new Header.View({htbuView:this.userSettings});
-           	    this.footer = new Footer.View();
-				this.archiveQwizbookContent = new ArchiveQwizbookContent.View({ el: '#qwizkool-content',session: this.session});
+                this.appToolbar = new AppToolbar.View({session: this.session});
+                this.header = new Header.View({htbuView: this.userSettings, htblView: this.appToolbar});
+                this.footer = new Footer.View();
+				this.archiveQwizbookContent = new QwizbookArchiveContent.View({ el: '#qwizkool-content',session: this.session});
 				this.archiveQwizbookContent.clear();
             },
 
@@ -38,6 +40,6 @@ define([
             }
         });
 
-        return ArchiveQwizbook;
+        return QwizbookArchivePage;
 
     });

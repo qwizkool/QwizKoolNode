@@ -14,12 +14,10 @@ define([
     "modules/pageNotFoundPage",
     "modules/userMainPage",
     "modules/qwizbookMainPage",
-    "modules/sampleDesign",
-    "modules/sampleqwizbookAuthoring",
-    "modules/qwizbookAuthoring",
+    "modules/myQwizbooksPage",
     "modules/qwizbookAddDetails",
-    "modules/archiveQwizbooks"
-], function (App, Bootstrap, Session, IndexPage, PageNotFoundPage, UserMainPage, QwizbookMainPage, SampleDesign, SampleQwizbookAuthoring, QwizbookAuthoring, QwizbookAddDetails, ArchiveQwizbooks) {
+    "modules/qwizbookArchivePage"
+], function (App, Bootstrap, Session, IndexPage, PageNotFoundPage, UserMainPage, QwizbookMainPage,MyQwizbooksPage, QwizbookAddDetails, QwizbooksArchivePage) {
 
     // Defining the application router, you can attach sub routers here.
     var Router = Backbone.Router.extend({
@@ -29,11 +27,9 @@ define([
             'notfound': 'pageNotFound',
             'main': 'userMain',
             'qwizbookDetails/:id': 'qwizbookMain',
-            'design': 'sampleDesign',
-            'sampleAuthorQwizbook': 'sampleAuthorQwizbookDesign',
             'authorQwizbook/:id': 'authorQwizbook',
-            'createQwizbook': 'createQwizbook',
-            'archiveQwizbook': 'archiveQwizbook'
+            'myQwizbooks': 'myQwizbooks',
+            'qwizbookArchives': 'qwizbookArchives'
         },
 
         initialize: function () {
@@ -96,23 +92,10 @@ define([
             qwizbookMainPage.show()
         },
 
-        sampleDesign: function (hash) {
-            var sampleDesign = new SampleDesign.View({session: this.session});
-            sampleDesign.show();
-        },
-
-        sampleAuthorQwizbookDesign: function (hash) {
+        myQwizbooks: function (hash) {
 
 
-            var sampleAuthorQwizbookDesign = new SampleQwizbookAuthoring.View({session: this.session});
-            sampleAuthorQwizbookDesign.show();
-        },
-
-
-        createQwizbook: function (hash) {
-
-
-            var createQwizbook = new QwizbookAuthoring.View({session: this.session});
+            var createQwizbook = new MyQwizbooksPage.View({session: this.session});
             createQwizbook.show();
         },
 
@@ -123,8 +106,8 @@ define([
             authorQwizbook.show();
         },
 
-        archiveQwizbook: function () {
-            var archiveQwizbook = new ArchiveQwizbooks.View({session: this.session});
+        qwizbookArchives: function () {
+            var archiveQwizbook = new QwizbooksArchivePage.View({session: this.session});
             archiveQwizbook.show();
         }
 

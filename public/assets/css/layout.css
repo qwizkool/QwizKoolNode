@@ -184,6 +184,24 @@ body {
 .controls input{
     height: 22px;
 }
+/* My Qwizbooks */
+.my-qwizbooks-tb {
+    margin-bottom: 10px;
+}
+.tb-item-left {
+
+    text-align: left,
+
+}
+
+.tb-item-center {
+    text-align: center
+}
+
+.tb-item-right {
+
+    text-align: right
+}
 
 
 /* Large desktop */
@@ -203,6 +221,9 @@ body {
     .reg-form-margin-media {
         margin-top: 5px;
     }
+    .tb-item-small-media {
+        text-align: left
+    }
 }
 
 /* Landscape phones and down */
@@ -210,10 +231,20 @@ body {
     .reg-form-margin-media {
         margin-top: 5px;
     }
+    .tb-item-small-media {
+        text-align: left
+    }
 }
 
 
 .reg-form-margin-media-block {
     display: block;
     width: 100%
+}
+
+/* Bootstrap customization */
+.navbar-simple {
+    background: #FFF;
+    box-shadow: 0 0 0;
+    padding-top: 8px;
 }

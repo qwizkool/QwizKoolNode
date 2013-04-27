@@ -1,0 +1,74 @@
+<div class="span12" id="my-qwizbooks-content-header">
+
+    <div class="navbar">
+        <div class="navbar-inner navbar-simple">
+
+            <div class="row-fluid my-qwizbooks-tb">
+                <div class="span2 tb-item-left tb-item-small-media">
+                    <div class="btn-group">
+                        <a class="btn" id="allQwizbooks" data-toggle="button"><i class="icon-ok-circle"></i></a>
+                    </div>
+                </div>
+                <div class="span2 tb-item-center tb-item-small-media">
+                    <div class="btn-group">
+                        <a class="btn" id="create-form"><i class="icon-plus"></i></a>
+                        <a class="btn"><i class="icon-briefcase"></i></a>
+                    </div>
+                </div>
+                <div class="span8  tb-item-right tb-item-small-media">
+                    <div class="btn-group">
+                        <input type="text" class="search-query" id="search-qwizbook" placeholder="Search">
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="span12" id="my-qwizbooks-create-form">
+    <div id="qwizbook-create-form" name="qwizbook-create-form" style="display: none" >
+
+        <table class="table table-bordered">
+            <caption class="text-left" style="padding: 5px"><p><h4 class="text-info">Create a Qwizbook</h4></p></caption>
+            <tbody>
+            <tr>
+                <td align="right" style="padding:10px;"><h5>Title</h5></td>
+                <td align="left" style="border: 1px solid #EEEEEE;padding:10px;" >
+                    <input type="text" id="qwizbook-title" name="qwizbook-title" class="input-block-level" style="resize: vertical">
+
+                    <div id="title-status"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="right" style="border: 1px solid #EEEEEE;padding:10px;"><h5>Description</h5></td>
+                <td align="left" style="border: 1px solid #EEEEEE;padding:10px;" >
+                    <textarea id="qwizbook-description" name="qwizbook-description" class="input-block-level" style="resize: vertical"> </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="border: 1px solid #EEEEEE;padding:10px;">
+                    <button id="btn-create-qwizbook-submit" class="btn btn-info btn-small">
+                        Submit
+                    </button>
+                    <button id="btn-create-qwizbook-cancel" class="btn btn-info btn-small">
+                        Cancel
+                    </button>
+                </td>
+
+
+            </tr>
+
+
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+<div class="span12" id="myQwizbookList-container">
+
+</div>

@@ -28,11 +28,21 @@ define([
         },
 
         events: {
-            "click #create-qwizbook":"authorQwizbook"
+            "click #my-qwizbooks":"myQwizbooks",
+            "click #qwizbook-archive":"qwizbookArchive",
+            "click #my-dashboard":"goHome"
         },
 
-        authorQwizbook:function(e) {
-            Backbone.history.navigate("#createQwizbook", true);
+        myQwizbooks:function(e) {
+            Backbone.history.navigate("#myQwizbooks", true);
+
+        },
+        qwizbookArchive:function(e) {
+            Backbone.history.navigate("#qwizbookArchives", true);
+
+        },
+        goHome:function(e) {
+            Backbone.history.navigate("#main", true);
 
         }
 
