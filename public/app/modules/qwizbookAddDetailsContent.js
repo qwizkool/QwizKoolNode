@@ -18,27 +18,27 @@ define([
     QwizbookAddDetailsContent.View = Backbone.View.extend({
 
         initialize: function () {
-			this.session = this.options.session;
+            this.session = this.options.session;
             
             if (_.isEmpty(this.options.session)) {
                 throw "ERROR: Session object is not provided for the view!!"
-            		}
+                    }
            
             this.qwizbookId = this.options.qwizbookId;
             this.qwizbookModel = new QwizBook.Model({_id:this.qwizbookId, session:this.session});
             this.qwizbookModel.retreive();
-            this.listenTo(qwizbookModel, "retreive-qwizbook-success-event", this.updateView);
-			this.editQwizbook = new EditQwizbook.View({model: this.qwizbookModel, qwizbookId: this.qwizbookId, session:this.session});
+            this.listenTo(this.qwizbookModel, "retreive-qwizbook-success-event", this.updateView);
+            this.editQwizbook = new EditQwizbook.View({model: this.qwizbookModel, qwizbookId: this.qwizbookId, session:this.session});
 
         },
          updateView : function()
         {
-        	$(this.el).find("#qwizbook-create-form").append(this.editQwizbook.render().el);
+            $(this.el).find("#qwizbook-create-form").append(this.editQwizbook.render().el);
         },
 
        events: {
             "click #icon-author-content": "showAuthorForm",
-             "click #qwizbook-questionnare-form a": "showOrhideImageAudioVideoDiv",
+             //"click #qwizbook-questionnare-form a": "showOrhideImageAudioVideoDiv",
            
             //Show reference container
             "click #add-more-references": "showReferenceContainer",
@@ -48,122 +48,63 @@ define([
             "click #btn-qwizbook-author-cancel": "cancelAuthorForm",
             
             //edit qwizbook
-            "click #btn-save-qwizbook" : "editBook"
+            "click #btn-save-qwizbook" : "editBook",
+            "click .media-group a" : "addSupportLink",
+            "click .media-hide" : "removeSupportLink"
 
         },
         
-        showOrhideImageAudioVideoDiv :function(e)
-        {
-        	var div =e.target.parentNode.id;
-        	var split_id = div.split("_");
-        	var divId = split_id[0];
-        	var DivtoShow = divId +'-container';
-        	var clearInput = divId +'_input';
-        	if($('#'+DivtoShow).is(":visible") == false)
-        	{
-        		$('#'+DivtoShow).show();
-        	}
-        	else
-        	{
-        		$('#'+clearInput).val("");
-        		$('#'+DivtoShow).hide();
-        	}
+        addSupportLink: function(e){
+            var trigger     = e.target.parentNode,
+                type        = $(trigger).attr("class").replace(/(btn |-toggler)/g,""),
+                input       = $(trigger).parents(".controls").children().first(),
+                control     = $(".templates .controls."+type).clone(),
+                inputId     = $(input).attr("id"),
+                controlId   = inputId + "-" + type;
+
+            if($("#" + controlId).length > 0){
+                $("#" + controlId).parents(".controls.media-controls").remove();
+            }
+            else{
+                $(control).children().first().attr("id",controlId)
+                $(input).parents(".control-group").append(control);
+            }
         },
-        
        
+        removeSupportLink: function(e){
+            var trigger = e.target.parentNode
+            $(trigger).parents(".controls.media-controls").remove();
+        },
         
         editBook :function ()
         {
-        	var new_title = $('#qwizbook-title').val();
-        	var new_description =  $('#qwizbook-description').val();
-        	var view = this;
-        	var qwizbook = view.qwizbookModel;
-        	qwizbook.create(new_title, new_description);
+            var new_title = $('#qwizbook-title').val();
+            var new_description =  $('#qwizbook-description').val();
+            var view = this;
+            var qwizbook = view.qwizbookModel;
+            qwizbook.create(new_title, new_description);
         },
 
         showAuthorForm: function (e) {
 
-            $('#qwizbook-questionnare-content').show();
+            $('#qwizbook-questionnare-content').removeClass("hidden");
 
         },
         
         
         showReferenceContainer: function (e) {
-        	var div =e.target.parentNode.id;
-        	var count = $('#reference_count').val();
-        	
-        	var html = '<tr>';
-        	html += '<td align="right" style="border: 1px solid #EEEEEE;padding:10px;" class="span3">Description </td>';
-        	html += '<td align="left" class="span9" style="border: 1px solid #EEEEEE;padding:10px;">';
-			html +='<div style="float:left; padding-right: 10px;">';
-			html +='<textarea name="reference_description'+count+'" id="reference_description'+count+'" class="input-block-level"> </textarea>';
-			html +='</div>'	;
-			html +='<div style="float:left;padding-top:18px;">';
-			html +='<a class="btn" id="reference-link-'+count+'_show" title="Add Link"><i class="icon-external-link"></i> </a>';
-			html +='<a class="btn" id="reference-image-'+count+'_show" title="Add Image"><i class="icon-picture"></i> </a>';
-			html +='<a class="btn" id="reference-audio-'+count+'_show" title="Add Audio"><i class="icon-volume-up"></i> </a>';	
-			html +='<a class="btn" id="reference-video-'+count+'_show" title="Add Video"><i class="icon-facetime-video"></i> </a>';					
-			html +='</div></td></tr>';								
-										
-        	html +='<tr id="reference-link-'+count+'-container" style="display:none;">';
-        	html +='<td align="right" style="border: 1px solid #EEEEEE;padding:10px;" class="span3">Link </td>';
-        	html +='<td style="border: 1px solid #EEEEEE;padding:10px;">';
-			html +='<div style="float:left;">';							
-			html +='<input type="text" name="reference-link-'+count+'_input" id="reference-link-'+count+'_input">';
-			html +='</div>'	;
-			html +='<div id="reference-link-'+count+'">';	
-			html +='<div class="span1">';	
-			html +='<i class="icon-external-link"></i>';	
-			html +='</div>';	
-			html +='<a id="reference-link-'+count+'_hide" class="btn"><i class="icon-minus"></i> </a>';	
-			html +='</div></td>';	
-			html +='</tr>';
-			html +='<tr id="reference-image-'+count+'-container" style="display:none;">';	
-			html +='<td align="right" style="border: 1px solid #EEEEEE;padding:10px;" class="span3">Image </td>';	
-			html +='<td style="border: 1px solid #EEEEEE;padding:10px;">';	
-			html +='<div style="float:left;">';	
-			html +='<input type="text" name="reference-image-'+count+'_input" id="reference-image-'+count+'_input">';	
-			html +='</div>';	
-			html +='<div id="reference-image-'+count+'">';	
-			html +='<div class="span1">';	
-			html +='<i class="icon-picture"></i>';	
-			html +='</div>';
-			html +='<a id="reference-image-'+count+'_hide" class="btn"><i class="icon-minus"></i> </a>';	
-			html +='</div></td>';	
-			html +='</tr>';	
-			html +='<tr id="reference-audio-'+count+'-container" style="display:none;">';	
-			html +='<td align="right" style="border: 1px solid #EEEEEE;padding:10px;" class="span3">Audio </td>';	
-			html +='<td style="border: 1px solid #EEEEEE;padding:10px;">';	
-			html +='<div style="float:left;">';	
-			html +='<input type="text" name="reference-audio-'+count+'_input" id="reference-audio-'+count+'_input">';	
-			html +='</div>';	
-			html +='<div id="reference-audio-'+count+'">';
-			html +='<div class="span1">';	
-			html +='<i class="icon-picture"></i>';	
-			html +='</div>';	
-			html +='<a id="reference-audio-'+count+'_hide" class="btn"><i class="icon-minus"></i> </a>';	
-			html +='</div></td>';	
-			html +='</tr>';	
-			html +='<tr id="reference-video-'+count+'-container" style="display:none;">';	
-			html +='<td align="right" style="border: 1px solid #EEEEEE;padding:10px;" class="span3">Video </td>';	
-			html +='<td style="border: 1px solid #EEEEEE;padding:10px;">';	
-			html +='<div style="float:left;">';
-			html +='<input type="text" name="reference-video-'+count+'_input" id="reference-video-'+count+'_input">';	
-			html +='</div>';	
-			html +='<div id="reference-video-'+count+'">';	
-			html +='<div class="span1">';	
-			html +='<i class="icon-picture"></i>';	
-			html +='</div>';
-			html +='<a id="reference-video-'+count+'_hide" class="btn"><i class="icon-minus"></i> </a>';	
-			html +='</div></td>';	
-			html +='</tr>';							
-			count++;
-			$('#reference_count').val(count);						
-			$(html).insertBefore($((e.target.parentNode).parentNode).closest('tr'));
+            var newRef      = $("#reinforcement-description-0").parents(".reinforcement").clone(),
+                refCount    = parseInt($("#reference-count").val()),
+                newId       = "reinforcement-description-" + refCount;
+            $(newRef).children("label").attr("for",newId);
+            $(newRef).find("textarea").attr('id',newId)
+                                      .attr('name',newId);
+            $(newRef).children(".media-controls").remove();
+            console.log($(".reinforcement:last").after(newRef))
         },
         
         submitAuthorForm: function (e) {
-
+            e.preventDefault();
             var questionType    = $("#question-type").val();
 
             var question        = $("#question").val();
@@ -201,14 +142,34 @@ define([
             var riAudio         = $('#reinforcement-audio_input').val();
             var riVideo         = $('#reinforcement-video_input').val();
 
+            var refDescription  = $('#reference_description').val();
+            var refLink         = $('#reference-link_input').val();
+            var refImage        = $('#reference-image_input').val();
+            var refAudio        = $('#reference-audio_input').val();
+            var refvideo        = $('#reference-video_input').val();
 
+            var referenceCount  =  $('#reference_count').val();
 
-            $('#qwizbook-questionnare-content').hide();
+            var referenceArray  = [];
+            for ( var i = 0; i < referenceCount ; i++ ) {
+                var count = (i == 0) ? "" : i;
+                referenceArray[i] = {
+                    description  : $( '#reference_description' + count ).val(),
+                    refLink         : $('#reference-link-' + count + '_input').val(),
+                    refImage        : $('#reference-image-' + count + '_input').val(),
+                    refAudio        : $('#reference-audio-' + count + '_input').val(),
+                    refvideo        : $('#reference-video-' + count + '_input').val()
+                };
+            }
+
+            console.log(referenceArray);
+
+            //$('#qwizbook-questionnare-content').hide();
         },
 
         cancelAuthorForm: function (e) {
-
-            $('#qwizbook-questionnare-content').hide();
+            e.preventDefault();
+            $('#qwizbook-questionnare-content').addClass("hidden");
 
         },
 

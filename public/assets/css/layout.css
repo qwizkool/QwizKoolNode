@@ -153,9 +153,37 @@ body {
 
 .qwizbook-list-item-footer .qwizbook-ratings-container .qwizbook-summary-footer{
     border-right: 1px solid #e3e3e3;
-
 }
 
+#qwizbook-author-toolbar .page-header, #qwizbook-create-header .page-header{
+    border-bottom: 0px;
+}
+
+.hidden{
+    display: none;
+}
+
+#qwizbook-author-toolbar .form-horizontal{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.form-horizontal .controls{
+    position: relative;
+}
+
+.form-horizontal .controls .media-group{
+    position: absolute;
+    bottom: 0px;
+    margin-left: 10px;
+}
+
+.control-group .media-controls{
+    line-height: 50px;
+}
+.controls input{
+    height: 22px;
+}
 
 
 /* Large desktop */
