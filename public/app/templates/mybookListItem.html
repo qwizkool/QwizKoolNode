@@ -13,19 +13,20 @@
 
                 <div class="btn-group pull-right">
                     <a data-toggle="dropdown" class="btn dropdown-toggle">
-                        <i class="icon-chevron-down"></i>
+                        <i class="icon-double-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a id="qwizbookArchive_<%= _id %>"><i class="icon-briefcase"></i>Archive</a></li>
+                        <li><a class="item-archive-sel" id="qwizbookArchive_<%= _id %>"><i class="icon-briefcase"></i>Archive</a></li>
                         <li class="divider"></li>
-                        <li><a id="qwizbookPublishOrUnpublish_<%= _id %>">Publish/Unpublish</a></li>
+                        <li><a class="item-pub-sel" id="qwizbookPublishOrUnpublish_<%= _id %>"><i class="icon-bullhorn"></i><span>Publish</span></a></li>
 
                     </ul>
+
                     <input type="hidden" name="published_<%= _id %>" id="published_<%= _id %>"
                            value="<%= published %>"/>
                 </div>
 
-                <input type="checkbox" id="qwizbook_<%= _id %>" value="<%= _id %>">
+                <input type="checkbox" class="item-checked" id="qwizbook-item_<%= _id %>">
 
                 <h1 style="font-weight: 300"><%= title %></h1>
             </div>

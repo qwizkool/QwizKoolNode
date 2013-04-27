@@ -46,10 +46,12 @@ define([
             id = view.model.id;
             var getPublishOrunpublish = $(view.el).find("#published_" + id).val();
             if (getPublishOrunpublish == 'true') {
-                $(view.el).find("#qwizbookPublishOrUnpublish_" + id).html("Unpublish");
+                $(view.el).find("#qwizbookPublishOrUnpublish_" + id+' span').html("Unpublish");
+                $(view.el).find("#qwizbookPublishOrUnpublish_" + id+' i').addClass('icon-muted');
             }
             else {
-                $(view.el).find("#qwizbookPublishOrUnpublish_" + id).html("Publish");
+                $(view.el).find("#qwizbookPublishOrUnpublish_" + id+' span').html("Publish");
+                $(view.el).find("#qwizbookPublishOrUnpublish_" + id+' i').removeClass('icon-muted');
             }
             return this;
         }
