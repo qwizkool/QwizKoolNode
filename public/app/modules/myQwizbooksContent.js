@@ -291,6 +291,9 @@ define(["app",
         render: function () {
 
             this.el.innerHTML = this.template;
+
+           // $(this.el).find('.my-qwizbooks-filter-selection').selectpicker();
+
             this.qwizbookUserCollection.setUserId(this.session);
             this.qwizbookUserCollection.getMybook();
             //$(this.el).find("#qwizbooklist-container").append(this.qwizbooklistview.render().el);

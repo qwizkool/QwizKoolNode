@@ -1,140 +1,74 @@
-<!--<link rel="stylesheet" href="../css/font-awesome.min.css">-->
-		<div class="qwizbook-item qwizbook-item-style clearfix" id="qwizbooksummary-container">
-			<div class="row-fluid">
-		
-				<div class="span12" id="qwizbook-summary-header">
-					<div class="page-header">
-						<div class="navbar">
-							<div class="navbar-inner">
-								
-								
-								<div class="span1" style="border:0px solid black;margin-top: 15px;" align="left" id="deleteAllQwizbooks">
-									
-									<div class="control-group">
-										<div class="controls">
-											<input type="checkbox" name="allQwizbooks"  id="allQwizbooks" >
-										
-									    </div>
-									    </div>
-							    </div>
-								
-								
-								
-								
-								<div class="span1" style="border:0px solid black;">
-									<div class="control-group"><a id="create-form" class="btn" ><i  class="icon-plus"></i> </a></div>
-									
-								</div>
-								
-								<div class="span2" style="border:0px solid black;">
-									<form style="margin-top: 10px" id="" class="navbar-search pull-left">
-							            <input type="text" placeholder="Search" id="search-qwizbook" class="input-block-level search-query" style="width:210px;">
-							        </form>
-								</div>
-								
-								
-								<div class="span3" style="border:0px solid black;">
-									<form class="form-horizontal" style="margin-top: 0px;margin-bottom: 0px;">
-										<fieldset>
-											<div class="control-group" style="margin-top: 10px;margin-bottom: 0">
-												<label class="control-label" style="padding-top: 5px">View in:</label>
-												<div class="controls">
-													<select id="user-filter-input" class="input-block-level">
-														<option value="1">Detail</option>
-														<option value="2">Minimal</option>
-														<option value="3">Thumbnail</option>
-													</select>
-												</div>
-											</div>
-										</fieldset>
-		
-									</form>
-								</div>
-								
-								<div class="span4" style="border:0px solid black;">
-									<form class="form-horizontal" style="margin-top: 0px;margin-bottom: 0px;">
-										<fieldset>
-											<div class="control-group" style="margin-top: 10px;margin-bottom: 10px;">
-												<label class="control-label" style="padding-top: 5px">Sort by:</label>
-												<div class="controls">
-													<select id="user-filter-input" class="input-block-level">
-														<option value="1">Recently Updated</option>
-														<option value="2">Most Popular</option>
-													</select>
-												</div>
-											</div>
-										</fieldset>
-		
-									</form>
-								</div>
-								
-								<div class="span1">
-								<div style="border:0px solid black; margin-top: 5px;display:none;" align="middle" id="deleteAllQwizbooksBtn" >
-								 <div class="control-group">
-								 <div class="controls">
-								 	<a class="btn" id="deleteQwizbook"><i class="icon-minus"></i> </a>
-								 </div>	
-								 	
-								 </div>
-                                 
-                                </div>
-                               </div>
-                                
-		
-							</div>
-						</div>
-						
-						<div  id="qwizbook-create-form" name="qwizbook-create-form" style="display:none;">
-						
-								<table class="table table-bordered">
-								 	
-									<tbody>
-										<tr>
-										<td align="right" style="padding:10px;" class="span3">Title</td>
-										<td align="left" style="border: 1px solid #EEEEEE;padding:10px;" class="span9">
-											<input type="text" id="qwizbook-title" name="qwizbook-title" class="input-block-level" style="width: 210px;">
-											
-											<div id="title-status"></div>
-										</td>
-									</tr>
-									
-									<tr>
-										<td align="right" style="border: 1px solid #EEEEEE;padding:10px;" class="span3">Description</td>
-										<td align="left" style="border: 1px solid #EEEEEE;padding:10px;" class="span9">
-											<textarea id="qwizbook-description" name="qwizbook-description" class="input-block-level" style="width: 210px;"> </textarea>
-										</td>
-									</tr>
-									<tr>
-									<td> </td>
-									<td style="border: 1px solid #EEEEEE;padding:10px;" > <button id="btn-create-qwizbook-submit" class="btn btn-info btn-small" >
-                            				Submit
-                       					 </button>
-                       					 <button id="btn-create-qwizbook-cancel" class="btn btn-info btn-small">
-                            				Cancel
-                       					 </button>
-                        			</td>
-										
-										
-									</tr>
-									
-									
-								</tbody></table>
-						
-						</div>
-						
-					</div>
-				</div>
-		
-				
-				
-				
+<div class="span12" id="my-qwizbooks-content-header">
 
-				<div class="qwizbook-list-item-header" id="myQwizbookList-container">
+    <div class="navbar">
+        <div class="navbar-inner navbar-simple">
 
-           		 		
-           		 		
-       	 		</div>
-				
-			</div>
-		</div>
+            <div class="row-fluid my-qwizbooks-tb">
+                <div class="span2 tb-item-left tb-item-small-media">
+                    <div class="btn-group">
+                        <a class="btn" id="allQwizbooks" data-toggle="button"><i class="icon-ok-circle"></i></a>
+                    </div>
+                </div>
+                <div class="span2 tb-item-center tb-item-small-media">
+                    <div class="btn-group">
+                        <a class="btn" id="create-form"><i class="icon-plus"></i></a>
+                        <a class="btn"><i class="icon-briefcase"></i></a>
+                    </div>
+                </div>
+                <div class="span8  tb-item-right tb-item-small-media">
+                    <div class="btn-group">
+                        <input type="text" class="search-query" id="search-qwizbook" placeholder="Search">
+                    </div>
+                </div>
 
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="span12" id="my-qwizbooks-create-form">
+    <div id="qwizbook-create-form" name="qwizbook-create-form" style="display: none" >
+
+        <table class="table table-bordered">
+            <caption class="text-left" style="padding: 5px"><p><h4 class="text-info">Create a Qwizbook</h4></p></caption>
+            <tbody>
+            <tr>
+                <td align="right" style="padding:10px;"><h5>Title</h5></td>
+                <td align="left" style="border: 1px solid #EEEEEE;padding:10px;" >
+                    <input type="text" id="qwizbook-title" name="qwizbook-title" class="input-block-level" style="resize: vertical">
+
+                    <div id="title-status"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="right" style="border: 1px solid #EEEEEE;padding:10px;"><h5>Description</h5></td>
+                <td align="left" style="border: 1px solid #EEEEEE;padding:10px;" >
+                    <textarea id="qwizbook-description" name="qwizbook-description" class="input-block-level" style="resize: vertical"> </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="border: 1px solid #EEEEEE;padding:10px;">
+                    <button id="btn-create-qwizbook-submit" class="btn btn-info btn-small">
+                        Submit
+                    </button>
+                    <button id="btn-create-qwizbook-cancel" class="btn btn-info btn-small">
+                        Cancel
+                    </button>
+                </td>
+
+
+            </tr>
+
+
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+<div class="span12" id="myQwizbookList-container">
+
+</div>
