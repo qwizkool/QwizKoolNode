@@ -36,7 +36,7 @@ define(["app",
 
         events: {
 
-            "click #all-items-selector": "toggleSelAllQwizbooks",
+            "click #my-qwizbooks-content-header #all-items-selector": "toggleSelAllQwizbooks",
             "click #create-form-btn": "showCreateForm",
             "click #btn-create-qwizbook-submit": "submitCreateForm",
             "click #btn-create-qwizbook-cancel": "cancelCreateForm",
@@ -44,7 +44,7 @@ define(["app",
             "click .item-pub-sel": "qwizbookItemPublish",
             "click .item-edit-sel": "qwizbookItemEdit",
             "click .item-checked": "qwizbookItemSelect",
-            "click #archive-all-btn": "archiveAllBooks",
+            "click #my-qwizbooks-content-header #archive-all-btn": "archiveAllBooks",
 
             "keyup #search-qwizbook": "qwizbook_search",
             "keyup #qwizbook-title": "checkQwizbookTitleLength",
@@ -60,7 +60,7 @@ define(["app",
                 var split_id = id.split("_");
                 var qId = split_id[1];
                 var qbookModel = view.qwizbookUserCollection.get(qId);
-                var confirmMsg = confirm('Are you sure you want to delete this Qwizbook')
+                var confirmMsg = confirm('Are you sure you want to archive this Qwizbook')
                 if (confirmMsg) {
 
                     this.listenTo(qbookModel, "delete-qwizbook-success-event", function () {
@@ -272,17 +272,11 @@ define(["app",
             var counter = 1;
             var view = this;
 
-            $('#myQwizbook-list-container input:checked').each(function () {
-
-                selectedQwizbooks.push($(this).attr('value'));
-
-            });
-
             var selectedQbookCount = $('#myQwizbookList-container :checkbox:checked').length;
 
             if (selectedQbookCount) {
 
-                var confirmMsg = confirm('Are you sure you want to delete ' + selectedQbookCount + ' Qwizbooks')
+                var confirmMsg = confirm('Are you sure you want to archive ' + selectedQbookCount + ' Qwizbooks')
                 if (confirmMsg) {
 
                     $('#myQwizbookList-container :checkbox:checked').each(function () {
