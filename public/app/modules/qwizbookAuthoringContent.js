@@ -16,30 +16,25 @@ define(["app",
 
 		initialize : function() {
 
-		//	this.qwizbookModel = new QwizBook.Model();
-
 			if (_.isEmpty(this.options.session)) {
 				throw "ERROR: Session object is not provided for the view!!"
 			}
 
 			this.session = this.options.session;
-			var view = this;
 
-           
 			this.qwizbookUserCollection = new QwizBook.Collection();
+            this.qwizbookUserCollection.setMyQwizbookMode(this.session);
+
             this.listenTo(this.qwizbookUserCollection, "reset", this.refreshView);
 			this.qwizbooklistview = new MyQwizBook.ListMyBook({
 				model : this.qwizbookUserCollection,
 				session : this.session
 			});
-			
-		
-			
+
 
 		},
 
 		events : {
-			//"keyup #qwizbook-description": "maxLength",
 			"click #create-form" : "showCreateForm",
 			"click #btn-create-qwizbook-submit" : "submitCreateForm",
 			"click #btn-create-qwizbook-cancel" : "cancelCreateForm",
@@ -49,11 +44,7 @@ define(["app",
 			"click .qwizboo-list-item a.qwizbook-title" : "authorQwizbook",
 			"keyup #search-qwizbook" : "qwizbook_search",
 			"keyup #qwizbook-title":"addQwizbookByEnter",
-			"keyup #qwizbook-description":"addQwizbookByEnter",
-		//	"click #qwizbookList":"authorQwizbookOnclickDiv",
-            //"click #qwizBook":"authorQwizbook"
-            // "click #myQwizbook-list-container a":"authorQwizbook"
-
+			"keyup #qwizbook-description":"addQwizbookByEnter"
 		},
 		
 		addQwizbookByEnter: function(e) {
@@ -186,7 +177,7 @@ define(["app",
 				var view = this;
 			    qwizbookmodel.create(qbooktitle, qbookdesc);
                 this.listenTo(qwizbookmodel, "qwizbook-create-success-event", function() {
-					//view.qwizbookUserCollection.setUserId();
+					//view.qwizbookUserCollection.setMyQwizbookMode();
 					view.qwizbookUserCollection.getMybook();
 
 				});
@@ -303,7 +294,6 @@ define(["app",
 		render : function() {
 
 			this.el.innerHTML = this.template;
-			this.qwizbookUserCollection.setUserId(this.session);
 			this.qwizbookUserCollection.getMybook();
 			 //$(this.el).find("#qwizbooklist-container").append(this.qwizbooklistview.render().el);
 

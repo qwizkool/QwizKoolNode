@@ -25,6 +25,8 @@ define(["app",
 
 
             this.qwizbookUserCollection = new QwizBook.Collection();
+            this.qwizbookUserCollection.setMyQwizbookMode(this.session);
+
             this.listenTo(this.qwizbookUserCollection, "reset", this.refreshView);
             this.qwizbooklistview = new MyQwizbook.ListMyBook({
                 model: this.qwizbookUserCollection,
@@ -217,7 +219,7 @@ define(["app",
                 var view = this;
                 qwizbookmodel.create(qbooktitle, qbookdesc);
                 this.listenTo(qwizbookmodel, "qwizbook-create-success-event", function () {
-                    //view.qwizbookUserCollection.setUserId();
+                    //view.qwizbookUserCollection.setMyQwizbookMode();
                     view.qwizbookUserCollection.getMybook();
 
                 });
@@ -330,7 +332,6 @@ define(["app",
         render: function () {
 
             this.$el.html(this.template);
-            this.qwizbookUserCollection.setUserId(this.session);
             this.qwizbookUserCollection.getMybook();
 
             return this;

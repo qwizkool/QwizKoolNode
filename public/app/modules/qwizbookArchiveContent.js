@@ -28,6 +28,7 @@ define([
             var view = this;
 
             this.qwizbookUserCollection = new QwizBook.Collection();
+            this.qwizbookUserCollection.setArchiveQwizbookMode(this.session);
 
             // TODO: cleanup mix of static html in javascripy
 
@@ -222,7 +223,6 @@ define([
         render: function () {
 
             this.el.innerHTML = this.template;
-            this.qwizbookUserCollection.getArchiveQwizbook(this.session);
             this.qwizbookUserCollection.getMybook();
             return;
         }
