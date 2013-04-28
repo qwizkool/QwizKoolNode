@@ -282,7 +282,7 @@ define(["app",
 
             if (selectedQbookCount) {
 
-                var confirmMsg = confirm('Are you sure you want to delete ' + selectedQbookCount + ' Qwizbook')
+                var confirmMsg = confirm('Are you sure you want to delete ' + selectedQbookCount + ' Qwizbooks')
                 if (confirmMsg) {
 
                     $('#myQwizbookList-container :checkbox:checked').each(function () {
@@ -310,10 +310,8 @@ define(["app",
 
                     });
 
+                    this.deselectAllQwizbooks();
 
-                    $('#myQwizbook-list-container').find(':checkbox').each(function () {
-                        $(':checkbox').prop("checked", false);
-                    });
                 }
              }
 
