@@ -261,7 +261,7 @@ define(["app",
             var selectedQwizbooks = [];
 
             var counter = 1;
-            var that = this;
+            var view = this;
 
             $('#myQwizbook-list-container input:checked').each(function () {
 
@@ -276,19 +276,29 @@ define(["app",
                 var confirmMsg = confirm('Are you sure you want to delete ' + selectedQbookCount + ' Qwizbook')
                 if (confirmMsg) {
 
-                    $('#myQwizbook-list-container input:checked').each(function () {
+                    $('#myQwizbookList-container :checkbox:checked').each(function () {
 
-                        var currentQwizbookId = $(this).attr('value');
-                        var qbookModel = that.qwizbookUserCollection.get(currentQwizbookId);
-                        if (counter == selectedQbookCount) {
+                        var id = $(this).attr('id');
 
-                            this.listenTo(qbookModel, "delete-qwizbook-success-event", function () {
-                                view.qwizbookUserCollection.getMybook();
-                            });
+                        if (id) {
+                            
+                            var split_id = id.split("_");
+
+                            var currentQwizbookId = split_id[1];
+
+                            var qbookModel = view.qwizbookUserCollection.get(currentQwizbookId);
+                            if (counter == selectedQbookCount) {
+
+                                view.listenTo(qbookModel, "delete-qwizbook-success-event", function () {
+                                    view.qwizbookUserCollection.getMybook();
+                                });
+
+                            }
+                            qbookModel.deleteMyQwizbook(currentQwizbook);
+                            counter++;
 
                         }
-                        qbookModel.deleteMyQwizbook(currentQwizbook);
-                        counter++;
+
                     });
 
 
@@ -296,9 +306,7 @@ define(["app",
                         $(':checkbox').prop("checked", false);
                     });
                 }
-                this.undelegateEvents();
-                this.delegateEvents(this.events);
-            }
+             }
 
         },
 
