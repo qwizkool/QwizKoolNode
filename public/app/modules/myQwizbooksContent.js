@@ -28,11 +28,13 @@ define(["app",
             this.qwizbookUserCollection.setMyQwizbookMode(this.session);
 
             this.listenTo(this.qwizbookUserCollection, "reset", this.refreshView);
+
             this.qwizbooklistview = new MyQwizbook.ListMyBook({
                 model: this.qwizbookUserCollection,
                 session: this.session
             });
 
+            this.qwizbookUserCollection.getMybooks();
 
         },
 
@@ -67,7 +69,7 @@ define(["app",
 
                     this.listenTo(qbookModel, "delete-qwizbook-success-event", function () {
 
-                        view.qwizbookUserCollection.getMybook();
+                        view.qwizbookUserCollection.getMybooks();
                     });
 
                     qbookModel.deleteMyQwizbook(qId);
@@ -89,7 +91,7 @@ define(["app",
 
                 this.listenTo(qbookModel, "publishOrunpublish-qwizbook-success-event", function () {
 
-                    view.qwizbookUserCollection.getMybook();
+                    view.qwizbookUserCollection.getMybooks();
                 });
 
                 qbookModel.publishOrunpublishQwizbook(qId, (published === "true") ? false : true);
@@ -187,7 +189,7 @@ define(["app",
         qwizbook_search: function (e) {
             var searchparam = e.target.value;
             this.qwizbookUserCollection.setSearchParameter(this.session, searchparam);
-            this.qwizbookUserCollection.getMybook();
+            this.qwizbookUserCollection.getMybooks();
         },
 
         qwizbookItemEdit: function (e) {
@@ -220,7 +222,7 @@ define(["app",
                 qwizbookmodel.create(qbooktitle, qbookdesc);
                 this.listenTo(qwizbookmodel, "qwizbook-create-success-event", function () {
                     //view.qwizbookUserCollection.setMyQwizbookMode();
-                    view.qwizbookUserCollection.getMybook();
+                    view.qwizbookUserCollection.getMybooks();
 
                 });
                 $('#qwizbook-create-form').hide();
@@ -295,7 +297,7 @@ define(["app",
                             if (counter == selectedQbookCount) {
 
                                 view.listenTo(qbookModel, "delete-qwizbook-success-event", function () {
-                                    view.qwizbookUserCollection.getMybook();
+                                    view.qwizbookUserCollection.getMybooks();
                                 });
 
                             }
@@ -332,7 +334,6 @@ define(["app",
         render: function () {
 
             this.$el.html(this.template);
-            this.qwizbookUserCollection.getMybook();
 
             return this;
         }

@@ -88,7 +88,7 @@ define(["app",
 		qwizbook_search : function(e) {
 			var searchparam = e.target.value;
 			this.qwizbookUserCollection.setSearchParameter(this.session, searchparam);
-			this.qwizbookUserCollection.getMybook();
+			this.qwizbookUserCollection.getMybooks();
 		},
 		
 		qwizbookAction :function(e)
@@ -109,7 +109,7 @@ define(["app",
 						qbookModel.deleteMyQwizbook(qId);
                         this.listenTo(qbookModel, "delete-qwizbook-success-event", function() {
 								
-								view.qwizbookUserCollection.getMybook();
+								view.qwizbookUserCollection.getMybooks();
 							});
 						}
 				}
@@ -129,7 +129,7 @@ define(["app",
 						qbookModel.publishOrunpublishQwizbook(qId,publishOrunpublish);
                         this.listenTo(qbookModel, "publishOrunpublish-qwizbook-success-event", function() {
 								
-								view.qwizbookUserCollection.getMybook();
+								view.qwizbookUserCollection.getMybooks();
 							});
 				}
 			}
@@ -178,7 +178,7 @@ define(["app",
 			    qwizbookmodel.create(qbooktitle, qbookdesc);
                 this.listenTo(qwizbookmodel, "qwizbook-create-success-event", function() {
 					//view.qwizbookUserCollection.setMyQwizbookMode();
-					view.qwizbookUserCollection.getMybook();
+					view.qwizbookUserCollection.getMybooks();
 
 				});
 				$('#qwizbook-create-form').hide();
@@ -257,7 +257,7 @@ define(["app",
 						if (counter == selectedQbookCount) {
 
                             this.listenTo(qbookModel, "delete-qwizbook-success-event", function() {
-								view.qwizbookUserCollection.getMybook();
+								view.qwizbookUserCollection.getMybooks();
 							});
 
 						}
@@ -294,7 +294,7 @@ define(["app",
 		render : function() {
 
 			this.el.innerHTML = this.template;
-			this.qwizbookUserCollection.getMybook();
+			this.qwizbookUserCollection.getMybooks();
 			 //$(this.el).find("#qwizbooklist-container").append(this.qwizbooklistview.render().el);
 
 			return this;

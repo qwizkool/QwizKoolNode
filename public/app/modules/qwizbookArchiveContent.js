@@ -46,6 +46,8 @@ define([
                 session: this.session
             });
 
+            this.qwizbookUserCollection.getMybooks();
+
         },
 
         events: {
@@ -70,7 +72,7 @@ define([
 
                     this.listenTo(qbookModel, "unArchive-qwizbook-success-event", function () {
 
-                        view.qwizbookUserCollection.getMybook();
+                        view.qwizbookUserCollection.getMybooks();
                     });
 
                     qbookModel.unArchiveMyQwizbook(qId);
@@ -181,7 +183,7 @@ define([
 
                             if (counter == selectedQbookCount) {
                                 view.listenTo(qbookModel, "unArchive-qwizbook-success-event", function () {
-                                    view.qwizbookUserCollection.getMybook();
+                                    view.qwizbookUserCollection.getMybooks();
                                 });
 
                             }
@@ -223,7 +225,6 @@ define([
         render: function () {
 
             this.el.innerHTML = this.template;
-            this.qwizbookUserCollection.getMybook();
             return;
         }
     });

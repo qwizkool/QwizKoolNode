@@ -320,7 +320,7 @@ define([
             });
         },
         
-        getMybook:function(){
+        getMybooks:function(){
         	
         	var qwizbookList = this;
             var jqxhr = qwizbookList.fetch({
