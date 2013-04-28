@@ -42,6 +42,7 @@ define(["app",
             "click #btn-create-qwizbook-cancel": "cancelCreateForm",
             "click .item-archive-sel": "qwizbookItemArchive",
             "click .item-pub-sel": "qwizbookItemPublish",
+            "click .item-edit-sel": "qwizbookItemEdit",
             "click .item-checked": "qwizbookItemSelect",
             "click #archive-all-btn": "archiveAllBooks",
 
@@ -187,9 +188,15 @@ define(["app",
             this.qwizbookUserCollection.getMybook();
         },
 
-        authorQwizbook: function (e) {
-            var id = $("input[id^='myqbook_']").val();
-            Backbone.history.navigate("#authorQwizbook/" + id, true);
+        qwizbookItemEdit: function (e) {
+            var id = e.currentTarget.id;
+            var view = this;
+            if (id) {
+                var split_id = id.split("_");
+                var qId = split_id[1];
+
+                Backbone.history.navigate("#authorQwizbook/" + qId, true);
+            }
         },
 
         showCreateForm: function (e) {
