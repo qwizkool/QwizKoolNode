@@ -48,10 +48,14 @@ define([
             if (getPublishOrunpublish == 'true') {
                 $(view.el).find("#qwizbookPublishOrUnpublish_" + id+' span').html("Unpublish");
                 $(view.el).find("#qwizbookPublishOrUnpublish_" + id+' i').addClass('icon-muted');
+                $(view.el).find("#qwizbook-publish-status_" + id+' i').removeClass('hidden');
+
+
             }
             else {
                 $(view.el).find("#qwizbookPublishOrUnpublish_" + id+' span').html("Publish");
                 $(view.el).find("#qwizbookPublishOrUnpublish_" + id+' i').removeClass('icon-muted');
+                $(view.el).find("#qwizbook-publish-status_" + id+' i').addClass('hidden');
             }
             return this;
         }

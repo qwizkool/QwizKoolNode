@@ -26,7 +26,11 @@
                            value="<%= published %>"/>
                 </div>
 
-                <input type="checkbox" class="item-checked" id="qwizbook-item_<%= _id %>">
+
+
+                <input type="checkbox" class="item-checked pull-left" id="qwizbook-item_<%= _id %>">
+
+                <span class="icon-published-status" id="qwizbook-publish-status_<%= _id %>" style="padding: 10px"><i class="icon-bullhorn icon-1x" data-toggle="tooltip" title="Published"></i> </span>
 
                 <h1 style="font-weight: 300"><%= title %></h1>
             </div>
