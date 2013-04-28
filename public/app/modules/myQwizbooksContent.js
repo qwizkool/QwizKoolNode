@@ -38,6 +38,8 @@ define(["app",
 
             "click #all-items-selector": "toggleSelAllQwizbooks",
             "click #create-form-btn": "showCreateForm",
+            "click #btn-create-qwizbook-submit": "submitCreateForm",
+            "click #btn-create-qwizbook-cancel": "cancelCreateForm",
             "click .item-archive-sel": "qwizbookItemArchive",
             "click .item-pub-sel": "qwizbookItemPublish",
             "click .item-checked": "qwizbookItemSelect",
