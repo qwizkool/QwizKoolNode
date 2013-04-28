@@ -288,7 +288,7 @@ define(["app",
                         var id = $(this).attr('id');
 
                         if (id) {
-                            
+
                             var split_id = id.split("_");
 
                             var currentQwizbookId = split_id[1];
@@ -311,7 +311,7 @@ define(["app",
                     this.deselectAllQwizbooks();
 
                 }
-             }
+            }
 
         },
 

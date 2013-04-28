@@ -15,9 +15,9 @@ define([
 ],
     function (App, Header, UserSettings, Footer, AppToolbar, MyQwizbooksContent) {
         // Create a new module
-        var QwizbookAuthoring = App.module();
+        var MyQwizbooksPage = App.module();
 
-        QwizbookAuthoring.View = Backbone.View.extend({
+        MyQwizbooksPage.View = Backbone.View.extend({
 
             initialize: function () {
                 if (_.isEmpty(this.options.session)) {
@@ -29,19 +29,30 @@ define([
                 this.appToolbar = new AppToolbar.View({session: this.session});
                 this.header = new Header.View({htbuView: this.userSettings, htblView: this.appToolbar});
                 this.footer = new Footer.View();
-                this.qwizbookAuthoringContent = new MyQwizbooksContent.View({ el: '#qwizkool-content', session: this.session});
-                //this.qwizbookAuthoringContent.clear();
+                this.myQwizbookPageContent = new MyQwizbooksContent.View({session: this.session});
             },
 
             show: function (done) {
+
                 this.header.render();
                 this.footer.render();
-                this.qwizbookAuthoringContent.render();
+
+                $('#qwizkool-content').html(this.myQwizbookPageContent.render().el);
+
+            },
+
+            remove: function() {
+
+                this.$el.remove();
+                this.stopListening();
+
+                this.myQwizbookPageContent.remove()
+                return this;
             }
 
 
         });
 
-        return QwizbookAuthoring;
+        return MyQwizbooksPage;
 
     });

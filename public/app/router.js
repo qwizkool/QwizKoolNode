@@ -113,8 +113,10 @@ define([
         },
 
         showView: function(view) {
-            if (this.currentView)
+            if (this.currentView) {
                 this.currentView.remove();
+            }
+
             this.currentView = view;
             this.currentView.show();
             return view;

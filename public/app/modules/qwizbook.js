@@ -552,11 +552,9 @@ define([
         render:function () {
 
             var view = this;
-            var qbook_list_template;
 
-            qbook_list_template = this.template;
 
-            view.el.innerHTML = qbook_list_template;
+            this.$el.html(this.template);
 
             $(view.el).find("#qwizbook-list-container").empty();
 

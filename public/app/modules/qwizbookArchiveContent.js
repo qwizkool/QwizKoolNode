@@ -202,7 +202,6 @@ define([
         },
 
 
-
         refreshView: function () {
 
             $(this.el).find("#archiveQwizbookList-container").html(this.qwizbooklistview.render().el);
@@ -223,9 +222,8 @@ define([
         template: Template,
 
         render: function () {
-
-            this.el.innerHTML = this.template;
-            return;
+            this.$el.html(this.template);
+            return this;
         }
     });
 

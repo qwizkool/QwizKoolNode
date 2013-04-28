@@ -29,14 +29,23 @@ define([
                 this.appToolbar = new AppToolbar.View({session: this.session});
                 this.header = new Header.View({htbuView: this.userSettings, htblView: this.appToolbar});
                 this.footer = new Footer.View();
-				this.archiveQwizbookContent = new QwizbookArchiveContent.View({ el: '#qwizkool-content',session: this.session});
+				this.archiveQwizbookContent = new QwizbookArchiveContent.View({session: this.session});
 				this.archiveQwizbookContent.clear();
             },
 
             show:function (done) {
         		this.header.render();
            		this.footer.render();
-                this.archiveQwizbookContent.render();
+
+                $('#qwizkool-content').html(this.archiveQwizbookContent.render().el);
+            },
+
+            remove: function() {
+                this.$el.remove();
+                this.stopListening();
+
+                this.archiveQwizbookContent.remove()
+                return this;
             }
         });
 
