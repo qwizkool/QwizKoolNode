@@ -83,6 +83,16 @@ body {
     -moz-box-shadow:0 0 20px #FFFFFF;
 }
 
+.panel-style-signin {
+
+    padding: 10px;
+    border-radius: 8px; /* Add rounded corners to the form*/
+
+    box-shadow: 0 0 20px #FFFFFF; /* Add shadow to the form – First two values are shadow offset, third is blur radius*/
+    -webkit-box-shadow: 0 0 20px #FFFFFF;
+    -moz-box-shadow:0 0 20px #FFFFFF;
+}
+
 .panel-registration {
     background: #000;
 }
