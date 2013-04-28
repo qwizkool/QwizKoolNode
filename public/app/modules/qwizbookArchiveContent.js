@@ -50,10 +50,10 @@ define([
         events: {
 
             "keyup #search-qwizbook": "qwizbook_search",
-            "click #all-items-selector": "toggleSelAllQwizbooks",
+            "click #my-archived-qwizbooks-content-header #all-items-selector": "toggleSelAllQwizbooks",
             "click .item-un-archive-sel": "qwizbookItemUnArchive",
             "click .item-checked": "qwizbookItemSelect",
-            "click #un-archive-all-btn": "unarchiveAllBooks"
+            "click #my-archived-qwizbooks-content-header #un-archive-all-btn": "unarchiveAllBooks"
 
         },
 
@@ -158,12 +158,6 @@ define([
 
             var counter = 1;
             var view = this;
-
-            $('#myArchivedQwizbook-list-container input:checked').each(function () {
-
-                selectedQwizbooks.push($(this).attr('value'));
-
-            });
 
             var selectedQbookCount = $('#myArchivedQwizbook-list-container :checkbox:checked').length;
 
