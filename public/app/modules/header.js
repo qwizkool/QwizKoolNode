@@ -43,6 +43,17 @@ define([
             };
 
             return this;
+        },
+
+        remove: function() {
+            if (this.htbuView) {
+                this.htbuView.remove();
+
+            };
+            if (this.htblView) {
+                this.htblView.remove();
+            };
+            return this;
         }
 
 

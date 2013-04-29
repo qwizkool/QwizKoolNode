@@ -16,30 +16,25 @@ define(["app",
 
 		initialize : function() {
 
-		//	this.qwizbookModel = new QwizBook.Model();
-
 			if (_.isEmpty(this.options.session)) {
 				throw "ERROR: Session object is not provided for the view!!"
 			}
 
 			this.session = this.options.session;
-			var view = this;
 
-           
 			this.qwizbookUserCollection = new QwizBook.Collection();
+            this.qwizbookUserCollection.setMyQwizbookMode(this.session);
+
             this.listenTo(this.qwizbookUserCollection, "reset", this.refreshView);
 			this.qwizbooklistview = new MyQwizBook.ListMyBook({
 				model : this.qwizbookUserCollection,
 				session : this.session
 			});
-			
-		
-			
+
 
 		},
 
 		events : {
-			//"keyup #qwizbook-description": "maxLength",
 			"click #create-form" : "showCreateForm",
 			"click #btn-create-qwizbook-submit" : "submitCreateForm",
 			"click #btn-create-qwizbook-cancel" : "cancelCreateForm",
@@ -49,11 +44,7 @@ define(["app",
 			"click .qwizboo-list-item a.qwizbook-title" : "authorQwizbook",
 			"keyup #search-qwizbook" : "qwizbook_search",
 			"keyup #qwizbook-title":"addQwizbookByEnter",
-			"keyup #qwizbook-description":"addQwizbookByEnter",
-		//	"click #qwizbookList":"authorQwizbookOnclickDiv",
-            //"click #qwizBook":"authorQwizbook"
-            // "click #myQwizbook-list-container a":"authorQwizbook"
-
+			"keyup #qwizbook-description":"addQwizbookByEnter"
 		},
 		
 		addQwizbookByEnter: function(e) {
@@ -97,7 +88,7 @@ define(["app",
 		qwizbook_search : function(e) {
 			var searchparam = e.target.value;
 			this.qwizbookUserCollection.setSearchParameter(this.session, searchparam);
-			this.qwizbookUserCollection.getMybook();
+			this.qwizbookUserCollection.getMybooks();
 		},
 		
 		qwizbookAction :function(e)
@@ -118,7 +109,7 @@ define(["app",
 						qbookModel.deleteMyQwizbook(qId);
                         this.listenTo(qbookModel, "delete-qwizbook-success-event", function() {
 								
-								view.qwizbookUserCollection.getMybook();
+								view.qwizbookUserCollection.getMybooks();
 							});
 						}
 				}
@@ -138,7 +129,7 @@ define(["app",
 						qbookModel.publishOrunpublishQwizbook(qId,publishOrunpublish);
                         this.listenTo(qbookModel, "publishOrunpublish-qwizbook-success-event", function() {
 								
-								view.qwizbookUserCollection.getMybook();
+								view.qwizbookUserCollection.getMybooks();
 							});
 				}
 			}
@@ -186,8 +177,8 @@ define(["app",
 				var view = this;
 			    qwizbookmodel.create(qbooktitle, qbookdesc);
                 this.listenTo(qwizbookmodel, "qwizbook-create-success-event", function() {
-					//view.qwizbookUserCollection.setUserId();
-					view.qwizbookUserCollection.getMybook();
+					//view.qwizbookUserCollection.setMyQwizbookMode();
+					view.qwizbookUserCollection.getMybooks();
 
 				});
 				$('#qwizbook-create-form').hide();
@@ -266,7 +257,7 @@ define(["app",
 						if (counter == selectedQbookCount) {
 
                             this.listenTo(qbookModel, "delete-qwizbook-success-event", function() {
-								view.qwizbookUserCollection.getMybook();
+								view.qwizbookUserCollection.getMybooks();
 							});
 
 						}
@@ -303,8 +294,7 @@ define(["app",
 		render : function() {
 
 			this.el.innerHTML = this.template;
-			this.qwizbookUserCollection.setUserId(this.session);
-			this.qwizbookUserCollection.getMybook();
+			this.qwizbookUserCollection.getMybooks();
 			 //$(this.el).find("#qwizbooklist-container").append(this.qwizbooklistview.render().el);
 
 			return this;

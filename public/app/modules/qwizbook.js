@@ -249,6 +249,9 @@ define([
         },
 
         initialize:function () {
+
+            /* Set the default properties */
+            this.userId='';
             this.searchval = '';
             this.searchParam ='';
             this.search =false;
@@ -257,37 +260,36 @@ define([
             this.archiveQwizbook =false;
             this.filterval = 'Recently Updated';
             this.isListedqwizBook = false;
+
         },
 
         setSearchParams:function (searchedstring) {
             this.searchval = searchedstring;
-            this.urlroot = this.url(searchedstring);
         },
 
         setFilterParams:function (filterstring) {
             this.filterval = filterstring;
-            this.urlroot = this.url();
         },
-        
-        
-        setUserId:function(session){
+
+        //TODO: qwizbook collection or model should not have direct reference to session.
+        // need to cleanup to use user id . Also setting these properties need to be done
+        // through collection constructor by passing it as options
+
+        setMyQwizbookMode:function(session){
         	this.myQwizbook =true; 
         	this.userId = session.id;
-        	this.urlroot = this.url();
-        	
         },
         setSearchParameter : function(session,seachPArameter)
         {
         	this.search = true;
         	this.userId = session.id;
         	this.searchParam = seachPArameter;
-        	this.urlroot = this.url();
         },
-        
-        getArchiveQwizbook: function(session){
+
+
+        setArchiveQwizbookMode: function(session){
         	this.userId = session.id;
         	this.archiveQwizbook =true;
-        	this.urlroot = this.url();
         },
        
 
@@ -318,7 +320,7 @@ define([
             });
         },
         
-        getMybook:function(){
+        getMybooks:function(){
         	
         	var qwizbookList = this;
             var jqxhr = qwizbookList.fetch({
@@ -550,11 +552,9 @@ define([
         render:function () {
 
             var view = this;
-            var qbook_list_template;
 
-            qbook_list_template = this.template;
 
-            view.el.innerHTML = qbook_list_template;
+            this.$el.html(this.template);
 
             $(view.el).find("#qwizbook-list-container").empty();
 

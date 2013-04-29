@@ -16,12 +16,7 @@
                         <i class="icon-double-angle-down icon-2x"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="item-archive-sel" id="qwizbookArchive_<%= _id %>"><i class="icon-briefcase"></i>Archive</a></li>
-                        <li class="divider"></li>
-                        <li><a class="item-pub-sel" id="qwizbookPublishOrUnpublish_<%= _id %>"><i class="icon-bullhorn"></i><span>Publish</span></a></li>
-                        <li class="divider"></li>
-                        <li><a class="item-edit-sel" id="qwizbookEdit_<%= _id %>"><i class="icon-edit"></i><span>Edit</span></a></li>
-
+                        <li><a class="item-un-archive-sel" id="qwizbookArchive_<%= _id %>"><i class="icon-folder-open-alt"></i>Un Archive</a></li>
                     </ul>
 
                     <input type="hidden" name="published_<%= _id %>" id="published_<%= _id %>"
@@ -29,10 +24,8 @@
                 </div>
 
 
+                <input type="checkbox" class="item-checked" id="qwizbook-item_<%= _id %>">
 
-                <input type="checkbox" class="item-checked pull-left" id="qwizbook-item_<%= _id %>">
-
-                <span class="icon-published-status" id="qwizbook-publish-status_<%= _id %>" style="padding: 10px"><i class="icon-bullhorn icon-1x" data-toggle="tooltip" title="Published"></i> </span>
 
                 <h1 style="font-weight: 300"><%= title %></h1>
             </div>

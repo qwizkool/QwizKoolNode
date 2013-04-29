@@ -71,44 +71,55 @@ define([
             }
 
             var indexPage = new IndexPage.View({session: this.session});
-            indexPage.show();
+            this.showView(indexPage)
         },
 
         pageNotFound: function (hash) {
 
             var pageNotFoundPage = new PageNotFoundPage.View({session: this.session});
-            pageNotFoundPage.show();
+            this.showView(pageNotFoundPage)
         },
 
         userMain: function (hash) {
 
             var userMainPage = new UserMainPage.View({session: this.session});
-            userMainPage.show();
+            this.showView(userMainPage)
+
         },
 
         qwizbookMain: function (id) {
 
             var qwizbookMainPage = new QwizbookMainPage.View({ session: this.session, qwizbookId: id });
-            qwizbookMainPage.show()
+            this.showView(qwizbookMainPage)
         },
 
         myQwizbooks: function (hash) {
 
 
             var createQwizbook = new MyQwizbooksPage.View({session: this.session});
-            createQwizbook.show();
+            this.showView(createQwizbook);
         },
 
 
         authorQwizbook: function (id) {
 
             var authorQwizbook = new QwizbookAddDetails.View({session: this.session, qwizbookId: id});
-            authorQwizbook.show();
+            this.showView(authorQwizbook)
         },
 
         qwizbookArchives: function () {
             var archiveQwizbook = new QwizbooksArchivePage.View({session: this.session});
-            archiveQwizbook.show();
+            this.showView(archiveQwizbook);
+        },
+
+        showView: function(view) {
+            if (this.currentView) {
+                this.currentView.remove();
+            }
+
+            this.currentView = view;
+            this.currentView.show();
+            return view;
         }
 
     });

@@ -1,30 +1,21 @@
 /*!
  * Copyright(c) 2013 Vibrentt
  *
- * Module : myQwizbook
+ * Module : MyArchivedQwizbook
  *
  *
  */
 
 define([
     "app",
-    "text!templates/mybookListItem.html",
-    "text!templates/myBookList.html"
+    "text!templates/myArchivedBookItem.html",
+    "text!templates/myArchivedBookList.html"
 ], function (App, TmplQwizbookItem, TmplQwizbookList) {
 
     // Create a new module
-    var MyQwizBook = App.module();
+    var MyArchivedQwizbook = App.module();
 
-    MyQwizBook.Model = Backbone.Model.extend({
-
-    });
-
-    MyQwizBook.Collection = Backbone.Collection.extend({
-    });
-
-    MyQwizBook.Router = Backbone.Router.extend({/* ... */ });
-
-    MyQwizBook.View = Backbone.View.extend({
+    MyArchivedQwizbook.View = Backbone.View.extend({
 
         template: TmplQwizbookItem,
 
@@ -61,7 +52,7 @@ define([
         }
     });
 
-    MyQwizBook.ListMyBook = Backbone.View.extend({
+    MyArchivedQwizbook.ListMyBook = Backbone.View.extend({
 
         template: TmplQwizbookList,
 
@@ -90,15 +81,15 @@ define([
             if (view.model.models.length) {
 
                 _.each(view.model.models, function (qwizbook) {
-                    var qwizbookView = new MyQwizBook.View({
+                    var qwizbookView = new MyArchivedQwizbook.View({
                         model: qwizbook,
                         session: view.session
                     });
 
-                    $(view.el).find("#myQwizbook-list-container").append(qwizbookView.render().el);
+                    $(view.el).find("#myArchivedQwizbook-list-container").append(qwizbookView.render().el);
                 })
             } else {
-                $(view.el).find("#myBook-no-result-found").show();
+                $(view.el).find("#myArchivedBook-no-result-found").show();
             }
 
             return this;
@@ -107,6 +98,6 @@ define([
 
     });
 
-    return MyQwizBook;
+    return MyArchivedQwizbook;
 
 });
