@@ -105,17 +105,22 @@ function unsupported(req, res) {
 };
 
 
+//app.get('/showCaptcha/:id', qwizbookComment.showCaptcha);
 
-app.get('/public/app/templates/qwizbookComments.html', function(req, res) {
+
+app.get('/showCaptcha/:id', function(req, res) {
     var recaptcha = new Recaptcha(PUBLIC_KEY, PRIVATE_KEY);
-
+     
     res.render('form.jade', {
-        layout: false,
+        layout: true,
+        title:"Captcha",
         locals: {
             recaptcha_form: recaptcha.toHTML()
         }
     });
+    
 });
+
 
 app.post('/', function(req, res) {
     var data = {
