@@ -80,6 +80,7 @@ Qwizbook.prototype.createQwizbook = function(owner, data, callback) {
 	instance.published = data.published;
 	instance.save(function(err) {
 		if (err) {
+			console.log(err);
 			// Check for duplicate key error
 			if (err.code == 11000) {
 				callback({
@@ -155,7 +156,7 @@ Qwizbook.prototype.retrieveQwizbooks = function(owner, callback) {
 
 };
 
-Qwizbook.prototype.retrieveMyQwizbooks = function(owner, callback) {
+Qwizbook.prototype.retrieveMyQwizbooks = function(owner,page,limit, callback) {
 
 	// TODO: Complete the Retrieve Qwizbooks
 	// Retrieve Qwizbooks, that are shared, public or
@@ -164,7 +165,7 @@ Qwizbook.prototype.retrieveMyQwizbooks = function(owner, callback) {
 	QwizbookModel.find({
 		ownerEmail : userEmail,
 		archive :false,
-	}).sort({
+	}).skip(page).limit(limit).sort({
 		date : -1
 	}).execFind(function(err, books) {
 
@@ -194,7 +195,7 @@ Qwizbook.prototype.retrieveMyArchivebooks = function(owner, callback) {
 		archive :true
 	}).sort({
 		date : -1
-	}).execFind(function(err, books) {
+	}).skip(page).limit(limit).execFind(function(err, books) {
 
 		if (err) {
 			// All other conditions Pass as is TODO: need to cleanup.
@@ -235,7 +236,7 @@ Qwizbook.prototype.retrieveMyUnarchiveSearchbooks = function(owner, searchparame
 			}]
 			}).sort({
 			date : -1
-			}).execFind(function(err, books) {
+			}).skip(page).limit(limit).execFind(function(err, books) {
 
 			if (err) {
 				// Check for duplicate key error
@@ -259,7 +260,7 @@ Qwizbook.prototype.retrieveMyUnarchiveSearchbooks = function(owner, searchparame
 			archive :false
 			}).sort({
 			date : -1
-			}).execFind(function(err, books) {
+			}).skip(page).limit(limit).execFind(function(err, books) {
 
 			if (err) {
 				// Check for duplicate key error
@@ -291,12 +292,12 @@ Qwizbook.prototype.retrieveMyUnarchiveSearchbooks = function(owner, searchparame
  * @api public
  * @return {Function} Constructor for Qwizbook type.
  */
-Qwizbook.prototype.retrieveQwizbooksOnSearch = function(owner, searchdata, filterdata, callback) {
+Qwizbook.prototype.retrieveQwizbooksOnSearch = function(owner, searchdata, filterdata,page,limit, callback) {
 
 	// TODO: Complete the Retrieve Qwizbooks
 	// Retrieve Qwizbooks, that are shared, public or
 	// owned by the 'owner'
-
+	
 	if (filterdata == "Recently Updated") {
 		//console.log(searchdata);
 		QwizbookModel.find({
@@ -315,7 +316,7 @@ Qwizbook.prototype.retrieveQwizbooksOnSearch = function(owner, searchdata, filte
 			}]
 		}).sort({
 			date : -1
-		}).execFind(function(err, books) {
+		}).skip(page).limit(limit).execFind(function(err, books) {
 
 			if (err) {
 				// Check for duplicate key error
@@ -349,7 +350,7 @@ Qwizbook.prototype.retrieveQwizbooksOnSearch = function(owner, searchdata, filte
 					$options : 'i'
 				}
 			}]
-		}).execFind(function(err, books) {
+		}).skip(page).limit(limit).execFind(function(err, books) {
 
 			if (err) {
 				// Check for duplicate key error
@@ -378,7 +379,7 @@ Qwizbook.prototype.retrieveQwizbooksOnSearch = function(owner, searchdata, filte
  * @api public
  * @return {Function} Constructor for Qwizbook type.
  */
-Qwizbook.prototype.retrieveQwizbooksOnFilter = function(owner, filterdata, callback) {
+Qwizbook.prototype.retrieveQwizbooksOnFilter = function(owner, filterdata,page,limit, callback) {
 
 	// TODO: Complete the Retrieve Qwizbooks
 	// Retrieve Qwizbooks, that are shared, public or
@@ -392,7 +393,7 @@ Qwizbook.prototype.retrieveQwizbooksOnFilter = function(owner, filterdata, callb
 			published:true
 		}).sort({
 			date : -1
-		}).execFind(function(err, books) {
+		}).skip(page).limit(limit).execFind(function(err, books) {
 
 			if (err) {
 				// Check for duplicate key error
@@ -413,7 +414,7 @@ Qwizbook.prototype.retrieveQwizbooksOnFilter = function(owner, filterdata, callb
 		QwizbookModel.find({
 		archive :false,
 		published:true
-	}).execFind(function(err, books)
+	}).skip(page).limit(limit).execFind(function(err, books)
 	{
 
 			if (err) {
@@ -518,7 +519,7 @@ Qwizbook.prototype.retrieveQwizbookSearchResults = function(owner, searchparamet
 			}]
 			}).sort({
 			date : -1
-			}).execFind(function(err, books) {
+			}).skip(page).limit(limit).execFind(function(err, books) {
 
 			if (err) {
 				// Check for duplicate key error
@@ -542,7 +543,7 @@ Qwizbook.prototype.retrieveQwizbookSearchResults = function(owner, searchparamet
 			archive :true
 			}).sort({
 			date : -1
-			}).execFind(function(err, books) {
+			}).skip(page).limit(limit).execFind(function(err, books) {
 
 			if (err) {
 				// Check for duplicate key error

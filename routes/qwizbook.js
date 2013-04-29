@@ -84,6 +84,8 @@ console.log(book)
 		if (req.query) {
 
 			var p = req.query;
+			var page = p.page;
+			var limit = p.limit;
 			var searchfilterArr = new Array();
 			for (var i in p) {
 
@@ -96,7 +98,7 @@ console.log(book)
 
 			if (searchstring) {
 
-				Qwizbook.retrieveQwizbooksOnSearch(sessionUser, searchstring, filterstring, function(err, books) {
+				Qwizbook.retrieveQwizbooksOnSearch(sessionUser, searchstring, filterstring,page,limit, function(err, books) {
 					var book_length = books.length;
 					var c = 1;
 					if (err) {
@@ -145,6 +147,7 @@ console.log(book)
 
 				})
 			} else {
+<<<<<<< HEAD
 				/*
 				 Qwizbook.retrieveQwizbooksOnFilter(sessionUser, filterstring, function(err, books) {
 				 // If error send the error response
@@ -207,6 +210,9 @@ console.log(book)
 				 */
 
 				Qwizbook.retrieveQwizbooksOnFilter(sessionUser, filterstring, function(err, books) {
+=======
+				Qwizbook.retrieveQwizbooksOnFilter(sessionUser, filterstring, page,limit,function(err, books) {
+>>>>>>> c5e11c6453430cb5631e9fc1c1ee450682da58a1
 					// If error send the error response
 
 					var book_length = books.length;
@@ -407,6 +413,8 @@ console.log(book)
 	getmybooks:function(req,res){
 		var sessionUser = req.user;
 		var parameter = req.query;
+		var page = parameter.page;
+		var limit = parameter.limit;
 		var qbookParameter = new Array();
 			for (var i in parameter) {
 
@@ -417,7 +425,7 @@ console.log(book)
 			var searchString = qbookParameter['search_str'];
 		if(archiveParameter =='true')
 		{
-			Qwizbook.retrieveMyArchivebooks(sessionUser, function(err, books){
+			Qwizbook.retrieveMyArchivebooks(sessionUser,page,limit, function(err, books){
 			
 			
 			if(err)
@@ -446,7 +454,7 @@ console.log(book)
 		
 		else if(archiveParameter =='false')
 		{
-			Qwizbook.retrieveMyUnarchiveSearchbooks(sessionUser,searchString, function(err, books){
+			Qwizbook.retrieveMyUnarchiveSearchbooks(sessionUser,searchString, page,limit, function(err, books){
 			
 			
 			if(err)
@@ -471,7 +479,7 @@ console.log(book)
 		else if(searchString)
 		{
 			
-			Qwizbook.retrieveQwizbookSearchResults(sessionUser,searchString, function(err, books){
+			Qwizbook.retrieveQwizbookSearchResults(sessionUser,searchString, page,limit,function(err, books){
 			
 			
 			if(err)
@@ -490,7 +498,7 @@ console.log(book)
 		
 		else
 		{
-			Qwizbook.retrieveMyQwizbooks(sessionUser, function(err, books){
+			Qwizbook.retrieveMyQwizbooks(sessionUser,page,limit, function(err, books){
 			
 			
 			if(err)
