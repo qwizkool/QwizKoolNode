@@ -93,15 +93,14 @@ define([
         
         
         showReferenceContainer: function (e) {
-            var newRef      = $("#reference-description-0").parents(".reference").clone(),
+            var newRef      = $("#reinforcement-description-0").parents(".reinforcement").clone(),
                 refCount    = parseInt($("#reference-count").val()),
-                newId       = "reference-description-" + refCount;
+                newId       = "reinforcement-description-" + refCount;
             $(newRef).children("label").attr("for",newId);
             $(newRef).find("textarea").attr('id',newId)
                                       .attr('name',newId);
             $(newRef).children(".media-controls").remove();
-            $(".reference:last").after(newRef);
-            $("#reference-count").val( refCount + 1 );
+            console.log($(".reinforcement:last").after(newRef))
         },
         
         submitAuthorForm: function (e) {

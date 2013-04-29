@@ -1,3 +1,4 @@
+script (type='text/javascript', src='http://www.google.com/recaptcha/api/js/recaptcha_ajax.js')
 #qwizbook-comments-form.qwizbook-comment-style.clearfix
     .row
         .span12
@@ -6,6 +7,7 @@
             theme : 'clean',
             lang  : 'en'
             };
+            /
           form.form-horizontal
             fieldset(style='padding: 10px;')
               legend.text-info Provide your comments
@@ -25,11 +27,13 @@
                   a(href='javascript:Recaptcha.switch_type(\'image\')') Get an image CAPTCHA
                 div
                   a(href='javascript:Recaptcha.showhelp()') Help
-              script(type='text/javascript', src='http://www.google.com/recaptcha/api/challenge?k=6Ld3buASAAAAADKscITxGr_e-yGBBbKvBqeR1X43')
-                 
-              noscript
+               script(type='text/javascript', src='http://www.google.com/recaptcha/api/challenge?k=6Ld3buASAAAAADKscITxGr_e-yGBBbKvBqeR1X43')
+               
+               noscript
+              
                 iframe(src='http://www.google.com/recaptcha/api/noscript?k=6Ld3buASAAAAADKscITxGr_e-yGBBbKvBqeR1X43', height='300', width='500', frameborder='0')
                 br
+                
                 textarea(name='recaptcha_challenge_field', rows='3', cols='40')
                 input(type='hidden', name='recaptcha_response_field', value='manual_challenge')
               button#addcomment.btn.btn-info Submit
