@@ -84,7 +84,7 @@ console.log(book)
 		if (req.query) {
 
 			var p = req.query;
-			var page = p.page;
+			var page = p.page-1;
 			var limit = p.limit;
 			var searchfilterArr = new Array();
 			for (var i in p) {
@@ -361,7 +361,7 @@ console.log(book)
 	getmybooks:function(req,res){
 		var sessionUser = req.user;
 		var parameter = req.query;
-		var page = parameter.page;
+		var page = parameter.page -1;
 		var limit = parameter.limit;
 		var qbookParameter = new Array();
 			for (var i in parameter) {

@@ -195,7 +195,7 @@ define([
             var urlRoot = "/";
 
             if (this.searchval != '') {
-                urlRoot = "qwizbooks"+urlRoot + "?search_str=" + this.searchval + "&sort_by=" + this.filterval+"&page=1&limit=2";
+                urlRoot = "qwizbooks"+urlRoot + "?search_str=" + this.searchval + "&sort_by=" + this.filterval+"&page=1&limit=10";
 
 
             }
@@ -203,12 +203,12 @@ define([
             else if(this.myQwizbook)
             {
             	//urlRoot ="myQwizbook";
-            	urlRoot ="users/"+this.userId+"/qwizbooks?page=1&limit=2";
+            	urlRoot ="users/"+this.userId+"/qwizbooks?page=1&limit=10";
             	if(this.search)
             {
             	if(this.searchParam != '')
             	{
-            		urlRoot ="users/"+this.userId+"/qwizbooks?search_str=" + this.searchParam+"&archived=false&page=1&limit=2";
+            		urlRoot ="users/"+this.userId+"/qwizbooks?search_str=" + this.searchParam+"&archived=false&page=1&limit=10";
             	}
             }
             }
@@ -217,10 +217,10 @@ define([
             {
             	if(this.searchParam != '')
             	{
-            		urlRoot ="users/"+this.userId+"/qwizbooks?search_str=" + this.searchParam + "&page=1&limit=2";
+            		urlRoot ="users/"+this.userId+"/qwizbooks?search_str=" + this.searchParam + "&page=1&limit=10";
             	}
             	else{
-            		urlRoot ="users/"+this.userId+"/qwizbooks?archived=true&page=1&limit=2";
+            		urlRoot ="users/"+this.userId+"/qwizbooks?archived=true&page=1&limit=10";
             	}
             	
             }
@@ -233,13 +233,13 @@ define([
            
             
             else if(this.archiveQwizbook){
-            	urlRoot ="users/"+this.userId+"/qwizbooks?archived=true&page=1&limit=2";
+            	urlRoot ="users/"+this.userId+"/qwizbooks?archived=true&page=1&limit=10";
             }
             
             
              else {
 
-                urlRoot = "qwizbooks"+urlRoot + "?search_str=" + '' + "&sort_by=" + this.filterval +"&page=1&limit=2";
+                urlRoot = "qwizbooks"+urlRoot + "?search_str=" + '' + "&sort_by=" + this.filterval +"&page=1&limit=10";
 
             }
             return urlRoot;
