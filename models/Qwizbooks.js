@@ -165,9 +165,9 @@ Qwizbook.prototype.retrieveMyQwizbooks = function(owner,page,limit, callback) {
 	QwizbookModel.find({
 		ownerEmail : userEmail,
 		archive :false,
-	}).skip(page).limit(limit).sort({
+	}).sort({
 		date : -1
-	}).execFind(function(err, books) {
+	}).skip(page).limit(limit).execFind(function(err, books) {
 
 		if (err) {
 			// All other conditions Pass as is TODO: need to cleanup.
