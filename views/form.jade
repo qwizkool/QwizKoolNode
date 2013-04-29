@@ -4,10 +4,11 @@ script (type='text/javascript', src='http://www.google.com/recaptcha/api/js/reca
         .span12
           script(type='text/javascript')
             var RecaptchaOptions = {
-            theme : 'clean',
+            theme : 'custom',
+            custom_theme_widget: 'recaptcha_widget',
             lang  : 'en'
             };
-            /
+            
           form.form-horizontal
             fieldset(style='padding: 10px;')
               legend.text-info Provide your comments
