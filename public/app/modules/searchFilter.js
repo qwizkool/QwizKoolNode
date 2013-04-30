@@ -43,7 +43,9 @@ define([
 
         setPaginationParamaters: function (startPage, pageSizeInItems, maxItems) {
 
-
+            this.startPage = startPage;
+            this.pageSizeInItems = pageSizeInItems;
+            this.maxItems = maxItems;
         },
 
         reattachEvents: function () {
