@@ -20,19 +20,30 @@ define([
         template: Template,
 
         initialize: function () {
+            this.startPage = 1;
+            this.pageSizeInItems = 10;
+            this.maxItems = 5000;
         },
 
         render: function () {
 
-            this.$el.html(this.template);
+            var data = {startPage: this.startPage, pageSizeInItems: this.pageSizeInItems, maxItems: this.maxItems};
+
+            this.$el.html(_.template(this.template, data));
             $(this.el).find('.filter-selection').selectpicker();
-           return this;
+            return this;
 
         },
+
 
         events: {
             "keyup #user-search-input": "setsearchParams",
             "change .filter-selection": "setfilterParams"
+        },
+
+        setPaginationParamaters: function (startPage, pageSizeInItems, maxItems) {
+
+
         },
 
         reattachEvents: function () {
@@ -46,9 +57,9 @@ define([
 
         setfilterParams: function () {
 
-            var filterCriteria =  $(this.el).find('.filter-selection').val();
+            var filterCriteria = $(this.el).find('.filter-selection').val();
             console.log(filterCriteria);
-           this.trigger('filter', {criteria: filterCriteria});
+            this.trigger('filter', {criteria: filterCriteria});
 
         }
     });
