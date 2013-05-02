@@ -28,7 +28,7 @@ define([
             	this.session = this.options.session;
             	this.qwizbookId = this.options.qwizbookId;
             	this.userSettings = new UserSettings.View({session: this.session});
-                this.appToolbar = new AppToolbar.View({session: this.session});
+                this.appToolbar = new AppToolbar.View({session: this.session, location: "my-qwizbooks"});
             	this.header = new Header.View({htbuView: this.userSettings, htblView: this.appToolbar});
            	    this.footer = new Footer.View();
 				this.qwizbookAddContent = new QwizbookAddDetailsContent.View({ el: '#qwizkool-content',qwizbookId:this.qwizbookId,session: this.session});

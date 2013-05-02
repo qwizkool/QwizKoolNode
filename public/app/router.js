@@ -25,11 +25,11 @@ define([
         routes: {
             '': 'index',
             'notfound': 'pageNotFound',
-            'main': 'userMain',
+            'qwizkool-home': 'userHome',
             'qwizbookDetails/:id': 'qwizbookMain',
             'authorQwizbook/:id': 'authorQwizbook',
-            'myQwizbooks': 'myQwizbooks',
-            'qwizbookArchives': 'qwizbookArchives'
+            'my-qwizbooks': 'myQwizbooks',
+            'my-qwizbooks-archive': 'qwizbookArchives'
         },
 
         initialize: function () {
@@ -80,7 +80,7 @@ define([
             this.showView(pageNotFoundPage)
         },
 
-        userMain: function (hash) {
+        userHome: function (hash) {
 
             var userMainPage = new UserMainPage.View({session: this.session});
             this.showView(userMainPage)

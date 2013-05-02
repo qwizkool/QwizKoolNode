@@ -26,7 +26,7 @@ define([
 
             	this.session = this.options.session;
             	this.userSettings = new UserSettings.View({session: this.session});
-                this.appToolbar = new AppToolbar.View({session: this.session});
+                this.appToolbar = new AppToolbar.View({session: this.session, location: "my-qwizbooks-archive"});
                 this.header = new Header.View({htbuView: this.userSettings, htblView: this.appToolbar});
                 this.footer = new Footer.View();
 				this.archiveQwizbookContent = new QwizbookArchiveContent.View({session: this.session});

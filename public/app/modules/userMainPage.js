@@ -35,7 +35,7 @@ define([
 
             // Create and associate the app tool bar view with the tool bar lower
             // view in the Header.
-            this.appToolbar = new AppToolbar.View({session: this.session});
+            this.appToolbar = new AppToolbar.View({session: this.session, location: "qwizkool-home"});
 
             // Create the header view
             this.header = new Header.View({htbuView: this.userSettings, htblView: this.appToolbar});
