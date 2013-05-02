@@ -110,7 +110,7 @@ define([
         
         
         
-          publishOrunpublishQwizbook:function(qId,publishOrunpublish) {
+        publishOrunpublishQwizbook:function(qId,publishOrunpublish) {
         	
 			this.set('published', publishOrunpublish);	
             this.set({
