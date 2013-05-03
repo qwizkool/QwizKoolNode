@@ -229,6 +229,7 @@ body {
     .reg-form-margin-media {
         margin-top: 5px;
     }
+
 }
 
 /* Landscape phone to portrait tablet */
@@ -236,6 +237,7 @@ body {
     .reg-form-margin-media {
         margin-top: 5px;
     }
+
     .tb-item-small-media {
         text-align: left
     }
@@ -266,4 +268,15 @@ body {
 
 .icon-published-status {
     color: green;
+}
+
+.pagination {
+    margin: 0px;
+}
+.btn-group.filter-selection {
+    margin: 0px;
+}
+
+.search-filter-tb {
+    margin-bottom: 5px;
 }
