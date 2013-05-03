@@ -184,7 +184,7 @@ Qwizbook.prototype.retrieveMyQwizbooks = function(owner,page,limit, callback) {
 
 
 
-Qwizbook.prototype.retrieveMyArchivebooks = function(owner, callback) {
+Qwizbook.prototype.retrieveMyArchivebooks = function(owner, page, limit, callback) {
 
 	// TODO: Complete the Retrieve Qwizbooks
 	// Retrieve Qwizbooks, that are shared, public or
