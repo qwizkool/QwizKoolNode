@@ -1,35 +1,39 @@
 <!--TODO: clean up the css styles, consolidate to external CSS file.-->
 
-<div class="navbar">
+<div class="navbar ">
     <div class="navbar-inner navbar-simple">
 
-        <div class="row-fluid ">
-            <div class="span4 tb-item-left tb-item-small-media">
-                <select class="filter-selection">
-                    <option>Recently Updated</option>
-                    <option>Most Popular</option>
-                </select>
-            </div>
-            <div class="span2 tb-item-right tb-item-small-media">
-                    <span class="label label-info"><%= startPage %> - <%= pageSizeInItems %> of <%= maxItems %></span>
-            </div>
-            <div class="span2 tb-item-left tb-item-small-media">
-                <div class="pagination" style="margin: 0px;padding-top: 0px">
+        <div class="row-fluid search-filter-tb">
+            <div class="nav pull-left" style="margin-bottom: 5px">
 
+                <li>
+                    <select class="filter-selection" style="margin: 0px">
+                        <option>Recently Updated</option>
+                        <option>Most Popular</option>
+                    </select>
+                </li>
 
-                    <ul>
-                        <li><a href="#">Prev</a></li>
-
-                        <li><a href="#">Next</a></li>
-                    </ul>
-                </div>
             </div>
-            <div class="span4  tb-item-right tb-item-small-media">
-                <div class="btn-group">
+
+            <div class="nav pull-right" >
+                <li style="margin-right: 5px">
+                    <span class="label label-info" style="line-height: 25px"><%= startPage %> - <%= pageSizeInItems %> of <%= maxItems %></span>
+                <li>
+                <li>
+                    <div class="pagination" style="margin-right: 5px" >
+                        <ul>
+                            <li><a href="#">Prev</a></li>
+
+                            <li><a href="#">Next</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+
                     <input type="text" class="search-query" id="user-search-input" placeholder="Search">
-                </div>
-            </div>
 
+                </li>
+            </div>
 
         </div>
     </div>

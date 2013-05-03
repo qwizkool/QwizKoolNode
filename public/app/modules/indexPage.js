@@ -46,7 +46,7 @@ define([
         	
         	if (this.session) {
                 if (e.valid === true) {
-                   Backbone.history.navigate("#main", true);
+                   Backbone.history.navigate("#qwizkool-home", true);
                 }
             }
 

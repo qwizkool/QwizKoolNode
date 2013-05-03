@@ -19,31 +19,35 @@ define([
         template: Template,
 
         initialize: function () {
+
+            // The Assumption here is the toolbar nav location name is same as the the html ID attribute used
+            // for that nav item in the html template. This ID
+            this.id = this.options.location;
         },
 
         render: function () {
-            this.$el.html(this.template);
-            return this;
+           this.$el.html(this.template);
+           $(this.el).find('#qwizkool-toolbar li#'+this.id).addClass('active');
+           return this;
 
         },
 
         events: {
             "click #my-qwizbooks":"myQwizbooks",
-            "click #qwizbook-archive":"qwizbookArchive",
-            "click #my-dashboard":"goHome"
+            "click #my-qwizbooks-archive":"qwizbookArchive",
+            "click #qwizkool-home":"goHome"
         },
 
         myQwizbooks:function(e) {
-            Backbone.history.navigate("#myQwizbooks", true);
-
+            var id = e.currentTarget.id;
+            Backbone.history.navigate("#my-qwizbooks", true);
         },
-        qwizbookArchive:function(e) {
-            Backbone.history.navigate("#qwizbookArchives", true);
 
+        qwizbookArchive:function(e) {
+            Backbone.history.navigate("#my-qwizbooks-archive", true);
         },
         goHome:function(e) {
-            Backbone.history.navigate("#main", true);
-
+            Backbone.history.navigate("#qwizkool-home", true);
         }
 
     });
