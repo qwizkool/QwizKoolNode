@@ -11,6 +11,7 @@ var express = require('express'),
     , qwizbook = require('./routes/qwizbook')
     , qwizbookComment = require('./routes/qwizbookComments')
     , qwizbookrating = require('./routes/qwizbookrating')
+    , qwizbookPage  = require('./routes/qwizbookPage')
     , http = require('http')
     , path = require('path')
     , fs = require('fs')
@@ -211,6 +212,10 @@ app.get('/qwizbooks/:id/comments')
 
 // Update this Qwizbook
 app.put('/qwizbooks/:id', ensureAuthenticated, qwizbook.updateBook);
+
+
+// create a qwizbook page
+app.post('/qwizbooks/:id/pages', ensureAuthenticated, qwizbookPage.create)
 
 
 

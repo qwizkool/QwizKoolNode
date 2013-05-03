@@ -1,9 +1,11 @@
-  /*!
+/*!
  * Copyright(c) 2013 Vibrentt
  *
- * Module : QwizbookSchema
- *
+ * QwizbookSchema
+ * Schema definition for quizbook schema
  */
+
+var mongoose = require('mongoose');
 
 var QwizbookSchema = {
 
@@ -93,115 +95,8 @@ var QwizbookSchema = {
             type: String
         },
 
-        //------- Qwizbook pages
-        pages: [{
-
-
-            //------- Page reference
-            reference: [{
-                description: String,
-                videoLinks: [{
-                    url: String
-                }],
-                webLinks: [{
-                    url: String
-                }],
-                imageLinks: [{
-                    url: String
-                }],
-                audioLinks: [{
-                    url: String
-                }]
-            }],
-
-            //------- Re-inforcement
-            reinforce: [{
-                description: String,
-                videoLinks: [{
-                    url: String
-                }],
-                webLinks: [{
-                    url: String
-                }],
-                imageLinks: [{
-                    url: String
-                }],
-                audioLinks: [{
-                    url: String
-                }]
-            }],
-
-
-            //------- Page comments
-            comments: [{
-                submitterEmail: {
-                    type: String
-                },
-                date: {
-                    type: Date,
-                    'default': Date.now
-                },
-                text: {
-                    type: String
-                },
-                approved: {
-                    type: Boolean
-                }
-
-            }],
-
-            //------- Hints for the questions
-            hints: [{
-                text: {
-                    type: String
-                },
-                imageLinks: [{
-                    url: String
-                }]
-            }],
-
-            multiple_choice_question: {
-
-                // question
-                question: {
-                    text: {
-                        type: String
-                    },
-                    videoLinks: [{
-                        url: String
-                    }],
-                    imageLinks: [{
-                        url: String
-                    }],
-                    audioLinks: [{
-                        url: String
-                    }]
-                },
-
-                // answer choices
-                answers: [{
-                    choice: {
-                        text: {
-                            type: String
-                        },
-                        videoLinks: [{
-                            url: String
-                        }],
-                        imageLinks: [{
-                            url: String
-                        }],
-                        audioLinks: [{
-                            url: String
-                        }]
-                    },
-
-                    correct: {
-                        type: Boolean
-                    }
-                }]
-            }
-
-        }]
+        //------- Qwizbook pages optional
+        pages: [mongoose.Schema.Types.ObjectId]
 
     }]
 };

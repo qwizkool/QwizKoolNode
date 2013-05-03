@@ -218,6 +218,18 @@ body {
     text-align: right
 }
 
+.controls .answer{
+    margin-top: -3px;
+    margin-left: 10px;
+}
+
+.controls .answer.first{
+    margin-left: 0px;
+}
+.controls.answer-group{
+    padding-top: 5px;
+}
+
 
 /* Large desktop */
 @media (min-width: 1200px) {

@@ -2,9 +2,10 @@ define([
     "app",
     "modules/qwizbook",
     "modules/editQwizbook",
+    "modules/qwizbook/QwizBookPageModel",
     "text!templates/qwizbookAddDetailsContent.html"
 
-], function (App, QwizBook, EditQwizbook , Template) {
+], function (App, QwizBook, EditQwizbook, QwizBookPage, Template) {
 
     var QwizbookAddDetailsContent = App.module();
 
@@ -19,13 +20,13 @@ define([
            
             this.qwizbookId = this.options.qwizbookId;
             this.qwizbookModel = new QwizBook.Model({_id:this.qwizbookId, session:this.session});
+            this.qwizBookPageModel = new QwizBookPage.Model();
             this.qwizbookModel.retreive();
             this.listenTo(this.qwizbookModel, "retreive-qwizbook-success-event", this.updateView);
             this.editQwizbook = new EditQwizbook.View({model: this.qwizbookModel, qwizbookId: this.qwizbookId, session:this.session});
 
         },
-         updateView : function()
-        {
+        updateView : function() {
             $(this.el).find("#qwizbook-create-form").append(this.editQwizbook.render().el);
         },
 
@@ -101,6 +102,38 @@ define([
             e.preventDefault();
             var questionType = $("#question-type").val();
 
+            var multiple_choice_question = {
+                questionType : $("#question-type").val(),
+                question : {
+                    text : $("#question").val()
+                },
+                answers : [
+                {
+                    choice : {
+                        text : $("#option-a").val()
+                    },
+                    correct : true,
+                },
+                {
+                    choice : {
+                        text : $("#option-b").val()
+                    },
+                    correct : false
+                },
+                {
+                    choice : {
+                        text : $("#option-c").val()
+                    },
+                    correct : false
+                },
+                {
+                    choice : {
+                        text : $("#option-d").val()
+                    },
+                    correct : false
+                }]
+            }
+
             var question = $("#question").val();
 
             var optionA = $("#option-A").val();
@@ -156,7 +189,7 @@ define([
                 };
             }
 
-            console.log(referenceArray);
+            console.log(multiple_choice_question);
 
             //$('#qwizbook-questionnare-content').hide();
         },
