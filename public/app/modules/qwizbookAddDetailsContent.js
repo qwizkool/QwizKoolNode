@@ -1,8 +1,8 @@
 define([
     "app",
-    "modules/qwizbook",
+    "modules/qwizbook/qwizbookView",
     "modules/editQwizbook",
-    "modules/qwizbook/QwizBookPageModel",
+    "modules/qwizbook/qwizbookPageModel",
     "text!templates/qwizbookAddDetailsContent.html"
 
 ], function (App, QwizBook, EditQwizbook, QwizBookPage, Template) {
@@ -21,6 +21,7 @@ define([
             this.qwizbookId = this.options.qwizbookId;
             this.qwizbookModel = new QwizBook.Model({_id:this.qwizbookId, session:this.session});
             this.qwizBookPageModel = new QwizBookPage.Model();
+            this.qwizBookPageModel.url = "/qwizbooks/" + this.qwizbookId + "/pages"
             this.qwizbookModel.retreive();
             this.listenTo(this.qwizbookModel, "retreive-qwizbook-success-event", this.updateView);
             this.editQwizbook = new EditQwizbook.View({model: this.qwizbookModel, qwizbookId: this.qwizbookId, session:this.session});
@@ -55,7 +56,6 @@ define([
                 control = $(".templates .controls."+type).clone(),
                 inputId = $(input).attr("id"),
                 controlId = inputId + "-" + type;
-
             if($("#" + controlId).length > 0){
                 $("#" + controlId).parents(".controls.media-controls").remove();
             }
@@ -98,100 +98,112 @@ define([
             $("#reference-count").val( refCount + 1 );
         },
         
+        /**
+        * 
+        * Submit qwizbook page form
+        */
         submitAuthorForm: function (e) {
             e.preventDefault();
             var questionType = $("#question-type").val();
+            var that = this;
 
             var multiple_choice_question = {
                 questionType : $("#question-type").val(),
                 question : {
-                    text : $("#question").val()
+                    text : $("#question").val(),
+                    videoLinks : [{ url : that._getMediaLink($("#question"), "video")}],
+                    imageLinks : [{ url : that._getMediaLink($("#question"), "image")}],
+                    audioLinks : [{ url : that._getMediaLink($("#question"), "audio")}]
                 },
-                answers : [
-                {
-                    choice : {
-                        text : $("#option-a").val()
-                    },
-                    correct : true,
-                },
-                {
-                    choice : {
-                        text : $("#option-b").val()
-                    },
-                    correct : false
-                },
-                {
-                    choice : {
-                        text : $("#option-c").val()
-                    },
-                    correct : false
-                },
-                {
-                    choice : {
-                        text : $("#option-d").val()
-                    },
-                    correct : false
+                answers : that._getMultipleChoiceAnswers()
+            };
+
+            // Reinforcement informations
+            var reinforce = [{
+                description : $.trim($("#reinforcement-description").val()),
+                webLinks   : [{ url : that._getMediaLink($("#reinforcement-description"), "external")}],
+                videoLinks : [{ url : that._getMediaLink($("#reinforcement-description"), "video")}],
+                imageLinks : [{ url : that._getMediaLink($("#reinforcement-description"), "image")}],
+                audioLinks : [{ url : that._getMediaLink($("#reinforcement-description"), "audio")}]
+            }];
+
+            // Page hints
+            var hints = [{
+                text : $("#hint-description").val(),
+                imageLinks : [{
+                    url : $("#hint-image").val()
                 }]
-            }
+            }];
 
-            var question = $("#question").val();
 
-            var optionA = $("#option-A").val();
-            var optionB = $("#option-B").val();
-            var optionC = $("#option-C").val();
-            var optionD = $("#option-D").val();
+            // Create reference array
+            var pageReferences = [],
+                referenceCount = $("#reference-count").val();
 
-            var questionImage = $("#image-question_input").val();
-            var questionAudio = $('#audio-question_input').val();
-            var questionVideo = $('#video-question_input').val();
-
-            var optionAImage = $('#image-optionA_input').val();
-            var optionAAudio = $('#audio-optionA_input').val();
-            var optionAVideo = $('#video-optionA_input').val();
-
-            var optionBImage = $('#image-optionB_input').val();
-            var optionBAudio = $('#audio-optionB_input').val();
-            var optionBVideo = $('#video-optionB_input').val();
-
-            var optionCImage = $('#image-optionC_input').val();
-            var optionCAudio = $('#audio-optionC_input').val();
-            var optionCVideo = $('#video-optionC_input').val();
-
-            var optionDImage = $('#image-optionD_input').val();
-            var optionDAudio = $('#audio-optionD_input').val();
-            var optionDVideo = $('#video-optionD_input').val();
-
-            var hintDescription = $('#hint-description').val();
-            
-            var riDescription = $('#reinforcement-description').val();
-            var riLink = $('#reinforcement-link_input').val();
-            var riImage = $('#reinforcement-image_input').val();
-            var riAudio = $('#reinforcement-audio_input').val();
-            var riVideo = $('#reinforcement-video_input').val();
-
-            var refDescription = $('#reference_description').val();
-            var refLink = $('#reference-link_input').val();
-            var refImage = $('#reference-image_input').val();
-            var refAudio = $('#reference-audio_input').val();
-            var refvideo = $('#reference-video_input').val();
-
-            var referenceCount = $('#reference_count').val();
-
-            var referenceArray = [];
-            for ( var i = 0; i < referenceCount ; i++ ) {
-                var count = (i == 0) ? "" : i;
-                referenceArray[i] = {
-                    description : $( '#reference_description' + count ).val(),
-                    refLink : $('#reference-link-' + count + '_input').val(),
-                    refImage : $('#reference-image-' + count + '_input').val(),
-                    refAudio : $('#reference-audio-' + count + '_input').val(),
-                    refvideo : $('#reference-video-' + count + '_input').val()
+            for (var i = 0; i < referenceCount; i++) {
+                var reference = {
+                    description : $("#reference-description-"+i).val(),
+                    webLinks   : [{ url : that._getMediaLink($("#reference-description-"+i), "external")}],
+                    videoLinks : [{ url : that._getMediaLink($("#reference-description-"+i), "video")}],
+                    imageLinks : [{ url : that._getMediaLink($("#reference-description-"+i), "image")}],
+                    audioLinks : [{ url : that._getMediaLink($("#reference-description-"+i), "audio")}]
                 };
+                pageReferences.push(reference);
+            };
+
+            var qwizbookPage = {
+                qwizbookId : this.qwizbookId,
+                multiple_choice_question : multiple_choice_question,
+                reinforce : reinforce,
+                hints : hints
             }
-
-            console.log(multiple_choice_question);
-
+            var qwizkookPageModel = new QwizBookPage.Model(qwizbookPage);
+            qwizkookPageModel.url = "/qwizbooks/" + this.qwizbookId + "/pages";
+            qwizkookPageModel.create(function(model, response){
+                var pageId = response.id;
+                console.log(pageId);
+                _.each(pageReferences, function(item){
+                    item.pageId = pageId;
+                })
+                console.log(pageReferences);
+            });
             //$('#qwizbook-questionnare-content').hide();
+        },
+
+        /**
+        *
+        * Private function to get the array of multiple choice answer
+        */
+        _getMultipleChoiceAnswers : function(){
+            var answers = [];
+            var that = this;
+            var correctAnswer = $("input[name=answer]:checked").val();
+            $(".choice").each(function(i, elm){
+                var input = $(elm).children("input");
+                var answer = {
+                    choice : {
+                        text: $(input).val(),
+                        videoLinks : [{ url : that._getMediaLink($(input), "video")}],
+                        imageLinks : [{ url : that._getMediaLink($(input), "image")}],
+                        audioLinks : [{ url : that._getMediaLink($(input), "audio")}],
+                    },
+                    correct : ($(input).attr("id") == correctAnswer)
+                }
+                answers.push(answer);
+            })
+            return answers;
+        },
+
+        /**
+        *
+        * Private function to get value of media urls
+        *  
+        * @param {Object} elm  Element
+        * @param {String} type Media type
+        */
+        _getMediaLink : function(elm, type){
+            var value = elm.parents(".control-group").find("." + type + "-url").val();
+            return $.trim(value) || null;
         },
 
         cancelAuthorForm: function (e) {

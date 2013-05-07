@@ -1,7 +1,7 @@
     
 define([
     "app",
-    "module/qwizbook/qwizbookModel",
+    "modules/qwizbook/qwizbookCollection",
     "text!templates/qwizbookListItem.html"
 ], function(App, QwizBook, TmplQwizbookItem){
 

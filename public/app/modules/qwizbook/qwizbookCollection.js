@@ -9,7 +9,7 @@
 
 define([
     "app",
-    "module/qwizbook/qwizbookModel"
+    "modules/qwizbook/qwizbookModel"
 ], function(App, QwizBook){
     QwizBook.Collection = Backbone.Collection.extend({
 

@@ -7,8 +7,9 @@
 
 
 define([
-    "app"
-], function(App){
+    "app",
+    "modules/qwizbook/qwizBookPageCollection",
+], function(App, QwizbookPage){
 
     var QwizBook = App.module();
 
@@ -41,7 +42,8 @@ define([
         },
 
         initialize:function(){
-
+            this.qwizbookPage     = new QwizbookPage.Model();
+            this.qwizbookPage.url = "/qwizbooks/" + this.id + "/pages";
         },
 
         create:function (qbtitle, qbdescription) {
@@ -169,5 +171,5 @@ define([
         }
 
     });
-
+    return QwizBook;
 });

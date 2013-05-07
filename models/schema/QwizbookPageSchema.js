@@ -1,10 +1,9 @@
 
 
-var mongoose = require('mongoose');
+var ObjectId = require('mongoose').Schema.Types.ObjectId;
 var QwizbookPageSchema = {
 
-    qwizbookId : mongoose.Schema.Types.ObjectId,
-    pageNum : Number,
+    qwizbookId : ObjectId,
     multiple_choice_question: {
 
         questionType : Number,
@@ -48,7 +47,7 @@ var QwizbookPageSchema = {
         }]
     },
     //------- Page reference optional
-    reference: [mongoose.Schema.Types.ObjectId],
+    reference: [ObjectId],
 
     //------- Re-inforcement
     reinforce: [{

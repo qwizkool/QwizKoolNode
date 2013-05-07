@@ -16,13 +16,13 @@ define([
     QwizBookPage.Model = Backbone.Model.extend({
 
         initialize: function() {
-            
+          
         },
+
         isAddedqwizBook:  false,
 
         defaults:{
             qwizbookId : null,
-            pageNum : null,
             multiple_choice_question : {
                 questionType : 1,
                 question : {
@@ -39,15 +39,14 @@ define([
             hints : [{}]
         },
 
-        create: function(data){
+        create: function(successCallback){
             var jqxhr = this.save({}, {
                 error : function(model, response){
                     model.isAddedqwizBookPage = false;
                     model.trigger('qwizbook-page-create-failed-event');
                 },
                 success : function(model, response){
-                    console.log(model);
-                    console.log(response);
+                    successCallback(model, response);
                 }
             });
         },

@@ -46,5 +46,6 @@
             callback(null, page);
         }
     })
-
  }
+
+ module.exports  = exports = new QwizbookPage();
