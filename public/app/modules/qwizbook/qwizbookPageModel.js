@@ -22,21 +22,27 @@ define([
         isAddedqwizBook:  false,
 
         defaults:{
-            qwizbookId : null,
-            multiple_choice_question : {
-                questionType : 1,
-                question : {
-                    text : "Question"
-                },
-                answers : [{
-                    choice : {
-                        text: "Answer"
+            qwizbookPage : {
+                qwizbookId : null,
+                multiple_choice_question : {
+                    questionType : 1,
+                    question : {
+                        text : "Question"
                     },
-                    correct : false
-                }]
+                    answers : [{
+                        choice : {
+                            text: "Answer"
+                        },
+                        correct : false
+                    }]
+                },
+                reinforce : [{}],
+                hints : [{}]
             },
-            reinforce : [{}],
-            hints : [{}]
+            pageReference : [{
+                pageId: null,
+                description:null
+            }]
         },
 
         create: function(successCallback){

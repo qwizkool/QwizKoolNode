@@ -44,12 +44,17 @@ define([
             isAddedqwizBook:false,
             AddedqwizBookAttempted:false,
             AddedqwizBookStatus:null,
+            pageReference:[],
             reference: [{
 				        videoLinks: [{link: "www.videolink.com"}],
 				        webLinks  : [{link: "www.webLinks.com"}],
 				        imageLinks: [{link: "www.imageLinks.com"}],
 				        audioLinks: [{link: "www.audioLinks.com"}]
-				    	}]
+				    	}],
+            sections:[{
+                sectionTitle:"",
+                pages:[]
+            }]
         },
         
         initialize : function() {

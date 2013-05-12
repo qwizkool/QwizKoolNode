@@ -32,4 +32,5 @@ define([
 
         }
     })
+    return PageReference;
 });

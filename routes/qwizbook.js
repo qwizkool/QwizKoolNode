@@ -5,6 +5,7 @@ var User = require('../models/Users');
 var Qwizbook = require('../models/Qwizbooks');
 var QwizbookRating = require('../models/Ratings');
 var ratingcount = 0;
+var _ = require('underscore');
 module.exports = {
 	createBook : function(req, res) {
 
@@ -424,6 +425,38 @@ module.exports = {
 			});
 		}
 
+	},
+
+	createQwizbookPage: function(req, res){
+		var bookId = req.route.params.id;
+        	data = req.body,
+        	page = data.qwizbookPage,
+        	refs = data.pageReference;
+        //console.log(page);
+        //console.log(refs);
+        Qwizbook.createQwizbookPage(bookId, page, function(err,page){
+        	if (err) {
+				res.send(400, err);
+				console.log(err);
+				return;
+			} else {
+				_.each(refs, function(ref){
+					ref.pageId = page._id;
+				})
+				Qwizbook.createPageReference(bookId, refs, function(err, pageRefs){
+					if(err){
+						res.send(400, err);
+						return;
+					}
+					else {
+						res.send({
+							qwizbookPage: page,
+							pageReference: pageRefs
+						});
+					}
+				});
+			}
+        });
 	}
 };
 

@@ -5,7 +5,7 @@
  * Schema definition for quizbook schema
  */
 
-var mongoose = require('mongoose');
+var ObjectId = require('mongoose').Schema.Types.ObjectId;
 
 var QwizbookSchema = {
 
@@ -84,6 +84,23 @@ var QwizbookSchema = {
         audioLinks: []
     }],
 
+    pageReference: [{
+        pageId: ObjectId,
+        description: String,
+        videoLinks: [{
+            url: String
+        }],
+        webLinks: [{
+            url: String
+        }],
+        imageLinks: [{
+            url: String
+        }],
+        audioLinks: [{
+            url: String
+        }]
+    }],
+
     //------- Qwizbook FSM
     // TODO: complete the schema definition.
     FSM: {},
@@ -96,7 +113,100 @@ var QwizbookSchema = {
         },
 
         //------- Qwizbook pages optional
-        pages: [mongoose.Schema.Types.ObjectId]
+        pages: [{
+
+            qwizbookId : ObjectId,
+            multiple_choice_question: {
+
+                questionType : Number,
+
+                // question
+                question: {
+                    text: {
+                        type: String
+                    },
+                    videoLinks: [{
+                        url: String
+                    }],
+                    imageLinks: [{
+                        url: String
+                    }],
+                    audioLinks: [{
+                        url: String
+                    }]
+                },
+
+                // answer choices
+                answers: [{
+                    choice: {
+                        text: {
+                            type: String
+                        },
+                        videoLinks: [{
+                            url: String
+                        }],
+                        imageLinks: [{
+                            url: String
+                        }],
+                        audioLinks: [{
+                            url: String
+                        }]
+                    },
+
+                    correct: {
+                        type: Boolean
+                    }
+                }]
+            },
+            //------- Page reference optional
+            reference: [ObjectId],
+
+            //------- Re-inforcement
+            reinforce: [{
+                description: String,
+                videoLinks: [{
+                    url: String
+                }],
+                webLinks: [{
+                    url: String
+                }],
+                imageLinks: [{
+                    url: String
+                }],
+                audioLinks: [{
+                    url: String
+                }]
+            }],
+
+
+            //------- Page comments
+            comments: [{
+                submitterEmail: {
+                    type: String
+                },
+                date: {
+                    type: Date,
+                    'default': Date.now
+                },
+                text: {
+                    type: String
+                },
+                approved: {
+                    type: Boolean
+                }
+
+            }],
+
+            //------- Hints for the questions
+            hints: [{
+                text: {
+                    type: String
+                },
+                imageLinks: [{
+                    url: String
+                }]
+            }]
+        }]
 
     }]
 };

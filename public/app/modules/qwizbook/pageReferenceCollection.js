@@ -5,7 +5,12 @@ define([
     ], function (App,PageReference) {
         PageReference.Collection = Backbone.Collection.extend({
 
-            model: PageReference.Model
+            model : PageReference.Model,
+            url :"/pageReference/",
+
+            save: function(options){
+                Backbone.sync("create", this, options);
+            }
 
     })
 

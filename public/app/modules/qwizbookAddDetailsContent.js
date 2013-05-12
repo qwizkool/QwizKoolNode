@@ -3,9 +3,10 @@ define([
     "modules/qwizbook/qwizbookView",
     "modules/editQwizbook",
     "modules/qwizbook/qwizbookPageModel",
+    "modules/qwizbook/pageReferenceCollection",
     "text!templates/qwizbookAddDetailsContent.html"
 
-], function (App, QwizBook, EditQwizbook, QwizBookPage, Template) {
+], function (App, QwizBook, EditQwizbook, QwizBookPage, PageReferenceCollection, Template) {
 
     var QwizbookAddDetailsContent = App.module();
 
@@ -18,15 +19,16 @@ define([
                 throw "ERROR: Session object is not provided for the view!!"
                     }
            
-            this.qwizbookId = this.options.qwizbookId;
-            this.qwizbookModel = new QwizBook.Model({_id:this.qwizbookId, session:this.session});
-            this.qwizBookPageModel = new QwizBookPage.Model();
+            this.qwizbookId         = this.options.qwizbookId;
+            this.qwizbookModel      = new QwizBook.Model({_id:this.qwizbookId, session:this.session});
+            this.qwizBookPageModel  = new QwizBookPage.Model();
             this.qwizBookPageModel.url = "/qwizbooks/" + this.qwizbookId + "/pages"
             this.qwizbookModel.retreive();
             this.listenTo(this.qwizbookModel, "retreive-qwizbook-success-event", this.updateView);
             this.editQwizbook = new EditQwizbook.View({model: this.qwizbookModel, qwizbookId: this.qwizbookId, session:this.session});
 
         },
+
         updateView : function() {
             $(this.el).find("#qwizbook-create-form").append(this.editQwizbook.render().el);
         },
@@ -109,46 +111,34 @@ define([
 
             var multiple_choice_question = {
                 questionType : $("#question-type").val(),
-                question : {
-                    text : $("#question").val(),
-                    videoLinks : [{ url : that._getMediaLink($("#question"), "video")}],
-                    imageLinks : [{ url : that._getMediaLink($("#question"), "image")}],
-                    audioLinks : [{ url : that._getMediaLink($("#question"), "audio")}]
-                },
+                question : that._getLinksObject("#question"),
                 answers : that._getMultipleChoiceAnswers()
             };
 
             // Reinforcement informations
-            var reinforce = [{
-                description : $.trim($("#reinforcement-description").val()),
-                webLinks   : [{ url : that._getMediaLink($("#reinforcement-description"), "external")}],
-                videoLinks : [{ url : that._getMediaLink($("#reinforcement-description"), "video")}],
-                imageLinks : [{ url : that._getMediaLink($("#reinforcement-description"), "image")}],
-                audioLinks : [{ url : that._getMediaLink($("#reinforcement-description"), "audio")}]
-            }];
+            var reinforce = [this._getLinksObject("#reinforcement-description", true, true)];
 
             // Page hints
-            var hints = [{
-                text : $("#hint-description").val(),
-                imageLinks : [{
-                    url : $("#hint-image").val()
-                }]
-            }];
-
+            var hintText    = $.trim($("#hint-description").val());
+            var hintImage   = $.trim($("#hint-image").val());
+            var hints = [];
+            if(hintText || hintImage){
+                var hint = {};
+                if(hintText){
+                    hint.text = hintText;
+                }
+                if(hintImage){
+                    hint.imageLinks = [{ url : hintImage }];
+                }
+                hints.push(hint);
+            }
 
             // Create reference array
             var pageReferences = [],
                 referenceCount = $("#reference-count").val();
 
             for (var i = 0; i < referenceCount; i++) {
-                var reference = {
-                    description : $("#reference-description-"+i).val(),
-                    webLinks   : [{ url : that._getMediaLink($("#reference-description-"+i), "external")}],
-                    videoLinks : [{ url : that._getMediaLink($("#reference-description-"+i), "video")}],
-                    imageLinks : [{ url : that._getMediaLink($("#reference-description-"+i), "image")}],
-                    audioLinks : [{ url : that._getMediaLink($("#reference-description-"+i), "audio")}]
-                };
-                pageReferences.push(reference);
+                pageReferences.push(this._getLinksObject("#reference-description-"+i, true, true));
             };
 
             var qwizbookPage = {
@@ -157,17 +147,50 @@ define([
                 reinforce : reinforce,
                 hints : hints
             }
-            var qwizkookPageModel = new QwizBookPage.Model(qwizbookPage);
+
+            var qwizkookPageModel = new QwizBookPage.Model({
+                qwizbookPage : qwizbookPage,
+                pageReference : pageReferences
+            });
+
             qwizkookPageModel.url = "/qwizbooks/" + this.qwizbookId + "/pages";
             qwizkookPageModel.create(function(model, response){
-                var pageId = response.id;
-                console.log(pageId);
-                _.each(pageReferences, function(item){
-                    item.pageId = pageId;
-                })
-                console.log(pageReferences);
+                console.log(model);
             });
-            //$('#qwizbook-questionnare-content').hide();
+            $('#qwizbook-questionnare-content').hide();
+        },
+
+        /**
+        * Pivate method to get the description and related links
+        * of Reference and Re-inforce sections. It avoids creating object attributes
+        * that have no values.
+        *
+        * @param {String} elemId Element id
+        * @param {Bool} withExternal If webLink attribute is required.
+        */
+        _getLinksObject : function( elemId, withExternal, objDesc ){
+            var obj = {};
+            if( ( description = $.trim($(elemId).val())) !="" ){
+                if(objDesc){
+                    obj.description = description;
+                }
+                else{
+                    obj.text = description;
+                }
+            }
+            if( ( externalLink = this._getMediaLink($(elemId), "external")) && withExternal ) {
+                obj.webLinks = [{ url : externalLink }];
+            }
+            if( ( videoLink = this._getMediaLink($(elemId), "video")) ){
+                obj.videoLinks = [{ url : videoLink }]
+            }
+            if( ( imageLink = this._getMediaLink($(elemId), "image")) ){
+                obj.imageLinks = [{ url : imageLink }]
+            }
+            if( ( audioLink = this._getMediaLink($(elemId), "audio")) ){
+                obj.audioLinks = [{ url : audioLink }]
+            }
+            return obj;
         },
 
         /**
@@ -181,12 +204,7 @@ define([
             $(".choice").each(function(i, elm){
                 var input = $(elm).children("input");
                 var answer = {
-                    choice : {
-                        text: $(input).val(),
-                        videoLinks : [{ url : that._getMediaLink($(input), "video")}],
-                        imageLinks : [{ url : that._getMediaLink($(input), "image")}],
-                        audioLinks : [{ url : that._getMediaLink($(input), "audio")}],
-                    },
+                    choice : that._getLinksObject(input),
                     correct : ($(input).attr("id") == correctAnswer)
                 }
                 answers.push(answer);

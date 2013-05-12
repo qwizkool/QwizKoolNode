@@ -14,8 +14,6 @@ var db = require('../lib/db_connection'),
 
 // Create mongoose schema
 var mPageSchema = db.Schema(pageSchema);
-mPageSchema.index({qwizbookId:1, pageNum:1},{unique:true});
-
 
 
 // Get the mongoose model

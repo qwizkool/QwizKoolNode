@@ -78,6 +78,8 @@ Qwizbook.prototype.createQwizbook = function(owner, data, callback) {
 	instance.reference = data.reference;
 	instance.archive = data.archive;
 	instance.published = data.published;
+	instance.sections  = data.sections;
+	instance.pageReference = data.pageReference;
 	instance.save(function(err) {
 		if (err) {
 			console.log(err);
@@ -565,6 +567,54 @@ Qwizbook.prototype.retrieveQwizbookSearchResults = function(owner, searchparamet
 	
 
 };
+
+/**
+ * Add a Qwizbook page.
+ *
+ * @param {String} bookId
+ * @param {Number} data
+ * @param {Number} callback
+ * @api public
+ */
+
+Qwizbook.prototype.createQwizbookPage = function(bookId, data, callback){
+	QwizbookModel.findById(bookId, function(err, book) {
+		if (err) {
+			callback({
+				Error : "Failed Qwizbook Retreive ."
+			}, null);
+		} else {
+			var pages = book.sections[0].pages;
+			pages.push(data);
+			book.save();
+			callback(null, pages[pages.length - 1]);
+		}
+	});
+}
+
+/**
+ * Add Qwizbook page references.
+ *
+ * @param {String} bookId
+ * @param {Number} data  array of page references
+ * @param {Number} callback
+ * @api public
+ */
+
+Qwizbook.prototype.createPageReference = function(bookId, data, callback){
+
+	QwizbookModel.findByIdAndUpdate(bookId, {$pushAll:{pageReference:data}}, function(err, book){
+		if (err) {
+			callback({
+				Error : "Failed Qwizbook Retreive ."
+			}, null);
+		}
+		else{
+			var refLength = book.pageReference.length;
+			callback(null, book.pageReference.slice(refLength - data.length));
+		}
+	})
+}
 
 /**
  * Exports.
