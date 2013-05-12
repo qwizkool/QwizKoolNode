@@ -15,7 +15,7 @@ define([
     "modules/userMainPage",
     "modules/qwizbookMainPage",
     "modules/myQwizbooksPage",
-    "modules/qwizbookAddDetails",
+    "modules/qwizbook/qwizbookAddDetails",
     "modules/qwizbookArchivePage"
 ], function (App, Bootstrap, Session, IndexPage, PageNotFoundPage, UserMainPage, QwizbookMainPage,MyQwizbooksPage, QwizbookAddDetails, QwizbooksArchivePage) {
 

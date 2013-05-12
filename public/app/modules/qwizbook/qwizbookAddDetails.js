@@ -11,7 +11,7 @@ define([
     "modules/appToolbar",
     "modules/userSettings",
     "modules/footer",
-    "modules/qwizbookAddDetailsContent",
+    "modules/qwizbook/qwizbookAddDetailsContent",
      "text!templates/myQwizbooksContent.html"
 ],
     function (App, Header, AppToolbar, UserSettings, Footer, QwizbookAddDetailsContent,Template) {

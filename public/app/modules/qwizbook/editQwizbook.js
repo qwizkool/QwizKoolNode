@@ -7,7 +7,7 @@
  */
 define([
     "app",
-    "modules/qwizbook",
+    "modules/qwizbook/qwizbookView",
     "text!templates/editQwizbook.html"
 ],
     function (App, QwizBook,  Template) {

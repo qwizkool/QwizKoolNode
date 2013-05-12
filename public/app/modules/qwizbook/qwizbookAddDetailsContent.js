@@ -1,7 +1,7 @@
 define([
     "app",
     "modules/qwizbook/qwizbookView",
-    "modules/editQwizbook",
+    "modules/qwizbook/editQwizbook",
     "modules/qwizbook/qwizbookPageModel",
     "modules/qwizbook/pageReferenceCollection",
     "text!templates/qwizbookAddDetailsContent.html"
@@ -106,8 +106,8 @@ define([
         */
         submitAuthorForm: function (e) {
             e.preventDefault();
-            var questionType = $("#question-type").val();
-            var that = this;
+            var questionType = $("#question-type").val(),
+                that = this;
 
             var multiple_choice_question = {
                 questionType : $("#question-type").val(),
