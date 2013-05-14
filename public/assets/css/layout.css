@@ -292,3 +292,25 @@ body {
 .search-filter-tb {
     margin-bottom: 5px;
 }
+
+
+.modal.large {
+    width: 80%; /* respsonsive width */
+    margin-left:-40%; /* width/2) */
+}
+
+
+body .modal {
+    width: 90%; /* desired relative width */
+    left: 5%; /* (100%-width)/2 */
+    height: auto;
+    margin: auto auto auto auto; /* place center */
+}
+
+
+
+#myModal .modal-body {
+    max-height: 800px;
+}
+
+.modal-backdrop, .modal-backdrop.fade.in { opacity: 1}
