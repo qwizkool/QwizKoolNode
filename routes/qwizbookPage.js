@@ -1,25 +1,56 @@
-var QwizbookPage = require('../models/QwizbookPages');
+var Qwizbook = require('../models/Qwizbooks')
+    _ = require('underscore');
 
 module.exports = {
 
     /**
     * Create new Qwizbook page
     */
-    create : function(req,res){
-        var qbookId = req.route.params.id;
-        var page = req.body;
-
-        console.log(page);
-        QwizbookPage.create(page, function(err, page){
-            // If error send the error response
+    create: function(req, res){
+        var bookId = req.route.params.id;
+            data = req.body,
+            page = data.qwizbookPage,
+            refs = data.pageReference;
+        //console.log(page);
+        //console.log(refs);
+        Qwizbook.createQwizbookPage(bookId, page, function(err,page){
             if (err) {
                 res.send(400, err);
                 console.log(err);
                 return;
+            } else {
+                _.each(refs, function(ref){
+                    ref.pageId = page._id;
+                })
+                Qwizbook.createPageReference(bookId, refs, function(err, pageRefs){
+                    if(err){
+                        res.send(400, err);
+                        return;
+                    }
+                    else {
+                        res.send({
+                            qwizbookPage: page,
+                            pageReference: pageRefs
+                        });
+                    }
+                });
             }
-            res.send({
-                id : page._id
-            });
         });
+    },
+
+    getAll : function(req, res){
+        var bookId = req.route.params.id,
+            p = req.query,
+            page = p.page - 1,
+            limit = p.limit;
+        Qwizbook.retrieveQwizbookPages(bookId,page,limit, function(err, pages){
+            if(err){
+                res.send(400, err);
+                return;
+            }
+            else {
+                res.send(pages);
+            }
+        })
     }
 }

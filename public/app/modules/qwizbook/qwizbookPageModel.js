@@ -14,6 +14,23 @@ define([
     QwizBookPage = App.module();
 
     QwizBookPage.Model = Backbone.Model.extend({
+        idAttribute:"_id",
+        initialize:function(){
+            console.log("initialize")
+        },
+
+        defaults : {
+            _id:"",
+            qwizbookId:"",
+            multiple_choice_question:[],
+            hints:[],
+            reinforce:[],
+            comments:[]
+        }
+
+    });
+
+    QwizBookPage.PageRefModel = Backbone.Model.extend({
 
         initialize: function() {
           
@@ -61,6 +78,7 @@ define([
 
         }
 
-    })
+    });
+    
     return QwizBookPage;
 });

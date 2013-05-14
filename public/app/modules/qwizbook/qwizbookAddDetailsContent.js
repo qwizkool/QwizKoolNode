@@ -2,11 +2,11 @@ define([
     "app",
     "modules/qwizbook/qwizbookView",
     "modules/qwizbook/editQwizbook",
-    "modules/qwizbook/qwizbookPageModel",
-    "modules/qwizbook/pageReferenceCollection",
-    "text!templates/qwizbookAddDetailsContent.html"
+    "modules/qwizbook/qwizbookPageCollection",
+    "text!templates/qwizbookAddDetailsContent.html",
+    "text!templates/qwizbookPageListItem.html"
 
-], function (App, QwizBook, EditQwizbook, QwizBookPage, PageReferenceCollection, Template) {
+], function (App, QwizBook, EditQwizbook, QwizBookPage, Template, TmplPageListItem) {
 
     var QwizbookAddDetailsContent = App.module();
 
@@ -21,9 +21,10 @@ define([
            
             this.qwizbookId         = this.options.qwizbookId;
             this.qwizbookModel      = new QwizBook.Model({_id:this.qwizbookId, session:this.session});
-            this.qwizBookPageModel  = new QwizBookPage.Model();
-            this.qwizBookPageModel.url = "/qwizbooks/" + this.qwizbookId + "/pages"
+            this.qwizbookPageCollection = new QwizBookPage.Collection();
+            this.qwizbookPageCollection.url = "/qwizbooks/" + this.qwizbookId + "/pages";
             this.qwizbookModel.retreive();
+            this.listenTo(this.qwizbookPageCollection, "list-qwizbookpage-event", this.updateQwizbookPageListing)
             this.listenTo(this.qwizbookModel, "retreive-qwizbook-success-event", this.updateView);
             this.editQwizbook = new EditQwizbook.View({model: this.qwizbookModel, qwizbookId: this.qwizbookId, session:this.session});
 
@@ -148,14 +149,14 @@ define([
                 hints : hints
             }
 
-            var qwizkookPageModel = new QwizBookPage.Model({
+            var qwizkookPageRefModel = new QwizBookPage.PageRefModel({
                 qwizbookPage : qwizbookPage,
                 pageReference : pageReferences
             });
 
-            qwizkookPageModel.url = "/qwizbooks/" + this.qwizbookId + "/pages";
-            qwizkookPageModel.create(function(model, response){
-                console.log(model);
+            qwizkookPageRefModel.url = "/qwizbooks/" + this.qwizbookId + "/pages";
+            qwizkookPageRefModel.create(function(model, response){
+                that.qwizbookPageCollection.getAllPages();
             });
             $('#qwizbook-questionnare-content').hide();
         },
@@ -230,10 +231,23 @@ define([
 
         },
 
+        updateQwizbookPageListing: function(e){
+            var view = this;
+            $("#qwizbookpage-list").html("");
+            view.qwizbookPageCollection.forEach(function(model){
+                var templ = _.template(
+                        TmplPageListItem, 
+                        {question:model.get("multiple_choice_question").question.text}
+                    )
+                $("#qwizbookpage-list").append(templ);
+            })
+        },
+
         template: Template,
 
         render: function () {
-
+            var view = this;
+            view.qwizbookPageCollection.getAllPages();
             this.el.innerHTML = this.template;
             //$(this.el).find("#qwizbook-create-form").append(this.editQwizbook.render().el);
             return this;

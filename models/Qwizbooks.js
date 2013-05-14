@@ -614,7 +614,34 @@ Qwizbook.prototype.createPageReference = function(bookId, data, callback){
 			callback(null, book.pageReference.slice(refLength - data.length));
 		}
 	})
+},
+
+/**
+*
+*
+*
+*/
+
+Qwizbook.prototype.retrieveQwizbookPages = function(bookId, page, limit, callback){
+	QwizbookModel.find({
+		_id:bookId
+	})
+	.$where(function(){
+		return this.sections[0];
+	})
+	.select("sections.pages")
+	.execFind(function(err, book){
+		if (err) {
+			console.log(err)
+			callback({
+				Error : "Retreive Qwizbook pages failed."
+			}, null);
+		} else {
+			callback(null, book[0].sections[0].pages);
+		}
+	})
 }
+
 
 /**
  * Exports.

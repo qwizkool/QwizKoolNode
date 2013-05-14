@@ -215,7 +215,8 @@ app.put('/qwizbooks/:id', ensureAuthenticated, qwizbook.updateBook);
 
 
 // create a qwizbook page
-app.post('/qwizbooks/:id/pages', ensureAuthenticated, qwizbook.createQwizbookPage)
+app.get('/qwizbooks/:id/pages', ensureAuthenticated, qwizbookPage.getAll)
+app.post('/qwizbooks/:id/pages', ensureAuthenticated, qwizbookPage.create);
 
 
 
