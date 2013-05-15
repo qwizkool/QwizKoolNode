@@ -26,7 +26,21 @@ define([
             hints:[],
             reinforce:[],
             comments:[]
-        }
+        },
+
+        delete: function(){
+            this.destroy({
+                // Handle the Logout Error condition.
+                error: function (model, response) {
+                    console.log("Failed to delete Qwizbook"); 
+                },
+
+                // Handle the Logout success condition.
+                success: function (model, response) {
+                    model.trigger('delete-qwizbookpage-success-event');
+                }
+            });
+        },
 
     });
 

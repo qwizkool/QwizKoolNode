@@ -617,11 +617,13 @@ Qwizbook.prototype.createPageReference = function(bookId, data, callback){
 },
 
 /**
-*
-*
-*
-*/
-
+ * Retrieve all qwizbook pages from a qwizbook
+ *
+ * @param {String} bookId
+ * @param {Number} page number
+ * @param {Number} limit
+ * @api public
+ */
 Qwizbook.prototype.retrieveQwizbookPages = function(bookId, page, limit, callback){
 	QwizbookModel.find({
 		_id:bookId
@@ -639,7 +641,30 @@ Qwizbook.prototype.retrieveQwizbookPages = function(bookId, page, limit, callbac
 		} else {
 			callback(null, book[0].sections[0].pages);
 		}
-	})
+	});
+}
+
+/**
+ * Delete qwizbook page from a qwizbook
+ *
+ * @param {String} bookId
+ * @param {String} pageId
+ * @api public
+ */
+Qwizbook.prototype.deleteQwizbookPage = function(bookId,pageId, callback){
+	QwizbookModel.findById(bookId, function(err, book){
+		if (err) {
+			callback({
+				Error : "Failed Qwizbook Retreive ."
+			}, null);
+		}
+		else{
+			console.log(book.sections[0].pages);
+			book.sections[0].pages.remove({_id:pageId});
+			book.save();
+			callback(null, book.sections[0].pages);
+		}
+	});
 }
 
 

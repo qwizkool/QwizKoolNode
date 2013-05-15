@@ -217,6 +217,7 @@ app.put('/qwizbooks/:id', ensureAuthenticated, qwizbook.updateBook);
 // create a qwizbook page
 app.get('/qwizbooks/:id/pages', ensureAuthenticated, qwizbookPage.getAll)
 app.post('/qwizbooks/:id/pages', ensureAuthenticated, qwizbookPage.create);
+app.delete('/qwizbooks/:bookId/pages/:pageId', ensureAuthenticated, qwizbookPage.delete);
 
 
 

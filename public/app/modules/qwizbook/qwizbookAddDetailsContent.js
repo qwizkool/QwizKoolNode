@@ -22,9 +22,11 @@ define([
             this.qwizbookId         = this.options.qwizbookId;
             this.qwizbookModel      = new QwizBook.Model({_id:this.qwizbookId, session:this.session});
             this.qwizbookPageCollection = new QwizBookPage.Collection();
+            this.qwizbookPageModel = new QwizBookPage.Model();
             this.qwizbookPageCollection.url = "/qwizbooks/" + this.qwizbookId + "/pages";
             this.qwizbookModel.retreive();
             this.listenTo(this.qwizbookPageCollection, "list-qwizbookpage-event", this.updateQwizbookPageListing)
+            this.listenTo(this.qwizbookPageCollection, "remove", this.updateQwizbookPageListing);
             this.listenTo(this.qwizbookModel, "retreive-qwizbook-success-event", this.updateView);
             this.editQwizbook = new EditQwizbook.View({model: this.qwizbookModel, qwizbookId: this.qwizbookId, session:this.session});
 
@@ -48,8 +50,8 @@ define([
             //edit qwizbook
             "click #btn-save-qwizbook" : "editBook",
             "click .media-group a" : "addSupportLink",
-            "click .media-hide" : "removeSupportLink"
-
+            "click .media-hide" : "removeSupportLink",
+            "click #delete-pages" : "deleteQwizbookPages"
         },
         
         addSupportLink: function(e){
@@ -158,7 +160,9 @@ define([
             qwizkookPageRefModel.create(function(model, response){
                 that.qwizbookPageCollection.getAllPages();
             });
-            $('#qwizbook-questionnare-content').hide();
+            $("#qwizbook-questionnare-form form")[0].reset();
+            $("#qwizbook-questionnare-form .media-controls").remove();
+            $('#qwizbook-questionnare-content').addClass("hidden");
         },
 
         /**
@@ -227,17 +231,42 @@ define([
 
         cancelAuthorForm: function (e) {
             e.preventDefault();
+            $("#qwizbook-questionnare-form form")[0].reset();
+            $("#qwizbook-questionnare-form .media-controls").remove();
             $('#qwizbook-questionnare-content').addClass("hidden");
 
         },
 
+        /**
+        *
+        * Delete quizbook page
+        */
+        deleteQwizbookPages: function(e){
+            var view = this;
+            e.preventDefault();
+            var checked = $(".page-item input[type=checkbox]:checked");
+            _.each(checked, function(item){
+                var idAttr = $(item).attr("id")
+                var pageId = idAttr.trim().replace("qwizbookpage-item_","");
+                var page = view.qwizbookPageCollection.get(pageId);
+                page.delete();
+            })
+        },
+
+        /**
+        *
+        * Delete quizbook page listing view
+        */
         updateQwizbookPageListing: function(e){
             var view = this;
             $("#qwizbookpage-list").html("");
             view.qwizbookPageCollection.forEach(function(model){
                 var templ = _.template(
                         TmplPageListItem, 
-                        {question:model.get("multiple_choice_question").question.text}
+                        {
+                            id: model.get("_id"),
+                            question:model.get("multiple_choice_question").question.text
+                        }
                     )
                 $("#qwizbookpage-list").append(templ);
             })

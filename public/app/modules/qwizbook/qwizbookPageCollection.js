@@ -6,6 +6,11 @@ define([
 
     QwizbookPage.Collection = Backbone.Collection.extend({
         model: QwizbookPage.Model,
+
+        /**
+        * 
+        * Convinience function to fetch quizbook pages
+        */
         getAllPages : function(){
             var jqxhr = this.fetch({
                 // specify fetch to reset the collection instead

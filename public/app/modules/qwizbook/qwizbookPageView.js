@@ -31,7 +31,6 @@ define([
         render: function(){
             var view = this;
             var pages = view.model.modesl;
-            console.log(pages);
             this.$el.html(this.template);
         }
     })

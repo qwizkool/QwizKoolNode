@@ -51,6 +51,20 @@ module.exports = {
             else {
                 res.send(pages);
             }
+        });
+    },
+
+    delete : function(req, res){
+        var bookId = req.route.params.bookId,
+            pageId = req.route.params.pageId;
+        Qwizbook.deleteQwizbookPage(bookId,pageId, function(err, pages){
+            if(err){
+                res.send(400, err);
+                return;
+            }
+            else {
+                res.send(pages);
+            }
         })
     }
 }
