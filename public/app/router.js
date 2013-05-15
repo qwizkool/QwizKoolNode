@@ -66,7 +66,7 @@ define([
         index: function (hash) {
 
             if (this.session.isUserAuthenticated() === true) {
-                Backbone.history.navigate("main", true);
+                Backbone.history.navigate("qwizkool-home", true);
                 return;
             }
 
