@@ -7,7 +7,7 @@
  */
 define([
     "app",
-    "modules/user",
+    "modules/user/user",
     "text!templates/userSettings.html"
 ], function (App, User, Template) {
 

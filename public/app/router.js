@@ -9,7 +9,7 @@ define([
     // Application.
     "app",
     "bootstrap",
-    "modules/session",
+    "modules/user/session",
     "modules/indexPage",
     "modules/pageNotFoundPage",
     "modules/userMainPage",
