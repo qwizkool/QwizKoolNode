@@ -34,7 +34,7 @@ define([
 
             this.footer = new Footer.View();
 
-            this.qwizkoolMain = new QwizkoolMain.View({el:'#qwizkool-content', session:this.session });
+            this.qwizkoolMain = new QwizkoolMain.View({session:this.session });
 
             if (this.session) {
                 this.listenTo(this.session, "session-login-event", this.userLoginEvent);
@@ -54,11 +54,22 @@ define([
 
         // Render all the nested views related to this page
         // and attach it to the DOM.
-        show:function () {
+        show: function () {
 
-            this.header.render();
-            this.qwizkoolMain.render();
-            this.footer.render();
+            $('#qwizkool-header').html(this.header.render().el);
+            $('#qwizkool-footer').html(this.footer.render().el);
+            $('#qwizkool-content').html(this.qwizkoolMain.render().el);
+
+        },
+
+        remove: function() {
+
+            this.$el.remove();
+            this.stopListening();
+            this.header.remove();
+            this.footer.remove();
+            this.qwizkoolMain.remove()
+            return this;
 
         }
     });

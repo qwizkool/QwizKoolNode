@@ -24,18 +24,29 @@ define([
             this.header = new Header.View();
             this.footer = new Footer.View();
 
-            this.PageNotFound = new PageNotFound.View({el:'#qwizkool-content'});
+            this.PageNotFound = new PageNotFound.View();
 
         },
 
 
         // Render all the nested views related to this page
         // and attach it to the DOM.
-        show:function () {
+        show: function () {
 
-            this.header.render();
-            this.PageNotFound.render();
-            this.footer.render();
+            $('#qwizkool-header').html(this.header.render().el);
+            $('#qwizkool-footer').html(this.footer.render().el);
+            $('#qwizkool-content').html(this.PageNotFound.render().el);
+
+        },
+
+        remove: function() {
+
+            this.$el.remove();
+            this.stopListening();
+            this.header.remove();
+            this.footer.remove();
+            this.PageNotFound.remove()
+            return this;
 
         }
     });

@@ -16,7 +16,6 @@ define([
 
     Header.View = Backbone.View.extend({
 
-        el:'#qwizkool-header',
 
         template:Template,
 
@@ -53,9 +52,12 @@ define([
             if (this.htblView) {
                 this.htblView.remove();
             };
+
+            this.$el.remove();
+            this.stopListening();
+
             return this;
         }
-
 
     });
 

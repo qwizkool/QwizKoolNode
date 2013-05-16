@@ -34,9 +34,8 @@ define([
 
             show: function (done) {
 
-                this.header.render();
-                this.footer.render();
-
+                $('#qwizkool-header').html(this.header.render().el);
+                $('#qwizkool-footer').html(this.footer.render().el);
                 $('#qwizkool-content').html(this.myQwizbookPageContent.render().el);
 
             },
@@ -45,7 +44,8 @@ define([
 
                 this.$el.remove();
                 this.stopListening();
-
+                this.header.remove();
+                this.footer.remove();
                 this.myQwizbookPageContent.remove()
                 return this;
             }
