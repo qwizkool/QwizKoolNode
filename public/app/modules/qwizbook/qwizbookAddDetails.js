@@ -31,7 +31,7 @@ define([
                 this.appToolbar = new AppToolbar.View({session: this.session, location: "my-qwizbooks"});
             	this.header = new Header.View({htbuView: this.userSettings, htblView: this.appToolbar});
            	    this.footer = new Footer.View();
-				this.qwizbookAddContent = new QwizbookAddDetailsContent.View({ el: '#qwizkool-content',qwizbookId:this.qwizbookId,session: this.session});
+				this.qwizbookAddContent = new QwizbookAddDetailsContent.View({qwizbookId:this.qwizbookId,session: this.session});
             },
 
             // Render all the nested views related to this page
