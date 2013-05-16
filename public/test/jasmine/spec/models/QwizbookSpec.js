@@ -1,4 +1,4 @@
-define(['modules/user', 'modules/session', 'modules/qwizbook'], function (User, Session, Qwizbook) {
+define(['modules/user/user', 'modules/user/session', 'modules/qwizbook'], function (User, Session, Qwizbook) {
 
 
     return describe('Model :: Qwizbooks-', function () {
@@ -142,7 +142,7 @@ define(['modules/user', 'modules/session', 'modules/qwizbook'], function (User, 
                     qwizbook.set('date', dateStr);
                     qwizbook.set('reference',reference);
                     qwizbook.set('archive',false);
-                    qwizbook.set('published',false);
+                    qwizbook.set('published',true);
 
                     qwizbook.create(testqwizbookTitle, testqwizbookDescription);
 
