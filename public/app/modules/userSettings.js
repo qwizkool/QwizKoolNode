@@ -32,9 +32,6 @@ define([
             this.listenTo(this.session, "session-check-event", this.sessionCheckEvent);
 
         },
-        remove: function() {
-          console.log("removed usersettings")
-        },
 
         render:function (done) {
 

@@ -23,17 +23,20 @@ define([
 
             this.session = this.options.session;
 
-            this.qwizEngineView = new QwizEngineView.View({session: this.session});
+            this.qwizEngineView = new QwizEngineView.View({session: this.session,  qwizbookId: this.options.qwizbookId});
         },
 
         show: function (done) {
 
             $('#qwizkool-content').html(this.qwizEngineView.render().el);
 
+            $(document.body).addClass("body-black");
+
         },
 
-        remove: function() {
+        remove: function () {
 
+            $(document.body).removeClass("body-black");
             this.$el.remove();
             this.stopListening();
 
