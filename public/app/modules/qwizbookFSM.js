@@ -3,7 +3,12 @@
  *
  * Module : QwizBookFSM
  * Represents the state machine data of a qwizbook.
- *
+ * 
+ * Valid Events:
+ * - open : open a qwizbook
+ * - getHint : get a hint for a question
+ * - close : close a qwizbook
+ * 
  */
 
 /* ---------- CommonJS wrapper ---------- */
@@ -15,6 +20,7 @@ define(function(require, exports, module) {
  * Module dependencies.
  */
 var Scion = require('scion');
+
 
 /**
  * Qwizbook FSM constructor.
@@ -32,8 +38,23 @@ var QwizBookFSM = function(scxml) {
 };
 
 
+
 /**
- * Start FSM .
+ * Register event handlers.
+ *
+ * @api public
+ * @return {Function} Constructor for FSM type.
+ */
+
+QwizBookFSM.prototype.registerEventListener = function(listener) {
+
+    this.eventListenerCb = listener;
+
+};
+
+
+/**
+ * Start FSM.
  *
  * @api public
  * @return {Function} Constructor for FSM type.
@@ -49,6 +70,24 @@ QwizBookFSM.prototype.start = function() {
 
         //Instantiate the interpreter
         self.interpreter = new Scion.SCXML(scModel);
+        
+        //Register the handlers before starting
+        self.interpreter.registerListener({
+        
+            onEntry: function(stateId) {
+               //$("#page_body").append("Entering state :" + stateId + "<br/>");
+               this.eventListenerCb(stateId);
+            },
+            
+            onExit: function(stateId) {
+               // $("#page_body").append("Exiting state :" + stateId + "<br/>");
+            },
+            
+            onTransition: function(sourceStateId, targetStateIds) {
+               // $("#page_body").append("Transitioning from state :" + sourceStateId + "<br/>");
+            }
+            
+        });
 
         //start the interpreter
         self.interpreter.start();
@@ -77,6 +116,9 @@ QwizBookFSM.prototype.sendEvent = function(event) {
         data: this.qwizbookId
     });
 };
+
+
+
 
 
 /**
