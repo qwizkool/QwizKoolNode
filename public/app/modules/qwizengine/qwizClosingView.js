@@ -31,7 +31,7 @@ define([
 
         events: {
             "click #qwiz-control-prev": "goToPrevView",
-            "click #qwiz-control-done": "goToDoneView"
+            "click .qwiz-control-done": "goToDoneView"
         },
 
         goToDoneView: function(e) {

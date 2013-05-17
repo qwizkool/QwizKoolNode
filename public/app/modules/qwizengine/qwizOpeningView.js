@@ -29,7 +29,7 @@ define([
         },
 
         events: {
-            "click #qwiz-control-done": "goToDoneView",
+            "click .qwiz-control-done": "goToDoneView",
             "click #qwiz-control-next": "goToNextView"
         },
 
