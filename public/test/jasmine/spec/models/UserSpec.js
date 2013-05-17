@@ -1,4 +1,4 @@
-define(['modules/user', 'modules/session'], function (User, Session) {
+define(['modules/user/user', 'modules/user/session'], function (User, Session) {
     return describe('Model :: User', function () {
 
         // Create test data for the user model

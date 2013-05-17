@@ -8,7 +8,7 @@
 define([
     "app",
     "modules/comments",
-    "modules/user",
+    "modules/user/user",
     "modules/qwizbookComments",
     "text!templates/qwizbookComments.html"
 ], function (App, Comments, User, QwizbookComments, Template) {

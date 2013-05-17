@@ -42,22 +42,32 @@ define([
 
             this.footer = new Footer.View();
 
-            this.userMainContent = new UserMainContent.View({
-                el: '#qwizkool-content', session: this.session});
+            this.userMainContent = new UserMainContent.View({session: this.session});
 
         },
 
 
         // Render all the nested views related to this page
         // and attach it to the DOM.
-        show: function (done) {
+        show: function () {
 
-            // render the static components.
-            this.header.render();
-            this.footer.render();
-            this.userMainContent.render();
+            $('#qwizkool-header').html(this.header.render().el);
+            $('#qwizkool-footer').html(this.footer.render().el);
+            $('#qwizkool-content').html(this.userMainContent.render().el);
+
+        },
+
+        remove: function() {
+
+            this.$el.remove();
+            this.stopListening();
+            this.header.remove();
+            this.footer.remove();
+            this.userMainContent.remove()
+            return this;
 
         }
+
     });
 
     return UserMainPage;

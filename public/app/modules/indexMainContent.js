@@ -7,7 +7,7 @@
  */
 define([
     "app",
-    "modules/user",
+    "modules/user/user",
     "text!templates/indexMainContent.html",
     "text!templates/registrationStatus.html"
 ],function (App, User, Template, TmplRegStatus) {

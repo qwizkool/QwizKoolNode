@@ -41,7 +41,7 @@ define([
 
 
             this.qbookid = this.options.qwizbookId;
-            this.qwizbookContent = new QwizbookContent.View({qwizbookId:this.qbookid, el : '#qwizkool-content', session:this.session});
+            this.qwizbookContent = new QwizbookContent.View({qwizbookId:this.qbookid, session:this.session});
 
         },
 
@@ -49,11 +49,22 @@ define([
 
         // Render all the nested views related to this page
         // and attach it to the DOM.
-        show:function () {
+        show: function () {
 
-            this.header.render();
-            this.footer.render();
-            this.qwizbookContent.render();
+            $('#qwizkool-header').html(this.header.render().el);
+            $('#qwizkool-footer').html(this.footer.render().el);
+            $('#qwizkool-content').html(this.qwizbookContent.render().el);
+
+        },
+
+        remove: function() {
+
+            this.$el.remove();
+            this.stopListening();
+            this.header.remove();
+            this.footer.remove();
+            this.qwizbookContent.remove()
+            return this;
 
         }
     });

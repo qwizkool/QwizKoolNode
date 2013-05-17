@@ -34,16 +34,16 @@ define([
             },
 
             show:function (done) {
-        		this.header.render();
-           		this.footer.render();
-
+                $('#qwizkool-header').html(this.header.render().el);
+                $('#qwizkool-footer').html(this.footer.render().el);
                 $('#qwizkool-content').html(this.archiveQwizbookContent.render().el);
             },
 
             remove: function() {
                 this.$el.remove();
                 this.stopListening();
-
+                this.header.remove();
+                this.footer.remove();
                 this.archiveQwizbookContent.remove()
                 return this;
             }
