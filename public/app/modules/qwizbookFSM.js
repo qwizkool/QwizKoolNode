@@ -4,8 +4,9 @@
  * Module : QwizBookFSM
  * Represents the state machine data of a qwizbook.
  * 
- * Valid Events:
+ * Valid Input Events:
  * - open : open a qwizbook
+ * - next : move to next page/item
  * - getHint : get a hint for a question
  * - close : close a qwizbook
  * 
@@ -20,7 +21,9 @@ define(function(require, exports, module) {
  * Module dependencies.
  */
 var Scion = require('scion');
-
+var Backbone = require('backbone');
+var _ = require('underscore');
+var $ = require('jquery');
 
 /**
  * Qwizbook FSM constructor.
@@ -31,27 +34,96 @@ var Scion = require('scion');
 
 var QwizBookFSM = function(scxml) {
 
-    this.id = null;
-    this.scXml = scxml; //'<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" profile="ecmascript"></scxml>';
+    //Mix-in event capability
+    _.extend(this, Backbone.Events);
+
+    this.id = 0;
+    
+    // If an scxml is not provided, create a new one
+    if(_.isUndefined(scxml)) {
+        this.scXml = '<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" profile="ecmascript"></scxml>';
+    } else {
+        this.scXml = scxml;
+    } 
+    
+    // Open the scxml as an XMLDoc for editing
+    this.xmlDoc = $.parseXML(this.scXml);
+    
     this.qwizbookId = null;
     this.interpreter = null;
 };
 
-
-
 /**
- * Register event handlers.
+ * Add a state to FSM.
  *
  * @api public
  * @return {Function} Constructor for FSM type.
  */
+QwizBookFSM.prototype.addState = function(stateId) {
 
-QwizBookFSM.prototype.registerEventListener = function(listener) {
+    var state_el = this.xmlDoc.createElement('state');
+    state_el.setAttribute("id", stateId);
+    this.xmlDoc.documentElement.appendChild(state_el);
+    
+    //$(this.xmlDoc).find('scxml').append('<state></state>').attr('id', stateId);
+ 
+    //alert($(this.xmlDoc).find('scxml').text());
 
-    this.eventListenerCb = listener;
 
 };
 
+/**
+ * Remove a state in FSM.
+ *
+ * @api public
+ * @return {Function} Constructor for FSM type.
+ */
+QwizBookFSM.prototype.removeState = function(stateId) {
+    $(this.xmlDoc).find( '#' + stateId).remove();
+};
+
+
+/**
+ * Add a transition in FSM.
+ *
+ * @api public
+ * @return {Function} Constructor for FSM type.
+ */
+QwizBookFSM.prototype.addTransition = function(stateId, event, target) {
+
+    var transition_el = this.xmlDoc.createElement('transition');
+    transition_el.setAttribute('event', event);
+    transition_el.setAttribute('target', target);
+    
+    var tid = stateId + '.' + event + '.' + target;
+    transition_el.setAttribute('id', tid);
+    
+    var state_el = this.xmlDoc.getElementById(stateId);
+    state_el.appendChild(transition_el);
+    
+    return tid;
+};
+
+/**
+ * Remove a transition in FSM.
+ *
+ * @api public
+ * @return {Function} Constructor for FSM type.
+ */
+QwizBookFSM.prototype.removeTransition = function(stateId, event, target) {
+    var tid = stateId + '.' + event + '.' + target;
+    $(this.xmlDoc).find( '#' + tid).remove();
+};
+
+/**
+ * Remove a transition by Id.
+ *
+ * @api public
+ * @return {Function} Constructor for FSM type.
+ */
+QwizBookFSM.prototype.removeTransitionById = function(transitionId) {
+    $(this.xmlDoc).find( '#' + transitionId).remove();
+};
 
 /**
  * Start FSM.
@@ -62,9 +134,12 @@ QwizBookFSM.prototype.registerEventListener = function(listener) {
 QwizBookFSM.prototype.start = function() {
 
     var self = this;
+    
+    // Get the latest xml doc
+    //this.scXml = $(this.xmlDoc).text();
 
     //Convert to scion model
-    Scion.documentStringToModel(this.scXml, function(err, scModel) {
+    Scion.documentToModel(null, this.xmlDoc, function(err, scModel) {
 
         if (err) throw err;
 
@@ -76,7 +151,7 @@ QwizBookFSM.prototype.start = function() {
         
             onEntry: function(stateId) {
                //$("#page_body").append("Entering state :" + stateId + "<br/>");
-               this.eventListenerCb(stateId);
+               self.trigger('stateEntry', stateId);
             },
             
             onExit: function(stateId) {
@@ -109,16 +184,26 @@ QwizBookFSM.prototype.start = function() {
  * @return {Function} Constructor for FSM type.
  */
 
-QwizBookFSM.prototype.sendEvent = function(event) {
+QwizBookFSM.prototype.sendEvent = function(event, evdata) {
 
     this.interpreter.gen({
         name: event,
-        data: this.qwizbookId
+        data: evdata
     });
 };
 
 
+/**
+ * Get SCXML vstring
+ *
+ * @api public
+ * @return {Function} Constructor for FSM type.
+ */
+QwizBookFSM.prototype.getSCXMLStr = function() {
 
+    return (new XMLSerializer()).serializeToString(this.xmlDoc);
+
+};
 
 
 /**
