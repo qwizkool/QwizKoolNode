@@ -34,7 +34,7 @@ var $ = require('jquery');
 
 var QwizBookFSM = function(scxml) {
 
-    //Mix-in event capability
+    // Mix-in event capability
     _.extend(this, Backbone.Events);
 
     this.id = 0;
@@ -95,7 +95,7 @@ QwizBookFSM.prototype.addTransition = function(stateId, event, target) {
     transition_el.setAttribute('event', event);
     transition_el.setAttribute('target', target);
     
-    var tid = stateId + '.' + event + '.' + target;
+    var tid = stateId + '-' + event + '-' + target;
     transition_el.setAttribute('id', tid);
     
     var state_el = this.xmlDoc.getElementById(stateId);
@@ -111,7 +111,7 @@ QwizBookFSM.prototype.addTransition = function(stateId, event, target) {
  * @return {Function} Constructor for FSM type.
  */
 QwizBookFSM.prototype.removeTransition = function(stateId, event, target) {
-    var tid = stateId + '.' + event + '.' + target;
+    var tid = stateId + '-' + event + '-' + target;
     $(this.xmlDoc).find( '#' + tid).remove();
 };
 
@@ -194,7 +194,7 @@ QwizBookFSM.prototype.sendEvent = function(event, evdata) {
 
 
 /**
- * Get SCXML vstring
+ * Get SCXML string
  *
  * @api public
  * @return {Function} Constructor for FSM type.
@@ -204,6 +204,76 @@ QwizBookFSM.prototype.getSCXMLStr = function() {
     return (new XMLSerializer()).serializeToString(this.xmlDoc);
 
 };
+
+/**
+ * Test FSM
+ *
+ * @api public
+ * @return {Function} Constructor for FSM type.
+ */
+QwizBookFSM.prototype.testFSM = function() {
+
+	//////////////////////////////
+	// Qwizbook Authoring mode //
+    //////////////////////////////
+    
+    alert("Starting Authoring");
+    	
+    // Create new empty FSM
+	var qFSM = new QwizBookFSM();
+	
+	// Create states
+	qFSM.addState('idle');
+    qFSM.addState('qwizbooks_0_qwizpages_0');
+	qFSM.addState('qwizbooks_0_qwizpages_1');
+	qFSM.addState('qwizbooks_0_qwizpages_2');
+	qFSM.addState('qwizbooks_0_qwizpages_3');
+	
+	// Create transitions
+	qFSM.addTransition('idle', 'open', 'qwizbooks_0_qwizpages_0');
+	qFSM.addTransition('qwizbooks_0_qwizpages_0', 'next', 'qwizbooks_0_qwizpages_1');
+	qFSM.addTransition('qwizbooks_0_qwizpages_1', 'next', 'qwizbooks_0_qwizpages_3');
+	qFSM.addTransition('qwizbooks_0_qwizpages_2', 'next', 'idle');
+
+    // test for getting the id
+	var tid = qFSM.addTransition('qwizbooks_0_qwizpages_3', 'next', 'idle');	
+	
+	// Test remove
+	qFSM.removeState('qwizbooks_0_qwizpages_2');	
+	qFSM.removeTransitionById(tid);
+	
+    // scxml will be stored as qwizbook attribute
+	var scxml = qFSM.getSCXMLStr();	
+	alert("Authored SCXML :" + scxml);		
+	
+	
+	//////////////////////////////
+	// Qwizbook Navigation mode //
+    //////////////////////////////
+    
+    alert("Starting FSM navigation");
+        
+    // Create new FSM
+    // scxml will be obtained from qwizbook attribute
+	var qFSM = new QwizBookFSM(scxml);
+    
+    // Install event listener
+	qFSM.on ('stateEntry', function (stateid) {
+		alert("Entered state :" + stateid);
+        });
+
+    // Start FSM
+    qFSM.start();
+    
+    // Send events
+	qFSM.sendEvent('open');
+	qFSM.sendEvent('next');	
+	qFSM.sendEvent('next');	
+		
+
+};
+        
+
 
 
 /**
