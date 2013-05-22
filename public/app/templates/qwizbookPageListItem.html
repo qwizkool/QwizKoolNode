@@ -1,4 +1,14 @@
 <div class="page-header page-item" style="margin: 10px 0;background-color: #f8f8f8; padding:10px">
     <input type="checkbox" class="item-checked" id="qwizbookpage-item_<%= id %>">
+    <div class="btn-group pull-right">
+        <a data-toggle="dropdown" class="btn btn-link dropdown-toggle">
+            <i class="icon-double-angle-down icon-2x"></i>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="page-delete" id="delete-page_<%= id %>"><i class="icon-remove"></i>Delete</a></li>
+            <li class="divider"></li>
+            <li><a class="page-edit" id="edit-page_<%= id %>"><i class="icon-edit"></i><span>Edit</span></a></li>
+        </ul>
+    </div>
     <h3 style="font-weight: 300; padding: 10px"><%= question %></h3>
 </div>

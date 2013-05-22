@@ -16,7 +16,6 @@ define([
     QwizBookPage.Model = Backbone.Model.extend({
         idAttribute:"_id",
         initialize:function(){
-            console.log("initialize")
         },
 
         defaults : {

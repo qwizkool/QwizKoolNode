@@ -11,8 +11,6 @@ module.exports = {
             data = req.body,
             page = data.qwizbookPage,
             refs = data.pageReference;
-        //console.log(page);
-        //console.log(refs);
         Qwizbook.createQwizbookPage(bookId, page, function(err,page){
             if (err) {
                 res.send(400, err);
@@ -54,9 +52,25 @@ module.exports = {
         });
     },
 
+    getReferences: function(req, res){
+        var bookId = req.route.params.bookId,
+            pageId = req.route.params.pageId;
+
+        Qwizbook.getAllPageReferenes(bookId, pageId, function(err, pages){
+            if(err){
+                res.send(400, err);
+                return;
+            }
+            else {
+                res.send(pages);
+            }
+        });
+    },
+
     delete : function(req, res){
         var bookId = req.route.params.bookId,
             pageId = req.route.params.pageId;
+            
         Qwizbook.deleteQwizbookPage(bookId,pageId, function(err, pages){
             if(err){
                 res.send(400, err);

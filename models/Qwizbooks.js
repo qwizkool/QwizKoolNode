@@ -659,12 +659,45 @@ Qwizbook.prototype.deleteQwizbookPage = function(bookId,pageId, callback){
 			}, null);
 		}
 		else{
-			console.log(book.sections[0].pages);
 			book.sections[0].pages.remove({_id:pageId});
 			book.save();
 			callback(null, book.sections[0].pages);
 		}
 	});
+}
+
+
+/**
+ * Retrieve all qwizbook page references from a qwizbook
+ *
+ * @param {String} bookId
+ * @param {String} pageId
+ * @api public
+ */
+
+Qwizbook.prototype.getAllPageReferenes = function(bookId, pageId, callback){
+	QwizbookModel.find({
+		'_id':bookId,
+		'pageReference.pageId' : pageId
+	})
+	.select("pageReference")
+	.execFind(function(err, book){
+		if (err) {
+			console.log(err)
+			callback({
+				Error : "Retreive Qwizbook pages failed."
+			}, null);
+		} else {
+			var refs = [];
+			book[0].pageReference.forEach(function(item){
+				if(item.pageId==pageId){
+					refs.push(item);
+				}
+			});
+			callback(null, refs);
+		}
+	});
+
 }
 
 

@@ -3,10 +3,11 @@ define([
     "modules/qwizbook/qwizbookView",
     "modules/qwizbook/editQwizbook",
     "modules/qwizbook/qwizbookPageCollection",
+    "modules/qwizbook/pageReferenceCollection",
     "text!templates/qwizbookAddDetailsContent.html",
     "text!templates/qwizbookPageListItem.html"
 
-], function (App, QwizBook, EditQwizbook, QwizBookPage, Template, TmplPageListItem) {
+], function (App, QwizBook, EditQwizbook, QwizBookPage, PageReference, Template, TmplPageListItem) {
 
     var QwizbookAddDetailsContent = App.module();
 
@@ -51,7 +52,8 @@ define([
             "click #btn-save-qwizbook" : "editBook",
             "click .media-group a" : "addSupportLink",
             "click .media-hide" : "removeSupportLink",
-            "click #delete-pages" : "deleteQwizbookPages"
+            "click #delete-pages" : "deleteQwizbookPages",
+            "click .page-edit": "editQwizbookPage"
         },
         
         addSupportLink: function(e){
@@ -253,9 +255,80 @@ define([
             })
         },
 
+        editQwizbookPage: function(e){
+            e.preventDefault();
+            var view = this,
+                elm = e.target;
+            if($(elm).attr("class")!="page-edit"){
+                elm = $(elm).parent()[0];
+            }
+            var pageId = elm.id.replace("edit-page_","");
+            var page = view.qwizbookPageCollection.get(pageId).toJSON();
+            var objQuestion = page.multiple_choice_question;
+            var objAnswer = objQuestion.answers;
+            var pageRefCollection = new PageReference.Collection();
+            pageRefCollection.url = "/qwizbooks/"+this.qwizbookId+"/pages/"+pageId+"/references";
+
+            // fill fields
+            $("#question-type").val(objQuestion.questionType);
+            this._editSupportObject("question",objQuestion.question);
+            this._editSupportObject("option-a",objAnswer[0].choice);
+            this._editSupportObject("option-b",objAnswer[1].choice);
+            this._editSupportObject("option-c",objAnswer[2].choice);
+            this._editSupportObject("option-d",objAnswer[3].choice);
+            
+
+            // Hint
+            if(page.hints[0]){
+                $("#hint-description").val(page.hints[0].text);
+                $("#hint-image").val(page.hints[0].imageLinks[0].url);
+            }
+            this._editSupportObject("reinforcement-description",page.reinforce[0]);
+
+            pageRefCollection.getAll(function(collection){
+                pageRefCollection.forEach(function(model,index){
+                    var elemId ="reference-description-"+index;
+                    if(index>0){
+                        view.showReferenceContainer();
+                    }
+                    view._editSupportObject(elemId, model.toJSON());
+                });
+            });
+
+        },
+
+        _editSupportObject:function(elemId, obj){
+            if(obj.text){
+                $("#"+elemId).val(obj.text);
+            }
+            else if(obj.description){
+                $("#"+elemId).val(obj.description);
+            }
+            if(obj.audioLinks && obj.audioLinks[0]){
+                this._editSupportLink(elemId,"audio",obj.audioLinks[0].url);
+            }
+            if(obj.imageLinks && obj.imageLinks[0]){
+                this._editSupportLink(elemId,"image",obj.imageLinks[0].url);
+            }
+            if(obj.videoLinks && obj.videoLinks[0]){
+                this._editSupportLink(elemId,"video",obj.videoLinks[0].url);
+            }
+            if(obj.webLinks && obj.webLinks[0]){
+                this._editSupportLink(elemId,"external",obj.webLinks[0].url);
+            }
+        },
+
+        _editSupportLink: function(elemId,type, value){
+            var control = $(".templates .controls."+type).clone(),
+                controlId = elemId + "-" + type;
+            $(control).children().first().attr("id",controlId);
+            $(control).children().first().val(value);
+            $("#" + elemId).parents(".control-group").append(control);
+        },
+
         /**
         *
-        * Delete quizbook page listing view
+        * Update quizbook page listing view
         */
         updateQwizbookPageListing: function(e){
             var view = this;
