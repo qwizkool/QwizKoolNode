@@ -7,7 +7,7 @@
  */
 define([
     "app",
-    "modules/user",
+    "modules/user/user",
     "text!templates/userSettings.html"
 ], function (App, User, Template) {
 
@@ -31,9 +31,6 @@ define([
             this.listenTo(this.session, "session-logout-event", this.userLogoutEvent);
             this.listenTo(this.session, "session-check-event", this.sessionCheckEvent);
 
-        },
-        remove: function() {
-          console.log("removed usersettings")
         },
 
         render:function (done) {

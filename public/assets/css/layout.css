@@ -8,6 +8,10 @@ body {
     /* background-color: #dcdcdc;*/
 }
 
+.body-black {
+    background-color: #000;
+}
+
 .container {
     background-color: #ffffff;
 
@@ -231,6 +235,141 @@ body {
 }
 
 
+/* Qwiz & Qwizengine */
+
+#qwiz-container {
+    background: #FEFEFE;
+    box-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
+    background: -webkit-linear-gradient(45deg, #FFF, #F9F9F9);
+
+}
+
+.qwiz-header {
+    padding: 14px 15px 15px;
+    margin-bottom: 0;
+    text-align: right;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+    -webkit-border-radius: 6px 6px 0px 0px;
+    -moz-border-radius: 6px 6px 0px 0px;
+    border-radius: 6px 6px 0px 0px;
+    -webkit-box-shadow:  0 1px 0 #ffffff;
+    -moz-box-shadow:  0 1px 0 #ffffff;
+    box-shadow:  0 1px 0 #ffffff;
+}
+
+.qwiz-header .title {
+    text-align: left;
+    font-weight: 300;
+}
+
+.qwiz-header button {
+    text-align: right;
+}
+
+.qwiz-body {
+    padding: 15px;
+    min-height: 300px;
+}
+
+.qwiz-controls {
+    padding: 14px 15px 15px;
+    margin-bottom: 0;
+    text-align: right;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    -webkit-border-radius: 0 0 6px 6px;
+    -moz-border-radius: 0 0 6px 6px;
+    border-radius: 0 0 6px 6px;
+    -webkit-box-shadow: inset 0 1px 0 #ffffff;
+    -moz-box-shadow: inset 0 1px 0 #ffffff;
+    box-shadow: inset 0 1px 0 #ffffff;
+}
+
+
+.qwiz-body > p:first-letter {
+    font-size : 200%;
+    background-color: #f21e21;
+    color: #fff;
+    padding-right: 3px;
+
+}
+
+.qwiz-option-header  p {
+    font-size : 150%;
+    font-weight: inherit;
+    color: #000;
+}
+
+.qwiz-option {
+
+}
+
+.qwiz-option  p:first-letter {
+    font-size : 125%;
+    font-weight: bold;
+    color: #007BC4;
+
+}
+
+.qwiz-option input[type=checkbox] {
+
+}
+
+.qwiz-question  p:first-letter {
+    font-size : 200%;
+    background-color: #f21e21;
+    color: #fff;
+    margin: 3px;
+}
+.qwiz-question div {
+    margin: 10px;
+}
+
+.qwiz-option div {
+    margin: 10px;
+}
+
+.qwiz-option div {
+    margin: 10px;
+}
+
+.qwiz-option input {
+    margin-bottom:5px;
+}
+
+#qwiz-media-image .scaled-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 400px;
+}
+
+
+.embed {
+    position: relative;
+    padding: 0;
+    padding-bottom: 56.25%; /* 16:9 ratio*/
+    height: 0;
+    overflow: hidden;
+}
+
+/*
+then we make the actual embedded content
+behave in terms of its dimensions
+and its position within the container
+*/
+.embed iframe,
+.embed object,
+.embed embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+
 /* Large desktop */
 @media (min-width: 1200px) {
 
@@ -294,23 +433,5 @@ body {
 }
 
 
-.modal.large {
-    width: 80%; /* respsonsive width */
-    margin-left:-40%; /* width/2) */
-}
 
 
-body .modal {
-    width: 90%; /* desired relative width */
-    left: 5%; /* (100%-width)/2 */
-    height: auto;
-    margin: auto auto auto auto; /* place center */
-}
-
-
-
-#myModal .modal-body {
-    max-height: 800px;
-}
-
-.modal-backdrop, .modal-backdrop.fade.in { opacity: 1}

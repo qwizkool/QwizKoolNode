@@ -90,7 +90,7 @@ define([
 
                 var view = this;
                 var qbook_itemdetail_template;
-                console.log(this.model);
+
                 qbook_itemdetail_template = _.template(this.template, this.model.toJSON());
                 view.el.innerHTML = qbook_itemdetail_template;
               

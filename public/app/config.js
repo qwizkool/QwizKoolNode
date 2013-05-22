@@ -14,7 +14,10 @@ require.config({
 		tabs : "../assets/js/libs/tabs",
 		sha256 : "../assets/js/libs/sha256",
 		sha512 : "../assets/js/libs/sha512",
-		scion : "../vendor/SCION/scion"
+		scion : "../vendor/SCION/scion",
+		backbone : "../vendor/jam/backbone/backbone",
+		underscore : "../vendor/jam/underscore/underscore",
+		jquery : "../vendor/jam/jquery/dist/jquery"
 
 	},
 	map : {

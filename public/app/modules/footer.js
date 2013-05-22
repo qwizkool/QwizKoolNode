@@ -20,13 +20,20 @@ define([
 
     Footer.View = Backbone.View.extend({
 
-        el: '#qwizkool-footer',
-
         template: Template,
 
         render: function (done) {
 
             this.el.innerHTML = this.template;
+            return this;
+        },
+
+
+        remove: function() {
+
+            this.$el.remove();
+            this.stopListening();
+
             return this;
         }
     });
