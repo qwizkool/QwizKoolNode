@@ -25,13 +25,16 @@ var Backbone = require('backbone');
 var _ = require('underscore');
 var $ = require('jquery');
 
+
 /**
  * Qwizbook FSM constructor.
  *
- * @api public
- * @return {Function} Constructor for FSM type.
+ * @param scxml If provided, should be a valid SCXML document.
+ *              If not provided, the constructor will create a scxml template
+ *              which may be further edited with other APIs
+ *
+ * @return {Function} Constructor for QwizBookFSM type.
  */
-
 var QwizBookFSM = function(scxml) {
 
     // Mix-in event capability
@@ -56,8 +59,11 @@ var QwizBookFSM = function(scxml) {
 /**
  * Add a state to FSM.
  *
- * @api public
- * @return {Function} Constructor for FSM type.
+ * @param stateId  Unique id string for this state. The id should follow the XML/HTML tag rules:
+ *                 It must begin with a letter ([A-Za-z]) and may be followed by any number 
+ *                 of letters, digits ([0-9]), hyphens ("-") and underscores ("_").
+ *
+ * @return 
  */
 QwizBookFSM.prototype.addState = function(stateId) {
 
@@ -66,17 +72,17 @@ QwizBookFSM.prototype.addState = function(stateId) {
     this.xmlDoc.documentElement.appendChild(state_el);
     
     //$(this.xmlDoc).find('scxml').append('<state></state>').attr('id', stateId);
- 
     //alert($(this.xmlDoc).find('scxml').text());
-
 
 };
 
 /**
  * Remove a state in FSM.
+ * TODO: Error check to see if the state is not referred by any other state
  *
- * @api public
- * @return {Function} Constructor for FSM type.
+ * @param stateId The id of the state that needs to be deleted from the FSM
+ *
+ * @return 
  */
 QwizBookFSM.prototype.removeState = function(stateId) {
     $(this.xmlDoc).find( '#' + stateId).remove();
@@ -85,20 +91,25 @@ QwizBookFSM.prototype.removeState = function(stateId) {
 
 /**
  * Add a transition in FSM.
+ * Transitions between states are triggered by events and conditionalized via guard conditions.
  *
- * @api public
- * @return {Function} Constructor for FSM type.
+ * @param src_stateId The origin (source) stateId. This state must exist before calling addTransition 
+ * @param target_stateId The destination (target) stateId
+ * @param event The transition event. Can be later delivered to the FSM using sendEvent.
+ * @param condition A condition that will be evaluated. 'true' will enable transition. (TODO)
+ *
+ * @return transitionId The unique Id of the transition element
  */
-QwizBookFSM.prototype.addTransition = function(stateId, event, target) {
+QwizBookFSM.prototype.addTransition = function(src_stateId, event, target_stateId, condition) {
 
     var transition_el = this.xmlDoc.createElement('transition');
     transition_el.setAttribute('event', event);
-    transition_el.setAttribute('target', target);
+    transition_el.setAttribute('target', target_stateId);
     
-    var tid = stateId + '-' + event + '-' + target;
+    var tid = src_stateId + '-' + event + '-' + target_stateId;
     transition_el.setAttribute('id', tid);
     
-    var state_el = this.xmlDoc.getElementById(stateId);
+    var state_el = this.xmlDoc.getElementById(src_stateId);
     state_el.appendChild(transition_el);
     
     return tid;
@@ -107,29 +118,70 @@ QwizBookFSM.prototype.addTransition = function(stateId, event, target) {
 /**
  * Remove a transition in FSM.
  *
- * @api public
- * @return {Function} Constructor for FSM type.
+ * @param src_stateId The origin (source) stateId. 
+ * @param target_stateId The destination (target) stateId
+ * @param event The transition event. 
+ *
+ * @return
  */
-QwizBookFSM.prototype.removeTransition = function(stateId, event, target) {
-    var tid = stateId + '-' + event + '-' + target;
+QwizBookFSM.prototype.removeTransition = function(src_stateId, event, target_stateId) {
+    var tid = src_stateId + '-' + event + '-' + target_stateId;
     $(this.xmlDoc).find( '#' + tid).remove();
 };
 
 /**
  * Remove a transition by Id.
  *
- * @api public
- * @return {Function} Constructor for FSM type.
+ * @param transitionId The transition element Id.
+ *
+ * @return 
  */
 QwizBookFSM.prototype.removeTransitionById = function(transitionId) {
     $(this.xmlDoc).find( '#' + transitionId).remove();
 };
 
+
+/**
+ * Register event listener.
+ * The event listener is mixed in using Backbone events.
+ * The API is described here for completion.
+ * For details, see Backbone's event documentation
+ *
+ * @param event The event to listen for
+ * @param callback Callback function 
+ * @param context This object will be transparently returned in the callback
+ * @return 
+ */
+
+//QwizBookFSM.prototype.on = function(event, callback, context) {
+//
+//}
+
+
+
+/**
+ * UnRegister event listener.
+ * The event listener is mixed in using Backbone events.
+ * The API is described here for completion.
+ * For details, see Backbone's event documentation
+ *
+ * @param event The event to listen for
+ * @param callback Callback function 
+ * @param context This object will be transparently returned in the callback
+ * @return 
+ */
+
+//QwizBookFSM.prototype.off = function(event, callback, context) {
+//
+//}
+
+
+
 /**
  * Start FSM.
+ * Start the SCXML interpreter. 
  *
- * @api public
- * @return {Function} Constructor for FSM type.
+ * @return 
  */
 QwizBookFSM.prototype.start = function() {
 
@@ -178,10 +230,12 @@ QwizBookFSM.prototype.start = function() {
 };
 
 /**
- * Send event to FSM .
+ * Send event to FSM.
+ * 
+ * @param event The event that needs to be delivered to the FSM
+ * @evdata Optional event data (TODO)
  *
- * @api public
- * @return {Function} Constructor for FSM type.
+ * @return 
  */
 
 QwizBookFSM.prototype.sendEvent = function(event, evdata) {
@@ -195,15 +249,16 @@ QwizBookFSM.prototype.sendEvent = function(event, evdata) {
 
 /**
  * Get SCXML string
+ * Once the SCXML is created and edited, use this API to get the SCXML document
  *
- * @api public
- * @return {Function} Constructor for FSM type.
+ * @return SCXML string 
  */
 QwizBookFSM.prototype.getSCXMLStr = function() {
 
     return (new XMLSerializer()).serializeToString(this.xmlDoc);
 
 };
+
 
 /**
  * Test FSM
@@ -278,7 +333,7 @@ QwizBookFSM.prototype.testFSM = function() {
 
 /**
  * Exports.
- * Return the singleton instance
+ * Return the constructor function
  */
 
 module.exports = exports = QwizBookFSM;
