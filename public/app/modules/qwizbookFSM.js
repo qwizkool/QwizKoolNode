@@ -57,6 +57,18 @@ var QwizBookFSM = function(scxml) {
 };
 
 /**
+ * Set the initial state.
+ *
+ * @param stateId  Id string of the initial state. 
+ *
+ * @return 
+ */
+QwizBookFSM.prototype.setInitialState = function(stateId) {
+
+};
+
+
+/**
  * Add a state to FSM.
  *
  * @param stateId  Unique id string for this state. The id should follow the XML/HTML tag rules:
