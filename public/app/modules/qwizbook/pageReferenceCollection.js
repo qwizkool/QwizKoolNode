@@ -14,21 +14,21 @@ define([
 
             getAll: function(callback){
                 var jqxhr = this.fetch({
-                reset: true,
-                error:function (collection, response) {
-                    collection.trigger('fail-pagerefs-event');
-                },
+                    reset: true,
+                    error:function (collection, response) {
+                        collection.trigger('fail-pagerefs-event');
+                    },
 
-                success:function (collection, response) {
-                    if (response == null) {
-                        collection.trigger('no-pagerefs-tolist');
+                    success:function (collection, response) {
+                        if (response == null) {
+                            collection.trigger('no-pagerefs-tolist');
+                        }
+                        else{
+                            collection.trigger('list-pagerefs-event'); 
+                            callback(collection);
+                        }
                     }
-                    else{
-                        collection.trigger('list-pagerefs-event'); 
-                        callback(collection);
-                    }
-                }
-            });
+                });
             }
 
     })

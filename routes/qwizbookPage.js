@@ -67,6 +67,21 @@ module.exports = {
         });
     },
 
+    update : function(req, res){
+        var bookId = req.route.params.bookId,
+            pageId = req.route.params.pageId,
+            page   = req.body;
+        Qwizbook.updateQwizbookPage(bookId, pageId, page, function(err, page){
+            if(err){
+                res.send(400, err);
+                return;
+            }
+            else {
+                res.send(page);
+            }
+        });
+    },
+
     delete : function(req, res){
         var bookId = req.route.params.bookId,
             pageId = req.route.params.pageId;

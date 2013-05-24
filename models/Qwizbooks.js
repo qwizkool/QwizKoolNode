@@ -78,7 +78,7 @@ Qwizbook.prototype.createQwizbook = function(owner, data, callback) {
 	instance.reference = data.reference;
 	instance.archive = data.archive;
 	instance.published = data.published;
-	instance.sections  = data.sections;
+	instance.pages  = data.pages;
 	instance.pageReference = data.pageReference;
 	instance.save(function(err) {
 		if (err) {
@@ -584,10 +584,11 @@ Qwizbook.prototype.createQwizbookPage = function(bookId, data, callback){
 				Error : "Failed Qwizbook Retreive ."
 			}, null);
 		} else {
-			var pages = book.sections[0].pages;
+			var pages = book.pages;
 			pages.push(data);
-			book.save();
-			callback(null, pages[pages.length - 1]);
+			book.save(function(err){
+				callback(null, pages[pages.length - 1]);
+			});
 		}
 	});
 }
@@ -614,7 +615,27 @@ Qwizbook.prototype.createPageReference = function(bookId, data, callback){
 			callback(null, book.pageReference.slice(refLength - data.length));
 		}
 	})
-},
+}
+
+/**
+ * Update a qwizbook page
+ *
+ * @param {String} bookId
+ * @param {String} pageId
+ * @param {Object} Page
+ * @api public
+ */
+
+Qwizbook.prototype.updateQwizbookPage = function(bookId, pageId, page, callback){
+	QwizbookModel.update({
+		'pages._id':pageId
+	},{
+		$set:{'pages.$':page}
+	}, function(err, data){
+		callback(null, page);
+	})
+}
+
 
 /**
  * Retrieve all qwizbook pages from a qwizbook
@@ -629,9 +650,9 @@ Qwizbook.prototype.retrieveQwizbookPages = function(bookId, page, limit, callbac
 		_id:bookId
 	})
 	.$where(function(){
-		return this.sections[0];
+		return this;
 	})
-	.select("sections.pages")
+	.select("pages")
 	.execFind(function(err, book){
 		if (err) {
 			console.log(err)
@@ -639,7 +660,7 @@ Qwizbook.prototype.retrieveQwizbookPages = function(bookId, page, limit, callbac
 				Error : "Retreive Qwizbook pages failed."
 			}, null);
 		} else {
-			callback(null, book[0].sections[0].pages);
+			callback(null, book[0].pages);
 		}
 	});
 }
@@ -659,9 +680,9 @@ Qwizbook.prototype.deleteQwizbookPage = function(bookId,pageId, callback){
 			}, null);
 		}
 		else{
-			book.sections[0].pages.remove({_id:pageId});
+			book.pages.remove({_id:pageId});
 			book.save();
-			callback(null, book.sections[0].pages);
+			callback(null, book.pages);
 		}
 	});
 }

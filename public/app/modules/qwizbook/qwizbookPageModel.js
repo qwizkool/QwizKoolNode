@@ -41,6 +41,18 @@ define([
             });
         },
 
+        update: function(){
+            this.save({},{
+                reset: true,
+                error: function(model, response){
+                    model.trigger('qwizbookpage-update-failed');
+                },
+                success:function(model,response){
+                    model.trigger('qwizbookpage-update-success');
+                }
+            })
+        }
+
     });
 
     QwizBookPage.PageRefModel = Backbone.Model.extend({

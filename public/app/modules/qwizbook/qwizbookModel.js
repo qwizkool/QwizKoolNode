@@ -40,10 +40,7 @@ define([
                         imageLinks: [{link: "www.imageLinks.com"}],
                         audioLinks: [{link: "www.audioLinks.com"}]
                         }],
-            sections:[{
-                sectionTitle:"",
-                pages:[]
-            }]
+            pages:[]
         },
 
         initialize:function(){
