@@ -65,6 +65,8 @@ var QwizBookFSM = function(scxml) {
  */
 QwizBookFSM.prototype.setInitialState = function(stateId) {
 
+    var scxml_el = this.xmlDoc.getElementsByTagName('scxml')[0];
+     scxml_el.setAttribute('initial', stateId);
 };
 
 
@@ -290,11 +292,13 @@ QwizBookFSM.prototype.testFSM = function() {
 	var qFSM = new QwizBookFSM();
 	
 	// Create states
-	qFSM.addState('idle');
     qFSM.addState('qwizbooks_0_qwizpages_0');
 	qFSM.addState('qwizbooks_0_qwizpages_1');
 	qFSM.addState('qwizbooks_0_qwizpages_2');
 	qFSM.addState('qwizbooks_0_qwizpages_3');
+	qFSM.addState('idle');
+	
+    qFSM.setInitialState('idle');
 	
 	// Create transitions
 	qFSM.addTransition('idle', 'open', 'qwizbooks_0_qwizpages_0');
