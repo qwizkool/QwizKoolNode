@@ -101,9 +101,10 @@ var QwizbookSchema = {
         }]
     }],
 
-    //------- Qwizbook FSM
-    // TODO: complete the schema definition.
-    FSM: {},
+    //------- Qwizbook FSM (SCXML string)
+    FSM: {
+        type: String
+	},
 
     //------- Qwizbook sections
     pages: [{
