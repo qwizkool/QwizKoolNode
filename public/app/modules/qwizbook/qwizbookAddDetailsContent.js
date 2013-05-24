@@ -64,7 +64,7 @@ define([
                 inputId = $(input).attr("id"),
                 controlId = inputId + "-" + type;
             if($("#" + controlId).length > 0){
-                $("#" + controlId).parents(".controls.media-controls").remove();
+               // $("#" + controlId).parents(".controls.media-controls").remove();
             }
             else{
                 $(control).children().first().attr("id",controlId)
@@ -152,16 +152,29 @@ define([
                 reinforce : reinforce,
                 hints : hints
             }
+            
+            if($("#edit-page-id").val()!=''){
+                var pageId = $("#edit-page-id").val();
+                var pageModel = this.qwizbookPageCollection.get(pageId);
+                pageModel.set({"multiple_choice_question" : multiple_choice_question});
+                pageModel.set({"reinforce" : reinforce});
+                pageModel.set({"hints" : hints});
+                pageModel.url = "/qwizbooks/" + this.qwizbookId + "/pages/" + pageId;
+                pageModel.update();
+                this.qwizbookPageCollection.getAllPages();
+            }
+            else{
+                var qwizkookPageRefModel = new QwizBookPage.PageRefModel({
+                    qwizbookPage : qwizbookPage,
+                    pageReference : pageReferences
+                });
 
-            var qwizkookPageRefModel = new QwizBookPage.PageRefModel({
-                qwizbookPage : qwizbookPage,
-                pageReference : pageReferences
-            });
-
-            qwizkookPageRefModel.url = "/qwizbooks/" + this.qwizbookId + "/pages";
-            qwizkookPageRefModel.create(function(model, response){
-                that.qwizbookPageCollection.getAllPages();
-            });
+                qwizkookPageRefModel.url = "/qwizbooks/" + this.qwizbookId + "/pages";
+                qwizkookPageRefModel.create(function(model, response){
+                    that.qwizbookPageCollection.getAllPages();
+                });
+            }
+            
             $("#qwizbook-questionnare-form form")[0].reset();
             $("#qwizbook-questionnare-form .media-controls").remove();
             $('#qwizbook-questionnare-content').addClass("hidden");
@@ -177,6 +190,9 @@ define([
         */
         _getLinksObject : function( elemId, withExternal, objDesc ){
             var obj = {};
+            if($(elemId).next(".refId").length && $(elemId).next(".refId").val()){
+                obj._id = $(elemId).next(".refId").val();
+            }
             if( ( description = $.trim($(elemId).val())) !="" ){
                 if(objDesc){
                     obj.description = description;
@@ -270,6 +286,7 @@ define([
             pageRefCollection.url = "/qwizbooks/"+this.qwizbookId+"/pages/"+pageId+"/references";
 
             // fill fields
+            $("#edit-page-id").val(pageId);
             $("#question-type").val(objQuestion.questionType);
             this._editSupportObject("question",objQuestion.question);
             this._editSupportObject("option-a",objAnswer[0].choice);
@@ -277,17 +294,17 @@ define([
             this._editSupportObject("option-c",objAnswer[2].choice);
             this._editSupportObject("option-d",objAnswer[3].choice);
             
-
             // Hint
             if(page.hints[0]){
                 $("#hint-description").val(page.hints[0].text);
-                $("#hint-image").val(page.hints[0].imageLinks[0].url);
+                page.hints[0].imageLinks[0] && $("#hint-image").val(page.hints[0].imageLinks[0].url);
             }
+
             this._editSupportObject("reinforcement-description",page.reinforce[0]);
 
             pageRefCollection.getAll(function(collection){
                 pageRefCollection.forEach(function(model,index){
-                    var elemId ="reference-description-"+index;
+                    var elemId = "reference-description-" + index;
                     if(index>0){
                         view.showReferenceContainer();
                     }
@@ -295,9 +312,15 @@ define([
                 });
             });
 
+            this.showAuthorForm();
+
         },
 
         _editSupportObject:function(elemId, obj){
+            if(obj._id){
+                var idElem = '<input type="hidden" class="refId" value="'+obj._id+'">';
+                $(idElem).insertAfter("#"+elemId);
+            }
             if(obj.text){
                 $("#"+elemId).val(obj.text);
             }

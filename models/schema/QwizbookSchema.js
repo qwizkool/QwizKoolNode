@@ -106,22 +106,32 @@ var QwizbookSchema = {
     FSM: {},
 
     //------- Qwizbook sections
-    sections: [{
+    pages: [{
 
-        sectionTitle: {
-            type: String
-        },
+        qwizbookId : ObjectId,
+        multiple_choice_question: {
 
-        //------- Qwizbook pages optional
-        pages: [{
+            questionType : Number,
 
-            qwizbookId : ObjectId,
-            multiple_choice_question: {
+            // question
+            question: {
+                text: {
+                    type: String
+                },
+                videoLinks: [{
+                    url: String
+                }],
+                imageLinks: [{
+                    url: String
+                }],
+                audioLinks: [{
+                    url: String
+                }]
+            },
 
-                questionType : Number,
-
-                // question
-                question: {
+            // answer choices
+            answers: [{
+                choice: {
                     text: {
                         type: String
                     },
@@ -136,78 +146,59 @@ var QwizbookSchema = {
                     }]
                 },
 
-                // answer choices
-                answers: [{
-                    choice: {
-                        text: {
-                            type: String
-                        },
-                        videoLinks: [{
-                            url: String
-                        }],
-                        imageLinks: [{
-                            url: String
-                        }],
-                        audioLinks: [{
-                            url: String
-                        }]
-                    },
-
-                    correct: {
-                        type: Boolean
-                    }
-                }]
-            },
-            //------- Page reference optional
-            reference: [ObjectId],
-
-            //------- Re-inforcement
-            reinforce: [{
-                description: String,
-                videoLinks: [{
-                    url: String
-                }],
-                webLinks: [{
-                    url: String
-                }],
-                imageLinks: [{
-                    url: String
-                }],
-                audioLinks: [{
-                    url: String
-                }]
-            }],
-
-
-            //------- Page comments
-            comments: [{
-                submitterEmail: {
-                    type: String
-                },
-                date: {
-                    type: Date,
-                    'default': Date.now
-                },
-                text: {
-                    type: String
-                },
-                approved: {
+                correct: {
                     type: Boolean
                 }
+            }]
+        },
+        //------- Page reference optional
+        reference: [ObjectId],
 
+        //------- Re-inforcement
+        reinforce: [{
+            description: String,
+            videoLinks: [{
+                url: String
             }],
+            webLinks: [{
+                url: String
+            }],
+            imageLinks: [{
+                url: String
+            }],
+            audioLinks: [{
+                url: String
+            }]
+        }],
 
-            //------- Hints for the questions
-            hints: [{
-                text: {
-                    type: String
-                },
-                imageLinks: [{
-                    url: String
-                }]
+
+        //------- Page comments
+        comments: [{
+            submitterEmail: {
+                type: String
+            },
+            date: {
+                type: Date,
+                'default': Date.now
+            },
+            text: {
+                type: String
+            },
+            approved: {
+                type: Boolean
+            }
+
+        }],
+
+        //------- Hints for the questions
+        hints: [{
+            text: {
+                type: String
+            },
+            imageLinks: [{
+                url: String
             }]
         }]
-
     }]
 };
 
