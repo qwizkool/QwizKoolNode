@@ -66,7 +66,7 @@ var QwizBookFSM = function(scxml) {
 QwizBookFSM.prototype.setInitialState = function(stateId) {
 
     var scxml_el = this.xmlDoc.getElementsByTagName('scxml')[0];
-     scxml_el.setAttribute('initial', stateId);
+     scxml_el.setAttribute('initial', encodeId(stateId));
 };
 
 
@@ -82,7 +82,8 @@ QwizBookFSM.prototype.setInitialState = function(stateId) {
 QwizBookFSM.prototype.addState = function(stateId) {
 
     var state_el = this.xmlDoc.createElement('state');
-    state_el.setAttribute("id", stateId);
+    state_el.setAttribute("id", encodeId(stateId));
+    state_el.setAttribute("orig-id", stateId);
     this.xmlDoc.documentElement.appendChild(state_el);
     
     //$(this.xmlDoc).find('scxml').append('<state></state>').attr('id', stateId);
@@ -99,7 +100,7 @@ QwizBookFSM.prototype.addState = function(stateId) {
  * @return 
  */
 QwizBookFSM.prototype.removeState = function(stateId) {
-    $(this.xmlDoc).find( '#' + stateId).remove();
+    $(this.xmlDoc).find( '#' + encodeId(stateId)).remove();
 };
 
 
@@ -116,15 +117,22 @@ QwizBookFSM.prototype.removeState = function(stateId) {
  */
 QwizBookFSM.prototype.addTransition = function(src_stateId, event, target_stateId, condition) {
 
+    // create transition element
     var transition_el = this.xmlDoc.createElement('transition');
+
+    // Set attributes
     transition_el.setAttribute('event', event);
-    transition_el.setAttribute('target', target_stateId);
+    transition_el.setAttribute('target', encodeId(target_stateId));
     
-    var tid = src_stateId + '-' + event + '-' + target_stateId;
+    // Create id and set to element
+    var tid = encodeId(src_stateId) + '-' + event + '-' + encodeId(target_stateId);
     transition_el.setAttribute('id', tid);
     
-    var state_el = this.xmlDoc.getElementById(src_stateId);
-    state_el.appendChild(transition_el);
+    //var state_el = this.xmlDoc.getElementById(encodeId(src_stateId)); ==> does not work in Firefox
+    //state_el.appendChild(transition_el);
+
+    // Append as child to the state
+    $(this.xmlDoc).find( '#' + encodeId(src_stateId)).append(transition_el);
     
     return tid;
 };
@@ -139,7 +147,7 @@ QwizBookFSM.prototype.addTransition = function(src_stateId, event, target_stateI
  * @return
  */
 QwizBookFSM.prototype.removeTransition = function(src_stateId, event, target_stateId) {
-    var tid = src_stateId + '-' + event + '-' + target_stateId;
+    var tid = encodeId(src_stateId) + '-' + event + '-' + encodeId(target_stateId);
     $(this.xmlDoc).find( '#' + tid).remove();
 };
 
@@ -217,7 +225,7 @@ QwizBookFSM.prototype.start = function() {
         
             onEntry: function(stateId) {
                //$("#page_body").append("Entering state :" + stateId + "<br/>");
-               self.trigger('stateEntry', stateId);
+               self.trigger('stateEntry', decodeId(stateId));
             },
             
             onExit: function(stateId) {
@@ -273,6 +281,52 @@ QwizBookFSM.prototype.getSCXMLStr = function() {
 
 };
 
+/**
+ * Encode arbitrary string to hex
+ *
+ * @return hex representation
+ */
+function encodeId(str) {
+    
+    var result = "";
+    var count = 0;
+    var val;
+    
+    while (count < str.length) {
+        val = str.charCodeAt(count).toString(16);
+        while (val.length < 3) val = "0" + val;
+        result += val;
+        count++;
+    }
+    
+    return 'id_' + result;
+}
+
+/**
+ * DEcode hex
+ *
+ * @return string representation
+ */
+function decodeId(dstr) {
+    
+    // Remove "id_"prefix
+    var str = dstr.substr(3);
+
+    // Intialize variables
+    var result = "";
+    var pos;
+    var len = str.length;
+                    
+    while(len > 0) {
+        pos = len - 3;
+        result = String.fromCharCode("0x" + str.substring(pos, len)) + result;
+        len = pos;
+    }
+    
+    return result;
+}
+
+
 
 /**
  * Test FSM
@@ -292,25 +346,25 @@ QwizBookFSM.prototype.testFSM = function() {
 	var qFSM = new QwizBookFSM();
 	
 	// Create states
-    qFSM.addState('qwizbooks_0_qwizpages_0');
-	qFSM.addState('qwizbooks_0_qwizpages_1');
-	qFSM.addState('qwizbooks_0_qwizpages_2');
-	qFSM.addState('qwizbooks_0_qwizpages_3');
+    qFSM.addState('qwizbooks/0/qwizpages/0');
+	qFSM.addState('qwizbooks/0/qwizpages/1');
+	qFSM.addState('qwizbooks/0/qwizpages/2');
+	qFSM.addState('qwizbooks/0/qwizpages/3');
 	qFSM.addState('idle');
 	
     qFSM.setInitialState('idle');
 	
 	// Create transitions
-	qFSM.addTransition('idle', 'open', 'qwizbooks_0_qwizpages_0');
-	qFSM.addTransition('qwizbooks_0_qwizpages_0', 'next', 'qwizbooks_0_qwizpages_1');
-	qFSM.addTransition('qwizbooks_0_qwizpages_1', 'next', 'qwizbooks_0_qwizpages_3');
-	qFSM.addTransition('qwizbooks_0_qwizpages_2', 'next', 'idle');
+	qFSM.addTransition('idle', 'open', 'qwizbooks/0/qwizpages/0');
+	qFSM.addTransition('qwizbooks/0/qwizpages/0', 'next', 'qwizbooks/0/qwizpages/1');
+	qFSM.addTransition('qwizbooks/0/qwizpages/1', 'next', 'qwizbooks/0/qwizpages/3');
+	qFSM.addTransition('qwizbooks/0/qwizpages/2', 'next', 'idle');
 
     // test for getting the id
-	var tid = qFSM.addTransition('qwizbooks_0_qwizpages_3', 'next', 'idle');	
+	var tid = qFSM.addTransition('qwizbooks/0/qwizpages/3', 'next', 'idle');	
 	
 	// Test remove
-	qFSM.removeState('qwizbooks_0_qwizpages_2');	
+	qFSM.removeState('qwizbooks/0/qwizpages/2');	
 	qFSM.removeTransitionById(tid);
 	
     // scxml will be stored as qwizbook attribute
