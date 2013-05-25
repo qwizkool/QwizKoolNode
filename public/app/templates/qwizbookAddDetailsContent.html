@@ -1,234 +1,252 @@
-<!--Questionnare form-->
-<div id="qwizbooksummary-container" class="qwizbook-item qwizbook-item-style clearfix span12">
-<!--<div class="row-fluid">-->
-  <div class="qwizbook-item qwizbook-item-style clearfix" id="qwizbook-questionnare-container" style="border: 0px">  
-    <div class="row-fluid">
-      <div class="span12" id="qwizbook-create-header">
-        <div class="page-header">
-          <div id="qwizbook-create-form" name="qwizbook-create-form">
+<div class="span12" id="my-qwizbooks-pages-header">
 
-          </div>
-          <div  id="qwizbook-questionnare-content" class="hidden">
-            <div id="qwizbook-questionnare-form" name="qwizbook-questionnare-form">
-              <form class="form-horizontal" action="#">
-                <input type="hidden" name="edit-page-id" id="edit-page-id">
-                <h4>Question</h4>
-                <div class="control-group">
-                  <label class="control-label" for="question-type">Question Type</label>
-                  <div class="controls">
-                    <select id="question-type">
-                      <option value="1">Multiple Choice</option>
-                      <option value="2">Match the following</option>
-                      <option value="3">Descriptive</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="control-group">
-                  <label class="control-label" for="question">Question</label>
-                  <div class="controls">
-                    <textarea id="question" name="question" rows="3"></textarea>
-                    <span class="media-group">
-                      <a title="Add Image" class="btn image-toggler"><i class="icon-picture"></i> </a>
-                      <a title="Add Audio" class="btn audio-toggler"><i class="icon-volume-up"></i> </a>
-                      <a title="Add Video" class="btn video-toggler"><i class="icon-facetime-video"></i> </a>
-                    </span>
-                  </div>
-                </div>
-                <div class="control-group">
-                  <label class="control-label" for="option-a">Option A</label>
-                  <div class="controls choice">
-                    <input type="text" id="option-a" name="option-a">
-                    <span class="media-group">
-                      <a title="Add Image" class="btn image-toggler"><i class="icon-picture"></i> </a>
-                      <a title="Add Audio" class="btn audio-toggler"><i class="icon-volume-up"></i> </a>
-                      <a title="Add Video" class="btn video-toggler"><i class="icon-facetime-video"></i> </a>
-                    </span>
-                  </div>
-                </div>
-                <div class="control-group">
-                  <label class="control-label" for="option-b">Option B</label>
-                  <div class="controls choice">
-                    <input type="text" id="option-b" name="option-b">
-                    <span class="media-group">
-                      <a title="Add Image" class="btn image-toggler"><i class="icon-picture"></i> </a>
-                      <a title="Add Audio" class="btn audio-toggler"><i class="icon-volume-up"></i> </a>
-                      <a title="Add Video" class="btn video-toggler"><i class="icon-facetime-video"></i> </a>
-                    </span>
-                  </div>
-                </div>
-                <div class="control-group">
-                  <label class="control-label" for="option-c">Option C</label>
-                  <div class="controls choice">
-                    <input type="text" id="option-c" name="option-c">
-                    <span class="media-group">
-                      <a title="Add Image" class="btn image-toggler"><i class="icon-picture"></i> </a>
-                      <a title="Add Audio" class="btn audio-toggler"><i class="icon-volume-up"></i> </a>
-                      <a title="Add Video" class="btn video-toggler"><i class="icon-facetime-video"></i> </a>
-                    </span>
-                  </div>
-                </div>
-                <div class="control-group">
-                  <label class="control-label" for="option-d">Option D</label>
-                  <div class="controls choice">
-                    <input type="text" id="option-d" name="option-d">
-                    <span class="media-group">
-                      <a title="Add Image" class="btn image-toggler"><i class="icon-picture"></i> </a>
-                      <a title="Add Audio" class="btn audio-toggler"><i class="icon-volume-up"></i> </a>
-                      <a title="Add Video" class="btn video-toggler"><i class="icon-facetime-video"></i> </a>
-                    </span>
-                  </div>
-                </div>
-                <div class="control-group">
-                  <label class="control-label" for="option-d">Answer</label>
-                  <div class="controls answer-group">
-                    <input type="radio" name="answer" class="answer first" value="option-a" checked> Option A
-                    <input type="radio" name="answer" class="answer" value="option-b"> Option B
-                    <input type="radio" name="answer" class="answer" value="option-c"> Option C
-                    <input type="radio" name="answer" class="answer" value="option-d"> Option D
-                  </div>
-                </div>
-                <h4>Hints</h4>
-                <div class="control-group">
-                  <label class="control-label" for="hint-description">Hint</label>
-                  <div class="controls">
-                    <textarea id="hint-description" name="hint-description" > </textarea>
-                  </div>
-                </div>
-                <div class="control-group">
-                  <label class="control-label" for="hint-image">Image</label>
-                  <div class="controls">
-                    <input type="text" id="hint-image" name="hint-image">
-                  </div>
-                </div>
-                <h4>Reinforcement Information</h4>
-                <div class="control-group reinforcement">
-                  <label class="control-label" for="reinforcement-description">Description</label>
-                  <div class="controls">
-                    <textarea id="reinforcement-description" name="reinforcement-description"> </textarea>
-                    <span class="media-group">
-                      <a title="Add Link" class="btn external-toggler"><i class="icon-external-link"></i> </a>
-                      <a title="Add Image" class="btn image-toggler"><i class="icon-picture"></i> </a>
-                      <a title="Add Audio" class="btn audio-toggler"><i class="icon-volume-up"></i> </a>
-                      <a title="Add Video" class="btn video-toggler"><i class="icon-facetime-video"></i> </a>
-                    </span>
-                  </div>
-                </div>
-                <h4>References</h4>
-                <input type="hidden" id="reference-count" value="1">
-                <div class="control-group reference">
-                  <label class="control-label" for="reference-description-0">Description</label>
-                  <div class="controls">
-                    <textarea id="reference-description-0" name="reference-description-0"> </textarea>
-                    <span class="media-group">
-                      <a title="Add Link" class="btn external-toggler"><i class="icon-external-link"></i> </a>
-                      <a title="Add Image" class="btn image-toggler"><i class="icon-picture"></i> </a>
-                      <a title="Add Audio" class="btn audio-toggler"><i class="icon-volume-up"></i> </a>
-                      <a title="Add Video" class="btn video-toggler"><i class="icon-facetime-video"></i> </a>
-                    </span>
-                  </div>
-                </div>
-                <div class="control-group">
-                  <div class="controls">
-                    <a id="add-more-references">Add more References</a>
-                  </div>
-                </div>
-                <div class="control-group">
-                  <div class="controls">
-                    <button id="btn-qwizbook-author-submit" class="btn btn-info btn-small">Submit</button> 
-                    <button id="btn-qwizbook-author-cancel" class="btn btn-info btn-small">Cancel</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          <!-- Question form -->
-          </div> 
-        </div>
-      </div>
-    </div> 
+    <div id="qwizbook-create-form" name="qwizbook-create-form">
 
-    <div class="row-fluid">
-      <div class="span12" id="qwizbook-author-toolbar">
-        <div class="page-header" style="border-bottom: 0px">
-          <div class="navbar">
-            <div class="navbar-inner">
-              <div class="span1">
-                <a class="btn" id="icon-author-content"><i class="icon-plus"></i> </a>
-              </div>
-                <div class="span4">
-                  <form class="form-horizontal">
-                    <fieldset>
-                      <div class="control-group">
-                        <label class="control-label" style="padding-top: 5px">View in:</label>
-                        <div class="controls">
-                          <select id="user-filter-input" class="input-block-level">
-                            <option value="1">Detail</option>
-                            <option value="2">Minimal</option>
-                            <option value="3">Thumbnail</option>
-                          </select>
-                        </div>
-                      </div>
-                    </fieldset>
-                </form>
-              </div>
-              <div class="span4">
-                <form class="form-horizontal">
-                  <fieldset>
-                    <div class="control-group">
-                      <label class="control-label" style="padding-top: 5px">Sort by:</label>
-                      <div class="controls">
-                        <select id="user-filter-input" class="input-block-level">
-                          <option value="1">Recently Updated</option>
-                          <option value="2">Most Popular</option>
-                        </select>
-                      </div>
+    </div>
+
+</div>
+
+<div class="span12" id="my-qwizbooks-pages-tb">
+
+    <div class="navbar">
+        <div class="navbar-inner navbar-simple">
+
+            <div class="row-fluid my-qwizbooks-tb">
+                <div class="span2 tb-item-left tb-item-small-media">
+                    <div class="btn-group">
+                        <a class="btn btn-info" id="all-items-selector" data-toggle="button"><i
+                                class="icon-circle-blank" data-toggle="tooltip" title="All"></i></a>
                     </div>
-                  </fieldset>
-                </form>
-              </div>
-              <div class="span1"  style="border:0px solid black;" id="delete-pages">
-                <a class="btn"><i class="icon-minus"></i> </a>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div id="qwizbookpage-list">
+                </div>
+                <div class="span2 tb-item-center tb-item-small-media">
+                    <div class="btn-group">
+                        <a class="btn btn-success" id="create-page-btn"><i class="icon-plus" data-toggle="tooltip"
+                                                                           title="Create"></i></a>
+                        <a class="btn btn-danger disabled" id="delete-all-btn"><i class="icon-minus"
+                                                                                   data-toggle="tooltip"
+                                                                                   title="Archive"></i></a>
+                        <!--<a class="btn btn-danger disabled" id="publish-all-btn"><i class="icon-bullhorn disabled" data-toggle="tooltip" title="Publish/Un publish all"></i></a>-->
+                    </div>
+                </div>
+                <div class="span8  tb-item-right tb-item-small-media">
+                    <div class="btn-group">
+                        <input type="text" class="search-query" id="search-qwizbook" placeholder="Search Pages">
+                    </div>
+                </div>
+
 
             </div>
-          </div>
         </div>
-      </div>
-    </div>  
-  </div>
+
+    </div>
+</div>
+
+<div class="span12 clearfix hidden" id="my-qwizbooks-pages-form">
+
+<!--Questionnare form-->
+<div id="qwizbooksummary-container" class="qwizbook-item qwizbook-item-style">
+    <!--<div class="row-fluid">-->
+    <div class="qwizbook-item qwizbook-item-style clearfix" id="qwizbook-questionnare-container" style="border: 0px">
+        <div class="row-fluid">
+            <div class="span12" id="qwizbook-create-header">
+                <div class="page-header">
+                    <div id="qwizbook-questionnare-content">
+                        <div id="qwizbook-questionnare-form" name="qwizbook-questionnare-form">
+                            <form class="form-horizontal" action="#">
+                                <input type="hidden" name="edit-page-id" id="edit-page-id">
+                                <h4>Question</h4>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="question-type">Question Type</label>
+
+                                    <div class="controls">
+                                        <select id="question-type">
+                                            <option value="1">Multiple Choice</option>
+                                            <option value="2">Match the following</option>
+                                            <option value="3">Descriptive</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="question">Question</label>
+
+                                    <div class="controls">
+                                        <textarea id="question" name="question" rows="3"></textarea>
+                    <span class="media-group">
+                      <a title="Add Image" class="btn image-toggler"><i class="icon-picture"></i> </a>
+                      <a title="Add Audio" class="btn audio-toggler"><i class="icon-volume-up"></i> </a>
+                      <a title="Add Video" class="btn video-toggler"><i class="icon-facetime-video"></i> </a>
+                    </span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="option-a">Option A</label>
+
+                                    <div class="controls choice">
+                                        <input type="text" id="option-a" name="option-a">
+                    <span class="media-group">
+                      <a title="Add Image" class="btn image-toggler"><i class="icon-picture"></i> </a>
+                      <a title="Add Audio" class="btn audio-toggler"><i class="icon-volume-up"></i> </a>
+                      <a title="Add Video" class="btn video-toggler"><i class="icon-facetime-video"></i> </a>
+                    </span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="option-b">Option B</label>
+
+                                    <div class="controls choice">
+                                        <input type="text" id="option-b" name="option-b">
+                    <span class="media-group">
+                      <a title="Add Image" class="btn image-toggler"><i class="icon-picture"></i> </a>
+                      <a title="Add Audio" class="btn audio-toggler"><i class="icon-volume-up"></i> </a>
+                      <a title="Add Video" class="btn video-toggler"><i class="icon-facetime-video"></i> </a>
+                    </span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="option-c">Option C</label>
+
+                                    <div class="controls choice">
+                                        <input type="text" id="option-c" name="option-c">
+                    <span class="media-group">
+                      <a title="Add Image" class="btn image-toggler"><i class="icon-picture"></i> </a>
+                      <a title="Add Audio" class="btn audio-toggler"><i class="icon-volume-up"></i> </a>
+                      <a title="Add Video" class="btn video-toggler"><i class="icon-facetime-video"></i> </a>
+                    </span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="option-d">Option D</label>
+
+                                    <div class="controls choice">
+                                        <input type="text" id="option-d" name="option-d">
+                    <span class="media-group">
+                      <a title="Add Image" class="btn image-toggler"><i class="icon-picture"></i> </a>
+                      <a title="Add Audio" class="btn audio-toggler"><i class="icon-volume-up"></i> </a>
+                      <a title="Add Video" class="btn video-toggler"><i class="icon-facetime-video"></i> </a>
+                    </span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="option-d">Answer</label>
+
+                                    <div class="controls answer-group">
+                                        <input type="radio" name="answer" class="answer first" value="option-a" checked>
+                                        Option A
+                                        <input type="radio" name="answer" class="answer" value="option-b"> Option B
+                                        <input type="radio" name="answer" class="answer" value="option-c"> Option C
+                                        <input type="radio" name="answer" class="answer" value="option-d"> Option D
+                                    </div>
+                                </div>
+                                <h4>Hints</h4>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="hint-description">Hint</label>
+
+                                    <div class="controls">
+                                        <textarea id="hint-description" name="hint-description"> </textarea>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="hint-image">Image</label>
+
+                                    <div class="controls">
+                                        <input type="text" id="hint-image" name="hint-image">
+                                    </div>
+                                </div>
+                                <h4>Reinforcement Information</h4>
+
+                                <div class="control-group reinforcement">
+                                    <label class="control-label" for="reinforcement-description">Description</label>
+
+                                    <div class="controls">
+                                        <textarea id="reinforcement-description"
+                                                  name="reinforcement-description"> </textarea>
+                    <span class="media-group">
+                      <a title="Add Link" class="btn external-toggler"><i class="icon-external-link"></i> </a>
+                      <a title="Add Image" class="btn image-toggler"><i class="icon-picture"></i> </a>
+                      <a title="Add Audio" class="btn audio-toggler"><i class="icon-volume-up"></i> </a>
+                      <a title="Add Video" class="btn video-toggler"><i class="icon-facetime-video"></i> </a>
+                    </span>
+                                    </div>
+                                </div>
+                                <h4>References</h4>
+                                <input type="hidden" id="reference-count" value="1">
+
+                                <div class="control-group reference">
+                                    <label class="control-label" for="reference-description-0">Description</label>
+
+                                    <div class="controls">
+                                        <textarea id="reference-description-0"
+                                                  name="reference-description-0"> </textarea>
+                    <span class="media-group">
+                      <a title="Add Link" class="btn external-toggler"><i class="icon-external-link"></i> </a>
+                      <a title="Add Image" class="btn image-toggler"><i class="icon-picture"></i> </a>
+                      <a title="Add Audio" class="btn audio-toggler"><i class="icon-volume-up"></i> </a>
+                      <a title="Add Video" class="btn video-toggler"><i class="icon-facetime-video"></i> </a>
+                    </span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <a id="add-more-references">Add more References</a>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <button id="btn-qwizbook-author-submit" class="btn btn-info btn-small">Submit
+                                        </button>
+                                        <button id="btn-qwizbook-author-cancel" class="btn btn-info btn-small">Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Question form -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 <!-- templates for different repeated elemets -->
 <div class="templates hidden">
-  <div class="controls media-controls external">
-    <input type="text" class="external-url" placeholder="External Link">
+    <div class="controls media-controls external">
+        <input type="text" class="external-url" placeholder="External Link">
     <span>
         <i class="icon-external-link"></i>
     </span>
-    <a class="btn media-hide"><i class="icon-minus"></i> </a>
-  </div>
-  <div class="controls media-controls image">
-    <input type="text" class="image-url" placeholder="Image URL">
+        <a class="btn media-hide"><i class="icon-minus"></i> </a>
+    </div>
+    <div class="controls media-controls image">
+        <input type="text" class="image-url" placeholder="Image URL">
     <span>
         <i class="icon-picture"></i>
     </span>
-    <a class="btn media-hide"><i class="icon-minus"></i> </a>
-  </div>
-  <div class="controls media-controls audio">
-    <input type="text" class="audio-url" placeholder="Audio URL">
+        <a class="btn media-hide"><i class="icon-minus"></i> </a>
+    </div>
+    <div class="controls media-controls audio">
+        <input type="text" class="audio-url" placeholder="Audio URL">
     <span>
         <i class="icon-volume-up"></i>
     </span>
-    <a class="btn media-hide"><i class="icon-minus"></i> </a>
-  </div>
-  <div class="controls media-controls video">
-    <input type="text" class="video-url" placeholder="Video URL">
+        <a class="btn media-hide"><i class="icon-minus"></i> </a>
+    </div>
+    <div class="controls media-controls video">
+        <input type="text" class="video-url" placeholder="Video URL">
     <span>
         <i class="icon-facetime-video"></i>
     </span>
-    <a class="btn media-hide"><i class="icon-minus"></i> </a>
-  </div>
-</div> <!-- end templates -->
+        <a class="btn media-hide"><i class="icon-minus"></i> </a>
+    </div>
+</div>
+<!-- end templates -->
+</div>
+<div class="span12">
+
+    <div id="qwizbookpage-list">
+
+    </div>
+</div>

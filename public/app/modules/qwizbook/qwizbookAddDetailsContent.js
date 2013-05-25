@@ -38,7 +38,7 @@ define([
         },
 
        events: {
-            "click #icon-author-content": "showAuthorForm",
+            "click #create-page-btn": "showAuthorForm",
              //"click #qwizbook-questionnare-form a": "showOrhideImageAudioVideoDiv",
            
             //Show reference container
@@ -88,7 +88,7 @@ define([
 
         showAuthorForm: function (e) {
 
-            $('#qwizbook-questionnare-content').removeClass("hidden");
+            $('#my-qwizbooks-pages-form').removeClass("hidden");
 
         },
         
@@ -177,7 +177,7 @@ define([
             
             $("#qwizbook-questionnare-form form")[0].reset();
             $("#qwizbook-questionnare-form .media-controls").remove();
-            $('#qwizbook-questionnare-content').addClass("hidden");
+            $('#my-qwizbooks-pages-form').addClass("hidden");
         },
 
         /**
@@ -251,7 +251,7 @@ define([
             e.preventDefault();
             $("#qwizbook-questionnare-form form")[0].reset();
             $("#qwizbook-questionnare-form .media-controls").remove();
-            $('#qwizbook-questionnare-content').addClass("hidden");
+            $('#my-qwizbooks-pages-form').addClass("hidden");
 
         },
 
