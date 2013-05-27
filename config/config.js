@@ -14,7 +14,7 @@ var defaults = {
 
     // application base url
     base_url : 'http://localhost:3000',
-    
+
     // mongodb server url
     mongodb_url : 'mongodb://localhost:27017/qwizkool',
     
@@ -36,6 +36,8 @@ var defaults = {
  
 var production = {
     env : "production",
+    // application base url
+    base_url : 'http://test.qwizkool.com',
     mongodb_url : 'mongodb://localhost:27017/qwizkool'
 };
 
