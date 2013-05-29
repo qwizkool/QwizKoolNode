@@ -60,10 +60,10 @@ function getConfig(env){
             return production;
             break;
         case "development":
-            return test;
+            return development;
             break;
         case "test":
-            return development;
+            return test;
             break;
     }
 }
