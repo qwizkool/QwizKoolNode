@@ -101,6 +101,7 @@ define([
             $(newRef).find("textarea").attr('id',newId)
                                       .attr('name',newId);
             $(newRef).children(".media-controls").remove();
+            $(newRef).find(".refId").val("");
             $(".reference:last").after(newRef);
             $("#reference-count").val( refCount + 1 );
         },
@@ -143,7 +144,10 @@ define([
                 referenceCount = $("#reference-count").val();
 
             for (var i = 0; i < referenceCount; i++) {
-                pageReferences.push(this._getLinksObject("#reference-description-"+i, true, true));
+                var reference = this._getLinksObject("#reference-description-"+i, true, true);
+                if(!$.isEmptyObject(reference)){
+                    pageReferences.push(reference);
+                }
             };
 
             var qwizbookPage = {
@@ -160,8 +164,13 @@ define([
                 pageModel.set({"reinforce" : reinforce});
                 pageModel.set({"hints" : hints});
                 pageModel.url = "/qwizbooks/" + this.qwizbookId + "/pages/" + pageId;
-                pageModel.update();
+                //pageModel.update();
                 this.qwizbookPageCollection.getAllPages();
+
+                var pageRefCollection = new PageReference.Collection(pageReferences);
+                pageRefCollection.url = "/qwizbooks/" + this.qwizbookId + "/pages/" + pageId +"/references";
+                pageRefCollection.save();
+                console.log(pageRefCollection);
             }
             else{
                 var qwizkookPageRefModel = new QwizBookPage.PageRefModel({

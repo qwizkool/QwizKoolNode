@@ -11,25 +11,31 @@ module.exports = {
             data = req.body,
             page = data.qwizbookPage,
             refs = data.pageReference;
-        Qwizbook.createQwizbookPage(bookId, page, function(err,page){
-            if (err) {
+
+
+        Qwizbook.createPageReference(bookId, refs, function(err, pageRefs){
+            if(err){
                 res.send(400, err);
-                console.log(err);
                 return;
-            } else {
-                _.each(refs, function(ref){
-                    ref.pageId = page._id;
+            }
+            else {
+                var refIds = [];
+                _.each(pageRefs, function(ref){
+                    refIds.push(ref._id);
                 })
-                Qwizbook.createPageReference(bookId, refs, function(err, pageRefs){
-                    if(err){
+                console.log(pageRefs);
+                page.referenceIds = refIds;
+                console.log(page);
+                Qwizbook.createQwizbookPage(bookId, page, function(err,page){
+                    if (err) {
                         res.send(400, err);
+                        console.log(err);
                         return;
-                    }
-                    else {
+                    } else {
                         res.send({
-                            qwizbookPage: page,
-                            pageReference: pageRefs
-                        });
+                            page:page,
+                            pageReferences:pageRefs
+                        })
                     }
                 });
             }
@@ -65,6 +71,23 @@ module.exports = {
                 res.send(pages);
             }
         });
+    },
+
+    saveReferences: function(req, res){
+        var bookId = req.route.params.bookId,
+            pageId = req.route.params.pageId,
+            refs   = req.body;
+
+        Qwizbook.createOrUpdatePageReferences(bookId, pageId, refs, function(err, pages){
+            if(err){
+                res.send(400, err);
+                return;
+            }
+            else {
+                res.send(pages);
+            }
+        });
+        
     },
 
     update : function(req, res){

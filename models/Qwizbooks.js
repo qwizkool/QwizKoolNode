@@ -33,7 +33,7 @@
 /**
  * Module dependencies.
  */
-var QwizbookModel = require('./QwizbookModel'), logger = require('../utils/logger');
+var QwizbookModel = require('./QwizbookModel'), logger = require('../utils/logger'), _ = require('underscore');;
 
 /**
  * Qwizbook model constructor.
@@ -596,7 +596,7 @@ Qwizbook.prototype.createQwizbookPage = function(bookId, data, callback){
 /**
  * Add Qwizbook page references.
  *
- * @param {String} bookId
+ * @param {Array} bookId
  * @param {Number} data  array of page references
  * @param {Number} callback
  * @api public
@@ -615,6 +615,69 @@ Qwizbook.prototype.createPageReference = function(bookId, data, callback){
 			callback(null, book.pageReference.slice(refLength - data.length));
 		}
 	})
+}
+
+
+/**
+ * Add Qwizbook page references.
+ *
+ * @param {String} bookId
+ * @param {Array} data  array of page references
+ * @param {Number} callback
+ * @api public
+ */
+
+ // @TODO delete update should do better
+
+Qwizbook.prototype.createOrUpdatePageReferences = function(bookId, pageId, data, callback){
+
+	var toUpdate = [];
+	var toInsert = [],
+		updateIds =[];
+	for(key in data){
+		data[key].pageId = pageId;
+		if(data[key]._id){
+			updateIds.push(data[key]._id);
+			toUpdate.push(data[key]);
+		}
+		else{
+			toInsert.push(data[key]);
+		}
+	}
+	console.log(pageId)
+	console.log(bookId)
+	QwizbookModel.update({ "_id" : bookId}, { $pull : {"pageReference" : {"pageId" : pageId}}})
+
+
+	// QwizbookModel.findByIdAndUpdate(bookId, {$pushAll:{pageReference:data}}, function(err, book){
+	// 	if (err) {
+	// 		callback({
+	// 			Error : "Failed Qwizbook Retreive ."
+	// 		}, null);
+	// 	}
+	// 	else{
+	// 		var refLength = book.pageReference.length;
+	// 		callback(null, book.pageReference.slice(refLength - data.length));
+	// 	}
+	// })
+
+	// QwizbookModel.findByIdAndUpdate(bookId, {$pushAll:{pageReference:toInsert}}, function(err, book){
+	// 	if (err) {
+	// 		callback({
+	// 			Error : "Failed Qwizbook Retreive ."
+	// 		}, null);
+	// 	}
+	// 	else{
+	// 		for(key in toUpdate){
+	// 			QwizbookModel.update({
+	// 				'pageReference._id' : toUpdate._id
+	// 			},{
+	// 				$set:{'pageReference.$':toUpdate[key]}
+	// 			})
+	// 		}
+	// 		callback(null, data);
+	// 	}
+	// })
 }
 
 /**
@@ -698,10 +761,9 @@ Qwizbook.prototype.deleteQwizbookPage = function(bookId,pageId, callback){
 
 Qwizbook.prototype.getAllPageReferenes = function(bookId, pageId, callback){
 	QwizbookModel.find({
-		'_id':bookId,
-		'pageReference.pageId' : pageId
+		'_id':bookId
 	})
-	.select("pageReference")
+	.select("pages pageReference")
 	.execFind(function(err, book){
 		if (err) {
 			console.log(err)
@@ -710,11 +772,18 @@ Qwizbook.prototype.getAllPageReferenes = function(bookId, pageId, callback){
 			}, null);
 		} else {
 			var refs = [];
-			book[0].pageReference.forEach(function(item){
-				if(item.pageId==pageId){
-					refs.push(item);
+			if(book[0]){
+				var pageRefIds = _.find(book[0].pages, function(item){
+					return item._id==pageId
+				}).referenceIds;
+				for(i=0; i< pageRefIds.length; i++){
+					_.each(book[0].pageReference, function(reference){
+						if(reference._id.toString()==pageRefIds[i].toString()){
+							refs.push(reference);
+						}
+					});
 				}
-			});
+			}
 			callback(null, refs);
 		}
 	});

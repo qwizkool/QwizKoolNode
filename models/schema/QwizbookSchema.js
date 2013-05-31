@@ -153,7 +153,7 @@ var QwizbookSchema = {
             }]
         },
         //------- Page reference optional
-        reference: [ObjectId],
+        referenceIds: [ObjectId],
 
         //------- Re-inforcement
         reinforce: [{

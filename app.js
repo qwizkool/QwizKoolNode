@@ -220,6 +220,7 @@ app.post('/qwizbooks/:id/pages', ensureAuthenticated, qwizbookPage.create);
 app.delete('/qwizbooks/:bookId/pages/:pageId', ensureAuthenticated, qwizbookPage.delete);
 app.put('/qwizbooks/:bookId/pages/:pageId', ensureAuthenticated, qwizbookPage.update);
 app.get('/qwizbooks/:bookId/pages/:pageId/references', ensureAuthenticated, qwizbookPage.getReferences)
+app.post('/qwizbooks/:bookId/pages/:pageId/references', ensureAuthenticated, qwizbookPage.saveReferences)
 
 
 
