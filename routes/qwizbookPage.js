@@ -23,7 +23,6 @@ module.exports = {
                 _.each(pageRefs, function(ref){
                     refIds.push(ref._id);
                 })
-                console.log(pageRefs);
                 page.referenceIds = refIds;
                 console.log(page);
                 Qwizbook.createQwizbookPage(bookId, page, function(err,page){
@@ -78,13 +77,17 @@ module.exports = {
             pageId = req.route.params.pageId,
             refs   = req.body;
 
-        Qwizbook.createOrUpdatePageReferences(bookId, pageId, refs, function(err, pages){
+        Qwizbook.createPageReference(bookId, refs, function(err, pageRefs){
             if(err){
                 res.send(400, err);
                 return;
             }
-            else {
-                res.send(pages);
+            else{
+                var refIds = [];
+                _.each(pageRefs, function(ref){
+                    refIds.push(ref._id);
+                })
+                res.send(refIds);
             }
         });
         

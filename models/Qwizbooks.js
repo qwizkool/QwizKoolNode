@@ -689,6 +689,24 @@ Qwizbook.prototype.createOrUpdatePageReferences = function(bookId, pageId, data,
  * @api public
  */
 
+
+Qwizbook.prototype.retrieveQwizbookPage = function(bookId, pageId, callback){
+	QwizbookModel.find({
+		'pages._id':pageId
+	})
+	.select("pages")
+	.execFind(function(err, book){
+		if (err) {
+			console.log(err);
+			callback({
+				Error : "Retreive Qwizbook pages failed."
+			}, null);
+		} else {
+			callback(null, _.find(book[0].pages, function(page){ return page._id==pageId; }));
+		}
+	});
+}
+
 Qwizbook.prototype.updateQwizbookPage = function(bookId, pageId, page, callback){
 	QwizbookModel.update({
 		'pages._id':pageId
@@ -776,12 +794,12 @@ Qwizbook.prototype.getAllPageReferenes = function(bookId, pageId, callback){
 				var pageRefIds = _.find(book[0].pages, function(item){
 					return item._id==pageId
 				}).referenceIds;
+				console.log(pageRefIds);
 				for(i=0; i< pageRefIds.length; i++){
-					_.each(book[0].pageReference, function(reference){
-						if(reference._id.toString()==pageRefIds[i].toString()){
-							refs.push(reference);
-						}
-					});
+					var reference = _.find(book[0].pageReference, function(item){
+						return item._id.toString()==pageRefIds[i].toString()
+					})
+					refs.push(reference);
 				}
 			}
 			callback(null, refs);

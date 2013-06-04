@@ -8,8 +8,15 @@ define([
             model : PageReference.Model,
             url :"/pageReference/",
 
-            save: function(options){
-                Backbone.sync("create", this, options);
+            save: function(callback){
+                Backbone.sync("create", this, {
+                    error:function (collection, response) {
+                        collection.trigger('fail-pagerefs-event');
+                    },
+                    success: function(model, response){
+                        callback(model, response);
+                    }
+                });
             },
 
             getAll: function(callback){

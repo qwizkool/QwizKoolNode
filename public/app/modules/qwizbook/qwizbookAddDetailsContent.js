@@ -52,7 +52,8 @@ define([
             "click #btn-save-qwizbook" : "editBook",
             "click .media-group a" : "addSupportLink",
             "click .media-hide" : "removeSupportLink",
-            "click #delete-pages" : "deleteQwizbookPages",
+            "click #delete-all-btn" : "deleteQwizbookPages",
+            "click .page-delete" : "deleteQwizbookPage",
             "click .page-edit": "editQwizbookPage"
         },
         
@@ -87,7 +88,6 @@ define([
         },
 
         showAuthorForm: function (e) {
-
             $('#my-qwizbooks-pages-form').removeClass("hidden");
 
         },
@@ -166,11 +166,17 @@ define([
                 pageModel.url = "/qwizbooks/" + this.qwizbookId + "/pages/" + pageId;
                 //pageModel.update();
                 this.qwizbookPageCollection.getAllPages();
-
+console.log(pageReferences);
                 var pageRefCollection = new PageReference.Collection(pageReferences);
                 pageRefCollection.url = "/qwizbooks/" + this.qwizbookId + "/pages/" + pageId +"/references";
-                pageRefCollection.save();
-                console.log(pageRefCollection);
+                pageRefCollection.save(function(model, response){
+                    if(model){
+                        pageModel.set({"referenceIds" : model});
+                        console.log(model);
+                        pageModel.update();
+                    }
+                });
+                //console.log(pageRefCollection);
             }
             else{
                 var qwizkookPageRefModel = new QwizBookPage.PageRefModel({
@@ -199,9 +205,9 @@ define([
         */
         _getLinksObject : function( elemId, withExternal, objDesc ){
             var obj = {};
-            if($(elemId).next(".refId").length && $(elemId).next(".refId").val()){
-                obj._id = $(elemId).next(".refId").val();
-            }
+            // if($(elemId).next(".refId").length && $(elemId).next(".refId").val()){
+            //     obj._id = $(elemId).next(".refId").val();
+            // }
             if( ( description = $.trim($(elemId).val())) !="" ){
                 if(objDesc){
                     obj.description = description;
@@ -261,12 +267,26 @@ define([
             $("#qwizbook-questionnare-form form")[0].reset();
             $("#qwizbook-questionnare-form .media-controls").remove();
             $('#my-qwizbooks-pages-form').addClass("hidden");
-
+            this._clearReferences();
         },
 
         /**
         *
         * Delete quizbook page
+        */
+        deleteQwizbookPage: function(e){
+            e.preventDefault();
+            var pageId = $(e.target)
+                            .attr("id")
+                            .trim()
+                            .replace("delete-page_","");
+            var page = this.qwizbookPageCollection.get(pageId);
+            page.delete();
+        },
+
+        /**
+        *
+        * Delete quizbook pages
         */
         deleteQwizbookPages: function(e){
             var view = this;
@@ -282,6 +302,7 @@ define([
 
         editQwizbookPage: function(e){
             e.preventDefault();
+            this._clearReferences();
             var view = this,
                 elm = e.target;
             if($(elm).attr("class")!="page-edit"){
@@ -310,7 +331,6 @@ define([
             }
 
             this._editSupportObject("reinforcement-description",page.reinforce[0]);
-
             pageRefCollection.getAll(function(collection){
                 pageRefCollection.forEach(function(model,index){
                     var elemId = "reference-description-" + index;
@@ -321,7 +341,7 @@ define([
                 });
             });
 
-            this.showAuthorForm();
+            $('#my-qwizbooks-pages-form').removeClass("hidden");
 
         },
 
@@ -356,6 +376,13 @@ define([
             $(control).children().first().attr("id",controlId);
             $(control).children().first().val(value);
             $("#" + elemId).parents(".control-group").append(control);
+        },
+
+        _clearReferences: function(){
+            $(".control-group.reference:not(:first)").remove();
+            $("#reference-count").val(1);
+            $(".control-group.reference").find("textarea").val("");
+            $(".control-group.reference").find(".media-controls").remove();
         },
 
         /**
