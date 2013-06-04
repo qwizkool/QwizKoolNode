@@ -14,7 +14,7 @@ var defaults = {
 
     // application base url
     base_url : 'http://localhost:3000',
-    
+
     // mongodb server url
     mongodb_url : 'mongodb://localhost:27017/qwizkool',
     
@@ -36,13 +36,17 @@ var defaults = {
  
 var production = {
     env : "production",
+    // application base url
+    base_url : 'http://www.qwizkool.com',
     mongodb_url : 'mongodb://localhost:27017/qwizkool'
 };
 
 var test = {
     env : "test",
+    // application base url
+    base_url : 'http://test.qwizkool.com',
     mongodb_url : 'mongodb://localhost:27017/qwizkool_test',
-    token_expiration : 60000 // one minute expiration
+    token_expiration : 300000 // 5 minute expiration
 }
 
 var development = {
@@ -56,10 +60,10 @@ function getConfig(env){
             return production;
             break;
         case "development":
-            return test;
+            return development;
             break;
         case "test":
-            return development;
+            return test;
             break;
     }
 }
