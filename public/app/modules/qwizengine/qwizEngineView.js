@@ -1,8 +1,8 @@
 /*!
  * Copyright(c) 2013 Vibrentt
  *
- * Module : QwizPageView
- * The top level page that renders the qwiz.
+ * Module : QwizEngineView
+ * The module renders the view for qwiz engine.
  *
  */
 
@@ -13,10 +13,10 @@ define([
 ], function (App, QwizEngine, Template) {
 
     // Create a new module
-    var QwizPage = new App.module();
+    var QwizEngineView = new App.module();
 
     // Top level view for the qwizkool
-    QwizPage.View = Backbone.View.extend({
+    QwizEngineView.View = Backbone.View.extend({
 
         template: Template,
 
@@ -84,5 +84,5 @@ define([
 
     });
 
-    return QwizPage;
+    return QwizEngineView;
 });
