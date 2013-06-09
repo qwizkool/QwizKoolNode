@@ -1,0 +1,10 @@
+<%for (var i = 0; i < obj.videoLinks.length; i++) { %>
+<% var item = obj.videoLinks[i] %>
+
+
+<h4><%=item.description %></h4>
+<div class="embed">
+<%= item.url %>
+</div>
+
+<% }; %>

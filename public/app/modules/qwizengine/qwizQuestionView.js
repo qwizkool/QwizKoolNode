@@ -8,8 +8,11 @@
 
 define([
     "app",
-    "text!modules/qwizengine/templates/qwizQuestionView.html"
-], function (App, Template) {
+    "text!modules/qwizengine/templates/qwizQuestionView.html",
+    "text!modules/qwizengine/templates/imageLinks.html",
+    "text!modules/qwizengine/templates/audioLinks.html",
+    "text!modules/qwizengine/templates/videoLinks.html"
+], function (App, Template,ImageLinkTmpl,AudioLinkTmpl, VideoLinkTmpl) {
 
     // Create a new module
     var QwizQuestionView = App.module();
@@ -20,12 +23,16 @@ define([
 
         initialize: function () {
 
+            _.declarePartial('imageLinks', ImageLinkTmpl);
+            _.declarePartial('audioLinks', AudioLinkTmpl);
+            _.declarePartial('videoLinks', VideoLinkTmpl);
+
         },
 
         render: function () {
-            this.$el.html(_.template(this.template, this.model));
-            return this;
 
+            this.$el.html(_.template(this.template, this.options.model.toJSON()));
+            return this;
         },
 
 

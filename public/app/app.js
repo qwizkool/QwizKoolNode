@@ -8,6 +8,28 @@ define([
 
 function(LayoutManager, AppConfig) {
 
+    /**
+     * Allow underscore use of partials
+     */
+    var underscorePartials = (function(){
+        var partialCache = {};
+
+        var mixin = {
+            declarePartial: function(name, template) {
+                partialCache[name] = _.template(template);
+            },
+            partial: function(name, data) {
+                return partialCache[name](data)
+            }
+        };
+
+        return mixin;
+
+    })();
+
+    _.mixin(underscorePartials)
+
+
   // Provide a global location to place configuration settings and module
   // creation.
   var app = {

@@ -1,71 +1,71 @@
 <div class="qwiz-header" xmlns="http://www.w3.org/1999/html">
     <button type="button" class="qwiz-control-done"><i class="icon-remove"></i></button>
-    <h3 class="title">Qwizbook</h3>
+    <h3 class="title"><%= obj.title %></h3>
 
 </div>
+
+
+<%
+var question = obj.multiple_choice_question.question
+var answers = obj.multiple_choice_question.answers
+%>
+
 <div class="qwiz-body clearfix">
 
     <div class="qwiz-question">
         <div class="span9">
 
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip ex ea commodo consequat. Duis aute irure dolor in ?
+                <%= question.text %>
             </p>
         </div>
     </div>
 
-    <div class="qwiz-media clearfix" >
+    <div class="qwiz-media clearfix">
         <div class="span10">
             <div class="tabbable">
 
+
                 <ul class="nav nav-tabs">
+
+                    <% if ( (question.imageLinks !== undefined) && question.imageLinks.length ){ %>
                     <li class="active">
                         <a href="#qwiz-media-image" data-bypass data-toggle="tab"><i class="icon-picture"
                                                                                      data-toggle="tooltip"
-                                                                                     title="Share"></i></a>
+                                                                                     title="Image"></i></a>
                     </li>
+                    <% } %>
+
+                    <% if ( (question.audioLinks !== undefined) && question.audioLinks.length ){ %>
                     <li>
                         <a href="#qwiz-media-audio" data-bypass data-toggle="tab"><i class="icon-volume-up"
                                                                                      data-toggle="tooltip"
-                                                                                     title="Statistics"></i></a>
+                                                                                     title="Audio"></i></a>
                     </li>
+                    <% } %>
+
+                    <% if ( (question.videoLinks !== undefined) && question.videoLinks.length ){ %>
                     <li>
                         <a href="#qwiz-media-video" data-bypass data-toggle="tab"><i class="icon-facetime-video"
                                                                                      data-toggle="tooltip"
-                                                                                     title="Flag"></i> </a>
+                                                                                     title="Video"></i> </a>
                     </li>
+                    <% } %>
+
                 </ul>
 
                 <div class="tab-content">
 
                     <div id="qwiz-media-image" class="tab-pane active">
-                        <h4>Pane 1 Image Content</h4>
-                        <figure>
-                            <img class="scaled-image " src="../../assets/img/knowledge.gif"/>
-                        </figure>
+                        <%= _.partial('imageLinks', {"imageLinks": question.imageLinks} ) %>
                     </div>
 
                     <div id="qwiz-media-audio" class="tab-pane">
-                        <h4>Pane 2 Audio Content</h4>
-                        
-                        <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F47319680"></iframe>
+                        <%= _.partial('audioLinks', {"audioLinks": question.audioLinks} ) %>
                     </div>
 
                     <div id="qwiz-media-video" class="tab-pane">
-                        <h4>Pane 3 Video Content</h4>
-                        <div class="embed">
-
-                            <!--
-                            here's your embedded content,
-                            whatever it may be..
-                            -->
-                            <iframe class="youtube-player" type="text/html"  width="420" height="315" src="http://www.youtube.com/embed/k6U-i4gXkLM" frameborder="0"> </iframe>
-
-                        </div><!--end embed-->
+                        <%= _.partial('videoLinks', {"videoLinks": question.videoLinks} ) %>
                     </div>
 
                 </div>
@@ -75,73 +75,29 @@
         </div>
     </div>
 
+
     <div class="qwiz-option-header">
-    <p> Options: </p>
+        <p> Options: </p>
     </div>
 
-    <div class="qwiz-option clearfix">
-        <div class="span9">
-            <p>
-                A. Option A orem ipsum dolor sit amet, consectetur adipisicing elit,
-                sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip ex ea commodo consequat. Duis aute irure dolor in
-            </p>
-        </div>
-        <div class="span1">
-            <input type="checkbox" name="option-A" value="A">
+    <%for (var i = 0; i < answers.length; i++) { %>
+    <% var item = answers[i] %>
+    <% var item_id = String.fromCharCode('A'.charCodeAt() + i) %>
+
+        <div class="qwiz-option clearfix">
+            <div class="span9">
+                <p>
+                    <%= item_id%>. <%=item.choice.text %>
+                </p>
+            </div>
+            <div class="span1">
+                <input type="checkbox" name="option-<%= item_id %>" value="<%= item_id %>">
+            </div>
+
         </div>
 
-    </div>
+    <% }; %>
 
-    <div class="qwiz-option  clearfix">
-        <div class="span9">
-            <p>
-                B. Option B orem ipsum dolor sit amet, consectetur adipisicing elit,
-                sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip ex ea commodo consequat. Duis aute irure dolor in
-            </p>
-        </div>
-        <div class="span1">
-            <input type="checkbox" name="option-B" value="B">
-        </div>
-
-    </div>
-
-    <div class="qwiz-option  clearfix">
-        <div class="span9">
-            <p>
-                C. Option C orem ipsum dolor sit amet, consectetur adipisicing elit,
-                sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip ex ea commodo consequat. Duis aute irure dolor in
-            </p>
-        </div>
-        <div class="span1">
-            <input type="checkbox" name="option-C" value="C">
-        </div>
-
-    </div>
-
-    <div class="qwiz-option  clearfix">
-        <div class="span9">
-            <p>
-                D. Option D orem ipsum dolor sit amet, consectetur adipisicing elit,
-                sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip ex ea commodo consequat. Duis aute irure dolor in
-            </p>
-        </div>
-        <div class="span1">
-            <input type="checkbox" name="option-D" value="D">
-        </div>
-
-    </div>
 
 </div>
 

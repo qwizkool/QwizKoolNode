@@ -8,7 +8,7 @@
 
 define([
     "app",
-    "modules/qwizbook/qwizbookPageCollection",
+    "modules/qwizbook/qwizbookPageCollection"
 ], function(App, QwizbookPage){
 
     var QwizBook = App.module();

@@ -1,0 +1,10 @@
+<%for (var i = 0; i < obj.imageLinks.length; i++) { %>
+<% var item = obj.imageLinks[i] %>
+
+
+    <h4><%=item.description %></h4>
+    <img class="scaled-image" src= <%= item.url %> />
+
+
+
+<% }; %>

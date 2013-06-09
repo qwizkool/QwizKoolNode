@@ -30,7 +30,7 @@ define([
             this.session = this.options.session;
 
             // Instantiate the qwiz engine.
-            this.engine = new QwizEngine.Controller();
+            this.engine = new QwizEngine.Controller({session: this.session,  qwizbookId: this.options.qwizbookId});
 
             // Register for transition event.
             this.listenTo(this.engine, "qwiz-transition-view", this.transitionView);
