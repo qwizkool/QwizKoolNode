@@ -36,6 +36,7 @@ var defaults = {
  
 var production = {
     env : "production",
+    web_server_port : 80,
     // application base url
     base_url : 'http://www.qwizkool.com',
     mongodb_url : 'mongodb://localhost:27017/qwizkool'
@@ -43,14 +44,17 @@ var production = {
 
 var test = {
     env : "test",
+    web_server_port : 4000,
     // application base url
-    base_url : 'http://test.qwizkool.com',
+    base_url : 'http://test.qwizkool.com:4000',
     mongodb_url : 'mongodb://localhost:27017/qwizkool_test',
     token_expiration : 300000 // 5 minute expiration
 }
 
 var development = {
     env : "test",
+    web_server_port : 3000,
+    base_url : 'http://localhost:3000',
     mongodb_url : 'mongodb://localhost:27017/qwizkool_dev'
 }
 
