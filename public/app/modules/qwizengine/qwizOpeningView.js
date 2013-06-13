@@ -23,7 +23,19 @@ define([
         },
 
         render: function () {
-            this.$el.html(_.template(this.template, this.model));
+            //  Todo: FINAL CODE ,to be enabled once model is passed
+            // this.$el.html(_.template(this.template, this.options.model.toJSON()));
+
+            // Todo : --TEST STUB START--
+            var data = {
+                "title": "The Drunken Botanist: The Plants That Create the World's Great Drinks",
+                "chapterTitle" : "Syrups, Infusions and Garnishes",
+                "description" : "Every great drink starts with a plant and of course, this is obviously true. Beer starts from barley or other grains; wine, from grapes or other fruit. Vodka comes from grains or potatoes. Whisk(e)y arises from barley, corn, rye, or other grains."
+            }
+
+
+            this.$el.html(_.template(this.template, data));
+            // -- TEST STUB END--
             return this;
 
         },

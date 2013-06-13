@@ -267,18 +267,39 @@ body {
 }
 
 .qwiz-header .title {
-    text-align: left;
-    font-weight: 300;
+ /*   float: left;    */
+    font-weight: 200;
+    color: #999999;
 }
 
+.qwiz-header .subtitle {
+
+    float: left;
+    font-weight: 300;
+    line-height: 1;
+
+}
+
+
 .qwiz-header button {
-    text-align: right;
+   /* float: right; */
 }
 
 .qwiz-body {
     padding: 15px;
     min-height: 300px;
 }
+
+.qwiz-body p{
+   font-size: 15px;
+}
+.qwiz-question p{
+    font-size: 15px;
+}
+.qwiz-option  p{
+    font-size: 15px;
+}
+
 
 .qwiz-controls {
     padding: 14px 15px 15px;

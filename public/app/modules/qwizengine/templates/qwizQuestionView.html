@@ -1,9 +1,12 @@
-<div class="qwiz-header" xmlns="http://www.w3.org/1999/html">
-    <button type="button" class="qwiz-control-done"><i class="icon-remove"></i></button>
-    <h3 class="title"><%= obj.title %></h3>
+<div class="qwiz-header clearfix">
+
+    <div class="clearfix">
+        <button type="button" class="qwiz-control-done pull-right"><i class="icon-remove"></i></button>
+        <h4 class="title pull-left"><%= obj.title %> </h4>
+    </div>
+    <h3 class="subtitle pull-left"><%= obj.chapterTitle %> </h3>
 
 </div>
-
 
 <%
 var question = obj.multiple_choice_question.question
@@ -75,26 +78,30 @@ var answers = obj.multiple_choice_question.answers
         </div>
     </div>
 
-
-    <div class="qwiz-option-header">
-        <p> Options: </p>
+    <div class="span9 clearfix">
+        <div class="qwiz-option-header pull-left">
+            <p> Options: </p>
+        </div>
+     </div>
+    <div class="span1">
     </div>
+
 
     <%for (var i = 0; i < answers.length; i++) { %>
     <% var item = answers[i] %>
     <% var item_id = String.fromCharCode('A'.charCodeAt() + i) %>
+    <div class="span9 clearfix">
 
-        <div class="qwiz-option clearfix">
-            <div class="span9">
-                <p>
-                    <%= item_id%>. <%=item.choice.text %>
-                </p>
-            </div>
-            <div class="span1">
-                <input type="checkbox" name="option-<%= item_id %>" value="<%= item_id %>">
-            </div>
-
+        <div class="qwiz-option">
+            <p>
+                <%= item_id%>. <%=item.choice.text %>
+            </p>
         </div>
+
+    </div>
+    <div class="span1">
+        <input type="checkbox" name="option-<%= item_id %>" value="<%= item_id %>">
+    </div>
 
     <% }; %>
 
@@ -102,8 +109,7 @@ var answers = obj.multiple_choice_question.answers
 </div>
 
 <div class="qwiz-controls">
-    <button class="pull-left" id="qwiz-control-hint" data-toggle="tooltip" title="Hint"><i
-            class="icon-hand-right icon-2x"></i></button>
-    <button class="btn btn-primary" id="qwiz-control-prev"> Previous</button>
+    <button  class="pull-left btn btn-info" id="qwiz-control-hint" data-toggle="tooltip" title="Hint"><i
+            class="icon-bolt icon-2x "></i></button>
     <button class="btn btn-primary" id="qwiz-control-next">Next</button>
 </div>
