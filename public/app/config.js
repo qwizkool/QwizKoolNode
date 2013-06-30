@@ -9,7 +9,8 @@ require.config({
 		// Put paths here.<script src="js/bootstrap.min.js"></script>
 
 		bootstrap : "../vendor/bootstrap/js/bootstrap.min",
-        	bootstrap_select : "../vendor/bootstrap-select/bootstrap-select.min",
+        bootstrap_select : "../vendor/bootstrap-select/bootstrap-select.min",
+        bootstrap_checkbox : "../vendor/bootstrap-checkbox/js/bootstrap-checkbox",
 		bootstrapValidation : "../vendor/bootstrap/js/jqBootstrapValidation",
 		tabs : "../assets/js/libs/tabs",
 		sha256 : "../assets/js/libs/sha256",
@@ -44,6 +45,10 @@ require.config({
         bootstrap_select : {
             deps : ["bootstrap"],
             exports : 'bootstrap_select'
+        },
+        bootstrap_checkbox : {
+            deps : ["bootstrap"],
+            exports : 'bootstrap_checkbox'
         }
 
 	}

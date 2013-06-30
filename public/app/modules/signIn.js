@@ -7,9 +7,10 @@
  */
 define([
     "app",
+    "bootstrap_checkbox",
     "text!templates/loginStatus.html",
     "text!templates/signIn.html"
-], function (App, TmplLoginStatus, Template) {
+], function (App, BootstrapCheckbox, TmplLoginStatus, Template) {
 
     // Create a new module
     var SignIn = App.module();
@@ -27,6 +28,7 @@ define([
             this.session = this.options.session;
             this.listenTo(this.session, "session-login-event", this.userLoginEvent);
 
+
         },
         remove:function () {
             console.log("removed signIn View")
@@ -39,6 +41,13 @@ define([
 
             // To prevent closing of drop down when input is selected.
             $(this.el).find('.dropdown-menu #sign-in-form input').on('click', this.manageClinkInsideDropdown);
+            $(this.el).find('input[type="checkbox"]').checkbox({
+                 checkedClass: 'icon-check',
+                uncheckedClass: 'icon-check-empty',
+              });
+            $(this.el).find('.dropdown-menu .checkbox').on('click', this.manageClinkInsideDropdown);
+
+
 
             return this;
         },
