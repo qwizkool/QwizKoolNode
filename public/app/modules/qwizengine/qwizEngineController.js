@@ -3,124 +3,203 @@
  *
  * Module : qwizEngineController
  *
- *
  */
-
-define([
-    "app",
-    "modules/qwizengine/qwizOpeningView",
-    "modules/qwizengine/qwizQuestionView",
-    "modules/qwizengine/qwizClosingView"
-], function (App, QwizOpeningView, QwizQuestionView, QwizClosingView) {
-
-    // Create a new module
-    var QwizEngine = App.module();
-
-    QwizEngine.Controller = Backbone.View.extend({
-
-        initialize: function () {
-
-            // Need to know about
-            // qwizbook
-            // qwizbook FSM
-            // qwizbook Tracking
+ 
+/* ---------- CommonJS wrapper ---------- */
+define(function(require, exports, module) {
+/* -------------------------------------- */
 
 
-            // For testing create and store all the views
-            this.viewClassArray = new Array();
+/**
+ * Module dependencies.
+ */
+var App = require("app");
+var QwizOpeningView = require("modules/qwizengine/qwizOpeningView");
+var QwizQuestionView = require("modules/qwizengine/qwizQuestionView");
+var QwizClosingView = require("modules/qwizengine/qwizClosingView");
+var QwizbookModel = require("modules/qwizbook/qwizbookModel");
+var QwizbookFSM = require("modules/qwizbookFSM");
+//var QwizbookTrack = require("modules/qwizbookTrack"); TODO
 
-            // Starting view
-            var view =  this.createView(QwizOpeningView);
-            this.setCurrentView(view);
+/**
+ * QwizEngineController constructor.
+ */
+var QwizEngineController = function(userSession, qwizbookId) {
 
-            // Store all view classes
-            this.viewClassArray.push(QwizOpeningView);
-            this.viewClassArray.push(QwizQuestionView);
-            this.viewClassArray.push(QwizClosingView);
+    this.userSession = userSession;
+    this.qwizbookId = qwizbookId;
+    this.qwizbookModel = null;
+    this.currentChapter = null;
+    this.pages = null;
+    this.currentPage = null;
+    
 
-            // Initialize view index
-            this.viewIndex = 0;
+    // Mix-in event capability
+    _.extend(this, Backbone.Events);
 
-
-        },
-
-        createView: function(viewClass) {
-
-            var view = new viewClass.View();
-
-            // Handle all possible user interaction events
-            // Next, Previous, hint, done
-            this.listenTo(view, "qwiz-transition-next", this.goToNextView);
-            this.listenTo(view, "qwiz-transition-prev", this.goToPrevView);
-            this.listenTo(view, "qwiz-transition-hint", this.goToHintView);
-            this.listenTo(view, "qwiz-transition-done", this.goToExit);
-
-            return view;
-
-        },
-
-        setCurrentView: function(view) {
-
-            if (this.currentView) {
-                this.stopListening(this.currentView);
-                this.currentView.remove();
-            }
-
-            this.currentView = view;
-            this.trigger('qwiz-transition-view');
-            return view;
-        },
-
-        // Get the current View object
-        getCurrentView: function () {
-
-            return this.currentView;
-        },
+};
 
 
-        // Go to the next View object
-        goToNextView: function () {
 
-            this.viewIndex++;
-            var view =  this.createView(this.viewClassArray[this.viewIndex]);
-            this.setCurrentView(view);
+/**
+ * QwizEngineController initialize.
+ */
+QwizEngineController.prototype.initialize =  function () {
 
-        },
+    // Fetch the QwizBook with the qwizbook id
+    this.qwizbookModel = new QwizbookModel({_id : this.qwizbookId, session : this.userSession});
+    this.qwizbookModel.retreive(); // Async operation !!!?
 
-        // Go to the previous View object
-        goToPrevView: function () {
-            this.viewIndex--;
-            var view =  this.createView(this.viewClassArray[this.viewIndex]);
-            this.setCurrentView(view);
-        },
+    // Create and start the FSM
+   	this.qwizbookFSM = new QwizBookFSM(this.qwizbookModel.get("FSM"));
+    
+    // Install FSM event listener
+    var self = this;
+	this.qwizbookFSM.on ('stateEntry', function (chapterid) {
+	    
+	    // read through qwizbook model so that any sub-model loads 
+	    // can be opimized there
+	    self.pages = self.qwizbookModel.get("pages");
+	    self.currentPage = pages[0];
+	            
+	});
 
-        // Go to the starting state of the engine.
-        goToStartView: function () {
+    // Start FSM. Will trigger the first chapter event
+    this.qwizbookFSM.start();
+    
+    
+    // Create and open qwizbook tracking for the user
+    // TODO
 
-        },
+    // For testing create and store all the views
+    this.viewClassArray = [];
 
-        // Go to the starting state of the engine.
-        goToHintView: function () {
+    // Starting view
+    var view =  this.createView(QwizOpeningView);
+    this.setCurrentView(view);
 
-        },
+    // Store all view classes
+    this.viewClassArray.push(QwizOpeningView);
+    this.viewClassArray.push(QwizQuestionView);
+    this.viewClassArray.push(QwizClosingView);
 
+    // Initialize view index
+    this.viewIndex = 0;
 
-        goToExit: function () {
-            this.trigger('qwiz-transition-exit');
-        },
-
-
-        remove: function () {
-
-            this.stopListening();
-            return this;
-
-        }
+};
 
 
-    });
+/**
+ * QwizEngineController method.
+ */
+QwizEngineController.prototype.createView = function(viewClass) {
 
-    return QwizEngine
+    var view = new viewClass.View();
 
+    // Handle all possible user interaction events
+    // Next, Previous, hint, done
+    this.listenTo(view, "qwiz-transition-next", this.goToNextView);
+    this.listenTo(view, "qwiz-transition-prev", this.goToPrevView);
+    this.listenTo(view, "qwiz-transition-hint", this.goToHintView);
+    this.listenTo(view, "qwiz-transition-done", this.goToExit);
+
+    return view;
+
+};
+
+
+/**
+ * QwizEngineController method.
+ */
+QwizEngineController.prototype.setCurrentView: function(view) {
+
+    if (this.currentView) {
+        this.stopListening(this.currentView);
+        this.currentView.remove();
+    }
+
+    this.currentView = view;
+    this.trigger('qwiz-transition-view');
+    return view;
+};
+
+
+/**
+ * QwizEngineController method.
+ */
+QwizEngineController.prototype.getCurrentView = function () {
+
+    return this.currentView;
+};
+
+
+/**
+ * QwizEngineController method.
+ */
+QwizEngineController.prototype.goToNextView = function () {
+
+    this.viewIndex++;
+    var view =  this.createView(this.viewClassArray[this.viewIndex]);
+    this.setCurrentView(view);
+
+};
+
+
+/**
+ * QwizEngineController method.
+ */
+QwizEngineController.prototype.goToPrevView = function () {
+    this.viewIndex--;
+    var view =  this.createView(this.viewClassArray[this.viewIndex]);
+    this.setCurrentView(view);
+};
+
+
+/**
+ * QwizEngineController method.
+ */
+QwizEngineController.prototype.goToStartView = function () {
+
+};
+
+
+/**
+ * QwizEngineController method.
+ */
+QwizEngineController.prototype.goToHintView = function () {
+
+};
+
+
+
+/**
+ * QwizEngineController method.
+ */
+QwizEngineController.prototype.goToExit = function () {
+    this.trigger('qwiz-transition-exit');
+};
+
+
+
+/**
+ * QwizEngineController method.
+ */
+QwizEngineController.prototype.remove = function () {
+
+    this.stopListening();
+    return this;
+
+};
+
+
+/**
+ * Exports.
+ * Return the constructor function
+ */
+module.exports = exports = QwizEngineController;
+
+
+/* ---------- CommonJS wrapper ---------- */
 });
+/* -------------------------------------- */
 

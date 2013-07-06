@@ -33,6 +33,7 @@ define([
             isAddedqwizBook:false,
             AddedqwizBookAttempted:false,
             AddedqwizBookStatus:null,
+            FSM:"",
             pageReference:[],
             reference: [{
                         videoLinks: [{link: "www.videolink.com"}],
@@ -40,7 +41,8 @@ define([
                         imageLinks: [{link: "www.imageLinks.com"}],
                         audioLinks: [{link: "www.audioLinks.com"}]
                         }],
-            pages:[]
+            chapters:[],                        
+            pages:[],
         },
 
         initialize:function(){

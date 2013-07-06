@@ -105,11 +105,20 @@ var QwizbookSchema = {
     FSM: {
         type: String
 	},
-
+	
+    //------- Qwizbook chapters
+    chapters: [{
+    
+        title : String,
+        id : Number
+  
+    }],
+    
     //------- Qwizbook sections
     pages: [{
 
         qwizbookId : ObjectId,
+        chapterId : Number,
         multiple_choice_question: {
 
             questionType : Number,
@@ -200,7 +209,8 @@ var QwizbookSchema = {
                 url: String
             }]
         }]
-    }]
+    }]      
+
 };
 
 /**
