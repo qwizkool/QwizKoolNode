@@ -34,7 +34,6 @@ define([
 
         events: {
             "click #my-qwizbooks":"myQwizbooks",
-            "click #my-qwizbooks-archive":"qwizbookArchive",
             "click #qwizkool-home":"goHome"
         },
 
@@ -43,9 +42,6 @@ define([
             Backbone.history.navigate("#my-qwizbooks", true);
         },
 
-        qwizbookArchive:function(e) {
-            Backbone.history.navigate("#my-qwizbooks-archive", true);
-        },
         goHome:function(e) {
             Backbone.history.navigate("#qwizkool-home", true);
         }

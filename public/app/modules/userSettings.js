@@ -50,7 +50,14 @@ define([
         },
 
         events:{
-            "click #user-logout":"signOut"
+            "click #user-logout":"signOut",
+            "click #qwizbook-archive":"qwizbookArchives"
+        },
+
+        qwizbookArchives:function (e) {
+
+            Backbone.history.navigate("#my-qwizbooks-archive", true);
+
         },
 
         signOut:function (e) {
