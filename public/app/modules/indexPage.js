@@ -7,7 +7,7 @@
  */
 define([
     "app",
-    "modules/header",
+    "modules/header/headerMain",
     "modules/indexMainContent",
     "modules/footer",
     "modules/signIn"

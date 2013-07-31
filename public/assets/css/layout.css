@@ -3,8 +3,6 @@
 @import url(http://fonts.googleapis.com/css?family=Lato);
 
 body {
-    padding-top: 20px;
-    padding-bottom: 60px;
     /* background-color: #dcdcdc;*/
 }
 
@@ -12,10 +10,7 @@ body {
     background-color: #000;
 }
 
-.container {
-    background-color: #ffffff;
 
-}
 .hero-unit {
     background-image: url('../img/lined_paper/lined_paper.png');
 
@@ -36,7 +31,7 @@ body {
 #qwizkool-logo h1 {
     /*font-family: 'Courgette', cursive;*/
     font-weight:300;
-    font-size: 48px;
+    font-size: 24px;
     /*color: #0088cc;*/
 }
 
@@ -52,7 +47,6 @@ body {
 
 #qwizkool-logo span {
     font-family: 'Lato', sans-serif;
-    font-size: 34px;
     color: #0088cc;
 }
 
@@ -421,6 +415,8 @@ and its position within the container
     .tb-item-small-media {
         text-align: left
     }
+
+
 }
 
 /* Landscape phones and down */
@@ -430,6 +426,10 @@ and its position within the container
     }
     .tb-item-small-media {
         text-align: left
+    }
+
+    .signin-drop-alignment {
+        float: right;
     }
 }
 
