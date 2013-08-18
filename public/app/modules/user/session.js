@@ -21,7 +21,7 @@ define([
 
         SESSION_STORAGE:"qwizkoolSession",
 
-        LOGIN_FAILED_MSG:"Authentication Failed: Invalid ID or password",
+        LOGIN_FAILED_MSG:"Authentication Failed: Invalid Id or password. Please try again.",
         LOGIN_SUCCESS_MSG:"Authentication successful",
         LOGOUT_FAILED_MSG:"Logout failed",
         LOGOUT_SUCCESS_MSG:"Logout successful",

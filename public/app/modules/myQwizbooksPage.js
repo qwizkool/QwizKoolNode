@@ -9,7 +9,7 @@ define([
     "app",
     "modules/header",
     "modules/userSettings",
-    "modules/footer",
+    "modules/footer/footer",
     "modules/appToolbar",
     "modules/myQwizbooksContent"
 ],

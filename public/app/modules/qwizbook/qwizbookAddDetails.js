@@ -10,7 +10,7 @@ define([
     "modules/header",
     "modules/appToolbar",
     "modules/userSettings",
-    "modules/footer",
+    "modules/footer/footer",
     "modules/qwizbook/qwizbookAddDetailsContent",
      "text!templates/myQwizbooksContent.html"
 ],

@@ -9,7 +9,7 @@ define([
     "app",
     "modules/header",
     "modules/pageNotFoundContent",
-    "modules/footer"
+    "modules/footer/footer"
 ], function (App, Header, PageNotFound, Footer) {
 
     // Create a new module

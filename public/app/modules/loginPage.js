@@ -15,14 +15,14 @@ define(function (require, exports, module) {
     var    Backbone = require('backbone');
     var     _ = require('underscore');
     var     $ = require('jquery');
-    var     Header = require('modules/header/headerMain');
-    var    QwizkoolMain = require('modules/indexMainContent');
+    var     Header = require('modules/header/headerLogin');
+    var    Login = require('modules/account/login');
     var     Footer = require('modules/footer/footer');
 
     // Create a new module from App
-    var IndexPage = App.module();
+    var LoginPage = App.module();
 
-    IndexPage.View = Backbone.View.extend({
+    LoginPage.View = Backbone.View.extend({
 
 
         initialize: function () {
@@ -31,13 +31,14 @@ define(function (require, exports, module) {
                 throw "ERROR: Session object is not provided for the view!!"
             }
 
+            this.signup = this.options.signup;
             this.session = this.options.session;
 
             this.header = new Header.View();
 
             this.footer = new Footer.View();
 
-            this.qwizkoolMain = new QwizkoolMain.View({session: this.session });
+            this.Login = new Login.View({session: this.session, signup:  this.signup});
 
             if (this.session) {
                 this.listenTo(this.session, "session-login-event", this.userLoginEvent);
@@ -61,8 +62,7 @@ define(function (require, exports, module) {
 
             $('#qwizkool-header').html(this.header.render().el);
             $('#qwizkool-footer').html(this.footer.render().el);
-            $('#qwizkool-content').html(this.qwizkoolMain.render().el);
-
+            $('#qwizkool-content').html(this.Login.render().el);
         },
 
         remove: function () {
@@ -71,7 +71,7 @@ define(function (require, exports, module) {
             this.stopListening();
             this.header.remove();
             this.footer.remove();
-            this.qwizkoolMain.remove()
+            this.Login.remove()
             return this;
 
         }
@@ -79,7 +79,7 @@ define(function (require, exports, module) {
     });
 
 
-    module.exports = IndexPage;
+    module.exports = LoginPage;
 
 
 });

@@ -10,7 +10,7 @@ define([
     "app",
     "modules/header",
     "modules/userMainContent",
-    "modules/footer",
+    "modules/footer/footer",
     "modules/userSettings",
     "modules/appToolbar"
 ], function (App, Header, UserMainContent, Footer, UserSettings, AppToolbar) {

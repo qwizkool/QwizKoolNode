@@ -17,16 +17,19 @@ define([
     "modules/myQwizbooksPage",
     "modules/qwizbook/qwizbookAddDetails",
     "modules/qwizbookArchivePage",
-    "modules/qwizPageView"
+    "modules/qwizPageView" ,
+    "modules/loginPage"
 
 ], function (App, Bootstrap, Session, IndexPage, PageNotFoundPage, UserMainPage, QwizbookMainPage,
-             MyQwizbooksPage, QwizbookAddDetails, QwizbooksArchivePage, QwizPageView) {
+             MyQwizbooksPage, QwizbookAddDetails, QwizbooksArchivePage, QwizPageView,LoginPage) {
 
     // Defining the application router, you can attach sub routers here.
     var Router = Backbone.Router.extend({
 
         routes: {
             '': 'index',
+            'login': 'login',
+            'signup': 'registration',
             'notfound': 'pageNotFound',
             'qwizkool-home': 'userHome',
             'qwizbookDetails/:id': 'qwizbookMain',
@@ -53,7 +56,7 @@ define([
                     // cleanup the session
                     that.session.clearLocal();
 
-                    Backbone.history.navigate("", true);
+                 //   Backbone.history.navigate("", true);
                 } else if (xhr.status == 403) {
                     // forbidden
                     Backbone.history.navigate("", true);
@@ -76,6 +79,20 @@ define([
 
             var indexPage = new IndexPage.View({session: this.session});
             this.showView(indexPage)
+        },
+
+        login: function (hash) {
+
+            var loginPage = new LoginPage.View({session: this.session, signup: false});
+            this.showView(loginPage)
+
+        },
+
+        registration: function (hash) {
+
+            var loginPage = new LoginPage.View({session: this.session, signup: true});
+            this.showView(loginPage)
+
         },
 
         pageNotFound: function (hash) {

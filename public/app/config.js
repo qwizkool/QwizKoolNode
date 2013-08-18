@@ -18,9 +18,10 @@ require.config({
 		scion : "../vendor/SCION/scion",
 		backbone : "../vendor/jam/backbone/backbone",
 		underscore : "../vendor/jam/underscore/underscore",
-		jquery : "../vendor/jam/jquery/dist/jquery"
+		jquery : "../vendor/jam/jquery/dist/jquery",
+        jqueryValidate : "../vendor/jquery-validate/jquery.validate"
 
-	},
+    },
 	map : {
 		// Ensure Lo-Dash is used instead of underscore.
 		"*" : {

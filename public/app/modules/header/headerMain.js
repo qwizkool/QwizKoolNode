@@ -31,6 +31,19 @@ define(function(require, exports, module) {
             return this;
         },
 
+        events: {
+            "click #sign-in":"signIn",
+            "click #sign-up":"signUp"
+        },
+
+        signIn:function(e) {
+            Backbone.history.navigate("#login", true);
+        },
+
+        signUp:function(e) {
+            Backbone.history.navigate("#signup", true);
+        },
+
         remove: function() {
 
             this.$el.remove();
