@@ -12,7 +12,7 @@ define([
     "modules/user/session",
     "modules/indexPage",
     "modules/pageNotFoundPage",
-    "modules/userMainPage",
+    "modules/qwizkoolHomePage",
     "modules/qwizbookMainPage",
     "modules/myQwizbooksPage",
     "modules/qwizbook/qwizbookAddDetails",

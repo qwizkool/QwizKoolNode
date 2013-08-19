@@ -7,7 +7,7 @@
  */
 define([
     "app",
-    "modules/header",
+    "modules/header/headerInternal",
     "modules/qwizbook",
     "modules/comments",
     "modules/userSettings",

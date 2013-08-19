@@ -8,12 +8,10 @@
 
 define([
     "app",
-    "modules/header",
-    "modules/userMainContent",
-    "modules/footer/footer",
-    "modules/userSettings",
-    "modules/appToolbar"
-], function (App, Header, UserMainContent, Footer, UserSettings, AppToolbar) {
+    "modules/header/headerInternal",
+    "modules/qwizkoolHomeContent",
+    "modules/footer/footer"
+], function (App, Header, QwizkoolHomeContent, Footer) {
 
     // Create a new module
     var UserMainPage = new App.module();
@@ -29,20 +27,12 @@ define([
 
             this.session = this.options.session;
 
-            // Create and associate the user setting view with the tool bar upper
-            // view in the Header.
-            this.userSettings = new UserSettings.View({session: this.session});
-
-            // Create and associate the app tool bar view with the tool bar lower
-            // view in the Header.
-            this.appToolbar = new AppToolbar.View({session: this.session, location: "qwizkool-home"});
-
             // Create the header view
-            this.header = new Header.View({htbuView: this.userSettings, htblView: this.appToolbar});
+            this.header = new Header.View({session: this.session});
 
             this.footer = new Footer.View();
 
-            this.userMainContent = new UserMainContent.View({session: this.session});
+            this.qwizkoolHomeContent = new QwizkoolHomeContent.View({session: this.session});
 
         },
 
@@ -53,7 +43,7 @@ define([
 
             $('#qwizkool-header').html(this.header.render().el);
             $('#qwizkool-footer').html(this.footer.render().el);
-            $('#qwizkool-content').html(this.userMainContent.render().el);
+            $('#qwizkool-content').html(this.qwizkoolHomeContent.render().el);
 
         },
 
@@ -63,7 +53,7 @@ define([
             this.stopListening();
             this.header.remove();
             this.footer.remove();
-            this.userMainContent.remove()
+            this.qwizkoolHomeContent.remove()
             return this;
 
         }
