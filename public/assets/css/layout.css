@@ -2,21 +2,152 @@
 @import url(http://fonts.googleapis.com/css?family=Courgette);
 @import url(http://fonts.googleapis.com/css?family=Lato);
 
-
-label.valid {
-    width: 24px;
-    height: 24px;
-    background: url(../img/valid.png) center center no-repeat;
-    display: inline-block;
-    text-indent: -9999px;
-}
-label.error {
-    font-weight: bold;
-    color: red;
-    padding: 2px 8px;
-    margin-top: 2px;
+.header-int-nav {
+    background-color: #FFF;
+    border: none;
 }
 
+.header-int-nav .qwizkool-logo-name {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.header-int-nav #qwizkool-search {
+    padding-top: 10px;
+}
+
+.header-int-nav #qwizkool-settings {
+    padding-bottom: 10px;
+}
+.header-int-nav #qwizkool-search-xs {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+.header-login-nav {
+    background-color: #FFF;
+    border: none;
+}
+
+.header-login-nav .qwizkool-logo-name {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.header-main-nav {
+    background-color: #FFF;
+    border: none;
+}
+
+.header-main-nav .btn-group {
+    padding: 10px;
+}
+
+.header-main-nav .qwizkool-logo-name {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.footer-nav {
+    background-color: #FFF;
+    border: none;
+}
+.footer-wrapper {
+    padding: 10px;
+    text-align: center;
+}
+
+
+/* Large desktop */
+@media (min-width: 1200px) {
+    .adjust-settings-pad{
+        padding-top: 10px;
+    }
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 992px) and (max-width: 1200px) {
+
+
+    .adjust-settings-pad{
+        padding-top: 10px;
+    }
+
+
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 992px) {
+    .reg-form-margin-media {
+        margin-top: 5px;
+    }
+
+    .adjust-settings-pad{
+        padding-top: 10px;
+    }
+
+
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 768px) {
+    .reg-form-margin-media {
+        margin-top: 5px;
+    }
+
+    .tb-item-small-media {
+        text-align: left
+    }
+
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+    .reg-form-margin-media {
+        margin-top: 5px;
+    }
+    .tb-item-small-media {
+        text-align: left
+    }
+
+    .signin-drop-alignment {
+        float: right;
+    }
+
+
+}
+
+
+
+
+
+.embed {
+    position: relative;
+    padding: 0;
+    padding-bottom: 56.25%; /* 16:9 ratio*/
+    height: 0;
+    overflow: hidden;
+}
+
+/*
+then we make the actual embedded content
+behave in terms of its dimensions
+and its position within the container
+*/
+.embed iframe,
+.embed object,
+.embed embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+/* OLD DESIGN */
 body {
     /* background-color: #dcdcdc;*/
 }
@@ -383,70 +514,10 @@ body {
 }
 
 
-.embed {
-    position: relative;
-    padding: 0;
-    padding-bottom: 56.25%; /* 16:9 ratio*/
-    height: 0;
-    overflow: hidden;
-}
-
-/*
-then we make the actual embedded content
-behave in terms of its dimensions
-and its position within the container
-*/
-.embed iframe,
-.embed object,
-.embed embed {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
 
 
 
-/* Large desktop */
-@media (min-width: 1200px) {
 
-}
-
-/* Portrait tablet to landscape and desktop */
-@media (min-width: 768px) and (max-width: 979px) {
-    .reg-form-margin-media {
-        margin-top: 5px;
-    }
-
-}
-
-/* Landscape phone to portrait tablet */
-@media (max-width: 767px) {
-    .reg-form-margin-media {
-        margin-top: 5px;
-    }
-
-    .tb-item-small-media {
-        text-align: left
-    }
-
-
-}
-
-/* Landscape phones and down */
-@media (max-width: 480px) {
-    .reg-form-margin-media {
-        margin-top: 5px;
-    }
-    .tb-item-small-media {
-        text-align: left
-    }
-
-    .signin-drop-alignment {
-        float: right;
-    }
-}
 
 
 .reg-form-margin-media-block {

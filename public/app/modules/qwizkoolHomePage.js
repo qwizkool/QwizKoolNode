@@ -1,23 +1,31 @@
 /*!
  * Copyright(c) 2013 Vibrentt
  *
- * Module : UserMainPage
+ * Module : QwizkoolHomePage
  *
  *
  */
 
-define([
-    "app",
-    "modules/header/headerInternal",
-    "modules/qwizkoolHomeContent",
-    "modules/footer/footer"
-], function (App, Header, QwizkoolHomeContent, Footer) {
+define(function (require, exports, module) {
+
+    /**
+     * Module dependencies.
+     */
+    var App = require('app');
+    var    Backbone = require('backbone');
+    var     _ = require('underscore');
+    var     $ = require('jquery');
+    var     Header = require('modules/header/headerInternal');
+    var    QwizkoolHomeContent = require('modules/qwizkoolHomeContent');
+    var     Footer = require('modules/footer/footer');
+
+
 
     // Create a new module
-    var UserMainPage = new App.module();
+    var QwizkoolHomePage = new App.module();
 
     // Top level view for the qwizkool
-    UserMainPage.View = Backbone.View.extend({
+    QwizkoolHomePage.View = Backbone.View.extend({
 
         initialize: function () {
 
@@ -60,5 +68,12 @@ define([
 
     });
 
-    return UserMainPage;
-}); 
+
+
+
+    module.exports = QwizkoolHomePage;
+
+
+});
+
+

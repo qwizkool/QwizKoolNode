@@ -1,22 +1,28 @@
 /*!
  * Copyright(c) 2013 Vibrentt
  *
- * Module : UserMainContent
+ * Module : QwizkoolHomeContent
  *
  *
  */
+define(function (require, exports, module) {
 
-define([
-    "app",
-    "modules/qwizbook",
-    "modules/searchFilter",
-    "text!templates/userMainContent.html"
 
-], function (App, QwizBook, SearchFilter, Template) {
+    /**
+     * Module dependencies.
+     */
+    var App = require('app');
+    var    Backbone = require('backbone');
+    var     _ = require('underscore');
+    var     $ = require('jquery');
+    var     QwizBook = require('modules/qwizbook');
+    var    SearchFilter = require('modules/searchFilter');
+    var     Template = require('text!templates/qwizkoolHomeContent.html');
 
-    var UserMainContent = App.module();
 
-    UserMainContent.View = Backbone.View.extend({
+    var QwizkoolHomeContent = App.module();
+
+    QwizkoolHomeContent.View = Backbone.View.extend({
 
         initialize: function () {
 
@@ -88,6 +94,10 @@ define([
         }
     });
 
-    return UserMainContent;
+
+
+    module.exports = QwizkoolHomeContent;
+
 
 });
+
