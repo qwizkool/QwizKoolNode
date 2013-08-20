@@ -3,7 +3,7 @@
     <input type="hidden"  class="book_userrating" value ="<%= userRating %>" />
     <input type="hidden"  class="book_id" value ="<%= _id %>" />
 
-    <div class="panel panel-default">
+    <div class="panel panel-default qwizbook-panel">
 
         <div class="panel-body">
             <div class="media">
@@ -13,7 +13,7 @@
                 </a>
 
                 <div class="media-body">
-                    <div class="page-header" style="border-bottom: none">
+                    <div class="page-header">
                         <h4><%= title %> <small>Subtext for header</small></h4>
                     </div>
 
@@ -21,10 +21,13 @@
                 </div>
 
             </div>
+            <p><%= description %></p>
         </div>
         <!-- List group -->
         <ul class="list-group">
-            <li class="list-group-item"> <p><%= description %></p> </li>
+            <li class="list-group-item">
+                <input  data-max="5" data-min="1" type="number" name="your_awesome_parameter" id="some_id" class="rating text-primary" />
+            </li>
             <li class="list-group-item"><div id= 'qbookaverage_rating' class="qwizbook-ratings-container">
                 <p id="count_<%= _id %>" class="muted text-left" style="margin-left: 10px; margin-bottom: 0px"><%= userratingcount %>  ratings</p>
 

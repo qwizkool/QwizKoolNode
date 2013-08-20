@@ -20,7 +20,8 @@ require.config({
 		underscore : "../vendor/jam/underscore/underscore",
 		jquery : "../vendor/jam/jquery/dist/jquery",
         jqueryValidate : "../vendor/jquery-validate/jquery.validate",
-        jqueryWookmark : "../vendor/jquery-wookmark/jquery.wookmark"
+        jqueryWookmark : "../vendor/jquery-wookmark/jquery.wookmark",
+        bootstrapRating: "../vendor/bootstrap-rating-input/bootstrap-rating-input"
 
     },
 	map : {
@@ -55,6 +56,10 @@ require.config({
         jqueryWookmark : {
             deps : ["jquery"],
             exports : 'jqueryWookmark'
+        },
+        bootstrapRating : {
+            deps : ["bootstrap"],
+            exports : 'bootstrapRating'
         }
 
     }

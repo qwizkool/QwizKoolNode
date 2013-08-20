@@ -15,6 +15,7 @@ define(function (require, exports, module) {
     var    Backbone = require('backbone');
     var     _ = require('underscore');
     var     $ = require('jquery');
+    var     BootstrapRating = require('bootstrapRating');
     var     QwizBook = require('modules/qwizbook');
     var    SearchFilter = require('modules/searchFilter');
     var     Template = require('text!templates/qwizkoolHomeContent.html');
@@ -81,6 +82,8 @@ define(function (require, exports, module) {
             }
 
             this.qwizbooklistview.render();
+
+            $('input.rating').rating();
 
         },
 
