@@ -74,7 +74,7 @@ define(function (require, exports, module) {
             if (_.isEmpty(this.qwizbooklistview)) {
 
                 this.qwizbooklistview = new QwizBook.ListView({
-                    el: '#user-main-content-container',
+                    el: '#qwizkool-home-content-container',
                     model: this.qwizbookCollection,
                     session: this.session
                 });
@@ -87,7 +87,7 @@ define(function (require, exports, module) {
         render: function () {
 
             this.$el.html(this.template);
-            $(this.el).find("#user-main-content-header").html(this.searchFilterView.render().el);
+            //$(this.el).find("#user-main-content-header").html(this.searchFilterView.render().el);
 
             this.qwizbookCollection.getAllBooks();
             return this;

@@ -1,68 +1,66 @@
-<!--Qwizbook List Item-->
-<!--TODO: clean up the css styles, consolidate to external CSS file.-->
-<div class="qwizbook-list-item qwizbook-item-style clearfix">
-    <div class="row">
-<input type="hidden"  class="book_avgRating" value ="<%= averageRating %>" />
-<input type="hidden"  class="book_userrating" value ="<%= userRating %>" />
-<input type="hidden"  class="book_id" value ="<%= _id %>" />
-        <div class="span12" >
-            <div class="page-header" style="margin: 10px;background-color: #f8f8f8">
-                <h1 style="font-weight: 300; padding: 10px"><%= title %></h1>
-            </div>
-        </div>
+<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 clearfix">
+    <input type="hidden"  class="book_avgRating" value ="<%= averageRating %>" />
+    <input type="hidden"  class="book_userrating" value ="<%= userRating %>" />
+    <input type="hidden"  class="book_id" value ="<%= _id %>" />
 
-        <div class="span12 qwizbook-list-item-content">
+    <div class="panel panel-default">
 
-            <div class="page-header" style="margin: 10px">
+        <div class="panel-body">
+            <div class="media">
 
-                <div class="media">
+                <a class="" href="">
+                    <img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif">
+                </a>
 
-                    <a class="pull-left" href="">
-                        <img class="media-object img-polaroid" src="../../assets/img/qbook-thumb-114x166.gif">
-                    </a>
-
-                    <div class="media-body">
-
-                        <%= description %>
-
+                <div class="media-body">
+                    <div class="page-header" style="border-bottom: none">
+                        <h4><%= title %> <small>Subtext for header</small></h4>
                     </div>
+
 
                 </div>
 
             </div>
         </div>
-        <div class="span12 ">
-
-            <div class="row qwizbook-list-item-footer">
-
-                <div class="span5">
-                    <div id= 'qbookaverage_rating' class="qwizbook-ratings-container">
-                        <p id="count_<%= _id %>" class="muted text-left" style="margin-left: 10px; margin-bottom: 0px"><%= userratingcount %>  ratings</p>
+        <!-- List group -->
+        <ul class="list-group">
+            <li class="list-group-item"> <p><%= description %></p> </li>
+            <li class="list-group-item"><div id= 'qbookaverage_rating' class="qwizbook-ratings-container">
+                <p id="count_<%= _id %>" class="muted text-left" style="margin-left: 10px; margin-bottom: 0px"><%= userratingcount %>  ratings</p>
 
 
 
-                        </ul>
-                    </div>
-                </div>
 
-                <div class="span5 ">
-                    <div id="book_userRating" class="qwizbook-ratings-container">
-                        <p class="muted text-left" style="margin-left: 10px"> Your rating: </p>
-                        <ul   class="rating-w-fonts text-left" style="margin: 10px;margin-bottom: 0px">
+            </div></li>
+            <li class="list-group-item"><div id="book_userRating" class="qwizbook-ratings-container">
+                <p class="muted text-left" style="margin-left: 10px"> Your rating: </p>
+                <ul   class="rating-w-fonts text-left" style="margin: 10px;margin-bottom: 0px">
 
-                        </ul>
-                    </div>
-                </div>
+                </ul>
+            </div></li>
 
-                <div class="span2">
-                    <button class="btn btn-info btn-large  qwizbookListItem" style="margin: 10px" id="<%= _id %>">
-                        Open
-                    </button>
-                </div>
+        </ul>
 
-            </div>
+        <div class="panel-footer">
+            <button class="btn btn-info btn-large  qwizbookListItem" style="margin: 10px" id="<%= _id %>">
+                Open
+            </button>
         </div>
     </div>
+
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!--Qwizbook List Item ends-->

@@ -2,9 +2,21 @@
 @import url(http://fonts.googleapis.com/css?family=Courgette);
 @import url(http://fonts.googleapis.com/css?family=Lato);
 
+.breadcrumb {
+    background-color: #F8F8F8;
+}
+#qwizkool-signin-pane,#qwizkool-signup-pane {
+    padding-top: 20px;
+}
+
+#login-status,#registration-status .alert {
+    margin: 10px;
+}
+
 .header-int-nav {
-    background-color: #FFF;
+    background-color: #ececec;
     border: none;
+    margin-bottom: 0px;
 }
 
 .header-int-nav .qwizkool-logo-name {
@@ -18,6 +30,7 @@
 
 .header-int-nav #qwizkool-settings {
     padding-bottom: 10px;
+    padding-top: 10px;
 }
 .header-int-nav #qwizkool-search-xs {
     padding-top: 10px;
@@ -57,22 +70,24 @@
     padding: 10px;
     text-align: center;
 }
+.pagination-wrapper {
+    padding: 10px;
+    text-align: center;
+}
 
 
+#qwizkool-home-content-toolbar #sort-selection {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 /* Large desktop */
 @media (min-width: 1200px) {
-    .adjust-settings-pad{
-        padding-top: 10px;
-    }
+
 }
 
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 992px) and (max-width: 1200px) {
 
-
-    .adjust-settings-pad{
-        padding-top: 10px;
-    }
 
 
 }
@@ -83,9 +98,6 @@
         margin-top: 5px;
     }
 
-    .adjust-settings-pad{
-        padding-top: 10px;
-    }
 
 
 }
