@@ -16,8 +16,8 @@ define(function (require, exports, module) {
     var     _ = require('underscore');
     var     $ = require('jquery');
     var     BootstrapRating = require('bootstrapRating');
-    var     QwizBook = require('modules/qwizbook');
-    var    SearchFilter = require('modules/searchFilter');
+    var     QwizBook = require('modules/qwizbook/qwizbookListView');
+    var     SearchFilter = require('modules/searchFilter');
     var     Template = require('text!templates/qwizkoolHomeContent.html');
 
 

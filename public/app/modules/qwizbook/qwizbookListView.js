@@ -1,7 +1,7 @@
 define([
     "app",
-    "module/qwizbook/qwizbookModel",
-    "text!templates/qwizbookList.html"
+    "modules/qwizbook/qwizbookView",
+    "text!modules/qwizbook/templates/qwizbookList.html"
 ], function(App, QwizBook, TmplQwizbookList){
 
     QwizBook.ListView = Backbone.View.extend({

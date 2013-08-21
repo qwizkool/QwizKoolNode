@@ -14,9 +14,9 @@
 
 define([
     "app",
-    "modules/qwizbookrating",
-    "text!templates/qwizbookListItem.html",
-    "text!templates/qwizbookList.html"
+    "modules/qwizbook/qwizbookrating",
+    "text!modules/qwizbook/templates/qwizbookListItem.html",
+    "text!modules/qwizbook/templates/qwizbookList.html"
 
 ], function (App, QwizBookRating, TmplQwizbookItem, TmplQwizbookList) {
 

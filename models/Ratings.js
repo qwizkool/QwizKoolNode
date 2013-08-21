@@ -420,7 +420,7 @@ Ratings.prototype.getQwizbookRatingCount = function (qbook, qbookpos, callback) 
     var bookpos = qbookpos;
 
     RatingModel.count({
-        qwizbookId:qid
+        qwizbookId:qid, rating: {"$gt" : 0}
     }, function (err, _count, qbook, qbookpos) {
         if (err) {
             console.log(err);
@@ -438,7 +438,7 @@ Ratings.prototype.getQwizbookRatingCount = function (qbook, qbookpos, callback) 
 function getQwizbookRatingCount(qid, callback) {
 
     RatingModel.count({
-        qwizbookId:qid
+        qwizbookId:qid, rating: {"$gt" : 0}
     }, function (err, _count) {
         if (err) {
             console.log(err);

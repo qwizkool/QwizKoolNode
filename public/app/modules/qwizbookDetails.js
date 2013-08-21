@@ -9,7 +9,7 @@ define([
     "app",
     "modules/qwizbook",
     "modules/comments",
-    "modules/qwizbookrating",
+    "modules/qwizbook/qwizbookrating",
     "modules/qwizbookUserRating",
     "text!templates/qwizbookDetails.html"
 ],
