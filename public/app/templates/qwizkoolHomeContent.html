@@ -1,27 +1,25 @@
 
 
 <div  id="qwizkool-home-content-toolbar">
-    <div class="navbar navbar-static-top">
+    <div class="navbar-default" >
         <div class="container">
             <div class="row">
-            <div class="col-xs-12  col-sm-12 col-md-6 col-lg-6 clearfix">
+            <div class="col-xs-12  col-sm-6 col-md-6 col-lg-6 clearfix">
                 <ol class="breadcrumb" >
                     <li><a href="#">Home</a></li>
-                    <li><a href="#">Library</a></li>
-                    <li class="active">Data</li>
                 </ol>
 
             </div>
-            <div class="col-xs-12  col-sm-12 col-md-6 col-lg-6 clearfix">
+            <div class="col-xs-12  col-sm-6 col-md-offset-3 col-md-offset-3 col-md-3 col-lg-3 clearfix">
                 <div id="sort-selection" class="input-group">
-                    <input id="host-selection" type="text" class="form-control">
+                    <input id="sort-selection-input" type="text" class="form-control" readonly placeholder="Recently Updated">
 
                     <div class="input-group-btn">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Sort
                             <span class="caret"></span></button>
-                        <ul class="dropdown-menu pull-right" id="host-selector">
-                            <li><a>Recently Updated</a></li>
-                            <li><a>Most Popular</a></li>
+                        <ul class="dropdown-menu pull-right" id="sort-selector">
+                            <li><a id="sort-recently-updated" name="Recently Updated">Recently Updated</a></li>
+                            <li><a id="sort-most-popular" name="Most Popular">Most Popular</a></li>
                         </ul>
                     </div>
                     <!-- /btn-group -->
@@ -41,7 +39,7 @@
 </div>
 
 <div  id="qwizkool-home-content-footer">
-    <div class="navbar navbar-static">
+    <div class=" navbar-default ">
         <div class="container">
             <div class="col-xs-12  col-sm-12  col-md-12 col-lg-12">
 

@@ -37,13 +37,21 @@ define(function (require, exports, module) {
 
             // Create the header view
             this.header = new Header.View({session: this.session});
+            this.listenTo(this.header, "search", this.refreshSearch);
 
             this.footer = new Footer.View();
 
             this.qwizkoolHomeContent = new QwizkoolHomeContent.View({session: this.session});
 
+
+
+
         },
 
+        refreshSearch: function (e) {
+
+           this.qwizkoolHomeContent.refreshCollectionForSearchEvent(e);
+        },
 
         // Render all the nested views related to this page
         // and attach it to the DOM.

@@ -16,8 +16,8 @@ define(function (require, exports, module) {
     var     _ = require('underscore');
     var     $ = require('jquery');
     var     BootstrapRating = require('bootstrapRating');
-    var     QwizBook = require('modules/qwizbook/qwizbookListView');
-    var     SearchFilter = require('modules/searchFilter');
+    var     QwizBookListView = require('modules/qwizbook/qwizbookListView');
+    var     QwizBookCollection = require('modules/qwizbook/qwizbookCollection');
     var     Template = require('text!templates/qwizkoolHomeContent.html');
 
 
@@ -27,29 +27,33 @@ define(function (require, exports, module) {
 
         initialize: function () {
 
-            this.qwizbookList = this.collection;
-
             if (_.isEmpty(this.options.session)) {
                 throw "ERROR: Session object is not provided for the view!!"
             }
 
             this.session = this.options.session;
 
-
-            // Create and associate the user search filter view with the tool bar lower
-            // view in the Header.
-            this.searchFilterView = new SearchFilter.View({});
-            this.listenTo(this.searchFilterView, "search", this.refreshCollectionForSearchEvent);
-            this.listenTo(this.searchFilterView, "filter", this.refreshCollectionForFilterEvent);
-
             // Create qwizbook collection and associate with its list view.
-            this.qwizbookCollection = new QwizBook.Collection();
+            this.qwizbookCollection = new QwizBookCollection.Collection();
             this.listenTo(this.qwizbookCollection, "reset", this.refreshCollectionView);
-       
 
         },
 
         template: Template,
+
+        events:{
+            "click #sort-recently-updated":"setfilterParams",
+            "click #sort-most-popular":"setfilterParams"
+        },
+
+        setfilterParams: function (e) {
+
+            $('#sort-selection-input').val(e.currentTarget.name);
+            var filterCriteria = e.currentTarget.name;
+            console.log(filterCriteria);
+            this.refreshCollectionForFilterEvent({criteria: filterCriteria});
+
+        },
 
         refreshCollectionForSearchEvent: function (e) {
 
@@ -67,14 +71,13 @@ define(function (require, exports, module) {
             this.qwizbookCollection.setFilterParams(criteria);
             this.qwizbookCollection.getAllBooks();
 
-
         },
 
         refreshCollectionView: function () {
 
             if (_.isEmpty(this.qwizbooklistview)) {
 
-                this.qwizbooklistview = new QwizBook.ListView({
+                this.qwizbooklistview = new QwizBookListView.ListView({
                     el: '#qwizkool-home-content-container',
                     model: this.qwizbookCollection,
                     session: this.session
@@ -88,19 +91,13 @@ define(function (require, exports, module) {
         },
 
         render: function () {
-
             this.$el.html(this.template);
-            //$(this.el).find("#user-main-content-header").html(this.searchFilterView.render().el);
-
             this.qwizbookCollection.getAllBooks();
             return this;
         }
     });
 
-
-
     module.exports = QwizkoolHomeContent;
-
 
 });
 

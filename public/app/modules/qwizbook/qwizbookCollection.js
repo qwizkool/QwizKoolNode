@@ -101,11 +101,11 @@ define([
             this.myQwizbook =true; 
             this.userId = session.id;
         },
-        setSearchParameter : function(session,seachPArameter)
+        setSearchParameter : function(session,seachParameter)
         {
             this.search = true;
             this.userId = session.id;
-            this.searchParam = seachPArameter;
+            this.searchParam = seachParameter;
         },
 
 

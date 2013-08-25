@@ -41,7 +41,12 @@ define(function(require, exports, module) {
 
         events:{
             "click #user-logout":"signOut",
-            "click #qwizbook-archive":"qwizbookArchives"
+            "click #qwizbook-archive":"qwizbookArchives",
+            "keyup #qwizkool-search": "doSearch"
+        },
+
+        doSearch: function () {
+            this.trigger('search', {criteria: $('#qwizkool-search-input').val()});
         },
 
         qwizbookArchives:function (e) {
