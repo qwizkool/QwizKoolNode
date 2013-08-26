@@ -42,11 +42,19 @@ define(function(require, exports, module) {
         events:{
             "click #user-logout":"signOut",
             "click #qwizbook-archive":"qwizbookArchives",
-            "keyup #qwizkool-search": "doSearch"
-        },
+            "keyup #qwizkool-search-input": "doSearch",
+            "click #qwizkool-search-btn": "doSearch",
+            "keyup #qwizkool-search-xs-input": "doSearchXs",
+            "click #qwizkool-search-xs-btn": "doSearchXs"
+    },
 
         doSearch: function () {
-            this.trigger('search', {criteria: $('#qwizkool-search-input').val()});
+            var value =       $('#qwizkool-search-input').val();
+            this.trigger('search', {criteria: value});
+        },
+        doSearchXs: function () {
+            var value =       $('#qwizkool-search-xs-input').val();
+            this.trigger('search', {criteria: value});
         },
 
         qwizbookArchives:function (e) {

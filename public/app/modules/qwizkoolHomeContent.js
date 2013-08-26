@@ -18,6 +18,7 @@ define(function (require, exports, module) {
     var     BootstrapRating = require('bootstrapRating');
     var     QwizBookListView = require('modules/qwizbook/qwizbookListView');
     var     QwizBookCollection = require('modules/qwizbook/qwizbookCollection');
+    var     QwizBookModel = require('modules/qwizbook/qwizbookModel');
     var     Template = require('text!templates/qwizkoolHomeContent.html');
 
 
@@ -43,7 +44,55 @@ define(function (require, exports, module) {
 
         events:{
             "click #sort-recently-updated":"setfilterParams",
-            "click #sort-most-popular":"setfilterParams"
+            "click #sort-most-popular":"setfilterParams",
+            "click #my-qwizbooks":"goToMyQwizbooks",
+            "click #create-qwizbook-modal-btn":"openQwizbookCreateForm",
+            "click .close-qwizbook-modal-btn":"closeQwizbookCreateForm",
+            "click #create-qwizbook-modal-form-btn":"createQwizbook"
+        },
+
+        closeQwizbookCreateForm:function(e) {
+
+            $('#qwizbook-title').val('');
+            $('#qwizbook-sub-title').val('');
+            $('#qwizbook-description').val('');
+            Backbone.history.navigate("#qwizkool-home", true);
+        },
+
+        openQwizbookCreateForm:function(e) {
+            $('#create-qwizbook-modal').modal();
+        },
+
+        createQwizbook:function(e) {
+
+
+            if ($('#qwizbook-title').val()) {
+
+                var qwizbookmodel = new QwizBookModel.Model();
+                var qbooktitle = $('#qwizbook-title').val();
+                var qbooksubtitle = $('#qwizbook-sub-title').val();
+                var qbookdesc = $('#qwizbook-description').val();
+                var view = this;
+                qwizbookmodel.create(qbooktitle, qbookdesc);
+
+                $('#create-qwizbook-modal').modal("toggle");
+                $('#qwizbook-title').val('');
+                $('#qwizbook-sub-title').val('');
+                $('#qwizbook-description').val('');
+                this.goToMyQwizbooks();
+
+
+            } else {
+                $("#title-status").addClass('alert-error');
+                $("#title-status").html('Please enter a Title');
+                $("#title-status").show();
+            }
+
+        },
+
+
+        goToMyQwizbooks:function() {
+            Backbone.history.navigate("#my-qwizbooks", true);
         },
 
         setfilterParams: function (e) {
