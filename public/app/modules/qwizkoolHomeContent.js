@@ -75,7 +75,7 @@ define(function (require, exports, module) {
                 var view = this;
                 qwizbookmodel.create(qbooktitle, qbookdesc);
 
-                $('#create-qwizbook-modal').modal("toggle");
+                $('#create-qwizbook-modal').modal('hide');
                 $('#qwizbook-title').val('');
                 $('#qwizbook-sub-title').val('');
                 $('#qwizbook-description').val('');
