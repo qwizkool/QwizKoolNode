@@ -15,19 +15,20 @@ define(function (require, exports, module) {
     var Backbone = require('backbone');
     var _ = require('underscore');
     var $ = require('jquery');
-    var Qwizbook = require('modules/qwizbook/qwizbookModel');
-    var QwizbookDetails = require('modules/qwizbook/qwizbookDetailView');
-    var QwizbookComments = require('modules/qwizbookComments');
-    var Comments = require('modules/comments');
-    var Template = require("text!templates/qwizbookContent.html");
 
+    var Qwizbook = require('modules/qwizbook/qwizbookModel');
+    var QwizbookDetailView = require('modules/qwizbook/qwizbookDetailView');
+
+    var QwizbookCommentHeader = require('modules/comment/qwizbookCommentHeader');
+    var QwizbookCommentCollection = require('modules/comment/qwizbookCommentCollection');
+    var QwizbookCommentListView = require('modules/comment/qwizbookCommentListView');
+
+    var Template = require("text!templates/qwizbookContent.html");
 
     // Create a new module
     var QwizbookContent = App.module();
 
-
     QwizbookContent.View = Backbone.View.extend({
-
 
         initialize: function () {
 
@@ -45,33 +46,31 @@ define(function (require, exports, module) {
             // On success of retrieving the book. get all its comments.
             this.listenTo(this.qwizbook, "retreive-qwizbook-success-event", this.getQwizbookComments);
 
+            // Qwizbook details View
+            this.qwizbookDetailView = new QwizbookDetailView.View({model: this.qwizbook, qwizbookId: this.qwizbookId, session:this.session});
+
             //Collection of comments
-            this.commentCollection = new Comments.Collection({qwizbookId:this.qwizbookId});
+            this.commentCollection = new QwizbookCommentCollection.Collection({qwizbookId:this.qwizbookId});
             this.listenTo(this.commentCollection, "reset", this.updateView);
 
             // comment List view
-            this.commentListView = new Comments.ListView({model: this.commentCollection});
-
-            // Qwizbook details View
-            this.qwizbookDetails = new QwizbookDetails.View({model: this.qwizbook, qwizbookId: this.qwizbookId, session:this.session});
+            this.commentListView = new QwizbookCommentListView.ListView({model: this.commentCollection});
 
             // Add comment form view
-            this.addCommentView = new QwizbookComments.View({qwizbookcontentmodel: this.qwizbook, qwizbookId: this.qwizbookId});
-            this.listenTo(this.addCommentView, "add-qwizbookcomment-event", this.processCommentAdd);
+            this.commentHeaderView = new QwizbookCommentHeader.View({qwizbookcontentmodel: this.qwizbook, qwizbookId: this.qwizbookId});
+            this.listenTo(this.commentHeaderView, "add-qwizbookcomment-event", this.processCommentAdd);
 
 
         },
 
 
         getQwizbookComments:function () {
-
             this.commentCollection.getAll(this.qwizbookId);
-
         },
 
 
         updateView:function () {
-            this.commentListView = new Comments.ListView({model: this.commentCollection});
+            this.commentListView = new QwizbookCommentListView.ListView({model: this.commentCollection});
             this.render();
         },
 
@@ -92,9 +91,7 @@ define(function (require, exports, module) {
                 // to trigger view updates.
                 // TODO: can't we add the item to local connection.
                 this.listenTo(comment, "add-qwizbookcomment-success-event", function () {
-
                     view.commentCollection.getAll(qbookId);
-
                 });
             }
 
@@ -104,8 +101,8 @@ define(function (require, exports, module) {
 
         render: function () {
             this.el.innerHTML = this.template;
-            $(this.el).find("#qwizbook-detail-content-container").append(this.qwizbookDetails.render().el);
-            $(this.el).find("#qwizbook-comment-header-container").append(this.addCommentView.render().el);
+            $(this.el).find("#qwizbook-detail-content-container").append(this.qwizbookDetailView.render().el);
+            $(this.el).find("#qwizbook-comment-header-container").append(this.commentHeaderView.render().el);
             $(this.el).find("#qwizbook-comment-list-container").append(this.commentListView.render().el);
             $('input.rating').rating();
             return this;

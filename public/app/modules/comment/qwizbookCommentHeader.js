@@ -1,21 +1,24 @@
 /*!
  * Copyright(c) 2013 Vibrentt
  *
- * Module : QwizbookComments
+ * Module : QwizbookCommentHeader
  *
  *
  */
-define([
-    "app",
-    "modules/comments",
-    "modules/user/user",
-    "modules/qwizbookComments",
-    "text!templates/qwizbookComments.html"
-], function (App, Comments, User, QwizbookComments, Template) {
+define(function (require, exports, module) {
 
-   var QwizbookComments = App.module();
+    /**
+     * Module dependencies.
+     */
+    var App = require('app');
+    var Backbone = require('backbone');
+    var _ = require('underscore');
+    var $ = require('jquery');
+    var Template = require("text!modules/comment/templates/qwizbookCommentHeader.html");
 
-    QwizbookComments.View = Backbone.View.extend({
+    var CommentHeader = App.module();
+
+    CommentHeader.View = Backbone.View.extend({
 
         template: Template,
 
@@ -34,7 +37,7 @@ define([
             "click #cancelComment": "commentDiv",
             "click #qwizbook-comments-form": "addCommentDiv",
             "click #addcomment": "addComment",
-            "keyup #qwizbook-comment-text":"checkCommentSize"
+            "keyup #qwizbook-comment-text": "checkCommentSize"
         },
 
         reattachEvents: function () {
@@ -59,30 +62,28 @@ define([
             return false;
 
         },
-        
-        checkCommentSize: function(e) {
-        	
-        	var userComment = $('#qwizbook-comment-text').val();
+
+        checkCommentSize: function (e) {
+
+            var userComment = $('#qwizbook-comment-text').val();
             var userCommentLength = userComment.length;
             var newComment = "";
-        	
-        	
-            	
-            	if(userCommentLength>0 && userCommentLength > App.appConfig.MAX_COMMENT_SIZE_IN_CHARS)
-            	{
-            		//alert("123");
-            		
-            		//$('#user-reg-email-input').
-            		newComment = userComment.substring(0,App.appConfig.MAX_COMMENT_SIZE_IN_CHARS);
-            		$('#qwizbook-comment-text').val(newComment);
-            		
-            	}
-            
+
+
+            if (userCommentLength > 0 && userCommentLength > App.appConfig.MAX_COMMENT_SIZE_IN_CHARS) {
+                //alert("123");
+
+                //$('#user-reg-email-input').
+                newComment = userComment.substring(0, App.appConfig.MAX_COMMENT_SIZE_IN_CHARS);
+                $('#qwizbook-comment-text').val(newComment);
+
+            }
+
         }
-        
+
     });
 
     // Required, return the module for AMD compliance
-    return QwizbookComments;
+    module.exports = CommentHeader;
 
 });
