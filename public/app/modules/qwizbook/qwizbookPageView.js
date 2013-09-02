@@ -1,6 +1,6 @@
 define([
     "app",
-    "qwizbookPageCollection"
+    "qwizbookPageCollection",
     "text!templates/qwizbookPageListItem.html"
 ], function(App, QwizbookPage, TmplPageList){
 

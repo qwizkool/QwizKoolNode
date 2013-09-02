@@ -5,16 +5,22 @@
  *
  *
  */
-define([
-    "app",
-    "modules/qwizbook",
-    "modules/qwizbookBreadcrumbs",
-    "modules/qwizbookDetails",
-    "modules/qwizbookComments",
-    "modules/comments",
-    "text!templates/qwizbookContent.html"
 
-], function (App, Qwizbook, Breadcrumb, QwizbookDetails, QwizbookComments, Comments, Template) {
+define(function (require, exports, module) {
+
+    /**
+     * Module dependencies.
+     */
+    var App = require('app');
+    var Backbone = require('backbone');
+    var _ = require('underscore');
+    var $ = require('jquery');
+    var Qwizbook = require('modules/qwizbook/qwizbookModel');
+    var QwizbookDetails = require('modules/qwizbook/qwizbookDetailView');
+    var QwizbookComments = require('modules/qwizbookComments');
+    var Comments = require('modules/comments');
+    var Template = require("text!templates/qwizbookContent.html");
+
 
     // Create a new module
     var QwizbookContent = App.module();
@@ -98,17 +104,17 @@ define([
 
         render: function () {
             this.el.innerHTML = this.template;
-            $(this.el).find("#qwizbook-content-container").append(this.qwizbookDetails.render().el);
-            $(this.el).find("#review-content-header").append(this.addCommentView.render().el);
-            $(this.el).find("#review-content-container").append(this.commentListView.render().el);
-
+            $(this.el).find("#qwizbook-detail-content-container").append(this.qwizbookDetails.render().el);
+            $(this.el).find("#qwizbook-comment-header-container").append(this.addCommentView.render().el);
+            $(this.el).find("#qwizbook-comment-list-container").append(this.commentListView.render().el);
+            $('input.rating').rating();
             return this;
 
         }
     });
 
     // Required, return the module for AMD compliance
-    return QwizbookContent;
+    module.exports = QwizbookContent;
 
 });
 

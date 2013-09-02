@@ -80,9 +80,16 @@
     text-align: center;
 }
 
-#qwizkool-home-content-toolbar {
+.content-toolbar {
     margin-bottom: 10px;
 }
+
+#qwizbook-details-tab {
+    margin-top: 10px;
+}
+
+
+
 #qwizkool-home-content-toolbar #sort-selection {
     padding-top: 10px;
     padding-bottom: 10px;

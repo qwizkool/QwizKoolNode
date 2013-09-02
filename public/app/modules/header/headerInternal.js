@@ -1,5 +1,5 @@
 /* ---------- CommonJS wrapper ---------- */
-define(function(require, exports, module) {
+define(function (require, exports, module) {
     /* -------------------------------------- */
 
 
@@ -18,9 +18,9 @@ define(function(require, exports, module) {
     HeaderInternal.View = Backbone.View.extend({
 
 
-        template:TmplHeader,
+        template: TmplHeader,
 
-        initialize:function () {
+        initialize: function () {
 
             if (_.isEmpty(this.options.session)) {
                 throw "ERROR: Session object is not provided for the view!!"
@@ -29,41 +29,55 @@ define(function(require, exports, module) {
             this.session = this.options.session;
             this.listenTo(this.session, "session-logout-event", this.userLogoutEvent);
 
+            this.search = true;
+            if (_.isBoolean(this.options.search)) {
+                this.search = this.options.search;
+            }
+
+
         },
 
-        render:function () {
+        render: function () {
 
             var view = this;
             view.el.innerHTML = _.template(TmplHeader, this.session.toJSON());
 
+            if (!this.search) {
+                $(this.el).find("#qwizkool-search").addClass('hidden');
+                $(this.el).find("#qwizkool-search-xs").addClass('hidden');
+            }
             return this;
         },
 
-        events:{
-            "click #user-logout":"signOut",
-            "click #qwizbook-archive":"qwizbookArchives",
+        events: {
+            "click #user-logout": "signOut",
+            "click #qwizbook-archive": "qwizbookArchives",
             "keyup #qwizkool-search-input": "doSearch",
             "click #qwizkool-search-btn": "doSearch",
             "keyup #qwizkool-search-xs-input": "doSearchXs",
             "click #qwizkool-search-xs-btn": "doSearchXs"
-    },
+        },
 
         doSearch: function () {
-            var value =       $('#qwizkool-search-input').val();
-            this.trigger('search', {criteria: value});
+            if (this.search) {
+                var value = $('#qwizkool-search-input').val();
+                this.trigger('search', {criteria: value});
+            }
         },
         doSearchXs: function () {
-            var value =       $('#qwizkool-search-xs-input').val();
-            this.trigger('search', {criteria: value});
+            if (this.search) {
+                var value = $('#qwizkool-search-xs-input').val();
+                this.trigger('search', {criteria: value});
+            }
         },
 
-        qwizbookArchives:function (e) {
+        qwizbookArchives: function (e) {
 
             Backbone.history.navigate("#my-qwizbooks-archive", true);
 
         },
 
-        signOut:function (e) {
+        signOut: function (e) {
 
             e.preventDefault();
 
@@ -74,19 +88,19 @@ define(function(require, exports, module) {
 
         },
 
-        userLogoutEvent:function (e) {
+        userLogoutEvent: function (e) {
 
             if (this.session) {
 
                 if (e.valid === false) {
-                     Backbone.history.navigate('', true);
+                    Backbone.history.navigate('', true);
                 }
 
             }
 
         },
 
-        remove: function() {
+        remove: function () {
 
             this.$el.remove();
             this.stopListening();

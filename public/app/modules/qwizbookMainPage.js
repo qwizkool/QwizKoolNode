@@ -5,16 +5,20 @@
  *
  *
  */
-define([
-    "app",
-    "modules/header/headerInternal",
-    "modules/qwizbook",
-    "modules/comments",
-    "modules/userSettings",
-    "modules/qwizbookContent",
-    "modules/qwizbookComments",
-    "modules/footer/footer"
-], function (App, Header, Qwizbook, Comments, UserSettings, QwizbookContent, QwizbookComments, Footer) {
+
+define(function (require, exports, module) {
+
+    /**
+     * Module dependencies.
+     */
+    var App = require('app');
+    var Backbone = require('backbone');
+    var _ = require('underscore');
+    var $ = require('jquery');
+    var BootstrapRating = require('bootstrapRating');
+    var Header = require('modules/header/headerInternal');
+    var QwizbookContent = require('modules/qwizbookContent');
+    var Footer = require('modules/footer/footer');
 
     // Create a new module
     var QwizbookMainPage = new App.module();
@@ -22,8 +26,7 @@ define([
     // Top level view for the qwizkool
     QwizbookMainPage.View = Backbone.View.extend({
 
-
-        initialize:function () {
+        initialize: function () {
 
             if (_.isEmpty(this.options.session)) {
                 throw "ERROR: Session object is not provided for the view!!"
@@ -31,21 +34,13 @@ define([
 
             this.session = this.options.session;
 
-            // Create and associate the user setting view with the tool bar upper
-            // view in the Header.
-            this.userSettings = new UserSettings.View({session:this.session});
-
-            this.header = new Header.View({htbuView:this.userSettings});
-
+            this.header = new Header.View({session: this.session, search: false});
             this.footer = new Footer.View();
 
-
             this.qbookid = this.options.qwizbookId;
-            this.qwizbookContent = new QwizbookContent.View({qwizbookId:this.qbookid, session:this.session});
+            this.qwizbookContent = new QwizbookContent.View({qwizbookId: this.qbookid, session: this.session});
 
         },
-
-
 
         // Render all the nested views related to this page
         // and attach it to the DOM.
@@ -57,7 +52,7 @@ define([
 
         },
 
-        remove: function() {
+        remove: function () {
 
             this.$el.remove();
             this.stopListening();
@@ -69,6 +64,7 @@ define([
         }
     });
 
-    return QwizbookMainPage;
+    module.exports = QwizbookMainPage;
+
 });
 
