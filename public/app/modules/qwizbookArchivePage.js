@@ -7,13 +7,11 @@
  */
 define([
     "app",
-    "modules/header",
-    "modules/userSettings",
+    "modules/header/headerInternal",
     "modules/footer/footer",
-    "modules/appToolbar",
     "modules/qwizbookArchiveContent"
 ],
-    function (App, Header, UserSettings, Footer, AppToolbar, QwizbookArchiveContent) {
+    function (App, Header,  Footer,  QwizbookArchiveContent) {
         // Create a new module
         var QwizbookArchivePage = App.module();
 
@@ -26,8 +24,7 @@ define([
 
             	this.session = this.options.session;
             	this.userSettings = new UserSettings.View({session: this.session});
-                this.appToolbar = new AppToolbar.View({session: this.session, location: "my-qwizbooks-archive"});
-                this.header = new Header.View({htbuView: this.userSettings, htblView: this.appToolbar});
+                this.header = new Header.View({session: this.session});
                 this.footer = new Footer.View();
 				this.archiveQwizbookContent = new QwizbookArchiveContent.View({session: this.session});
 				this.archiveQwizbookContent.clear();

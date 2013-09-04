@@ -7,7 +7,7 @@
  */
 define([
     "app",
-    "modules/header",
+    "modules/header/headerInternal",
     "modules/pageNotFoundContent",
     "modules/footer/footer"
 ], function (App, Header, PageNotFound, Footer) {

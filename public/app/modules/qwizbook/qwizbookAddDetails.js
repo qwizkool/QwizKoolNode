@@ -7,14 +7,12 @@
  */
 define([
     "app",
-    "modules/header",
-    "modules/appToolbar",
-    "modules/userSettings",
+    "modules/header/headerInternal",
     "modules/footer/footer",
     "modules/qwizbook/qwizbookAddDetailsContent",
      "text!templates/myQwizbooksContent.html"
 ],
-    function (App, Header, AppToolbar, UserSettings, Footer, QwizbookAddDetailsContent,Template) {
+    function (App, Header,  Footer, QwizbookAddDetailsContent,Template) {
         // Create a new module
         var QwizbookAddContent = App.module();
 
@@ -27,9 +25,7 @@ define([
 
             	this.session = this.options.session;
             	this.qwizbookId = this.options.qwizbookId;
-            	this.userSettings = new UserSettings.View({session: this.session});
-                this.appToolbar = new AppToolbar.View({session: this.session, location: "my-qwizbooks"});
-            	this.header = new Header.View({htbuView: this.userSettings, htblView: this.appToolbar});
+            	this.header = new Header.View({session: this.session});
            	    this.footer = new Footer.View();
 				this.qwizbookAddContent = new QwizbookAddDetailsContent.View({qwizbookId:this.qwizbookId,session: this.session});
             },

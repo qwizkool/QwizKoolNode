@@ -7,13 +7,11 @@
  */
 define([
     "app",
-    "modules/header",
-    "modules/userSettings",
+    "modules/header/headerInternal",
     "modules/footer/footer",
-    "modules/appToolbar",
     "modules/myQwizbooksContent"
 ],
-    function (App, Header, UserSettings, Footer, AppToolbar, MyQwizbooksContent) {
+    function (App, Header,  Footer,  MyQwizbooksContent) {
         // Create a new module
         var MyQwizbooksPage = App.module();
 
@@ -25,9 +23,7 @@ define([
                 }
 
                 this.session = this.options.session;
-                this.userSettings = new UserSettings.View({session: this.session});
-                this.appToolbar = new AppToolbar.View({session: this.session, location: "my-qwizbooks"});
-                this.header = new Header.View({htbuView: this.userSettings, htblView: this.appToolbar});
+                this.header = new Header.View({session: this.session});
                 this.footer = new Footer.View();
                 this.myQwizbookPageContent = new MyQwizbooksContent.View({session: this.session});
             },
