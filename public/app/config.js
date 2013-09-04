@@ -19,8 +19,6 @@ require.config({
 		backbone : "../vendor/jam/backbone/backbone",
 		underscore : "../vendor/jam/underscore/underscore",
 		jquery : "../vendor/jam/jquery/dist/jquery",
-        jqueryValidate : "../vendor/jquery-validate/jquery.validate",
-        jqueryWookmark : "../vendor/jquery-wookmark/jquery.wookmark",
         bootstrapRating: "../vendor/bootstrap-rating-input/bootstrap-rating-input"
 
     },
@@ -52,10 +50,6 @@ require.config({
         bootstrap_checkbox : {
             deps : ["bootstrap"],
             exports : 'bootstrap_checkbox'
-        },
-        jqueryWookmark : {
-            deps : ["jquery"],
-            exports : 'jqueryWookmark'
         },
         bootstrapRating : {
             deps : ["bootstrap"],
