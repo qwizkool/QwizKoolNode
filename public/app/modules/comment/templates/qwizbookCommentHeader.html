@@ -1,60 +1,39 @@
-<!--TODO: cleanup id and class names also move style to CSS.-->
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix">
+    <div class="panel panel-info qwizbook-panel">
 
-<div class="qwizbook-comment-style clearfix" id="qwizbook-comments-form">
+        <div class="panel-heading">
+            <h4 class="panel-title">Add your comment:</h4>
+        </div>
 
-    <div class="row">
-        <div class="span12 ">
-<script type="text/javascript">
-        var RecaptchaOptions = {
-           theme : 'clean',
-           lang  : 'en'
-        };
-    </script>
-            <form class="form-horizontal ">
+        <!-- List group -->
+        <ul class="list-group">
 
-                <fieldset style="padding: 10px">
-                    <legend class="text-info">Provide your comments</legend>
-                    <div class="control-group">
-                        <textarea class="input-block-level" id="qwizbook-comment-text" rows="4"
+            <li class="list-group-item">
+
+                <div id="qwizbook-create-form">
+
+                    <div class="form-group">
+
+                        <textarea class="form-control input-block-level" id="qwizbook-comment-text" rows="4"
                                   placeholder="Provide your comments for this qwizbook."
                                   style="resize: vertical"></textarea>
                     </div>
+                </div>
 
-  <div id="recaptcha_widget" style="display:none">
+            </li>
 
-   <div id="recaptcha_image"></div>
-   <div class="recaptcha_only_if_incorrect_sol" style="color:red">Incorrect please try again</div>
+        </ul>
 
-   <span class="recaptcha_only_if_image">Enter the words above:</span>
-   <span class="recaptcha_only_if_audio">Enter the numbers you hear:</span>
+        <ul class="list-group ">
 
-   <input type="text" id="recaptcha_response_field" name="recaptcha_response_field" />
-
-   <div><a href="javascript:Recaptcha.reload()">Get another CAPTCHA</a></div>
-   <div class="recaptcha_only_if_image"><a href="javascript:Recaptcha.switch_type('audio')">Get an audio CAPTCHA</a></div>
-   <div class="recaptcha_only_if_audio"><a href="javascript:Recaptcha.switch_type('image')">Get an image CAPTCHA</a></div>
-
-   <div><a href="javascript:Recaptcha.showhelp()">Help</a></div>
-
- </div>
-
- <script type="text/javascript"
-    src="http://www.google.com/recaptcha/api/challenge?k=6Ld3buASAAAAADKscITxGr_e-yGBBbKvBqeR1X43">
- </script>
- <noscript>
-   <iframe src="http://www.google.com/recaptcha/api/noscript?k=6Ld3buASAAAAADKscITxGr_e-yGBBbKvBqeR1X43"
-        height="300" width="500" frameborder="0"></iframe><br>
-   <textarea name="recaptcha_challenge_field" rows="3" cols="40">
-   </textarea>
-   <input type="hidden" name="recaptcha_response_field"
-        value="manual_challenge">
- </noscript>
-                    <button id="addcomment" class="btn btn-info">Submit</button>
-
-                </fieldset>
-            </form>
-
-        </div>
+            <li class="list-group-item clearfix">
+                <div class="pull-right">
+                    <button class="btn btn-info btn-large" id="add-comment">
+                        Submit
+                    </button>
+                </div>
+            </li>
+        </ul>
     </div>
 
 </div>

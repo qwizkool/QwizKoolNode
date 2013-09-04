@@ -23,6 +23,8 @@ define(function (require, exports, module) {
 
     Comment.View = Backbone.View.extend({
         template: TemplateListView,
+        tagName: 'li',
+        className : 'list-group-item',
 
         initialize: function () {
 

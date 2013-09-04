@@ -25,18 +25,14 @@ define(function (require, exports, module) {
         initialize: function () {
         },
 
-
         render: function (done) {
-
             this.el.innerHTML = this.template;
             return this;
         },
 
         events: {
 
-            "click #cancelComment": "commentDiv",
-            "click #qwizbook-comments-form": "addCommentDiv",
-            "click #addcomment": "addComment",
+            "click #add-comment": "addComment",
             "keyup #qwizbook-comment-text": "checkCommentSize"
         },
 
@@ -44,17 +40,6 @@ define(function (require, exports, module) {
             this.undelegateEvents();
             this.delegateEvents(this.events);
         },
-
-        commentDiv: function (e) {
-            $('#qwizbook-comments-form').hide();
-
-
-        },
-
-        addCommentDiv: function (e) {
-            $('#qwizbook-comments-form').show();
-        },
-
 
         addComment: function (e) {
 
@@ -68,7 +53,6 @@ define(function (require, exports, module) {
             var userComment = $('#qwizbook-comment-text').val();
             var userCommentLength = userComment.length;
             var newComment = "";
-
 
             if (userCommentLength > 0 && userCommentLength > App.appConfig.MAX_COMMENT_SIZE_IN_CHARS) {
                 //alert("123");

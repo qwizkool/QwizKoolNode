@@ -20,6 +20,7 @@ define(function (require, exports, module) {
     var QwizbookDetailView = require('modules/qwizbook/qwizbookDetailView');
 
     var QwizbookCommentHeader = require('modules/comment/qwizbookCommentHeader');
+    var QwizbookComment = require('modules/comment/qwizbookComment');
     var QwizbookCommentCollection = require('modules/comment/qwizbookCommentCollection');
     var QwizbookCommentListView = require('modules/comment/qwizbookCommentListView');
 
@@ -77,7 +78,7 @@ define(function (require, exports, module) {
         processCommentAdd: function(e) {
 
 
-            var comment = new Comments.Model();
+            var comment = new QwizbookComment.Model();
             var newComment = e.addComment;
             var qbookId = e.qwizbookId;
             var view = this;
