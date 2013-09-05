@@ -31,8 +31,14 @@ define(function (require, exports, module) {
 
             this.session = this.options.session;
             this.header = new Header.View({session: this.session});
+            this.listenTo(this.header, "search", this.refreshSearch);
             this.footer = new Footer.View();
             this.myQwizbookPageContent = new MyQwizbooksContent.View({session: this.session});
+        },
+
+        refreshSearch: function (e) {
+
+            this.myQwizbookPageContent.refreshCollectionForSearchEvent(e);
         },
 
         show: function (done) {

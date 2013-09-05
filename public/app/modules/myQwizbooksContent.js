@@ -201,8 +201,8 @@ define(function (require, exports, module) {
 
         },
 
-        qwizbook_search: function (e) {
-            var searchparam = e.target.value;
+        refreshCollectionForSearchEvent: function (e) {
+            var searchparam = e.criteria;
             this.myQwizbookCollection.setSearchParameter(this.session, searchparam);
             this.myQwizbookCollection.getMybooks();
         },

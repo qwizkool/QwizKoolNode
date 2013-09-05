@@ -166,7 +166,7 @@ Qwizbook.prototype.retrieveMyQwizbooks = function(owner,page,limit, callback) {
 	var userEmail = owner.email;
 	QwizbookModel.find({
 		ownerEmail : userEmail,
-		archive :false,
+		archive :false
 	}).sort({
 		date : -1
 	}).skip(page).limit(limit).execFind(function(err, books) {
@@ -213,7 +213,7 @@ Qwizbook.prototype.retrieveMyArchivebooks = function(owner, page, limit, callbac
 };
 
 
-Qwizbook.prototype.retrieveMyUnarchiveSearchbooks = function(owner, searchparameter, callback) {
+Qwizbook.prototype.retrieveMyUnarchiveSearchbooks = function(owner, searchparameter, page, limit,  callback) {
 
 	// TODO: Complete the Retrieve Qwizbooks
 	// Retrieve Qwizbooks, that are shared, public or
