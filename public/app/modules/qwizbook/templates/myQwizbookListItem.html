@@ -1,0 +1,40 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix">
+
+    <div class="panel panel-info qwizbook-panel">
+
+        <div class="panel-heading clearfix">
+            <input type="hidden" name="published_<%= _id %>" id="published_<%= _id %>"
+                   value="<%= published %>"/>
+            <!--<div class="icon-published-status" id="qwizbook-publish-status_<%= _id %>" style="padding: 10px"><i class="icon-bullhorn icon-1x" data-toggle="tooltip" title="Published"></i> </div>-->
+            <div class="btn-group pull-right">
+            <button data-toggle="tooltip" title="Archive" type="button" id="qwizbookArchive_<%= _id %>" class="btn btn-default btn-small item-archive-sel"><i class="icon-briefcase"></i></button>
+            <button data-toggle="tooltip" title="Publish" type="button" id="qwizbookPublishOrUnpublish_<%= _id %>" class="btn btn-default btn-small item-pub-sel"><i class="icon-bullhorn"></i></button>
+            <button data-toggle="tooltip" title="Edit" type="button" id="qwizbookEdit_<%= _id %>" class="btn btn-default btn-small item-edit-sel"><i class="icon-edit"></i></button>
+        </div>
+        </div>
+        <div class="panel-body">
+            <div class="media">
+
+                <a class="pull-left" href="">
+                    <img class="media-object img-polaroid" src="../../../../assets/img/qbook-thumb-114x166.gif">
+                </a>
+
+                <div class="media-body">
+
+                    <div class="page-header">
+                        <h4><%= title %>
+                            <small>Subtext for header</small>
+                        </h4>
+                    </div>
+
+                </div>
+
+            </div>
+            <p style="padding-top: 10px"><%= description %></p>
+        </div>
+
+    </div>
+
+</div>
+
+

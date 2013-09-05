@@ -52,7 +52,7 @@ define([
         }
     });
 
-    MyArchivedQwizbook.ListMyBook = Backbone.View.extend({
+    MyArchivedQwizbook.ListView = Backbone.View.extend({
 
         template: TmplQwizbookList,
 

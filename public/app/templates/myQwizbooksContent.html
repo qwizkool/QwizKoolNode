@@ -1,75 +1,89 @@
-<div class="span12" id="my-qwizbooks-content-header">
+<!--For Content specific toolbar.-->
 
-    <div class="navbar">
-        <div class="navbar-inner navbar-simple">
-
-            <div class="row-fluid my-qwizbooks-tb">
-                <div class="span2 tb-item-left tb-item-small-media">
-                    <div class="btn-group">
-                        <a class="btn btn-info" id="all-items-selector" data-toggle="button"><i class="icon-circle-blank" data-toggle="tooltip" title="All"></i></a>
-                    </div>
-                </div>
-                <div class="span2 tb-item-center tb-item-small-media">
-                    <div class="btn-group">
-                        <a class="btn btn-success" id="create-form-btn"><i class="icon-plus" data-toggle="tooltip" title="Create"></i></a>
-                        <a class="btn btn-danger disabled" id="archive-all-btn"><i class="icon-briefcase" data-toggle="tooltip" title="Archive"></i></a>
-                        <!--<a class="btn btn-danger disabled" id="publish-all-btn"><i class="icon-bullhorn disabled" data-toggle="tooltip" title="Publish/Un publish all"></i></a>-->
-                    </div>
-                </div>
-                <div class="span8  tb-item-right tb-item-small-media">
-                    <div class="btn-group">
-                        <input type="text" class="search-query" id="search-qwizbook" placeholder="Search Books">
-                    </div>
-                </div>
-
-
+<!--For Content specific toolbar.-->
+<div class="breadcrumb-bar">
+    <div class="navbar-default">
+        <div class="container">
+            <div class="row">
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="javascript:void(0)">My Qwizbooks</a></li>
+                </ol>
             </div>
         </div>
-
     </div>
 </div>
-<div class="span12" id="my-qwizbooks-create-form">
-    <div id="qwizbook-create-form" name="qwizbook-create-form" style="display: none" >
 
-        <table class="table table-bordered">
-            <caption class="text-left" style="padding: 5px"><p><h4 class="text-info">Create a Qwizbook</h4></p></caption>
-            <tbody>
-            <tr>
-                <td align="right" style="padding:10px;"><h5>Title</h5></td>
-                <td align="left" style="border: 1px solid #EEEEEE;padding:10px;" >
-                    <input type="text" id="qwizbook-title" name="qwizbook-title" class="input-block-level" style="resize: vertical">
+<div class="content-toolbar" id="qwizkbook-content-toolbar">
+    <div class="">
+        <div class="container">
+            <div class="row">
+                <div class="clearfix">
+                    <div  style="padding: 10px">
+                        <button type="button" class="btn btn-danger create-qwizbook-modal-btn">Create Qwizbook</button>
 
-                    <div id="title-status"></div>
-                </td>
-            </tr>
+                        <div class="modal" id="create-qwizbook-modal" tabindex="-1" role="dialog"
+                             aria-labelledby="createQwizbookModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" style="padding-top: 30px">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close close-qwizbook-modal-btn"
+                                                data-dismiss="modal"
+                                                aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title text-primary">Create a Qwizbook</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="qwizbook-create-form">
+                                            <div class="form-group">
+                                                <label for="qwizbook-title">Title</label>
+                                                <input id="qwizbook-title" maxlength="64" type="text"
+                                                       name="qwizbook-title" class="form-control"
+                                                       placeholder="Enter a Title">
 
-            <tr>
-                <td align="right" style="border: 1px solid #EEEEEE;padding:10px;"><h5>Description</h5></td>
-                <td align="left" style="border: 1px solid #EEEEEE;padding:10px;" >
-                    <textarea id="qwizbook-description" name="qwizbook-description" class="input-block-level" style="resize: vertical"> </textarea>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td style="border: 1px solid #EEEEEE;padding:10px;">
-                    <button id="btn-create-qwizbook-submit" class="btn btn-info btn-small">
-                        Submit
-                    </button>
-                    <button id="btn-create-qwizbook-cancel" class="btn btn-info btn-small">
-                        Cancel
-                    </button>
-                </td>
+                                                <div id="title-status"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="qwizbook-sub-title">Sub Title</label>
+                                                <input id="qwizbook-sub-title" maxlength="64" type="text"
+                                                       name="qwizbook-sub-title" class="form-control"
+                                                       placeholder="Enter a Sub Title [optional]">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="qwizbook-description">Description</label>
 
+                                                <textarea class="form-control" id="qwizbook-description"
+                                                          name="qwizbook-description" style="resize: vertical"
+                                                          maxlength="1000">
+                                                </textarea>
+                                            </div>
+                                        </div>
 
-            </tr>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default close-qwizbook-modal-btn"
+                                                data-dismiss="modal">Close
+                                        </button>
+                                        <button type="button" id="create-qwizbook-modal-form-btn" class="btn btn-info">
+                                            Save changes
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <!-- /.modal -->
+                    </div>
 
+                </div>
 
-            </tbody>
-        </table>
+            </div>
 
+        </div>
     </div>
-
 </div>
+
 <div class="span12" id="myQwizbookList-container">
 
 </div>

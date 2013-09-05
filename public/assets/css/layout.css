@@ -2,7 +2,9 @@
 @import url(http://fonts.googleapis.com/css?family=Courgette);
 @import url(http://fonts.googleapis.com/css?family=Lato);
 
-
+.qwizbook-panel {
+           margin-top: 10px;
+}
 .qwizbook-panel .page-header {
     border-bottom: none;
 }
@@ -82,6 +84,14 @@
 
 .content-toolbar {
     margin-bottom: 10px;
+}
+
+.breadcrumb-bar {
+    margin-bottom: 0px;
+}
+
+.breadcrumb-bar .breadcrumb {
+    margin-bottom: 0px;
 }
 
 #qwizbook-details-tab {

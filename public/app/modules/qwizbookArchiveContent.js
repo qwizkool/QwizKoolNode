@@ -40,7 +40,7 @@ define([
 
             this.listenTo(this.qwizbookUserCollection, "list-qwizbook-event", this.refreshView);
 
-            this.qwizbooklistview = new MyQwizbook.ListMyBook({
+            this.qwizbooklistview = new MyQwizbook.ListView({
                 idAttribute: "_id",
                 model: this.qwizbookUserCollection,
                 session: this.session

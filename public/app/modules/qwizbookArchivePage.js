@@ -23,8 +23,7 @@ define([
             		}
 
             	this.session = this.options.session;
-            	this.userSettings = new UserSettings.View({session: this.session});
-                this.header = new Header.View({session: this.session});
+               this.header = new Header.View({session: this.session});
                 this.footer = new Footer.View();
 				this.archiveQwizbookContent = new QwizbookArchiveContent.View({session: this.session});
 				this.archiveQwizbookContent.clear();

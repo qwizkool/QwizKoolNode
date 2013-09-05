@@ -5,10 +5,20 @@
  * Container that holds the my qwizbooks content inside a page.
  *
  */
-define(["app",
-    "modules/qwizbook",
-    "modules/myQwizbook",
-    "text!templates/myQwizbooksContent.html"], function (App, QwizBook, MyQwizbook, Template) {
+define(function (require, exports, module) {
+
+    /**
+     * Module dependencies.
+     */
+    var App = require('app');
+    var Backbone = require('backbone');
+    var _ = require('underscore');
+    var $ = require('jquery');
+    var Qwizbook = require('modules/qwizbook/qwizbookModel');
+    var QwizbookCollection = require('modules/qwizbook/qwizbookCollection');
+    var MyQwizbook = require('modules/qwizbook/myQwizbookListView');
+    var Template = require("text!templates/myQwizbooksContent.html");
+
 
     var MyQwizbooksContent = App.module();
 
@@ -24,57 +34,114 @@ define(["app",
             var view = this;
 
 
-            this.qwizbookUserCollection = new QwizBook.Collection();
-            this.qwizbookUserCollection.setMyQwizbookMode(this.session);
+            this.myQwizbookCollection = new QwizbookCollection.Collection();
+            this.myQwizbookCollection.setMyQwizbookMode(this.session);
 
-            this.listenTo(this.qwizbookUserCollection, "reset", this.refreshView);
+            this.listenTo(this.myQwizbookCollection, "reset", this.refreshView);
 
-            this.qwizbooklistview = new MyQwizbook.ListMyBook({
-                model: this.qwizbookUserCollection,
+            this.qwizbooklistview = new MyQwizbook.ListView({
+                model: this.myQwizbookCollection,
                 session: this.session
             });
 
-            this.qwizbookUserCollection.getMybooks();
+            this.myQwizbookCollection.getMybooks();
 
         },
 
         events: {
 
-            "click #my-qwizbooks-content-header #all-items-selector": "toggleSelAllQwizbooks",
-            "click #create-form-btn": "showCreateForm",
-            "click #btn-create-qwizbook-submit": "submitCreateForm",
-            "click #btn-create-qwizbook-cancel": "cancelCreateForm",
-            "click .item-archive-sel": "qwizbookItemArchive",
+            "click .item-archive-sel": "qwizbookItemArchivePopup",
+            "click .archive-cancel-btn": "qwizbookItemArchiveCancel",
+            "click .archive-confirm-btn": "qwizbookItemArchive",
             "click .item-pub-sel": "qwizbookItemPublish",
             "click .item-edit-sel": "qwizbookItemEdit",
-            "click .item-checked": "qwizbookItemSelect",
-            "click #my-qwizbooks-content-header #archive-all-btn": "archiveAllBooks",
 
             "keyup #search-qwizbook": "qwizbook_search",
             "keyup #qwizbook-title": "checkQwizbookTitleLength",
-            "keyup #qwizbook-description": "checkQwizbookDescriptionLength"
+            "keyup #qwizbook-description": "checkQwizbookDescriptionLength",
 
-
+            "click .create-qwizbook-modal-btn": "openQwizbookCreateForm",
+            "click .close-qwizbook-modal-btn": "closeQwizbookCreateForm",
+            "click #create-qwizbook-modal-form-btn": "createQwizbook"
         },
 
+        closeQwizbookCreateForm: function (e) {
+
+            $('#qwizbook-title').val('');
+            $('#qwizbook-sub-title').val('');
+            $('#qwizbook-description').val('');
+        },
+
+        openQwizbookCreateForm: function (e) {
+            $('#create-qwizbook-modal').modal();
+        },
+
+        createQwizbook: function (e) {
+
+
+            if ($('#qwizbook-title').val()) {
+
+                var qwizbookmodel = new Qwizbook.Model();
+                var qbooktitle = $('#qwizbook-title').val();
+                var qbooksubtitle = $('#qwizbook-sub-title').val();
+                var qbookdesc = $('#qwizbook-description').val();
+                var view = this;
+                qwizbookmodel.create(qbooktitle, qbookdesc);
+                this.listenTo(qwizbookmodel, "qwizbook-create-success-event", function () {
+                    view.myQwizbookCollection.getMybooks();
+                });
+                $('#create-qwizbook-modal').modal('hide');
+                $('#qwizbook-title').val('');
+                $('#qwizbook-sub-title').val('');
+                $('#qwizbook-description').val('');
+
+
+            } else {
+                $("#title-status").addClass('alert-error');
+                $("#title-status").html('Please enter a Title');
+                $("#title-status").show();
+            }
+
+        },
+        qwizbookItemArchivePopup: function (e) {
+            var id = e.currentTarget.id;
+            var view = this;
+            if (id) {
+                var split_id = id.split("_");
+                var qId = split_id[1];
+                var qbookModel = view.myQwizbookCollection.get(qId);
+                var title = qbookModel.get('title');
+                var message = "";
+                message += [
+                    ' <p>Do you really want to archive ',
+                    '<strong>',
+                    title,
+                    '</strong>',
+                    '? </p>'].join('');
+
+                $('#archival-confirmation .modal-body').html(message);
+                $('#archival-confirmation .archive-confirm-btn').attr('id', "archive-qwizbook_" + qId);
+                $('#archival-confirmation').modal();
+            }
+        },
+        qwizbookItemArchiveCancel: function (e) {
+            $('#archival-confirmation .modal-body').html("");
+            $('#archival-confirmation .archive-confirm-btn').attr('id', "");
+        },
         qwizbookItemArchive: function (e) {
             var id = e.currentTarget.id;
             var view = this;
             if (id) {
                 var split_id = id.split("_");
                 var qId = split_id[1];
-                var qbookModel = view.qwizbookUserCollection.get(qId);
-                var confirmMsg = confirm('Are you sure you want to archive this Qwizbook')
-                if (confirmMsg) {
-
-                    this.listenTo(qbookModel, "delete-qwizbook-success-event", function () {
-
-                        view.qwizbookUserCollection.getMybooks();
-                    });
-
-                    qbookModel.deleteMyQwizbook(qId);
-                }
-
+                var qbookModel = view.myQwizbookCollection.get(qId);
+                this.listenTo(qbookModel, "delete-qwizbook-success-event", function () {
+                    view.myQwizbookCollection.getMybooks();
+                });
+                qbookModel.deleteMyQwizbook(qId);
+                $('#archival-confirmation .modal-body').html("");
+                $('#archival-confirmation .archive-confirm-btn').attr('id', "");
+                $('#archival-confirmation').modal('hide');
             }
         },
 
@@ -85,72 +152,20 @@ define(["app",
             if (id) {
                 var split_id = id.split("_");
                 var qId = split_id[1];
-                var qbookModel = view.qwizbookUserCollection.get(qId);
+                var qbookModel = view.myQwizbookCollection.get(qId);
 
                 var published = $('#published_' + qId).val();
 
                 this.listenTo(qbookModel, "publishOrunpublish-qwizbook-success-event", function () {
 
-                    view.qwizbookUserCollection.getMybooks();
+                    view.myQwizbookCollection.getMybooks();
                 });
 
                 qbookModel.publishOrunpublishQwizbook(qId, (published === "true") ? false : true);
 
             }
         },
-        qwizbookItemSelect: function () {
 
-            // Check  if any item is selected, if not disable archive all
-            // controls.
-            if ($('#myQwizbookList-container :checkbox:checked').length > 0) {
-                this.activateSelAll();
-            } else {
-                this.deactivateSelAll();
-            }
-
-        },
-
-        toggleSelAllQwizbooks: function (e) {
-
-            if ($('a#all-items-selector').button().hasClass('active')) {
-                // Currently active , after this it will become in active
-                this.deactivateSelAll();
-
-                // de select all qwizbooks
-                this.deselectAllQwizbooks();
-            } else {
-                // Currently inactive,  now it will become active
-                this.activateSelAll();
-
-                // Select all qwizbooks
-                this.selectAllQwizbooks();
-            }
-
-        },
-
-        activateSelAll: function () {
-            // Currently inactive,  now it will become active
-            if ($('a#all-items-selector i').hasClass('icon-circle-blank')) {
-
-                $('a#all-items-selector i').removeClass('icon-circle-blank')
-                $('a#all-items-selector i').addClass('icon-ok-circle')
-
-                // Show the archive all button
-                $('a#archive-all-btn').button().removeClass('disabled')
-
-            }
-        },
-
-        deactivateSelAll: function () {
-
-            if ($('a#all-items-selector i').hasClass('icon-ok-circle')) {
-                $('a#all-items-selector i').removeClass('icon-ok-circle')
-                $('a#all-items-selector i').addClass('icon-circle-blank')
-
-                // hide archive all button
-                $('a#archive-all-btn').button().addClass('disabled')
-            }
-        },
 
         checkQwizbookTitleLength: function (e) {
 
@@ -188,8 +203,8 @@ define(["app",
 
         qwizbook_search: function (e) {
             var searchparam = e.target.value;
-            this.qwizbookUserCollection.setSearchParameter(this.session, searchparam);
-            this.qwizbookUserCollection.getMybooks();
+            this.myQwizbookCollection.setSearchParameter(this.session, searchparam);
+            this.myQwizbookCollection.getMybooks();
         },
 
         qwizbookItemEdit: function (e) {
@@ -201,118 +216,6 @@ define(["app",
 
                 Backbone.history.navigate("#authorQwizbook/" + qId, true);
             }
-        },
-
-        showCreateForm: function (e) {
-
-            $("#title-status").hide();
-            $('#qwizbook-create-form').show();
-            $('#myBook-no-result-found').hide();
-
-        },
-
-        submitCreateForm: function (e) {
-
-            if ($('#qwizbook-title').val()) {
-
-                var qwizbookmodel = new QwizBook.Model();
-                var qbooktitle = $('#qwizbook-title').val();
-                var qbookdesc = $('#qwizbook-description').val();
-                var view = this;
-                qwizbookmodel.create(qbooktitle, qbookdesc);
-                this.listenTo(qwizbookmodel, "qwizbook-create-success-event", function () {
-                    //view.qwizbookUserCollection.setMyQwizbookMode();
-                    view.qwizbookUserCollection.getMybooks();
-
-                });
-                $('#qwizbook-create-form').hide();
-                $('#qwizbook-title').val('');
-                $('#qwizbook-description').val('');
-            } else {
-                $("#title-status").addClass('alert-error');
-                $("#title-status").html('Please enter a Title');
-                $("#title-status").show();
-            }
-
-        },
-
-        cancelCreateForm: function (e) {
-
-            $("#title-status").hide();
-            $('#qwizbook-create-form').hide();
-
-            $('#qwizbook-title').val('');
-            $('#qwizbook-description').val('');
-
-            if (this.qwizbookUserCollection.length == 0) {
-                $('#myBook-no-result-found').show();
-            }
-
-
-        },
-
-        selectAllQwizbooks: function () {
-
-            $('#myQwizbook-list-container').find(':checkbox').each(function () {
-                $(':checkbox').prop("checked", true);
-            });
-        },
-
-
-        deselectAllQwizbooks: function () {
-
-            $('#myQwizbook-list-container').find(':checkbox').each(function () {
-                $(':checkbox').prop("checked", false);
-            });
-
-        },
-
-
-        archiveAllBooks: function () {
-
-            var currentQwizbook = "";
-            var selectedQwizbooks = [];
-
-            var counter = 1;
-            var view = this;
-
-            var selectedQbookCount = $('#myQwizbookList-container :checkbox:checked').length;
-
-            if (selectedQbookCount) {
-
-                var confirmMsg = confirm('Are you sure you want to archive ' + selectedQbookCount + ' Qwizbooks')
-                if (confirmMsg) {
-
-                    $('#myQwizbookList-container :checkbox:checked').each(function () {
-
-                        var id = $(this).attr('id');
-
-                        if (id) {
-
-                            var split_id = id.split("_");
-
-                            var currentQwizbookId = split_id[1];
-
-                            var qbookModel = view.qwizbookUserCollection.get(currentQwizbookId);
-                            if (counter == selectedQbookCount) {
-
-                                view.listenTo(qbookModel, "delete-qwizbook-success-event", function () {
-                                    view.qwizbookUserCollection.getMybooks();
-                                });
-
-                            }
-                            qbookModel.deleteMyQwizbook(currentQwizbook);
-                            counter++;
-
-                        }
-
-                    });
-
-                    this.deselectAllQwizbooks();
-
-                }
-            }
-
         },
 
         refreshView: function () {

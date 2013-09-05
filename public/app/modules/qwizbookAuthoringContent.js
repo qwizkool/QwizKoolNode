@@ -26,7 +26,7 @@ define(["app",
             this.qwizbookUserCollection.setMyQwizbookMode(this.session);
 
             this.listenTo(this.qwizbookUserCollection, "reset", this.refreshView);
-			this.qwizbooklistview = new MyQwizBook.ListMyBook({
+			this.qwizbooklistview = new MyQwizBook.ListView({
 				model : this.qwizbookUserCollection,
 				session : this.session
 			});
