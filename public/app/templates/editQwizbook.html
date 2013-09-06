@@ -1,47 +1,49 @@
-<div class="accordion" id="accordion2">
-    <div class="accordion-group">
-        <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" data-bypass
-               href="#collapseOne">
-                <h5> Edit - Title & Description  </h5>
-            </a>
-        </div>
-        <div id="collapseOne" class="accordion-body collapse out">
-            <div class="accordion-inner">
-                <table class="table table-bordered">
-                    <tbody>
+<div class="panel panel-info" style="margin: 10px">
+    <div class="panel-heading">
+        <h3 class="panel-title">Edit - Title & Description</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered">
+            <tbody>
 
-                    <tr>
-                        <td align="right" style="padding:10px;" class="span3">Title</td>
-                        <td align="left" style="border: 1px solid #EEEEEE;padding:10px;" class="span9">
-                            <input type="text" id="qwizbook-title" name="qwizbook-title" class="input-block-level"
-                                   maxlength="250" style="resize: vertical" value="<%= title %>">
-                        </td>
-                    </tr>
+            <tr>
+                <td align="right" style="padding:10px;" >Title</td>
+                <td align="left" style="border: 1px solid #EEEEEE;padding:10px;">
+                    <div class="form-group">
+                    <input type="text" id="qwizbook-title" name="qwizbook-title" class="form-control input-block-level"
+                           maxlength="250" style="resize: vertical" value="<%= title %>">
+                    </div>
+                </td>
+            </tr>
 
-                    <tr>
-                        <td align="right" style="border: 1px solid #EEEEEE;padding:10px;" class="span3">Description</td>
-                        <td align="left" style="border: 1px solid #EEEEEE;padding:10px;" class="span9">
-                            <textarea class="input-block-level" id="qwizbook-description" name="qwizbook-description" style="resize: vertical" maxlength="1000"><%=
-                                description %> </textarea>
-                        </td>
-                    </tr>
+            <tr>
+                <td align="right" style="border: 1px solid #EEEEEE;padding:10px;" >Description</td>
+                <td align="left" style="border: 1px solid #EEEEEE;padding:10px;" >
+                    <div class="form-group">
 
-                    <tr>
-                        <td></td>
-                        <td style="border: 1px solid #EEEEEE;padding:10px;">
-                            <button id="btn-save-qwizbook" class="btn btn-info btn-small">
-                                Save
-                            </button>
+                        <textarea class="form-control input-block-level" id="qwizbook-description" name="qwizbook-description" rows="4"
+                                  placeholder="Provide your comments for this qwizbook."
+                                  style="resize: vertical"><%=description %></textarea>
+                    </div>
 
-                        </td>
-                    </tr>
 
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td class="pull-right clearfix" style="border: 1px solid #EEEEEE;padding:10px;">
+
+                    <button id="btn-save-qwizbook" class="btn btn-info btn-small">
+                        Save
+                    </button>
+
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
     </div>
 
 </div>
-

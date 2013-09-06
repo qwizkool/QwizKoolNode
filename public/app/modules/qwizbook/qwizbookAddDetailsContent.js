@@ -1,13 +1,19 @@
-define([
-    "app",
-    "modules/qwizbook/qwizbookView",
-    "modules/qwizbook/editQwizbook",
-    "modules/qwizbook/qwizbookPageCollection",
-    "modules/qwizbook/pageReferenceCollection",
-    "text!templates/qwizbookAddDetailsContent.html",
-    "text!templates/qwizbookPageListItem.html"
 
-], function (App, QwizBook, EditQwizbook, QwizBookPage, PageReference, Template, TmplPageListItem) {
+define(function (require, exports, module) {
+
+    /**
+     * Module dependencies.
+     */
+    var App = require('app');
+    var Backbone = require('backbone');
+    var _ = require('underscore');
+    var $ = require('jquery');
+    var QwizBook = require('modules/qwizbook/qwizbookView');
+    var EditQwizbook = require('modules/qwizbook/editQwizbook');
+    var QwizBookPage = require('modules/qwizbook/qwizbookPageCollection');
+    var PageReference = require('modules/qwizbook/pageReferenceCollection');
+    var Template =  require("text!templates/qwizbookAddDetailsContent.html");
+    var TmplPageListItem =  require("text!templates/qwizbookPageListItem.html");
 
     var QwizbookAddDetailsContent = App.module();
 
@@ -275,7 +281,7 @@ console.log(pageReferences);
         * Delete quizbook page
         */
         deleteQwizbookPage: function(e){
-            e.preventDefault();
+            //e.preventDefault();
             var pageId = $(e.target)
                             .attr("id")
                             .trim()
@@ -301,7 +307,7 @@ console.log(pageReferences);
         },
 
         editQwizbookPage: function(e){
-            e.preventDefault();
+           // e.preventDefault();
             this._clearReferences();
             var view = this,
                 elm = e.target;
@@ -415,6 +421,6 @@ console.log(pageReferences);
         }
     });
 
-    return QwizbookAddDetailsContent;
+    module.exports = QwizbookAddDetailsContent;
 
 });
