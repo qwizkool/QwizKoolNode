@@ -496,7 +496,7 @@ Qwizbook.prototype.deleteQwizbook = function(qId, callback) {
 	});
 };
 
-Qwizbook.prototype.retrieveQwizbookSearchResults = function(owner, searchparameter, callback) {
+Qwizbook.prototype.retrieveQwizbookSearchResults = function(owner, searchparameter, page, limit, callback) {
 
 	// TODO: Complete the Retrieve Qwizbooks
 	// Retrieve Qwizbooks, that are shared, public or

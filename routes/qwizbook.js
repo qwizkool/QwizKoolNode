@@ -371,15 +371,10 @@ module.exports = {
 					console.log(err);
 					return;
 				} else {
-					if (books.length > 0) {
-						res.send(books);
-					} else {
-						res.send({
-							page : "Archive"
-						});
-					}
 
-				}
+                    res.send(books);
+
+                }
 
 			});
 

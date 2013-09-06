@@ -6,10 +6,8 @@
             <input type="hidden" name="published_<%= _id %>" id="published_<%= _id %>"
                    value="<%= published %>"/>
             <div class="btn-group pull-right">
-            <button data-toggle="tooltip" title="Archive" type="button" id="qwizbookArchive_<%= _id %>" class="btn btn-default btn-small item-archive-sel"><i class="icon-archive"></i></button>
-            <button data-toggle="tooltip" title="Publish" type="button" id="qwizbookPublishOrUnpublish_<%= _id %>" class="btn btn-default btn-small item-pub-sel"><i class="icon-bullhorn"></i></button>
-            <button data-toggle="tooltip" title="Edit" type="button" id="qwizbookEdit_<%= _id %>" class="btn btn-default btn-small item-edit-sel"><i class="icon-edit"></i></button>
-        </div>
+                <button data-toggle="tooltip" title="Un Archive" type="button" id="qwizbookArchive_<%= _id %>" class="btn btn-default btn-small item-un-archive-sel"><i class="icon-folder-open-alt"></i></button>
+             </div>
         </div>
         <div class="panel-body">
             <div class="media">
@@ -35,5 +33,4 @@
     </div>
 
 </div>
-
 
