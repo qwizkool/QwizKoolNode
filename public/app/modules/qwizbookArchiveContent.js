@@ -15,7 +15,7 @@ define(function (require, exports, module) {
     var _ = require('underscore');
     var $ = require('jquery');
     var Qwizbook = require('modules/qwizbook/qwizbookCollection');
-    var ArchivedQwizbook = require('modules/qwizbook/myArchivedQwizbookListview');
+    var ArchivedQwizbook = require('modules/qwizbook/myArchivedQwizbookListView');
     var Template = require("text!templates/qwizbookArchiveContent.html");
 
     var QwizbookArchiveContent = App.module();
