@@ -21,9 +21,8 @@ define([
         initialize:function () {
 
             this.session = this.options.session;
-            this.header = new Header.View();
+            this.header = new Header.View({session: this.session});
             this.footer = new Footer.View();
-
             this.PageNotFound = new PageNotFound.View();
 
         },
