@@ -111,7 +111,7 @@ QwizEngineController.prototype.createView = function(viewClass) {
 /**
  * QwizEngineController method.
  */
-QwizEngineController.prototype.setCurrentView: function(view) {
+QwizEngineController.prototype.setCurrentView = function(view) {
 
     if (this.currentView) {
         this.stopListening(this.currentView);
