@@ -47,14 +47,14 @@ var QwizEngineController = function(userSession, qwizbookId) {
 QwizEngineController.prototype.initialize =  function () {
 
     // Fetch the QwizBook with the qwizbook id
-    this.qwizbookModel = new QwizbookModel({_id : this.qwizbookId, session : this.userSession});
-    this.qwizbookModel.retreive(); // Async operation !!!?
+    //this.qwizbookModel = new QwizbookModel({_id : this.qwizbookId, session : this.userSession});
+   // this.qwizbookModel.retreive(); // Async operation !!!?
 
     // Create and start the FSM
-   	this.qwizbookFSM = new QwizBookFSM(this.qwizbookModel.get("FSM"));
+   	//this.qwizbookFSM = new QwizBookFSM(this.qwizbookModel.get("FSM"));
     
     // Install FSM event listener
-    var self = this;
+  /*  var self = this;
 	this.qwizbookFSM.on ('stateEntry', function (chapterid) {
 	    
 	    // read through qwizbook model so that any sub-model loads 
@@ -62,10 +62,10 @@ QwizEngineController.prototype.initialize =  function () {
 	    self.pages = self.qwizbookModel.get("pages");
 	    self.currentPage = pages[0];
 	            
-	});
+	});*/
 
     // Start FSM. Will trigger the first chapter event
-    this.qwizbookFSM.start();
+   // this.qwizbookFSM.start();
     
     
     // Create and open qwizbook tracking for the user

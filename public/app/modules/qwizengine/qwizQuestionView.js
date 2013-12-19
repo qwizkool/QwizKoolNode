@@ -43,14 +43,14 @@ define([
                     "question":{"text":"where is my dog?",
                         "imageLinks" : [
                             {
-                                "url" : "http://placehold.it/350x150",
+                                "url" : "http://www.innz.net.nz/wp-content/uploads/2013/01/hello.jpg",
                                 "_id" : "AAA",
                                 "description": "Hello"
                             },
                             {
-                                "url" : "../../assets/img/knowledge.gif",
+                                "url" : "http://static4.wikia.nocookie.net/__cb20131020211558/freerealmswarriorcats/images/4/48/15340193-peace-symbol.jpg",
                                 "_id" : "BBB",
-                                "description": "pulo"
+                                "description": "Peace"
                             }
                         ],
                         "audioLinks" : [
