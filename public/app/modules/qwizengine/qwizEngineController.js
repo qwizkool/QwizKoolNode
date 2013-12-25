@@ -15,6 +15,7 @@ define(function(require, exports, module) {
  */
 var App = require("app");
 var QwizOpeningView = require("modules/qwizengine/qwizOpeningView");
+var QwizLoadingView = require("modules/qwizengine/qwizLoadingView");
 var QwizQuestionView = require("modules/qwizengine/qwizQuestionView");
 var QwizClosingView = require("modules/qwizengine/qwizClosingView");
 var QwizbookModel = require("modules/qwizbook/qwizbookModel");
@@ -32,10 +33,19 @@ var QwizEngineController = function(userSession, qwizbookId) {
     this.currentChapter = null;
     this.pages = null;
     this.currentPage = null;
-    
+    this.viewClassArray = [];
+
 
     // Mix-in event capability
     _.extend(this, Backbone.Events);
+
+
+    this.viewClassArray.push(QwizLoadingView);
+    // Initialize view index
+    this.viewIndex = 0;
+    var view =  this.createView(QwizLoadingView);
+    this.setCurrentView(view);
+
 
 };
 
@@ -46,9 +56,6 @@ var QwizEngineController = function(userSession, qwizbookId) {
  */
 QwizEngineController.prototype.initialize =  function () {
 
-    // Fetch the QwizBook with the qwizbook id
-    //this.qwizbookModel = new QwizbookModel({_id : this.qwizbookId, session : this.userSession});
-   // this.qwizbookModel.retreive(); // Async operation !!!?
 
     // Create and start the FSM
    	//this.qwizbookFSM = new QwizBookFSM(this.qwizbookModel.get("FSM"));
@@ -72,19 +79,15 @@ QwizEngineController.prototype.initialize =  function () {
     // TODO
 
     // For testing create and store all the views
-    this.viewClassArray = [];
 
-    // Starting view
-    var view =  this.createView(QwizOpeningView);
-    this.setCurrentView(view);
 
     // Store all view classes
     this.viewClassArray.push(QwizOpeningView);
     this.viewClassArray.push(QwizQuestionView);
     this.viewClassArray.push(QwizClosingView);
 
-    // Initialize view index
-    this.viewIndex = 0;
+    // Starting view
+     this.goToNextView();
 
 };
 

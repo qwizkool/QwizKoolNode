@@ -9,8 +9,9 @@
 define([
     "app",
     "modules/qwizengine/qwizEngineController",
+    "modules/qwizbook/qwizbookModel",
     "text!modules/qwizengine/templates/qwizEngineView.html"
-], function (App, QwizEngine, Template) {
+], function (App, QwizEngine, QwizbookModel, Template) {
 
     // Create a new module
     var QwizEngineView = new App.module();
@@ -28,20 +29,30 @@ define([
             }
 
             this.session = this.options.session;
+            // Fetch the QwizBook with the qwizbook id
+            this.qwizbookModel = new QwizbookModel.Model({_id : this.options.qwizbookId, session : this.session});
+            // On success of retrieving the book. get all its comments.
+            this.listenTo(this.qwizbookModel, "retreive-qwizbook-success-event", this.initializeQwizEngine);
 
             // Instantiate the qwiz engine.
             this.engine = new QwizEngine(this.session,  this.options.qwizbookId);
+            this.currentView = this.engine.getCurrentView();
+
 
             // Register for transition event.
             this.listenTo(this.engine, "qwiz-transition-view", this.transitionView);
             this.listenTo(this.engine, "qwiz-transition-exit", this.exitQwiz);
 
-            // Initialize the starting view object.
-            this.engine.initialize();
-            this.currentView = this.engine.getCurrentView();
-
+            this.qwizbookModel.retreive(); // Async operation !!!?
         },
 
+        initializeQwizEngine:function () {
+
+
+            // Initialize the starting view object.
+            this.engine.initialize();
+
+        },
 
         // Default renderer
         render: function () {
