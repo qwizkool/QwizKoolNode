@@ -73,7 +73,7 @@ define(function (require, exports, module) {
                 var qbooksubtitle = $('#qwizbook-sub-title').val();
                 var qbookdesc = $('#qwizbook-description').val();
                 var view = this;
-                qwizbookmodel.create(qbooktitle, qbookdesc);
+                qwizbookmodel.create(qbooktitle,qbooksubtitle, qbookdesc);
 
                 $('#create-qwizbook-modal').modal('hide');
                 $('#qwizbook-title').val('');

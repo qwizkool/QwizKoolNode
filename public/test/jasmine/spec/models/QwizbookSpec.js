@@ -133,9 +133,11 @@ define(['modules/user/user', 'modules/user/session', 'modules/qwizbook'], functi
                     testqwizbookuniqueKey = "uniqueKey" + charArray[String.fromCharCode(a + i)];
                     testqwizbookTitle = "Title" + charArray[String.fromCharCode(a + i)]+ i.toString() + " " + dateStr;
                     testqwizbookDescription = LoremDescription + charArray[String.fromCharCode(a + i)];
+                    testqwizbookSubTitle = "SubTitle" + charArray[String.fromCharCode(a + i)]+ i.toString() + " " + dateStr;
 
                     // Add the Qwizbook
                     qwizbook.set('uniqueKey', testqwizbookuniqueKey);
+                    qwizbook.set('title', testqwizbookTitle);
                     qwizbook.set('title', testqwizbookTitle);
                     qwizbook.set('description', testqwizbookDescription);
                     qwizbook.set('ownerEmail', owneremail);
@@ -144,7 +146,7 @@ define(['modules/user/user', 'modules/user/session', 'modules/qwizbook'], functi
                     qwizbook.set('archive',false);
                     qwizbook.set('published',true);
 
-                    qwizbook.create(testqwizbookTitle, testqwizbookDescription);
+                    qwizbook.create(testqwizbookTitle,testqwizbookSubTitle, testqwizbookDescription);
 
                     waitsFor(function () {
                         return done;

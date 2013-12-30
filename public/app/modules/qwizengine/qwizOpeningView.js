@@ -19,25 +19,31 @@ define([
         template: Template,
 
         initialize: function () {
-
+            this.qwizbook= this.options.model;
         },
 
         render: function () {
-            //  Todo: FINAL CODE ,to be enabled once model is passed
-            // this.$el.html(_.template(this.template, this.options.model.toJSON()));
 
-            // Todo : --TEST STUB START--
-            var data = {
-                "title": "The Drunken Botanist: The Plants That Create the World's Great Drinks",
-                "chapterTitle" : "Syrups, Infusions and Garnishes",
-                "description" : "Every great drink starts with a plant and of course, this is obviously true. Beer starts from barley or other grains; wine, from grapes or other fruit. Vodka comes from grains or potatoes. Whisk(e)y arises from barley, corn, rye, or other grains."
-            }
-
-
+            var data = this.convertToViewData();
             this.$el.html(_.template(this.template, data));
-            // -- TEST STUB END--
             return this;
 
+        },
+
+        // Translation from qwizbook data format to whats required by this
+        // view. allow flexibility and loose coupling.
+        convertToViewData: function () {
+
+
+            console.log(JSON.stringify(this.qwizbook,null,2));
+
+            var data = {
+                "title": this.qwizbook.get("title"),
+                "chapterTitle" : this.qwizbook.get("subtitle"),
+                "description" : this.qwizbook.get("description")
+            }
+
+            return data;
         },
 
         events: {

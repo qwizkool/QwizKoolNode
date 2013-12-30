@@ -72,6 +72,7 @@ Qwizbook.prototype.createQwizbook = function(owner, data, callback) {
 	var instance = new QwizbookModel();
 	instance.uniqueKey = data.title + ":" + owner.email;
 	instance.title = data.title;
+    instance.subtitle = data.subtitle;
 	instance.description = data.description;
 	instance.ownerEmail = owner.email;
 	instance.groupPermission = data.groupPermission;

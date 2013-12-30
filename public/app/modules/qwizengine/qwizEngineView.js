@@ -16,7 +16,6 @@ define([
     // Create a new module
     var QwizEngineView = new App.module();
 
-    // Top level view for the qwizkool
     QwizEngineView.View = Backbone.View.extend({
 
         template: Template,
@@ -29,28 +28,26 @@ define([
             }
 
             this.session = this.options.session;
-            // Fetch the QwizBook with the qwizbook id
-            this.qwizbookModel = new QwizbookModel.Model({_id : this.options.qwizbookId, session : this.session});
-            // On success of retrieving the book. get all its comments.
-            this.listenTo(this.qwizbookModel, "retreive-qwizbook-success-event", this.initializeQwizEngine);
 
             // Instantiate the qwiz engine.
-            this.engine = new QwizEngine(this.session,  this.options.qwizbookId);
+            this.engine = new QwizEngine(this.session, this.options.qwizbookId);
             this.currentView = this.engine.getCurrentView();
-
 
             // Register for transition event.
             this.listenTo(this.engine, "qwiz-transition-view", this.transitionView);
             this.listenTo(this.engine, "qwiz-transition-exit", this.exitQwiz);
 
-            this.qwizbookModel.retreive(); // Async operation !!!?
+            // Fetch the QwizBook with the qwizbook id
+            this.qwizbookModel = new QwizbookModel.Model({_id: this.options.qwizbookId, session: this.session});
+            this.listenTo(this.qwizbookModel, "retreive-qwizbook-success-event", this.initializeQwizEngineOnRetrieval);
+            this.qwizbookModel.retreive();
+
         },
 
-        initializeQwizEngine:function () {
-
+        initializeQwizEngineOnRetrieval: function () {
 
             // Initialize the starting view object.
-            this.engine.initialize();
+            this.engine.initialize(this.qwizbookModel);
 
         },
 
@@ -62,16 +59,17 @@ define([
 
             return this;
         },
-        exitQwiz: function() {
-            Backbone.history.navigate("#qwizbookDetails/"+ this.options.qwizbookId, true);
+
+        exitQwiz: function () {
+            Backbone.history.navigate("#qwizbookDetails/" + this.options.qwizbookId, true);
         },
 
-        transitionView: function() {
+        transitionView: function () {
             var view = this.engine.getCurrentView();
             this.renderQwizView(view)
         },
 
-        renderQwizView: function(view) {
+        renderQwizView: function (view) {
 
             if (this.currentView) {
                 this.currentView.remove();
@@ -82,7 +80,7 @@ define([
             return view;
         },
 
-        remove: function() {
+        remove: function () {
 
             this.$el.remove();
             this.stopListening();

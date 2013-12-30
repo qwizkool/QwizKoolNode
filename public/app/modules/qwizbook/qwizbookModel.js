@@ -21,7 +21,8 @@ define([
         defaults:{
             id:null,
             uniqueKey:null,
-            title:"Welcome to a new way of learning ..",
+            title:"Qwizbook",
+            subtitle:"Welcome to a new way of learning ..",
             description:"Qwizbook Description",
             ownerEmail:"qwizkool_user@qwizkool.com",
             date:Date.now,
@@ -50,9 +51,10 @@ define([
             this.qwizbookPage.url = "/qwizbooks/" + this.id + "/pages";
         },
 
-        create:function (qbtitle, qbdescription) {
+        create:function (qbtitle,qbooksubtitle, qbdescription) {
             this.set('title', qbtitle);
-            this.set('description', qbdescription); 
+            this.set('description', qbdescription);
+            this.set('subtitle', qbooksubtitle);
             this.set({
                 AddedqwizBookAttempted:true,
                 isAddedqwizBook:false,

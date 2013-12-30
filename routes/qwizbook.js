@@ -12,9 +12,6 @@ module.exports = {
 		var sessionUser = req.user;
 
 		var book = req.body;
-		var email = sessionUser.email;
-		var title = book.qbookTitle;
-		var description = book.qbookDescription;
 		console.log(book)
 		Qwizbook.createQwizbook(sessionUser, book, function(err, book) {
 			// If error send the error response

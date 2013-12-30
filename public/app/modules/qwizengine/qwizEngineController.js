@@ -13,39 +13,23 @@ define(function(require, exports, module) {
 /**
  * Module dependencies.
  */
-var App = require("app");
-var QwizOpeningView = require("modules/qwizengine/qwizOpeningView");
 var QwizLoadingView = require("modules/qwizengine/qwizLoadingView");
-var QwizQuestionView = require("modules/qwizengine/qwizQuestionView");
-var QwizClosingView = require("modules/qwizengine/qwizClosingView");
-var QwizbookModel = require("modules/qwizbook/qwizbookModel");
-var QwizbookFSM = require("modules/qwizbookFSM");
-//var QwizbookTrack = require("modules/qwizbookTrack"); TODO
+var QwizEngineFSM = require("modules/qwizengine/qwizEngineFSM");
 
 /**
  * QwizEngineController constructor.
  */
 var QwizEngineController = function(userSession, qwizbookId) {
 
-    this.userSession = userSession;
     this.qwizbookId = qwizbookId;
     this.qwizbookModel = null;
-    this.currentChapter = null;
-    this.pages = null;
-    this.currentPage = null;
-    this.viewClassArray = [];
-
 
     // Mix-in event capability
     _.extend(this, Backbone.Events);
 
-
-    this.viewClassArray.push(QwizLoadingView);
-    // Initialize view index
-    this.viewIndex = 0;
-    var view =  this.createView(QwizLoadingView);
+    // default loading view.
+    var view =  this.createView(QwizLoadingView,{});
     this.setCurrentView(view);
-
 
 };
 
@@ -54,40 +38,21 @@ var QwizEngineController = function(userSession, qwizbookId) {
 /**
  * QwizEngineController initialize.
  */
-QwizEngineController.prototype.initialize =  function () {
+QwizEngineController.prototype.initialize =  function (qwizbook) {
 
+    // Associate with the qwizbook to be used.
+    this.qwizbookModel = qwizbook;
 
     // Create and start the FSM
-   	//this.qwizbookFSM = new QwizBookFSM(this.qwizbookModel.get("FSM"));
+   	this.qwizEngineFSM = new QwizEngineFSM(qwizbook);
+    this.qwizEngineFSM.initialize();
     
-    // Install FSM event listener
-  /*  var self = this;
-	this.qwizbookFSM.on ('stateEntry', function (chapterid) {
-	    
-	    // read through qwizbook model so that any sub-model loads 
-	    // can be opimized there
-	    self.pages = self.qwizbookModel.get("pages");
-	    self.currentPage = pages[0];
-	            
-	});*/
 
-    // Start FSM. Will trigger the first chapter event
-   // this.qwizbookFSM.start();
-    
-    
-    // Create and open qwizbook tracking for the user
-    // TODO
+    // Start the opening view
+    var nextViewObject = this.qwizEngineFSM.getOpeningViewObject();
+    var view =  this.createView(nextViewObject.view,nextViewObject.options);
+    this.setCurrentView(view);
 
-    // For testing create and store all the views
-
-
-    // Store all view classes
-    this.viewClassArray.push(QwizOpeningView);
-    this.viewClassArray.push(QwizQuestionView);
-    this.viewClassArray.push(QwizClosingView);
-
-    // Starting view
-     this.goToNextView();
 
 };
 
@@ -95,16 +60,23 @@ QwizEngineController.prototype.initialize =  function () {
 /**
  * QwizEngineController method.
  */
-QwizEngineController.prototype.createView = function(viewClass) {
+QwizEngineController.prototype.createView = function(viewClass,options) {
 
-    var view = new viewClass.View();
+    var view = new viewClass.View(options);
 
     // Handle all possible user interaction events
-    // Next, Previous, hint, done
+
+    // generic navigation Next, Previous, done
     this.listenTo(view, "qwiz-transition-next", this.goToNextView);
     this.listenTo(view, "qwiz-transition-prev", this.goToPrevView);
-    this.listenTo(view, "qwiz-transition-hint", this.goToHintView);
     this.listenTo(view, "qwiz-transition-done", this.goToExit);
+
+    // Hint, reference etc are different levels of views
+    this.listenTo(view, "qwiz-transition-hint", this.goToHintView);
+
+    // Once entered different level, use this event to come to the previous level
+    // generic events like Next, Previous,  done are used to navigate in any level
+    this.listenTo(view, "qwiz-transition-prev-Level", this.changeToPreviousViewLevel);
 
     return view;
 
@@ -141,8 +113,8 @@ QwizEngineController.prototype.getCurrentView = function () {
  */
 QwizEngineController.prototype.goToNextView = function () {
 
-    this.viewIndex++;
-    var view =  this.createView(this.viewClassArray[this.viewIndex]);
+    var nextViewObject = this.qwizEngineFSM.getNextViewObject();
+    var view =  this.createView(nextViewObject.view,nextViewObject.options);
     this.setCurrentView(view);
 
 };
@@ -152,9 +124,10 @@ QwizEngineController.prototype.goToNextView = function () {
  * QwizEngineController method.
  */
 QwizEngineController.prototype.goToPrevView = function () {
-    this.viewIndex--;
-    var view =  this.createView(this.viewClassArray[this.viewIndex]);
+    var nextViewObject = this.qwizEngineFSM.getPreviousViewObject();
+    var view =  this.createView(nextViewObject.view,nextViewObject.options);
     this.setCurrentView(view);
+
 };
 
 
@@ -162,6 +135,11 @@ QwizEngineController.prototype.goToPrevView = function () {
  * QwizEngineController method.
  */
 QwizEngineController.prototype.goToStartView = function () {
+
+    // Start the opening view
+    var nextViewObject = this.qwizEngineFSM.getOpeningViewObject();
+    var view =  this.createView(nextViewObject.view,nextViewObject.options);
+    this.setCurrentView(view);
 
 };
 
@@ -171,6 +149,10 @@ QwizEngineController.prototype.goToStartView = function () {
  */
 QwizEngineController.prototype.goToHintView = function () {
 
+    this.qwizEngineFSM.changeToHintViewLevel();
+    var nextViewObject = this.qwizEngineFSM.getNextViewObject();
+    var view =  this.createView(nextViewObject.view,nextViewObject.options);
+    this.setCurrentView(view);
 };
 
 
@@ -182,9 +164,16 @@ QwizEngineController.prototype.goToExit = function () {
     this.trigger('qwiz-transition-exit');
 };
 
+QwizEngineController.prototype.changeToPreviousViewLevel = function () {
+    this.qwizEngineFSM.changeToPreviousViewLevel();
+    var nextViewObject = this.qwizEngineFSM.getNextViewObject();
+    var view =  this.createView(nextViewObject.view,nextViewObject.options);
+    this.setCurrentView(view);
+};
 
 
-/**
+
+    /**
  * QwizEngineController method.
  */
 QwizEngineController.prototype.remove = function () {

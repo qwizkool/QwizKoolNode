@@ -19,14 +19,30 @@ define([
         template: Template,
 
         initialize: function () {
-
+            this.qwizbook= this.options.model;
         },
 
         render: function () {
-            this.$el.html(_.template(this.template, this.model));
+
+            var data = this.convertToViewData();
+            this.$el.html(_.template(this.template, data));
             return this;
 
         },
+
+        convertToViewData: function () {
+
+
+            var x=this.qwizbook.get("pages")[this.page];
+
+            var data = {
+                "title": this.qwizbook.get("title"),
+                "chapterTitle" : this.qwizbook.get("subtitle")
+             };
+
+            return data;
+        },
+
 
 
         events: {

@@ -16,6 +16,9 @@ var QwizbookSchema = {
     title: {
         type: String
     },
+    subtitle: {
+        type: String
+    },
     description: {
         type: String
     },
@@ -110,7 +113,8 @@ var QwizbookSchema = {
     chapters: [{
     
         title : String,
-        id : Number
+        id : Number,
+        description : String
   
     }],
     
