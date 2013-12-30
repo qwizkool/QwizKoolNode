@@ -82,8 +82,6 @@ define(function (require, exports, module) {
                 // go to final view
                 this.pageIndex = 0;
                 viewObject = this.createViewObject(QwizClosingView,{ model: this.qwizbook})
-
-
             }
 
         }
