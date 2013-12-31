@@ -109,11 +109,8 @@ else if (question.videoLinks.length)
             <p> Options: </p>
         </div>
      </div>
-    <div class="span1">
-    </div>
 
-
-    <%for (var i = 0; i < answers.length; i++) { %>
+     <%for (var i = 0; i < answers.length; i++) { %>
     <% var item = answers[i] %>
     <% var item_id = String.fromCharCode('A'.charCodeAt() + i) %>
     <div class="span9 clearfix">
@@ -129,11 +126,10 @@ else if (question.videoLinks.length)
 
     </div>
     <div class="span1">
-        <input type="checkbox" name="option-<%= item_id %>" value="<%= item_id %>">
+        <input type="checkbox" name="qwizAnswer[]" value="<%= item_id %>" data-correct="<%=item.correct%>">
     </div>
 
     <% }; %>
-
 
 </div>
 

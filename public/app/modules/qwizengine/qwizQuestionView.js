@@ -25,6 +25,15 @@ define([
 
             this.qwizbook= this.options.model;
             this.page= this.options.page;
+            this.tracker= this.options.tracker;
+
+            if (_.isEmpty(this.options.model)) {
+                throw "ERROR: qwizbook is not provided for this view!!"
+            }
+
+            if (_.isEmpty(this.options.tracker)) {
+                throw "ERROR: tracker is not provided for this view!!"
+            }
 
             _.declarePartial('imageLinks', ImageLinkTmpl);
             _.declarePartial('audioLinks', AudioLinkTmpl);
@@ -32,15 +41,12 @@ define([
 
         },
         render: function () {
-
             var data = this.convertToViewData();
             this.$el.html(_.template(this.template, data));
             return this;
-
         },
 
         convertToViewData: function () {
-
 
             var x=this.qwizbook.get("pages")[this.page];
 
@@ -53,7 +59,6 @@ define([
             return data;
         },
 
-
         events: {
             "click #qwiz-control-prev": "goToPrevView",
             "click #qwiz-control-next": "goToNextView",
@@ -62,7 +67,27 @@ define([
         },
 
         goToNextView: function(e) {
-            this.trigger('qwiz-transition-next');
+
+            // Check if atleast one option is selected
+            // if selected , update the tracker
+            var checkedAnswers =  $('input[name="qwizAnswer[]"]:checked');
+            if (checkedAnswers.length)
+            {
+                var answeredCorrectly = true;
+
+                // Check for answers, if any selected is false
+                // then the answer is considered false
+                $(checkedAnswers).each(function(){
+                    if (this.getAttribute("data-correct") == "false"){
+                        answeredCorrectly = false;
+                    }
+                });
+
+                this.tracker.trackResult(this.page, answeredCorrectly);
+                console.log("Answered : " + answeredCorrectly)
+                this.trigger('qwiz-transition-next');
+            }
+
         },
         goToPrevView: function(e) {
             this.trigger('qwiz-transition-prev');

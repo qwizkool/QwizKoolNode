@@ -11,9 +11,28 @@
 <div class="qwiz-body clearfix">
 
 
+    <ul class="list-group">
+        <li class="list-group-item">
+            <span class="badge"><%= obj.score.total %></span>
+            Total Attempts
+        </li>
+        <li class="list-group-item">
+            <span class="badge"><%= obj.score.points %></span>
+            Total Points
+        </li>
+         <li class="list-group-item">
+            <span class="badge"><%= obj.score.success %></span>
+            Total Successful Attempts
+        </li>
+        <li class="list-group-item">
+            <span class="badge"><%= obj.score.fail %></span>
+            Total Failed Attempts
+        </li>
+    </ul>
+
     <p>
 
-The END !!
+        The END !!
     </p>
 
 </div>

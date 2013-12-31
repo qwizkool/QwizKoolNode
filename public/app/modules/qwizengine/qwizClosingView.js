@@ -20,6 +20,7 @@ define([
 
         initialize: function () {
             this.qwizbook= this.options.model;
+            this.tracker= this.options.tracker;
         },
 
         render: function () {
@@ -32,12 +33,10 @@ define([
 
         convertToViewData: function () {
 
-
-            var x=this.qwizbook.get("pages")[this.page];
-
             var data = {
                 "title": this.qwizbook.get("title"),
-                "chapterTitle" : this.qwizbook.get("subtitle")
+                "chapterTitle" : this.qwizbook.get("subtitle"),
+                "score" : this.tracker.getScore()
              };
 
             return data;
