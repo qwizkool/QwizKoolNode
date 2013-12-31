@@ -1,12 +1,8 @@
-<div class="qwiz-header clearfix">
 
-    <div class="clearfix">
-        <button type="button" class="qwiz-control-done pull-right"><i class="icon-remove"></i></button>
-        <h4 class="title pull-left"><%= obj.title %> </h4>
-    </div>
-    <h3 class="subtitle pull-left"><%= obj.chapterTitle %> </h3>
-
-</div>
+<!--
+        Create the header for the qwiz view using template
+-->
+<%= _.partial('qwizHeader', {"obj": obj} ) %>
 
 <%
 
@@ -39,21 +35,17 @@ else if (question.videoLinks.length)
 <div class="qwiz-body clearfix">
 
     <div class="qwiz-question">
-        <div class="span9">
 
             <p>
                 <%= question.text %>
             </p>
-        </div>
+
     </div>
 
     <% if ( qwiz_media ){ %>
 
     <div class="qwiz-media clearfix">
-        <div class="span10">
             <div class="tabbable">
-
-
                 <ul class="nav nav-tabs">
 
                     <% if ( (question.imageLinks !== undefined) && question.imageLinks.length ){ %>
@@ -99,37 +91,38 @@ else if (question.videoLinks.length)
                 </div>
                 <!-- /.tab-content -->
             </div>
-            <hr>
-        </div>
     </div>
+    <hr>
     <% } %>
 
-    <div class="span9 clearfix">
+    <div class="clearfix">
         <div class="qwiz-option-header pull-left">
             <p> Options: </p>
         </div>
      </div>
 
-     <%for (var i = 0; i < answers.length; i++) { %>
-    <% var item = answers[i] %>
-    <% var item_id = String.fromCharCode('A'.charCodeAt() + i) %>
-    <div class="span9 clearfix">
+    <ul class="list-group">
+        <%for (var i = 0; i < answers.length; i++) { %>
+        <% var item = answers[i] %>
+        <% var item_id = String.fromCharCode('A'.charCodeAt() + i) %>
+        <li class="list-group-item">
+            <span class="badge">
+                         <input type="checkbox" name="qwizAnswer[]" value="<%= item_id %>" data-correct="<%=item.correct%>">
+            </span>
 
-        <div class="qwiz-option">
-            <p>
-                <%= item_id%>. <%=item.choice.text %>
-                <%= _.partial('imageLinks', {"imageLinks": item.choice.imageLinks} ) %>
-                <%= _.partial('audioLinks', {"audioLinks": item.choice.audioLinks} ) %>
-                <%= _.partial('videoLinks', {"videoLinks": item.choice.videoLinks} ) %>
-            </p>
-        </div>
+            <div class="qwiz-option">
+                <p>
+                    <%= item_id%>. <%=item.choice.text %>
+                    <%= _.partial('imageLinks', {"imageLinks": item.choice.imageLinks} ) %>
+                    <%= _.partial('audioLinks', {"audioLinks": item.choice.audioLinks} ) %>
+                    <%= _.partial('videoLinks', {"videoLinks": item.choice.videoLinks} ) %>
+                </p>
+            </div>
 
-    </div>
-    <div class="span1">
-        <input type="checkbox" name="qwizAnswer[]" value="<%= item_id %>" data-correct="<%=item.correct%>">
-    </div>
 
-    <% }; %>
+        </li>
+        <% }; %>
+    </ul>
 
 </div>
 
@@ -138,3 +131,4 @@ else if (question.videoLinks.length)
             class="icon-bolt icon-2x" data-toggle="tooltip" title="Hint"></i></button>
     <button class="btn btn-primary" id="qwiz-control-next">Next</button>
 </div>
+

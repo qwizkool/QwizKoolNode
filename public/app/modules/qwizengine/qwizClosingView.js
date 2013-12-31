@@ -8,8 +8,9 @@
 
 define([
     "app",
-    "text!modules/qwizengine/templates/qwizClosingView.html"
-], function (App, Template) {
+    "text!modules/qwizengine/templates/qwizClosingView.html",
+    "text!modules/qwizengine/templates/qwizHeader.html"
+], function (App, Template, QwizHeaderTmpl) {
 
     // Create a new module
     var QwizClosingView = App.module();
@@ -21,6 +22,7 @@ define([
         initialize: function () {
             this.qwizbook= this.options.model;
             this.tracker= this.options.tracker;
+            _.declarePartial('qwizHeader', QwizHeaderTmpl);
         },
 
         render: function () {

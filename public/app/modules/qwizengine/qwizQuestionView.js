@@ -9,10 +9,11 @@
 define([
     "app",
     "text!modules/qwizengine/templates/qwizQuestionView.html",
+    "text!modules/qwizengine/templates/qwizHeader.html",
     "text!modules/qwizengine/templates/imageLinks.html",
     "text!modules/qwizengine/templates/audioLinks.html",
     "text!modules/qwizengine/templates/videoLinks.html"
-], function (App, Template,ImageLinkTmpl,AudioLinkTmpl, VideoLinkTmpl) {
+], function (App, Template, QwizHeaderTmpl, ImageLinkTmpl,AudioLinkTmpl, VideoLinkTmpl) {
 
     // Create a new module
     var QwizQuestionView = App.module();
@@ -38,6 +39,7 @@ define([
             _.declarePartial('imageLinks', ImageLinkTmpl);
             _.declarePartial('audioLinks', AudioLinkTmpl);
             _.declarePartial('videoLinks', VideoLinkTmpl);
+            _.declarePartial('qwizHeader', QwizHeaderTmpl);
 
         },
         render: function () {
