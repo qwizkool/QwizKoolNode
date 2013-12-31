@@ -45,6 +45,7 @@ define([
         render: function () {
             var data = this.convertToViewData();
             this.$el.html(_.template(this.template, data));
+
             return this;
         },
 
@@ -65,7 +66,12 @@ define([
             "click #qwiz-control-prev": "goToPrevView",
             "click #qwiz-control-next": "goToNextView",
             "click #qwiz-control-hint": "goToHintView",
-            "click .qwiz-control-done": "goToDoneView"
+            "click .qwiz-control-done": "goToDoneView",
+            "click [type='checkbox']":  "optionSelected"
+        },
+
+        optionSelected: function(e) {
+            $(".qwiz-question-warning").addClass("hidden");
         },
 
         goToNextView: function(e) {
@@ -88,6 +94,10 @@ define([
                 this.tracker.trackResult(this.page, answeredCorrectly);
                 console.log("Answered : " + answeredCorrectly)
                 this.trigger('qwiz-transition-next');
+            } else {
+
+                $(".qwiz-question-warning").toggleClass("hidden");
+
             }
 
         },
