@@ -1,0 +1,22 @@
+<div class="form-group media-group">
+    <label for="option-<%= obj%>" class="text-info">Option <%= obj%></label>
+
+    <div id="answer-media-elements-<%= obj%>" class="input-group">
+
+        <span class="input-group-addon"><input title="Correct Answer" name="answer-option-<%= obj%>" type="checkbox"></span>
+        <input type="text" id="option-<%= obj%>" name="option-<%= obj%>" class="form-control">
+
+        <div class="input-group-btn media-btn-group">
+            <button title="Add Image" type="button" name="image-toggler" class="btn btn-default"><i
+                    class="icon-picture text-info"></i></i></button>
+            <button title="Add Audio" type="button" name="audio-toggler" class="btn btn-default"><i
+                    class="icon-volume-up text-info"></i></button>
+            <button title="Add Video" type="button" name="video-toggler" class="btn btn-default"><i
+                    class="icon-facetime-video text-info"></i></button>
+        </div>
+
+    </div>
+    <ul class="list-group" id="answer-media-elements-<%= obj%>-urls" style="padding-top: 10px">
+
+    </ul>
+</div>

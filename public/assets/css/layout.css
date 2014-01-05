@@ -590,5 +590,7 @@ body {
 }
 
 
-
+.list-group-item.media-controls {
+    background: lightgrey;
+}
 

@@ -14,7 +14,7 @@ define(function (require, exports, module) {
     var PageReference = require('modules/qwizbook/pageReferenceCollection');
     var Template =  require("text!templates/qwizbookAddDetailsContent.html");
     var TmplPageListItem =  require("text!templates/qwizbookPageListItem.html");
-
+    var AnswerMediaOptionsTmpl = require("text!modules/qwizbook/templates/answerOption.html");
     var QwizbookAddDetailsContent = App.module();
 
     QwizbookAddDetailsContent.View = Backbone.View.extend({
@@ -37,6 +37,8 @@ define(function (require, exports, module) {
             this.listenTo(this.qwizbookModel, "retreive-qwizbook-success-event", this.updateView);
             this.editQwizbook = new EditQwizbook.View({model: this.qwizbookModel, qwizbookId: this.qwizbookId, session:this.session});
 
+            _.declarePartial('answerMediaOptions', AnswerMediaOptionsTmpl);
+
         },
 
         updateView : function() {
@@ -56,13 +58,30 @@ define(function (require, exports, module) {
             
             //edit qwizbook
             "click #btn-save-qwizbook" : "editBook",
-            "click .media-group a" : "addSupportLink",
+            "click .form-group .media-btn-group button" : "addMediaSupportLink",
             "click .media-hide" : "removeSupportLink",
             "click #delete-all-btn" : "deleteQwizbookPages",
             "click .page-delete" : "deleteQwizbookPage",
             "click .page-edit": "editQwizbookPage"
         },
-        
+
+        addMediaSupportLink: function(e){
+            var trigger = e.target.parentNode,
+                type = $(trigger).attr("name").replace(/(-toggler)/g,""),
+                input = $(trigger).parents(".form-group"),
+                control = $(".templates .form-group."+type).clone(),
+                inputId = $(input).children().eq(1).attr("id"),
+                controlId = inputId + "-" + type,
+                controlInsertId=inputId + "-" + "urls";
+            if($("#" + controlId).length > 0){
+                // $("#" + controlId).parents(".controls.media-controls").remove();
+            }
+            else{
+                $(control).children().first().attr("id",controlId)
+                $("#"+controlInsertId).append(control);
+            }
+        },
+
         addSupportLink: function(e){
             var trigger = e.target.parentNode,
                 type = $(trigger).attr("class").replace(/(btn |-toggler)/g,""),
@@ -81,7 +100,7 @@ define(function (require, exports, module) {
        
         removeSupportLink: function(e){
             var trigger = e.target.parentNode
-            $(trigger).parents(".controls.media-controls").remove();
+            $(trigger).parents(".form-group.media-controls").remove();
         },
         
         editBook :function ()
@@ -118,13 +137,20 @@ define(function (require, exports, module) {
         */
         submitAuthorForm: function (e) {
             e.preventDefault();
-            var questionType = $("#question-type").val(),
-                that = this;
+            that = this;
+            var questionType =  $("#question-type").val();
+            var answers = that._getMultipleChoiceAnswers();
+            var question = that._getLinksObject("#question");
+
+            if (!_.isArray(answers)) {
+                console.log(answers.message);
+                return
+            }
 
             var multiple_choice_question = {
-                questionType : $("#question-type").val(),
-                question : that._getLinksObject("#question"),
-                answers : that._getMultipleChoiceAnswers()
+                questionType :questionType,
+                question : question,
+                answers : answers
             };
 
             // Reinforcement informations
@@ -195,7 +221,7 @@ console.log(pageReferences);
                     that.qwizbookPageCollection.getAllPages();
                 });
             }
-            
+
             $("#qwizbook-questionnare-form form")[0].reset();
             $("#qwizbook-questionnare-form .media-controls").remove();
             $('#my-qwizbooks-pages-form').addClass("hidden");
@@ -243,16 +269,41 @@ console.log(pageReferences);
         */
         _getMultipleChoiceAnswers : function(){
             var answers = [];
-            var that = this;
-            var correctAnswer = $("input[name=answer]:checked").val();
-            $(".choice").each(function(i, elm){
-                var input = $(elm).children("input");
-                var answer = {
-                    choice : that._getLinksObject(input),
-                    correct : ($(input).attr("id") == correctAnswer)
+            var error = {}
+            var atleastOneAnswerCorrect = false;
+
+            for (var i = 0; i < 4; i++) {
+                var item_id = String.fromCharCode('A'.charCodeAt() + i);
+                var option_name= "option-"+item_id;
+                var correct_option_checkbox_name = "answer-option-"+item_id;
+                var input_item_val = $('input[name='+option_name+']').val();
+                var input_item_checked = $('input[name='+correct_option_checkbox_name+']').is(":checked");
+
+                if (input_item_checked) {
+                    atleastOneAnswerCorrect = true;
                 }
+
+                if (_.isEmpty(input_item_val)) {
+                    error.message ="Answer option cannot be empty"
+                    answers = error;
+                    return answers;
+                }
+
+                var answer = {
+                    choice : input_item_val ,
+                    correct : input_item_checked
+                }
+
                 answers.push(answer);
-            })
+            }
+
+            // Return empty array if atleast once option not marked as correct
+            if (!atleastOneAnswerCorrect) {
+                error.message ="Atleast one Answer option should be marked correct"
+                answers = error;
+                return answers;
+            }
+
             return answers;
         },
 
@@ -385,10 +436,10 @@ console.log(pageReferences);
         },
 
         _clearReferences: function(){
-            $(".control-group.reference:not(:first)").remove();
+            $(".form-group.reference:not(:first)").remove();
             $("#reference-count").val(1);
-            $(".control-group.reference").find("textarea").val("");
-            $(".control-group.reference").find(".media-controls").remove();
+            $(".form-group.reference").find("textarea").val("");
+            $(".form-group.reference").find(".media-controls").remove();
         },
 
         /**
@@ -415,7 +466,8 @@ console.log(pageReferences);
         render: function () {
             var view = this;
             view.qwizbookPageCollection.getAllPages();
-            this.el.innerHTML = this.template;
+            this.$el.html(_.template(this.template));
+
             //$(this.el).find("#qwizbook-create-form").append(this.editQwizbook.render().el);
             return this;
         }
