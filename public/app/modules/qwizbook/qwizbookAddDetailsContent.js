@@ -116,7 +116,19 @@ define(function (require, exports, module) {
             $(".reference:last").after(newRef);
             $("#reference-count").val( refCount + 1 );
         },
-        
+
+        showMsg: function ($msgModal, header, body, btnSubmitText, callback) {
+            $msgModal
+                .find('.modal-header > h3').text(header).end()
+                .find('.modal-body').html(body).end()
+                .find('.callback-btn').html(btnSubmitText).end()
+                .find('.callback-btn').off('click.callback')
+                .on('click.callback',function () {
+                    callback;
+                    $msgModal.modal('hide');
+                }).end()
+                .modal('show');
+        },
         /**
         * 
         * Submit qwizbook page form
@@ -129,6 +141,14 @@ define(function (require, exports, module) {
 
             if (!_.isArray(answers)) {
                 console.log(answers.message);
+                var $msgModal = $('#qwiz-creation-error').modal({
+                    backdrop: true,
+                    show: false,
+                    keyboard: false
+                });
+
+                this.showMsg($msgModal,"Error",answers.message,"close")
+
                 return
             }
             var question = that._getLinksObject("#question","#question-media-elements-urls");
@@ -287,7 +307,7 @@ define(function (require, exports, module) {
                 }
 
                 if (_.isEmpty(input_item_val)) {
-                    error.message ="Answer option cannot be empty"
+                    error.message ="Answer option cannot be empty."
                     answers = error;
                     return answers;
                 }
@@ -306,7 +326,7 @@ define(function (require, exports, module) {
 
             // Return empty array if atleast once option not marked as correct
             if (!atleastOneAnswerCorrect) {
-                error.message ="Atleast one Answer option should be marked correct"
+                error.message ="Atleast one Answer option should be marked correct.Please use the check box on the right side of the answer."
                 answers = error;
                 return answers;
             }
