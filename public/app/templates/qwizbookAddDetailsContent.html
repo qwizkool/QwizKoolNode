@@ -26,8 +26,8 @@
         <div class="container">
             <div class="row" style="padding: 10px">
                 <div class="btn-group pull-right">
-                    <a class="btn btn-success" id="create-page-btn"><i class="icon-plus" data-toggle="tooltip"
-                                                                       title="Create a qwiz page"></i></a>
+                    <button class="btn btn-info" id="create-page-btn"><span>Create Pages <span><i class="icon-plus" data-toggle="tooltip"
+                                                                       title="Create a qwiz page"></i></button>
                     <!--                   <a class="btn btn-danger" id="delete-all-btn"><i class="icon-remove"
                                                                                         data-toggle="tooltip"
                                                                                         title="Delete "></i></a>
@@ -95,6 +95,7 @@
 
     <div class="form-group">
         <label> Add the answers </label>
+        <span class="text-muted">[Select the check box to specify the correct answers]</span>
     </div>
 
     <%for (var i = 0; i < 4; i++) { %>
@@ -103,8 +104,9 @@
     <% }; %>
 
 
-
-    <h4>Hints</h4>
+    <div class="form-group well">
+        <h3>Under construction!!!<small>Do not use this feature until completed.</small></h3>
+        <h4>Hints</h4>
 
     <div class="control-group">
         <label class="control-label" for="hint-description">Hint</label>
@@ -158,13 +160,13 @@
             <a id="add-more-references">Add more References</a>
         </div>
     </div>
-    <div class="control-group">
-        <div class="controls">
+    </div>
+    <div class="form-group-group pull-right">
             <button id="btn-qwizbook-author-submit" class="btn btn-info btn-small">Submit
             </button>
             <button id="btn-qwizbook-author-cancel" class="btn btn-info btn-small">Cancel
             </button>
-        </div>
+
     </div>
 </form>
     </div>
@@ -195,7 +197,7 @@
     <ul class="list-group-item  form-group   media-controls audio">
         <div class="input-group">
             <span class="input-group-addon"><i class="icon-volume-up"></i></span>
-            <input type="text" class="form-control audio" placeholder="Audio clip URL">
+            <input type="text" class="form-control audio-url" placeholder="Audio clip URL">
             <span class="input-group-btn"><button class="btn btn-info media-hide"><i class="icon-remove"></i>
             </button></span>
         </div>
@@ -204,7 +206,7 @@
     <ul class="list-group-item  form-group  media-controls video">
         <div class="input-group">
             <span class="input-group-addon"><i class="icon-facetime-video"></i></span>
-            <input type="text" class="form-control video" placeholder="Video clip URL">
+            <input type="text" class="form-control video-url" placeholder="Video clip URL">
             <span class="input-group-btn"><button class="btn btn-info media-hide"><i class="icon-remove"></i>
             </button></span>
         </div>

@@ -65,39 +65,25 @@ define(function (require, exports, module) {
             "click .page-edit": "editQwizbookPage"
         },
 
-        addMediaSupportLink: function(e){
-            var trigger = e.target.parentNode,
-                type = $(trigger).attr("name").replace(/(-toggler)/g,""),
-                input = $(trigger).parents(".form-group"),
-                control = $(".templates .form-group."+type).clone(),
-                inputId = $(input).children().eq(1).attr("id"),
-                controlId = inputId + "-" + type,
-                controlInsertId=inputId + "-" + "urls";
-            if($("#" + controlId).length > 0){
-                // $("#" + controlId).parents(".controls.media-controls").remove();
-            }
-            else{
-                $(control).children().first().attr("id",controlId)
-                $("#"+controlInsertId).append(control);
+        addMediaSupportLink: function (e) {
+            if (e.currentTarget.type == "button") {
+                var trigger = e.currentTarget,
+                    type = $(trigger).attr("name").replace(/(-toggler)/g, ""),
+                    input = $(trigger).parents(".form-group"),
+                    control = $(".templates .form-group." + type).clone(),
+                    inputId = $(input).children().eq(1).attr("id"),
+                    controlId = inputId + "-" + type,
+                    controlInsertId = inputId + "-" + "urls";
+                if ($("#" + controlId).length > 0) {
+                    // $("#" + controlId).parents(".controls.media-controls").remove();
+                }
+                else {
+                    $(control).children().first().attr("id", controlId)
+                    $("#" + controlInsertId).append(control);
+                }
             }
         },
 
-        addSupportLink: function(e){
-            var trigger = e.target.parentNode,
-                type = $(trigger).attr("class").replace(/(btn |-toggler)/g,""),
-                input = $(trigger).parents(".controls").children().first(),
-                control = $(".templates .controls."+type).clone(),
-                inputId = $(input).attr("id"),
-                controlId = inputId + "-" + type;
-            if($("#" + controlId).length > 0){
-               // $("#" + controlId).parents(".controls.media-controls").remove();
-            }
-            else{
-                $(control).children().first().attr("id",controlId)
-                $(input).parents(".control-group").append(control);
-            }
-        },
-       
         removeSupportLink: function(e){
             var trigger = e.target.parentNode
             $(trigger).parents(".form-group.media-controls").remove();
@@ -140,12 +126,13 @@ define(function (require, exports, module) {
             that = this;
             var questionType =  $("#question-type").val();
             var answers = that._getMultipleChoiceAnswers();
-            var question = that._getLinksObject("#question");
 
             if (!_.isArray(answers)) {
                 console.log(answers.message);
                 return
             }
+            var question = that._getLinksObject("#question","#question-media-elements-urls");
+
 
             var multiple_choice_question = {
                 questionType :questionType,
@@ -154,7 +141,7 @@ define(function (require, exports, module) {
             };
 
             // Reinforcement informations
-            var reinforce = [this._getLinksObject("#reinforcement-description", true, true)];
+            var reinforce = [this._getLinksObject("#reinforcement-description","", true, true)];
 
             // Page hints
             var hintText    = $.trim($("#hint-description").val());
@@ -176,7 +163,7 @@ define(function (require, exports, module) {
                 referenceCount = $("#reference-count").val();
 
             for (var i = 0; i < referenceCount; i++) {
-                var reference = this._getLinksObject("#reference-description-"+i, true, true);
+                var reference = this._getLinksObject("#reference-description-"+i, "", true, true);
                 if(!$.isEmptyObject(reference)){
                     pageReferences.push(reference);
                 }
@@ -198,7 +185,7 @@ define(function (require, exports, module) {
                 pageModel.url = "/qwizbooks/" + this.qwizbookId + "/pages/" + pageId;
                 //pageModel.update();
                 this.qwizbookPageCollection.getAllPages();
-console.log(pageReferences);
+                console.log(pageReferences);
                 var pageRefCollection = new PageReference.Collection(pageReferences);
                 pageRefCollection.url = "/qwizbooks/" + this.qwizbookId + "/pages/" + pageId +"/references";
                 pageRefCollection.save(function(model, response){
@@ -235,30 +222,46 @@ console.log(pageReferences);
         * @param {String} elemId Element id
         * @param {Bool} withExternal If webLink attribute is required.
         */
-        _getLinksObject : function( elemId, withExternal, objDesc ){
+        _getLinksObject : function( elemId,mediaElemId, withExternal, objDesc ){
             var obj = {};
             // if($(elemId).next(".refId").length && $(elemId).next(".refId").val()){
             //     obj._id = $(elemId).next(".refId").val();
             // }
-            if( ( description = $.trim($(elemId).val())) !="" ){
-                if(objDesc){
-                    obj.description = description;
+            if (!_.isEmpty(elemId)) {
+                if (( description = $.trim($(elemId).val())) != "") {
+                    if (objDesc) {
+                        obj.description = description;
+                    }
+                    else {
+                        obj.text = description;
+                    }
                 }
-                else{
-                    obj.text = description;
+            }
+
+
+
+            if (!_.isEmpty(mediaElemId))
+            {
+                if (( externalLink = this._getMediaLink($(mediaElemId), "external")) && withExternal) {
+                    obj.webLinks = [
+                        { url: externalLink }
+                    ];
                 }
-            }
-            if( ( externalLink = this._getMediaLink($(elemId), "external")) && withExternal ) {
-                obj.webLinks = [{ url : externalLink }];
-            }
-            if( ( videoLink = this._getMediaLink($(elemId), "video")) ){
-                obj.videoLinks = [{ url : videoLink }]
-            }
-            if( ( imageLink = this._getMediaLink($(elemId), "image")) ){
-                obj.imageLinks = [{ url : imageLink }]
-            }
-            if( ( audioLink = this._getMediaLink($(elemId), "audio")) ){
-                obj.audioLinks = [{ url : audioLink }]
+                if (( videoLink = this._getMediaLink($(mediaElemId), "video"))) {
+                    obj.videoLinks = [
+                        { url: videoLink }
+                    ]
+                }
+                if (( imageLink = this._getMediaLink($(mediaElemId), "image"))) {
+                    obj.imageLinks = [
+                        { url: imageLink }
+                    ]
+                }
+                if (( audioLink = this._getMediaLink($(mediaElemId), "audio"))) {
+                    obj.audioLinks = [
+                        { url: audioLink }
+                    ]
+                }
             }
             return obj;
         },
@@ -288,12 +291,16 @@ console.log(pageReferences);
                     answers = error;
                     return answers;
                 }
+                var mediaObject = that._getLinksObject("","#answer-media-elements-"+item_id+"-urls");
 
                 var answer = {
-                    choice : input_item_val ,
+                    choice : {text : input_item_val} ,
                     correct : input_item_checked
                 }
 
+                if (!_.isEmpty(mediaObject)) {
+                    _.extend(answer.choice, mediaObject);
+                }
                 answers.push(answer);
             }
 
@@ -315,7 +322,7 @@ console.log(pageReferences);
         * @param {String} type Media type
         */
         _getMediaLink : function(elm, type){
-            var value = elm.parents(".control-group").find("." + type + "-url").val();
+            var value = elm.parents(".form-group").find("." + type + "-url").val();
             return $.trim(value) || null;
         },
 
@@ -333,7 +340,7 @@ console.log(pageReferences);
         */
         deleteQwizbookPage: function(e){
             //e.preventDefault();
-            var pageId = $(e.target)
+            var pageId = $(e.currentTarget)
                             .attr("id")
                             .trim()
                             .replace("delete-page_","");
@@ -360,11 +367,8 @@ console.log(pageReferences);
         editQwizbookPage: function(e){
            // e.preventDefault();
             this._clearReferences();
-            var view = this,
-                elm = e.target;
-            if($(elm).attr("class")!="page-edit"){
-                elm = $(elm).parent()[0];
-            }
+            var view = this;
+            var   elm = e.currentTarget;
             var pageId = elm.id.replace("edit-page_","");
             var page = view.qwizbookPageCollection.get(pageId).toJSON();
             var objQuestion = page.multiple_choice_question;
@@ -375,19 +379,26 @@ console.log(pageReferences);
             // fill fields
             $("#edit-page-id").val(pageId);
             $("#question-type").val(objQuestion.questionType);
-            this._editSupportObject("question",objQuestion.question);
-            this._editSupportObject("option-a",objAnswer[0].choice);
-            this._editSupportObject("option-b",objAnswer[1].choice);
-            this._editSupportObject("option-c",objAnswer[2].choice);
-            this._editSupportObject("option-d",objAnswer[3].choice);
-            
+            this._editSupportObject("question","question-media-elements",objQuestion.question);
+
+            // Fill in the answer media elements
+            for (var i = 0; i < 4; i++) {
+                var item_id = String.fromCharCode('A'.charCodeAt() + i);
+                this._editSupportObject("option-" + item_id, "answer-media-elements-" + item_id, objAnswer[i].choice);
+                var correct_option_checkbox_name = "answer-option-"+item_id;
+                // Update the answer select checkbox
+                $('input[name='+correct_option_checkbox_name+']').attr('checked', objAnswer[i].correct);
+            }
+
+
+
             // Hint
             if(page.hints[0]){
                 $("#hint-description").val(page.hints[0].text);
                 page.hints[0].imageLinks[0] && $("#hint-image").val(page.hints[0].imageLinks[0].url);
             }
 
-            this._editSupportObject("reinforcement-description",page.reinforce[0]);
+            this._editSupportObject("reinforcement-description","",page.reinforce[0]);
             pageRefCollection.getAll(function(collection){
                 pageRefCollection.forEach(function(model,index){
                     var elemId = "reference-description-" + index;
@@ -402,7 +413,7 @@ console.log(pageReferences);
 
         },
 
-        _editSupportObject:function(elemId, obj){
+        _editSupportObject:function(elemId, mediaElemId, obj){
             if(obj._id){
                 var idElem = '<input type="hidden" class="refId" value="'+obj._id+'">';
                 $(idElem).insertAfter("#"+elemId);
@@ -414,25 +425,27 @@ console.log(pageReferences);
                 $("#"+elemId).val(obj.description);
             }
             if(obj.audioLinks && obj.audioLinks[0]){
-                this._editSupportLink(elemId,"audio",obj.audioLinks[0].url);
+                this._editSupportLink(mediaElemId,"audio",obj.audioLinks[0].url);
             }
             if(obj.imageLinks && obj.imageLinks[0]){
-                this._editSupportLink(elemId,"image",obj.imageLinks[0].url);
+                this._editSupportLink(mediaElemId,"image",obj.imageLinks[0].url);
             }
             if(obj.videoLinks && obj.videoLinks[0]){
-                this._editSupportLink(elemId,"video",obj.videoLinks[0].url);
+                this._editSupportLink(mediaElemId,"video",obj.videoLinks[0].url);
             }
             if(obj.webLinks && obj.webLinks[0]){
-                this._editSupportLink(elemId,"external",obj.webLinks[0].url);
+                this._editSupportLink(mediaElemId,"external",obj.webLinks[0].url);
             }
         },
 
         _editSupportLink: function(elemId,type, value){
-            var control = $(".templates .controls."+type).clone(),
-                controlId = elemId + "-" + type;
+            var control = $(".templates .form-group."+type).clone(),
+              controlId = elemId + "-" + type,
+                controlInsertId=elemId + "-" + "urls";
+
             $(control).children().first().attr("id",controlId);
-            $(control).children().first().val(value);
-            $("#" + elemId).parents(".control-group").append(control);
+            $(control).children().find('.'+type+'-url').val(value);
+            $("#"+controlInsertId).append(control);
         },
 
         _clearReferences: function(){
