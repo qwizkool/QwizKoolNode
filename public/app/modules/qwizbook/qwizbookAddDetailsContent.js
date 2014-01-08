@@ -51,6 +51,7 @@ define(function (require, exports, module) {
            
             //Show reference container
             "click #add-more-references": "showReferenceContainer",
+            "click #add-more-hints": "showHintContainer",
             //Submit Form
             "click #btn-qwizbook-author-submit": "submitAuthorForm",
             //Cancel Form
@@ -106,16 +107,69 @@ define(function (require, exports, module) {
         
         
         showReferenceContainer: function (e) {
-            var newRef = $("#reference-description-0").parents(".reference").clone(),
-                refCount = parseInt($("#reference-count").val()),
-                newId = "reference-description-" + refCount;
-            $(newRef).children("label").attr("for",newId);
+            var newRef = $("#reference-description-0").parents(".reference").clone();
+            var refCount = parseInt($("#reference-count").val());
+
+            if (refCount > 3) {
+                var $msgModal = $('#qwiz-creation-error').modal({
+                    backdrop: true,
+                    show: false,
+                    keyboard: false
+                });
+
+                this.showMsg($msgModal,"Error","Cannot have more than 3 references per Question.","close")
+            }
+            var newId = "reference-description-" + refCount;
+            var newIdMedia = "reference-media-elements-" + refCount;
+
+            $(newRef).find("label").attr("for",newId);
+            $(newRef).find("label").text("Reference-"+refCount)
             $(newRef).find("textarea").attr('id',newId)
                                       .attr('name',newId);
-            $(newRef).children(".media-controls").remove();
+
+            $(newRef).find("#reference-media-elements-0-urls").empty();
+            $(newRef).find("#reference-media-elements-0").attr("for",newIdMedia)
+                                                         .attr('id',newIdMedia);
+            $(newRef).find("#reference-media-elements-0-urls").attr('id',newIdMedia+'-urls');
+
             $(newRef).find(".refId").val("");
             $(".reference:last").after(newRef);
+
             $("#reference-count").val( refCount + 1 );
+        },
+
+
+        showHintContainer: function (e) {
+            var newRef = $("#hint-description-0").parents(".hint").clone();
+            var refCount = parseInt($("#hint-count").val());
+
+            if (refCount > 3) {
+                var $msgModal = $('#qwiz-creation-error').modal({
+                    backdrop: true,
+                    show: false,
+                    keyboard: false
+                });
+
+                this.showMsg($msgModal,"Error","Cannot have more than 3 hints per Question.","close")
+            }
+
+            var newId = "hint-description-" + refCount;
+            var newIdMedia = "hint-media-elements-" + refCount;
+
+            $(newRef).find("label").attr("for",newId);
+            $(newRef).find("label").text("Hint-"+refCount)
+            $(newRef).find("textarea").attr('id',newId)
+                .attr('name',newId);
+
+            $(newRef).find("#hint-media-elements-0-urls").empty();
+            $(newRef).find("#hint-media-elements-0").attr("for",newIdMedia)
+                .attr('id',newIdMedia);
+            $(newRef).find("#hint-media-elements-0-urls").attr('id',newIdMedia+'-urls');
+
+            $(newRef).find(".refId").val("");
+            $(".hint:last").after(newRef);
+
+            $("#hint-count").val( refCount + 1 );
         },
 
         showMsg: function ($msgModal, header, body, btnSubmitText, callback) {

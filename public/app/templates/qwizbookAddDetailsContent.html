@@ -26,8 +26,10 @@
         <div class="container">
             <div class="row" style="padding: 10px">
                 <div class="btn-group pull-right">
-                    <button class="btn btn-info" id="create-page-btn"><span>Create Pages <span><i class="icon-plus" data-toggle="tooltip"
-                                                                       title="Create a qwiz page"></i></button>
+                    <button class="btn btn-info" id="create-page-btn"><span>Create Pages <span><i class="icon-plus"
+                                                                                                  data-toggle="tooltip"
+                                                                                                  title="Create a qwiz page"></i>
+                    </button>
                     <!--                   <a class="btn btn-danger" id="delete-all-btn"><i class="icon-remove"
                                                                                         data-toggle="tooltip"
                                                                                         title="Delete "></i></a>
@@ -48,34 +50,34 @@
 </div>
 
 <div class="panel-body clearfix">
-    <div id="qwizbook-questionnare-form" name="qwizbook-questionnare-form">
-<form class="clearfix" role="form">
-    <input type="hidden" name="edit-page-id" id="edit-page-id">
+<div id="qwizbook-questionnare-form" name="qwizbook-questionnare-form">
+    <form class="clearfix" role="form">
+        <input type="hidden" name="edit-page-id" id="edit-page-id">
 
-    <div class="form-group">
-        <label for="question-type">Select question type</label>
+        <div class="form-group">
+            <label for="question-type">Select question type</label>
 
-        <div class="controls">
-            <select id="question-type">
-                <option value="1">Multiple Choice</option>
-                <option value="2">Match the following</option>
-                <option value="3">Descriptive</option>
-            </select>
+            <div class="controls">
+                <select id="question-type">
+                    <option value="1">Multiple Choice</option>
+                    <option value="2">Match the following</option>
+                    <option value="3">Descriptive</option>
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div class="form-group clearfix">
-        <label for="question">Question</label>
+        <div class="form-group clearfix">
+            <label for="question">Question</label>
 
-        <div>
-            <textarea style="resize: vertical" rows="5" id="question" name="question"
-                      class="col-lg-12 col-xs-12 input-block-level"
-                      placeholder="Please enter the question here"></textarea>
+            <div>
+                <textarea style="resize: vertical" rows="5" id="question" name="question"
+                          class="col-lg-12 col-xs-12 input-block-level"
+                          placeholder="Please enter the question here"></textarea>
+            </div>
         </div>
-    </div>
 
-    <div class="form-group media-group">
-        <span for="question-media-elements" class="text-muted">Add optional media elements for this question</span>
+        <div class="form-group media-group">
+            <span for="question-media-elements" class="text-muted">Add optional media elements for this question</span>
 
         <span id="question-media-elements">
             <div class="btn-group btn-group-xs media-btn-group">
@@ -91,85 +93,150 @@
             </div>
         </span>
 
-    </div>
-
-    <div class="form-group">
-        <label> Add the answers </label>
-        <span class="text-muted">[Select the check box to specify the correct answers]</span>
-    </div>
-
-    <%for (var i = 0; i < 4; i++) { %>
-    <% var item_id = String.fromCharCode('A'.charCodeAt() + i) %>
-    <%= _.partial('answerMediaOptions', item_id ) %>
-    <% }; %>
-
-
-    <div class="form-group well">
-        <h3>Under construction!!!<small>Do not use this feature until completed.</small></h3>
-        <h4>Hints</h4>
-
-    <div class="control-group">
-        <label class="control-label" for="hint-description">Hint</label>
-
-        <div class="controls">
-            <textarea id="hint-description" name="hint-description"> </textarea>
         </div>
-    </div>
-    <div class="control-group">
-        <label class="control-label" for="hint-image">Image</label>
 
-        <div class="controls">
-            <input type="text" id="hint-image" name="hint-image">
+        <hr>
+        <div class="form-group">
+            <label> Add the answers </label>
+            <h6 class="text-muted">[Select the check box to specify the correct answers]</h6>
         </div>
-    </div>
-    <h4>Reinforcement Information</h4>
 
-    <div class="control-group reinforcement">
-        <label class="control-label" for="reinforcement-description">Description</label>
+        <%for (var i = 0; i < 4; i++) { %>
+        <% var item_id = String.fromCharCode('A'.charCodeAt() + i) %>
+        <%= _.partial('answerMediaOptions', item_id ) %>
+        <% }; %>
 
-        <div class="controls">
-            <textarea id="reinforcement-description"
-                      name="reinforcement-description"> </textarea>
-                    <span class="media-group">
-                      <a title="Add Link" class="btn external-toggler"><i class="icon-external-link"></i> </a>
-                      <a title="Add Image" class="btn image-toggler"><i class="icon-picture"></i> </a>
-                      <a title="Add Audio" class="btn audio-toggler"><i class="icon-volume-up"></i> </a>
-                      <a title="Add Video" class="btn video-toggler"><i class="icon-facetime-video"></i> </a>
-                    </span>
+        <hr>
+
+        <div class="form-group clearfix">
+            <label for="question">Reinforcement Information</label>
+
+            <div>
+                <textarea style="resize: vertical" rows="5" id="reinforcement-description"
+                          name="reinforcement-description"
+                          class="col-lg-12 col-xs-12 input-block-level"
+                          placeholder="Please enter the reinforcement information here"></textarea>
+            </div>
         </div>
-    </div>
-    <h4>References</h4>
-    <input type="hidden" id="reference-count" value="1">
 
-    <div class="control-group reference">
-        <label class="control-label" for="reference-description-0">Description</label>
+        <div class="form-group media-group">
+            <span for="reinforcement-media-elements" class="text-muted">Add optional media elements for the reinforcement</span>
 
-        <div class="controls">
-            <textarea id="reference-description-0"
-                      name="reference-description-0"> </textarea>
-                    <span class="media-group">
-                      <a title="Add Link" class="btn external-toggler"><i class="icon-external-link"></i> </a>
-                      <a title="Add Image" class="btn image-toggler"><i class="icon-picture"></i> </a>
-                      <a title="Add Audio" class="btn audio-toggler"><i class="icon-volume-up"></i> </a>
-                      <a title="Add Video" class="btn video-toggler"><i class="icon-facetime-video"></i> </a>
-                    </span>
+        <span id="reinforcement-media-elements">
+            <div class="btn-group btn-group-xs media-btn-group">
+                <button title="Add Image" type="button" name="image-toggler" class="btn btn-default"><i
+                        class="icon-picture text-info"></i></i></button>
+                <button title="Add Audio" type="button" name="audio-toggler" class="btn btn-default"><i
+                        class="icon-volume-up text-info"></i></button>
+                <button title="Add Video" type="button" name="video-toggler" class="btn btn-default"><i
+                        class="icon-facetime-video text-info"></i></button>
+            </div>
+            <div id="reinforcement-media-elements-urls" style="padding-top: 10px">
+
+            </div>
+        </span>
+
         </div>
-    </div>
-    <div class="control-group">
-        <div class="controls">
+
+
+        <hr>
+
+        <input type="hidden" id="hint-count" value="1">
+
+        <div class="hint">
+
+            <div class="form-group clearfix">
+                <label for="hint-description-0">Hint-0</label>
+
+                <div>
+                    <textarea style="resize: vertical" rows="5" id="hint-description-0"
+                              name="hint-description-0"
+                              class="col-lg-12 col-xs-12 input-block-level"
+                              placeholder="Please enter the hint information for this question"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group media-group">
+                <span for="hint-media-elements-0" class="text-muted">Add optional media elements for the hint</span>
+
+        <span id="hint-media-elements-0">
+            <div class="btn-group btn-group-xs media-btn-group">
+                <button title="Add Image" type="button" name="image-toggler" class="btn btn-default"><i
+                        class="icon-picture text-info"></i></i></button>
+                <button title="Add Audio" type="button" name="audio-toggler" class="btn btn-default"><i
+                        class="icon-volume-up text-info"></i></button>
+                <button title="Add Video" type="button" name="video-toggler" class="btn btn-default"><i
+                        class="icon-facetime-video text-info"></i></button>
+                <button title="Add Link" type="button" name="external-toggler" class="btn btn-default"><i
+                        class="icon-external-link text-info"></i></button>
+            </div>
+            <div id="hint-media-elements-0-urls" style="padding-top: 10px">
+
+            </div>
+        </span>
+
+            </div>
+
+        </div>
+        <div class="form-group">
+            <a id="add-more-hints">Add more Hints</a>
+        </div>
+
+        <hr>
+
+        <input type="hidden" id="reference-count" value="1">
+
+        <div class="reference">
+
+            <div class="form-group clearfix">
+                <label for="reference-description-0">Reference-0</label>
+
+                <div>
+                    <textarea style="resize: vertical" rows="5" id="reference-description-0"
+                              name="reference-description-0"
+                              class="col-lg-12 col-xs-12 input-block-level"
+                              placeholder="Please enter the reference information for this question"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group media-group">
+                <span for="reference-media-elements-0" class="text-muted">Add optional media elements for the reference</span>
+
+        <span id="reference-media-elements-0">
+            <div class="btn-group btn-group-xs media-btn-group">
+                <button title="Add Image" type="button" name="image-toggler" class="btn btn-default"><i
+                        class="icon-picture text-info"></i></i></button>
+                <button title="Add Audio" type="button" name="audio-toggler" class="btn btn-default"><i
+                        class="icon-volume-up text-info"></i></button>
+                <button title="Add Video" type="button" name="video-toggler" class="btn btn-default"><i
+                        class="icon-facetime-video text-info"></i></button>
+                <button title="Add Link" type="button" name="external-toggler" class="btn btn-default"><i
+                        class="icon-external-link text-info"></i></button>
+            </div>
+            <div id="reference-media-elements-0-urls" style="padding-top: 10px">
+
+            </div>
+        </span>
+
+            </div>
+
+        </div>
+        <div class="form-group">
             <a id="add-more-references">Add more References</a>
         </div>
-    </div>
-    </div>
-    <div class="form-group-group pull-right">
+
+        <hr>
+
+
+        <div class="form-group pull-right">
             <button id="btn-qwizbook-author-submit" class="btn btn-info btn-small">Submit
             </button>
             <button id="btn-qwizbook-author-cancel" class="btn btn-info btn-small">Cancel
             </button>
 
-    </div>
-</form>
-    </div>
+        </div>
+    </form>
+</div>
 
 
 <!--Questionnare form-->
@@ -234,8 +301,10 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 <div class="container">
