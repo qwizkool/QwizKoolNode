@@ -451,9 +451,10 @@ Qwizbook.prototype.updateQwizbook = function(book, callback) {
 	var qId = book._id;
 	var Qbook = book;
 	var new_title = book.title;
+    var new_subtitle = book.subtitle;
 	var new_description = book.description;
 	var new_publish = book.published;
-	QwizbookModel.update({_id:qId}, {$set: { title: new_title , description : new_description ,archive :false,published:new_publish }}, {upsert: true}, 
+	QwizbookModel.update({_id:qId}, {$set: { title: new_title , subtitle: new_subtitle, description : new_description ,archive :false,published:new_publish }}, {upsert: true},
 		function(err,book)
 	 	{
 	 		if (err) {

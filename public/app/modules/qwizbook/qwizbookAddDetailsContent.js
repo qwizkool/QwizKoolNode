@@ -92,10 +92,11 @@ define(function (require, exports, module) {
         editBook :function ()
         {
             var new_title = $('#qwizbook-title').val();
+            var new_sub_title = $('#qwizbook-sub-title').val();
             var new_description = $('#qwizbook-description').val();
             var view = this;
             var qwizbook = view.qwizbookModel;
-            qwizbook.create(new_title, new_description);
+            qwizbook.create(new_title, new_sub_title, new_description);
         },
 
         showAuthorForm: function (e) {
