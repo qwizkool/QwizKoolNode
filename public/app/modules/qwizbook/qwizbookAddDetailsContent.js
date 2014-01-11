@@ -21,6 +21,8 @@ define(function (require, exports, module) {
 
         initialize: function () {
             this.session = this.options.session;
+            this.MAX_HINTS_SUPPORTED = 4;
+            this.MAX_REFERENCES_SUPPORTED=4;
             
             if (_.isEmpty(this.options.session)) {
                 throw "ERROR: Session object is not provided for the view!!"
@@ -110,14 +112,14 @@ define(function (require, exports, module) {
             var newRef = $("#reference-description-0").parents(".reference").clone();
             var refCount = parseInt($("#reference-count").val());
 
-            if (refCount > 3) {
+            if (refCount >= this.MAX_REFERENCES_SUPPORTED) {
                 var $msgModal = $('#qwiz-creation-error').modal({
                     backdrop: true,
                     show: false,
                     keyboard: false
                 });
 
-                this.showMsg($msgModal,"Error","Cannot have more than 3 references per Question.","close")
+                this.showMsg($msgModal,"Error","Cannot have more than "+ this.MAX_REFERENCES_SUPPORTED + "  references per Question.","close")
             }
             var newId = "reference-description-" + refCount;
             var newIdMedia = "reference-media-elements-" + refCount;
@@ -143,14 +145,14 @@ define(function (require, exports, module) {
             var newRef = $("#hint-description-0").parents(".hint").clone();
             var refCount = parseInt($("#hint-count").val());
 
-            if (refCount > 3) {
+            if (refCount >= this.MAX_HINTS_SUPPORTED) {
                 var $msgModal = $('#qwiz-creation-error').modal({
                     backdrop: true,
                     show: false,
                     keyboard: false
                 });
 
-                this.showMsg($msgModal,"Error","Cannot have more than 3 hints per Question.","close")
+                this.showMsg($msgModal,"Error","Cannot have more than "+ this.MAX_HINTS_SUPPORTED + " hints per Question.","close")
             }
 
             var newId = "hint-description-" + refCount;
@@ -216,22 +218,19 @@ define(function (require, exports, module) {
             };
 
             // Reinforcement informations
-            var reinforce = [this._getLinksObject("#reinforcement-description","", true, true)];
+            var reinforce = [this._getLinksObject("#reinforcement-description","#reinforcement-media-elements-urls", true, true)];
 
-            // Page hints
-            var hintText    = $.trim($("#hint-description").val());
-            var hintImage   = $.trim($("#hint-image").val());
+
             var hints = [];
-            if(hintText || hintImage){
-                var hint = {};
-                if(hintText){
-                    hint.text = hintText;
+            for (var i = 0; i < this.MAX_HINTS_SUPPORTED; i++) {
+                var hint = this._getLinksObject("#hint-description-"+i,"#hint-media-elements-"+i, true, true);
+                if (!_.isEmpty(hint) && !_.isEmpty(hint.description) ){
+                    hints.push(hint);
                 }
-                if(hintImage){
-                    hint.imageLinks = [{ url : hintImage }];
-                }
-                hints.push(hint);
+
             }
+
+
 
             // Create reference array
             var pageReferences = [],
@@ -473,7 +472,9 @@ define(function (require, exports, module) {
                 page.hints[0].imageLinks[0] && $("#hint-image").val(page.hints[0].imageLinks[0].url);
             }
 
-            this._editSupportObject("reinforcement-description","",page.reinforce[0]);
+            this._editSupportObject("reinforcement-description","reinforcement-media-elements",page.reinforce[0]);
+
+
             pageRefCollection.getAll(function(collection){
                 pageRefCollection.forEach(function(model,index){
                     var elemId = "reference-description-" + index;

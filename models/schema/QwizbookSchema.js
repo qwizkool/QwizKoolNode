@@ -206,13 +206,21 @@ var QwizbookSchema = {
 
         //------- Hints for the questions
         hints: [{
-            text: {
-                type: String
-            },
+            description: String,
+            videoLinks: [{
+                url: String
+            }],
+            webLinks: [{
+                url: String
+            }],
             imageLinks: [{
+                url: String
+            }],
+            audioLinks: [{
                 url: String
             }]
         }]
+
     }]      
 
 };
