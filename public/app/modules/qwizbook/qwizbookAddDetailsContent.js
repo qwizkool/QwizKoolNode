@@ -65,8 +65,11 @@ define(function (require, exports, module) {
             "click .media-hide" : "removeSupportLink",
             "click #delete-all-btn" : "deleteQwizbookPages",
             "click .page-delete" : "deleteQwizbookPage",
-            "click .page-edit": "editQwizbookPage"
-        },
+            "click .page-edit": "editQwizbookPage",
+           "click .hint-hide" : "removeHintBlock",
+           "click .reference-hide" : "removeReferenceBlock",
+           "click .reinforce-hide" : "removeReinforceBlock"
+       },
 
         addMediaSupportLink: function (e) {
             if (e.currentTarget.type == "button") {
@@ -88,10 +91,29 @@ define(function (require, exports, module) {
         },
 
         removeSupportLink: function(e){
-            var trigger = e.target.parentNode
+            var trigger = e.currentTarget;
             $(trigger).parents(".form-group.media-controls").remove();
         },
-        
+
+        removeReinforceBlock: function(e){
+            $("#reinforcement-media-elements-urls").empty();
+            $("#reinforcement-description").val('');
+        },
+        removeHintBlock: function(e){
+            var refCount = parseInt($("#hint-count").val());
+            var trigger = e.currentTarget;
+            $(trigger).closest(".hint").remove();
+            $("#hint-count").val( refCount - 1 );
+
+
+        },
+        removeReferenceBlock: function(e){
+            var refCount = parseInt($("#reference-count").val());
+            var trigger = e.currentTarget;
+            $(trigger).closest(".reference").remove();
+            $("#reference-count").val( refCount - 1 );
+        },
+
         editBook :function ()
         {
             var new_title = $('#qwizbook-title').val();
@@ -106,10 +128,18 @@ define(function (require, exports, module) {
             $('#my-qwizbooks-pages-form').removeClass("hidden");
 
         },
-        
-        
+
+        createGuid: function()
+    {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
+            return v.toString(16);
+        });
+    },
+
+
         showReferenceContainer: function (e) {
-            var newRef = $("#reference-description-0").parents(".reference").clone();
+            var target = e.currentTarget;
             var refCount = parseInt($("#reference-count").val());
 
             if (refCount >= this.MAX_REFERENCES_SUPPORTED) {
@@ -119,30 +149,33 @@ define(function (require, exports, module) {
                     keyboard: false
                 });
 
-                this.showMsg($msgModal,"Error","Cannot have more than "+ this.MAX_REFERENCES_SUPPORTED + "  references per Question.","close")
+                this.showMsg($msgModal,"Error","Cannot have more than "+ this.MAX_REFERENCES_SUPPORTED + " references per Question.","close")
             }
-            var newId = "reference-description-" + refCount;
-            var newIdMedia = "reference-media-elements-" + refCount;
+
+            var newRef = $(".reference").clone();
+            var uuid = this.createGuid();
+            var newId = "reference-description-" + uuid;
+            var newIdMedia = "reference-media-elements-" + uuid;
 
             $(newRef).find("label").attr("for",newId);
-            $(newRef).find("label").text("Reference-"+refCount)
+            $(newRef).find("label").text("Reference");
             $(newRef).find("textarea").attr('id',newId)
-                                      .attr('name',newId);
+                .attr('name',newId);
 
-            $(newRef).find("#reference-media-elements-0-urls").empty();
-            $(newRef).find("#reference-media-elements-0").attr("for",newIdMedia)
-                                                         .attr('id',newIdMedia);
-            $(newRef).find("#reference-media-elements-0-urls").attr('id',newIdMedia+'-urls');
+            $(newRef).find("#reference-media-elements-X-urls").empty();
+            $(newRef).find("#reference-media-elements-X").attr("for",newIdMedia)
+                .attr('id',newIdMedia);
+            $(newRef).find("#reference-media-elements-X-urls").attr('id',newIdMedia+'-urls');
+
 
             $(newRef).find(".refId").val("");
-            $(".reference:last").after(newRef);
+            $(target).parent().before(newRef);
 
             $("#reference-count").val( refCount + 1 );
         },
 
-
         showHintContainer: function (e) {
-            var newRef = $("#hint-description-0").parents(".hint").clone();
+            var target = e.currentTarget;
             var refCount = parseInt($("#hint-count").val());
 
             if (refCount >= this.MAX_HINTS_SUPPORTED) {
@@ -155,21 +188,24 @@ define(function (require, exports, module) {
                 this.showMsg($msgModal,"Error","Cannot have more than "+ this.MAX_HINTS_SUPPORTED + " hints per Question.","close")
             }
 
-            var newId = "hint-description-" + refCount;
-            var newIdMedia = "hint-media-elements-" + refCount;
+            var newRef = $(".hint").clone();
+            var uuid = this.createGuid();
+            var newId = "hint-description-" + uuid;
+            var newIdMedia = "hint-media-elements-" + uuid;
 
             $(newRef).find("label").attr("for",newId);
-            $(newRef).find("label").text("Hint-"+refCount)
+            $(newRef).find("label").text("Hint");
             $(newRef).find("textarea").attr('id',newId)
                 .attr('name',newId);
 
-            $(newRef).find("#hint-media-elements-0-urls").empty();
-            $(newRef).find("#hint-media-elements-0").attr("for",newIdMedia)
+            $(newRef).find("#hint-media-elements-X-urls").empty();
+            $(newRef).find("#hint-media-elements-X").attr("for",newIdMedia)
                 .attr('id',newIdMedia);
-            $(newRef).find("#hint-media-elements-0-urls").attr('id',newIdMedia+'-urls');
+            $(newRef).find("#hint-media-elements-X-urls").attr('id',newIdMedia+'-urls');
+
 
             $(newRef).find(".refId").val("");
-            $(".hint:last").after(newRef);
+            $(target).parent().before(newRef);
 
             $("#hint-count").val( refCount + 1 );
         },
