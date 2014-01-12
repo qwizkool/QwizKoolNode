@@ -108,46 +108,15 @@
 
         <hr>
 
+
         <div class="form-group">
-            <label> Reinforcement Information </label>
+            <label> Reinforcement Information</label>
         </div>
+        <input type="hidden" id="reinforcement-count" value="1">
 
-        <div class="form-group clearfix">
-            <div class="panel panel-default">
-                <div class="panel-heading clearfix">
-                    <button type="button" class="close reinforce-hide" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-
-                <div class="panel-body">
-                <div>
-                <textarea style="resize: vertical" rows="5" id="reinforcement-description"
-                          name="reinforcement-description"
-                          class="col-lg-12 col-xs-12 input-block-level"
-                          placeholder="Please enter the reinforcement information here"></textarea>
-            </div>
+        <div class="form-group">
+            <a id="add-more-reinforcements">Add Reinforcements</a>
         </div>
-
-        <div class="form-group media-group" style="padding: 10px">
-            <span for="reinforcement-media-elements" class="text-muted">Add optional media elements for this reinforcement information</span>
-
-        <span id="reinforcement-media-elements">
-            <div class="btn-group btn-group-xs media-btn-group">
-                <button title="Add Image" type="button" name="image-toggler" class="btn btn-default"><i
-                        class="icon-picture text-info"></i></i></button>
-                <button title="Add Audio" type="button" name="audio-toggler" class="btn btn-default"><i
-                        class="icon-volume-up text-info"></i></button>
-                <button title="Add Video" type="button" name="video-toggler" class="btn btn-default"><i
-                        class="icon-facetime-video text-info"></i></button>
-            </div>
-            <div id="reinforcement-media-elements-urls" style="padding: 10px">
-
-            </div>
-        </span>
-        </div>
-
-            </div>
-        </div>
-
 
         <hr>
         <div class="form-group">
@@ -223,6 +192,51 @@
             </button></span>
         </div>
     </ul>
+
+
+    <div class="reinforcement">
+
+        <div class="form-group clearfix">
+
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <button type="button" class="close reinforcement-hide" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <label for="reinforcement-description-X"></label>
+                </div>
+                <div class="panel-body">
+
+                    <div>
+                        <textarea style="resize: vertical" rows="5" id="reinforcement-description-X"
+                                  name="reinforcement-description-X"
+                                  class="col-lg-12 col-xs-12 input-block-level"
+                                  placeholder="Please enter the reinforcement information for this question"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group media-group" style="padding: 10px">
+                    <span class="text-muted" >Add optional media elements for this reinforcement</span>
+
+                        <span id="reinforcement-media-elements-X">
+                            <div class="btn-group btn-group-xs media-btn-group">
+                                <button title="Add Image" type="button" name="image-toggler" class="btn btn-default"><i
+                                        class="icon-picture text-info"></i></i></button>
+                                <button title="Add Audio" type="button" name="audio-toggler" class="btn btn-default"><i
+                                        class="icon-volume-up text-info"></i></button>
+                                <button title="Add Video" type="button" name="video-toggler" class="btn btn-default"><i
+                                        class="icon-facetime-video text-info"></i></button>
+                                <button title="Add Link" type="button" name="external-toggler" class="btn btn-default"><i
+                                        class="icon-external-link text-info"></i></button>
+                            </div>
+                            <div class="reinforcement-media-elements-urls" id="reinforcement-media-elements-X-urls" style="padding: 10px">
+
+                            </div>
+                        </span>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
 
     <div class="hint">
 

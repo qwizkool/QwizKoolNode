@@ -22,6 +22,7 @@ define(function (require, exports, module) {
             this.session = this.options.session;
             this.MAX_HINTS_SUPPORTED = 4;
             this.MAX_REFERENCES_SUPPORTED = 4;
+            this.MAX_REINFORCEMENT_SUPPORTED = 1;
 
             if (_.isEmpty(this.options.session)) {
                 throw "ERROR: Session object is not provided for the view!!"
@@ -51,8 +52,9 @@ define(function (require, exports, module) {
             //"click #qwizbook-questionnare-form a": "showOrhideImageAudioVideoDiv",
 
             //Show reference container
-            "click #add-more-references": "showReferenceContainer",
-            "click #add-more-hints": "showHintContainer",
+            "click #add-more-references": "addReferenceContainer",
+            "click #add-more-hints": "addHintContainer",
+            "click #add-more-reinforcements": "addReinforcementContainer",
             //Submit Form
             "click #btn-qwizbook-author-submit": "submitAuthorForm",
             //Cancel Form
@@ -67,7 +69,7 @@ define(function (require, exports, module) {
             "click .page-edit": "editQwizbookPage",
             "click .hint-hide": "removeHintBlock",
             "click .reference-hide": "removeReferenceBlock",
-            "click .reinforce-hide": "removeReinforceBlock"
+            "click .reinforcement-hide": "removeReinforcementBlock"
         },
 
         addMediaSupportLink: function (e) {
@@ -94,23 +96,25 @@ define(function (require, exports, module) {
             $(trigger).parents(".form-group.media-controls").remove();
         },
 
-        removeReinforceBlock: function (e) {
-            $("#reinforcement-media-elements-urls").empty();
-            $("#reinforcement-description").val('');
+        removePanelMediaContainer: function(target, type) {
+            var refCount = parseInt($("#" + type + "-count").val());
+            $(target).closest("."+type).remove();
+            $("#" + type + "-count").val(refCount - 1);
         },
+
+        removeReinforcementBlock: function (e) {
+            var target = e.currentTarget;
+            this.removePanelMediaContainer(target,"reinforcement")
+         },
+
         removeHintBlock: function (e) {
-            var refCount = parseInt($("#hint-count").val());
-            var trigger = e.currentTarget;
-            $(trigger).closest(".hint").remove();
-            $("#hint-count").val(refCount - 1);
-
-
+            var target = e.currentTarget;
+            this.removePanelMediaContainer(target,"hint")
         },
+
         removeReferenceBlock: function (e) {
-            var refCount = parseInt($("#reference-count").val());
-            var trigger = e.currentTarget;
-            $(trigger).closest(".reference").remove();
-            $("#reference-count").val(refCount - 1);
+            var target = e.currentTarget;
+            this.removePanelMediaContainer(target,"reference")
         },
 
         editBook: function () {
@@ -139,7 +143,7 @@ define(function (require, exports, module) {
 
             var refCount = parseInt($("#" + type + "-count").val());
 
-            if (refCount >= maxSupported) {
+            if (refCount > maxSupported) {
                 var $msgModal = $('#qwiz-creation-error').modal({
                     backdrop: true,
                     show: false,
@@ -147,6 +151,7 @@ define(function (require, exports, module) {
                 });
 
                 this.showMsg($msgModal, "Error", "Cannot have more than " + maxSupported + " " + type + "s per Question.", "close")
+                return "";
             }
 
             var newRef = $(".templates ." + type).clone();
@@ -171,14 +176,20 @@ define(function (require, exports, module) {
             return uuid;
         },
 
-        showReferenceContainer: function (e) {
+        addReferenceContainer: function (e) {
             var target = e.currentTarget;
             this.addPanelMediaContainer(target, this.MAX_REFERENCES_SUPPORTED, "reference");
         },
 
-        showHintContainer: function (e) {
+        addHintContainer: function (e) {
             var target = e.currentTarget;
             this.addPanelMediaContainer(target, this.MAX_HINTS_SUPPORTED, "hint");
+
+        },
+
+        addReinforcementContainer: function (e) {
+            var target = e.currentTarget;
+            this.addPanelMediaContainer(target, this.MAX_REINFORCEMENT_SUPPORTED, "reinforcement");
 
         },
 
@@ -226,8 +237,14 @@ define(function (require, exports, module) {
             };
 
             // Get Reinforcement information
-            var reinforce = [this._getLinksObject("#reinforcement-description", "#reinforcement-media-elements-urls", true, true)];
-
+            var reinforcements = [];
+            $(".reinforcement").not(".templates .reinforcement").each(function (i, item) {
+                var id = $(item).find('textarea').attr('id').replace(/(reinforcement-description-)/g, "");
+                var reinforcement = that._getLinksObject("#reinforcement-description-" + id, "#reinforcement-media-elements-" + id, true, true);
+                if (!_.isEmpty(reinforcement) && !_.isEmpty(reinforcement.description)) {
+                    reinforcements.push(reinforcement);
+                }
+            })
 
             // Get Hint information
             var hints = [];
@@ -253,7 +270,7 @@ define(function (require, exports, module) {
             var qwizbookPage = {
                 qwizbookId: this.qwizbookId,
                 multiple_choice_question: multiple_choice_question,
-                reinforce: reinforce,
+                reinforce: reinforcements,
                 hints: hints
             }
 
@@ -261,7 +278,7 @@ define(function (require, exports, module) {
                 var pageId = $("#edit-page-id").val();
                 var pageModel = this.qwizbookPageCollection.get(pageId);
                 pageModel.set({"multiple_choice_question": multiple_choice_question});
-                pageModel.set({"reinforce": reinforce});
+                pageModel.set({"reinforce": reinforcements});
                 pageModel.set({"hints": hints});
                 pageModel.url = "/qwizbooks/" + this.qwizbookId + "/pages/" + pageId;
                 //pageModel.update();
@@ -474,7 +491,15 @@ define(function (require, exports, module) {
             }
 
             // Add reinforcement blocks
-            this._editSupportObject("reinforcement-description", "reinforcement-media-elements", page.reinforce[0]);
+            //this._editSupportObject("reinforcement-description", "reinforcement-media-elements", page.reinforce[0]);
+
+            // Add page reinforcement blocks
+            var reinforcementInsertPoint = $("#add-more-reinforcements");
+            for (var i = 0; i < page.reinforce.length; i++) {
+                var hint = page.reinforce[i];
+                var uuid = this.addPanelMediaContainer(reinforcementInsertPoint, this.MAX_REINFORCEMENT_SUPPORTED, "reinforcement");
+                this._editSupportObject("reinforcement-description-" + uuid, "reinforcement-media-elements-" + uuid, hint);
+            }
 
             // Add page hint blocks
             var hintInsertPoint = $("#add-more-hints");
