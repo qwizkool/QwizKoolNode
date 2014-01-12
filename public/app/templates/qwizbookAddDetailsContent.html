@@ -21,22 +21,20 @@
     </div>
 </div>
 
-<div id="my-qwizbooks-pages-tb">
-    <div class="navbar">
-        <div class="container">
-            <div class="row" style="padding: 10px">
-                <div class="btn-group pull-right">
-                    <button class="btn btn-info" id="create-page-btn"><span>Create Pages <span><i class="icon-plus"
-                                                                                                  data-toggle="tooltip"
-                                                                                                  title="Create a qwiz page"></i>
-                    </button>
-                    <!--                   <a class="btn btn-danger" id="delete-all-btn"><i class="icon-remove"
-                                                                                        data-toggle="tooltip"
-                                                                                        title="Delete "></i></a>
-                   -->                   </div>
-            </div>
-        </div>
+<div class="container">
+    <div class="row" style="padding: 10px">
+        <div class="btn-group pull-left">
+            <button class="btn btn-info" id="create-page-btn"><span>Add Questions </span><i class="icon-plus"
+                                                                                          data-toggle="tooltip"
+                                                                                          title="Create a qwiz page"></i>
+            </button>
+            <!--                   <a class="btn btn-danger" id="delete-all-btn"><i class="icon-remove"
+                                                                                data-toggle="tooltip"
+                                                                                title="Delete "></i></a>
+           -->                   </div>
     </div>
+    <hr>
+
 </div>
 
 <div class="clearfix hidden" id="my-qwizbooks-pages-form">
@@ -45,8 +43,9 @@
 
 <div class="panel panel-info" style="margin: 10px">
 
-<div class="panel-heading">
-    <h3 class="panel-title">Edit - Question Page</h3>
+<div class="panel-heading clearfix">
+    <button class="btn btn-info btn-qwizbook-author-cancel pull-right" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4>Edit - Question Page</h4>
 </div>
 
 <div class="panel-body clearfix">
@@ -115,7 +114,7 @@
         <input type="hidden" id="reinforcement-count" value="1">
 
         <div class="form-group">
-            <a id="add-more-reinforcements">Add Reinforcements</a>
+            <div id="add-more-reinforcements" class="btn btn-sm btn-info" >Add Reinforcements</div>
         </div>
 
         <hr>
@@ -125,7 +124,7 @@
         <input type="hidden" id="hint-count" value="1">
 
         <div class="form-group">
-            <a id="add-more-hints">Add Hints</a>
+            <div id="add-more-hints"  class="btn btn-sm btn-info" >Add Hints</div>
         </div>
 
         <hr>
@@ -136,7 +135,7 @@
 
 
         <div class="form-group">
-            <a id="add-more-references">Add References</a>
+            <div id="add-more-references"  class="btn btn-sm btn-info" >Add References</div>
         </div>
 
         <hr>
@@ -145,11 +144,12 @@
         <div class="form-group pull-right">
             <button id="btn-qwizbook-author-submit" class="btn btn-info btn-small">Submit
             </button>
-            <button id="btn-qwizbook-author-cancel" class="btn btn-info btn-small">Cancel
+            <button class="btn btn-info btn-small btn-qwizbook-author-cancel">Cancel
             </button>
 
         </div>
     </form>
+
 </div>
 
 
@@ -200,7 +200,7 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
-                    <button type="button" class="close reinforcement-hide" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" class="close reinforcement-hide btn btn-default" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <label for="reinforcement-description-X"></label>
                 </div>
                 <div class="panel-body">
@@ -244,7 +244,7 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
-                    <button type="button" class="close hint-hide" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" class="close hint-hide btn btn-default" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <label for="hint-description-X"></label>
                 </div>
                 <div class="panel-body">
@@ -288,7 +288,7 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
-                    <button type="button" class="close reference-hide" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" class="close reference-hide btn btn-default" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <label for="reference-description-X"></label>
                 </div>
                 <div class="panel-body">
@@ -333,7 +333,7 @@
 </div>
 </div>
 
-
+<hr>
 </div>
 </div>
 
@@ -355,6 +355,7 @@
     </div>
     <!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
 
 <div class="container">
     <div class="row">
