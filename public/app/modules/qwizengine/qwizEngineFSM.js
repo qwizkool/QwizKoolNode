@@ -13,7 +13,10 @@ define(function (require, exports, module) {
     var QwizLoadingView = require("modules/qwizengine/qwizLoadingView");
     var QwizQuestionView = require("modules/qwizengine/qwizQuestionView");
     var QwizClosingView = require("modules/qwizengine/qwizClosingView");
+    var QwizHintView = require("modules/qwizengine/qwizHintView");
     var QwizbookTrack = require("modules/qwizbook/qwizbookTrack");
+
+
     //var QwizbookFSM = require("modules/qwizbookFSM");
 
 
@@ -72,7 +75,21 @@ define(function (require, exports, module) {
     QwizEngineFSM.prototype.getNextViewObject = function () {
         var viewObject;
 
-        if (this.inHintViewLevel) {}
+        if (this.inHintViewLevel) {
+
+            var pages = this.qwizbook.get("pages");
+            var pageIndex = (this.pageIndex == 0)? 0:(this.pageIndex-1);
+            var hints = pages[pageIndex].hints;
+            var maxHints = hints.length;
+
+            if (this.pageHintIndex >= maxHints) {
+                this.pageHintIndex = 0;
+            }
+
+            viewObject = this.createViewObject(QwizHintView,{ model: this.qwizbook, page: pageIndex, hint: this.pageHintIndex, tracker: this.tracker })
+            this.pageHintIndex++;
+
+        }
         else
         {
             if (this.pageIndex < this.qwizbook.get("pages").length) {
@@ -107,8 +124,7 @@ define(function (require, exports, module) {
 
         this.pageHintIndex =0;
         this.inHintViewLevel =0;
-
-
+        this.pageIndex--;
     };
 
 

@@ -76,7 +76,7 @@ QwizEngineController.prototype.createView = function(viewClass,options) {
 
     // Once entered different level, use this event to come to the previous level
     // generic events like Next, Previous,  done are used to navigate in any level
-    this.listenTo(view, "qwiz-transition-prev-Level", this.changeToPreviousViewLevel);
+    this.listenTo(view, "qwiz-transition-prev-level", this.changeToPreviousViewLevel);
 
     return view;
 

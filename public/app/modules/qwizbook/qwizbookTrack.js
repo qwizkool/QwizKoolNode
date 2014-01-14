@@ -20,6 +20,7 @@ define(function (require, exports, module) {
         initialize: function () {
             this.successCount = 0;
             this.failCount = 0;
+            this.hintsUsed = 0;
         },
 
         trackResult: function(page, result){
@@ -32,10 +33,16 @@ define(function (require, exports, module) {
 
         },
 
+        trackHintsUsed: function(page, hint){
+
+                this.hintsUsed++;
+
+        },
+
         getScore: function() {
             var totalAttempts = this.successCount + this.failCount;
             var score = this.successCount/totalAttempts;
-            return { points : score, total : totalAttempts, success: this.successCount , fail:  this.failCount}
+            return { points : score, total : totalAttempts, success: this.successCount , fail:  this.failCount, hintsUsed: this.hintsUsed}
         }
 
     });

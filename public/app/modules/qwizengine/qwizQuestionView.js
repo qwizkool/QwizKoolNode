@@ -6,14 +6,21 @@
  *
  */
 
-define([
-    "app",
-    "text!modules/qwizengine/templates/qwizQuestionView.html",
-    "text!modules/qwizengine/templates/qwizHeader.html",
-    "text!modules/qwizengine/templates/imageLinks.html",
-    "text!modules/qwizengine/templates/audioLinks.html",
-    "text!modules/qwizengine/templates/videoLinks.html"
-], function (App, Template, QwizHeaderTmpl, ImageLinkTmpl,AudioLinkTmpl, VideoLinkTmpl) {
+define(function (require, exports, module) {
+
+    /**
+     * Module dependencies.
+     */
+    var App = require('app');
+    var    Backbone = require('backbone');
+    var     _ = require('underscore');
+    var     $ = require('jquery');
+    var     Template = require('text!modules/qwizengine/templates/qwizQuestionView.html');
+    var    QwizHeaderTmpl = require('text!modules/qwizengine/templates/qwizHeader.html');
+    var     ImageLinkTmpl = require('text!modules/qwizengine/templates/imageLinks.html');
+    var     AudioLinkTmpl = require('text!modules/qwizengine/templates/audioLinks.html');
+    var     VideoLinkTmpl = require('text!modules/qwizengine/templates/videoLinks.html');
+
 
     // Create a new module
     var QwizQuestionView = App.module();
@@ -123,6 +130,7 @@ define([
 
     });
 
-    return QwizQuestionView;
+    module.exports = QwizQuestionView;
+
 
 });
