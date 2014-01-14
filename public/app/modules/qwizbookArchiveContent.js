@@ -28,7 +28,7 @@ define(function (require, exports, module) {
             if (_.isEmpty(this.options.session)) {
                 throw "ERROR: Session object is not provided for the view!!"
             }
-            $(this.el).find("#archiveQwizbookList-container").html('<i class="icon-spinner icon-spin">dcd</i>cd');
+            $(this.el).find("#archiveQwizbookList-container").html('<i class="fa fa-spinner fa-spin">dcd</i>cd');
 
             this.session = this.options.session;
             var view = this;

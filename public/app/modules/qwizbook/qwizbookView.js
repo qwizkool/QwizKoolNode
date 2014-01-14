@@ -28,7 +28,7 @@ define([
                     avg = Math.ceil(avg);
                     var html = '';
                     for (i = 1; i <= avg; i++) {
-                        html += '<i class="icon-star text-primary"></i>';
+                        html += '<i class="fa fa-star text-primary"></i>';
                     }
 
                     if (count > 1)  {
