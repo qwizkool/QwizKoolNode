@@ -1,4 +1,3 @@
-
 <!--
         Create the header for the qwiz view using template
 -->
@@ -16,82 +15,83 @@ var qwiz_media=1
 
 if (hint.imageLinks.length)
 {
-    image_active="active"
+image_active="active"
 }
 else if (hint.audioLinks.length)
 {
-    audio_active="active"
+audio_active="active"
 }
 else if (hint.videoLinks.length)
 {
-    video_active="active"
+video_active="active"
 } else {
-    qwiz_media =0
+qwiz_media =0
 }
 
+var back_btn_align="pull-left"
 %>
 
 <div class="qwiz-body clearfix">
 
     <div class="qwiz-hint">
 
-            <p>
-                <%= hint.description %>
-            </p>
+        <p>
+            <%= hint.description %>
+        </p>
 
     </div>
 
     <% if ( qwiz_media ){ %>
 
     <div class="qwiz-media clearfix">
-            <div class="tabbable">
-                <ul class="nav nav-tabs">
+        <div class="tabbable">
+            <ul class="nav nav-tabs">
 
-                    <% if ( (hint.imageLinks !== undefined) && hint.imageLinks.length ){ %>
-                    <li class="active">
-                        <a href="#qwiz-media-image" data-bypass data-toggle="tab"><i class="fa fa-picture-o"
-                                                                                     data-toggle="tooltip"
-                                                                                     title="Image"></i></a>
-                    </li>
-                    <% } %>
+                <% if ( (hint.imageLinks !== undefined) && hint.imageLinks.length ){ %>
+                <li class="active">
+                    <a href="#qwiz-media-image" data-bypass data-toggle="tab"><i class="fa fa-picture-o"
+                                                                                 data-toggle="tooltip"
+                                                                                 title="Image"></i></a>
+                </li>
+                <% } %>
 
-                    <% if ( (hint.audioLinks !== undefined) && hint.audioLinks.length ){ %>
-                    <li>
-                        <a href="#qwiz-media-audio" data-bypass data-toggle="tab"><i class="fa fa-volume-up"
-                                                                                     data-toggle="tooltip"
-                                                                                     title="Audio"></i></a>
-                    </li>
-                    <% } %>
+                <% if ( (hint.audioLinks !== undefined) && hint.audioLinks.length ){ %>
+                <li>
+                    <a href="#qwiz-media-audio" data-bypass data-toggle="tab"><i class="fa fa-volume-up"
+                                                                                 data-toggle="tooltip"
+                                                                                 title="Audio"></i></a>
+                </li>
+                <% } %>
 
-                    <% if ( (hint.videoLinks !== undefined) && hint.videoLinks.length ){ %>
-                    <li>
-                        <a href="#qwiz-media-video" data-bypass data-toggle="tab"><i class="fa fa-video-camera"
-                                                                                     data-toggle="tooltip"
-                                                                                     title="Video"></i> </a>
-                    </li>
-                    <% } %>
+                <% if ( (hint.videoLinks !== undefined) && hint.videoLinks.length ){ %>
+                <li>
+                    <a href="#qwiz-media-video" data-bypass data-toggle="tab"><i class="fa fa-video-camera"
+                                                                                 data-toggle="tooltip"
+                                                                                 title="Video"></i> </a>
+                </li>
+                <% } %>
 
-                </ul>
+            </ul>
 
-                <div class="tab-content">
+            <div class="tab-content">
 
-                    <div id="qwiz-media-image" class="tab-pane <%= image_active %>">
-                        <%= _.partial('imageLinks', {"imageLinks": hint.imageLinks} ) %>
-                    </div>
-
-                    <div id="qwiz-media-audio" class="tab-pane <%= audio_active %>">
-                        <%= _.partial('audioLinks', {"audioLinks": hint.audioLinks} ) %>
-                    </div>
-
-                    <div id="qwiz-media-video" class="tab-pane <%= video_active %>">
-                        <%= _.partial('videoLinks', {"videoLinks": hint.videoLinks} ) %>
-                    </div>
-
+                <div id="qwiz-media-image" class="tab-pane <%= image_active %>">
+                    <%= _.partial('imageLinks', {"imageLinks": hint.imageLinks} ) %>
                 </div>
-                <!-- /.tab-content -->
+
+                <div id="qwiz-media-audio" class="tab-pane <%= audio_active %>">
+                    <%= _.partial('audioLinks', {"audioLinks": hint.audioLinks} ) %>
+                </div>
+
+                <div id="qwiz-media-video" class="tab-pane <%= video_active %>">
+                    <%= _.partial('videoLinks', {"videoLinks": hint.videoLinks} ) %>
+                </div>
+
             </div>
+            <!-- /.tab-content -->
+        </div>
     </div>
-     <% } %>
+    <% } %>
 
 
 </div>
@@ -104,11 +104,21 @@ else if (hint.videoLinks.length)
 
 </div>
 
+
+
 <div class="qwiz-controls clearfix">
-    <button  class="pull-left btn btn-info" id="qwiz-control-back" >Back to Qwiz <i
+
+    <%
+        if (obj.lastOne){
+            back_btn_align="pull-right"
+        }
+    %>
+    <button class="btn btn-info <%= back_btn_align %>" id="qwiz-control-back">Back to Qwiz <i
             class="fa fa-reply" data-toggle="tooltip" title="Back to Qwiz"></i></button>
+
     <% if (!obj.lastOne){ %>
-        <button class="btn btn-primary" id="qwiz-control-next">Next Hint</button>
+    <button class="btn btn-primary" id="qwiz-control-next">Next Hint</button>
     <% } %>
+
 </div>
 

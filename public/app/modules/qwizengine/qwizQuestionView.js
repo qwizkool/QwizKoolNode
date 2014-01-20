@@ -58,12 +58,12 @@ define(function (require, exports, module) {
 
         convertToViewData: function () {
 
-            var x=this.qwizbook.get("pages")[this.page];
+            var page=this.qwizbook.get("pages")[this.page];
 
             var data = {
                 "title": this.qwizbook.get("title"),
                 "chapterTitle" : this.qwizbook.get("subtitle"),
-                "multiple_choice_question": x.multiple_choice_question
+                "multiple_choice_question": page.multiple_choice_question
             };
 
             return data;
@@ -99,8 +99,19 @@ define(function (require, exports, module) {
                 });
 
                 this.tracker.trackResult(this.page, answeredCorrectly);
-                console.log("Answered : " + answeredCorrectly)
-                this.trigger('qwiz-transition-next');
+                //console.log("Answered : " + answeredCorrectly)
+
+                var page=this.qwizbook.get("pages")[this.page];
+                var reinforce = page.reinforce;
+
+
+                if (!_.isEmpty(reinforce) && reinforce.length){
+                    this.trigger('qwiz-transition-reinforce');
+                } else {
+                    this.trigger('qwiz-transition-next');
+                }
+
+
             } else {
 
                 $(".qwiz-question-warning").toggleClass("hidden");

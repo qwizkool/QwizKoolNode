@@ -73,6 +73,7 @@ QwizEngineController.prototype.createView = function(viewClass,options) {
 
     // Hint, reference etc are different levels of views
     this.listenTo(view, "qwiz-transition-hint", this.goToHintView);
+    this.listenTo(view, "qwiz-transition-reinforce", this.goToReinforceView);
 
     // Once entered different level, use this event to come to the previous level
     // generic events like Next, Previous,  done are used to navigate in any level
@@ -155,7 +156,13 @@ QwizEngineController.prototype.goToHintView = function () {
     this.setCurrentView(view);
 };
 
+QwizEngineController.prototype.goToReinforceView = function () {
 
+    this.qwizEngineFSM.changeToReinforceViewLevel();
+    var nextViewObject = this.qwizEngineFSM.getNextViewObject();
+    var view =  this.createView(nextViewObject.view,nextViewObject.options);
+    this.setCurrentView(view);
+};
 
 /**
  * QwizEngineController method.
