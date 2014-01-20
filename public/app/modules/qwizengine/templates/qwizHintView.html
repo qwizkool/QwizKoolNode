@@ -104,9 +104,11 @@ else if (hint.videoLinks.length)
 
 </div>
 
-<div class="qwiz-controls">
+<div class="qwiz-controls clearfix">
     <button  class="pull-left btn btn-info" id="qwiz-control-back" >Back to Qwiz <i
             class="fa fa-reply" data-toggle="tooltip" title="Back to Qwiz"></i></button>
-    <button class="btn btn-primary" id="qwiz-control-next">Next Hint</button>
+    <% if (!obj.lastOne){ %>
+        <button class="btn btn-primary" id="qwiz-control-next">Next Hint</button>
+    <% } %>
 </div>
 

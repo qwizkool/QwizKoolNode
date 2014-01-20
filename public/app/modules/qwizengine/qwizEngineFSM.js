@@ -83,12 +83,13 @@ define(function (require, exports, module) {
             var maxHints = hints.length;
 
             if (this.pageHintIndex >= maxHints) {
-                this.pageHintIndex = 0;
+                this.changeToPreviousViewLevel();
+                viewObject = this.createViewObject(QwizQuestionView,{ model: this.qwizbook, page: this.pageIndex, tracker: this.tracker })
+            } else {
+                viewObject = this.createViewObject(QwizHintView,{ model: this.qwizbook, page: pageIndex, hint: this.pageHintIndex, tracker: this.tracker })
             }
 
-            viewObject = this.createViewObject(QwizHintView,{ model: this.qwizbook, page: pageIndex, hint: this.pageHintIndex, tracker: this.tracker })
             this.pageHintIndex++;
-
         }
         else
         {

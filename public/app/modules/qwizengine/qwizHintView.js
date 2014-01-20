@@ -64,11 +64,13 @@ define(function (require, exports, module) {
 
             var page=this.qwizbook.get("pages")[this.page];
             var hint = page.hints[this.hint];
+            var lastOne = (this.hint >= (page.hints.length-1)) ? true:false;
 
             var data = {
                 "title": this.qwizbook.get("title"),
                 "chapterTitle" : this.qwizbook.get("subtitle"),
-                "hint": hint
+                "hint": hint,
+                "lastOne":lastOne
             };
 
             return data;
