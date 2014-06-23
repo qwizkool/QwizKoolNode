@@ -1,0 +1,142 @@
+
+<!--
+        Create the header for the qwiz view using template
+-->
+<%= _.partial('qwizHeader', {"obj": obj} ) %>
+
+<%
+
+var question = obj.multiple_choice_question.question
+var answers = obj.multiple_choice_question.answers
+
+// For controlling the media tab creation and active selection.
+var image_active=""
+var audio_active=""
+var video_active=""
+var qwiz_media=1
+
+if (question.imageLinks.length)
+{
+    image_active="active"
+}
+else if (question.audioLinks.length)
+{
+    audio_active="active"
+}
+else if (question.videoLinks.length)
+{
+    video_active="active"
+} else {
+    qwiz_media =0
+}
+
+%>
+
+<div class="qwiz-body clearfix">
+
+    <div class="qwiz-question">
+
+            <p>
+                <%= question.text %>
+            </p>
+
+    </div>
+
+    <% if ( qwiz_media ){ %>
+
+    <div class="qwiz-media clearfix">
+            <div class="tabbable">
+                <ul class="nav nav-tabs">
+
+                    <% if ( (question.imageLinks !== undefined) && question.imageLinks.length ){ %>
+                    <li class="active">
+                        <a href="#qwiz-media-image" data-bypass data-toggle="tab"><i class="fa fa-picture-o"
+                                                                                     data-toggle="tooltip"
+                                                                                     title="Image"></i></a>
+                    </li>
+                    <% } %>
+
+                    <% if ( (question.audioLinks !== undefined) && question.audioLinks.length ){ %>
+                    <li>
+                        <a href="#qwiz-media-audio" data-bypass data-toggle="tab"><i class="fa fa-volume-up"
+                                                                                     data-toggle="tooltip"
+                                                                                     title="Audio"></i></a>
+                    </li>
+                    <% } %>
+
+                    <% if ( (question.videoLinks !== undefined) && question.videoLinks.length ){ %>
+                    <li>
+                        <a href="#qwiz-media-video" data-bypass data-toggle="tab"><i class="fa fa-video-camera"
+                                                                                     data-toggle="tooltip"
+                                                                                     title="Video"></i> </a>
+                    </li>
+                    <% } %>
+
+                </ul>
+
+                <div class="tab-content">
+
+                    <div id="qwiz-media-image" class="tab-pane <%= image_active %>">
+                        <%= _.partial('imageLinks', {"imageLinks": question.imageLinks} ) %>
+                    </div>
+
+                    <div id="qwiz-media-audio" class="tab-pane <%= audio_active %>">
+                        <%= _.partial('audioLinks', {"audioLinks": question.audioLinks} ) %>
+                    </div>
+
+                    <div id="qwiz-media-video" class="tab-pane <%= video_active %>">
+                        <%= _.partial('videoLinks', {"videoLinks": question.videoLinks} ) %>
+                    </div>
+
+                </div>
+                <!-- /.tab-content -->
+            </div>
+    </div>
+    <hr>
+    <% } %>
+
+    <div class="clearfix">
+        <div class="qwiz-option-header pull-left">
+            <p> Options: </p>
+        </div>
+     </div>
+
+    <ul class="list-group">
+        <%for (var i = 0; i < answers.length; i++) { %>
+        <% var item = answers[i] %>
+        <% var item_id = String.fromCharCode('A'.charCodeAt() + i) %>
+        <li class="list-group-item">
+            <span class="badge">
+                         <input type="checkbox" name="qwizAnswer[]" value="<%= item_id %>" data-correct="<%=item.correct%>">
+            </span>
+
+            <div class="qwiz-option">
+                <p>
+                    <%= item_id%>. <%=item.choice.text %>
+                    <%= _.partial('imageLinks', {"imageLinks": item.choice.imageLinks} ) %>
+                    <%= _.partial('audioLinks', {"audioLinks": item.choice.audioLinks} ) %>
+                    <%= _.partial('videoLinks', {"videoLinks": item.choice.videoLinks} ) %>
+                </p>
+            </div>
+
+
+        </li>
+        <% }; %>
+    </ul>
+
+</div>
+
+<div class="col-xs-12  qwiz-question-warning hidden">
+
+    <div class="alert alert-warning">
+        <strong>Warning!</strong> You need to select an option to proceed to next question.
+    </div>
+
+</div>
+
+<div class="qwiz-controls">
+    <button  class="pull-left btn btn-info" id="qwiz-control-hint" ><i
+            class="fa fa-bolt fa-2x" data-toggle="tooltip" title="Hint"></i></button>
+    <button class="btn btn-primary" id="qwiz-control-next">Next</button>
+</div>
+

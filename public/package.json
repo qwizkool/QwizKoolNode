@@ -1,15 +1,18 @@
 {
-  "name": "Backbone Boilerplate",
-  "version": "0.1.0",
+    "name": "QwizKool",
+    "version": "0.1.0",
 
-  "jam": {
-    "packageDir": "./vendor/jam",
-    "baseUrl": "./app",
+    "jam": {
+        "packageDir": "./vendor/jam",
+        "baseUrl": "./app",
 
-    "dependencies": {
-      "backbone": "*",
-      "jquery": "*",
-      "lodash": "*"
+        "dependencies": {
+            "backbone": "1.0.0",
+            "backbone.layoutmanager": "0.8.6",
+            "jquery": null,
+            "lodash": "1.0.1",
+            "underscore": "1.4.3",
+            "html5shiv": null
+        }
     }
-  }
 }

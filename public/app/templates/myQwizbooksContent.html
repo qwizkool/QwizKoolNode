@@ -1,0 +1,89 @@
+<!--For Content specific toolbar.-->
+
+<!--For Content specific toolbar.-->
+<div class="breadcrumb-bar">
+    <div class="navbar-default">
+        <div class="container">
+            <div class="row">
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="javascript:void(0)">My Qwizbooks</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-toolbar" id="qwizkbook-content-toolbar">
+    <div class="">
+        <div class="container">
+            <div class="row">
+                <div class="clearfix">
+                    <div  style="padding: 10px">
+                        <button type="button" class="btn btn-danger create-qwizbook-modal-btn">Create Qwizbook</button>
+
+                        <div class="modal" id="create-qwizbook-modal" tabindex="-1" role="dialog"
+                             aria-labelledby="createQwizbookModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" style="padding-top: 30px">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close close-qwizbook-modal-btn"
+                                                data-dismiss="modal"
+                                                aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title text-primary">Create a Qwizbook</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="qwizbook-create-form">
+
+                                            <div class="form-group">
+                                                <label for="qwizbook-title">Title</label>
+                                                <input id="qwizbook-title" maxlength="64" type="text"
+                                                       name="qwizbook-title" class="form-control"
+                                                       placeholder="Enter a Title">
+
+                                                <div id="title-status"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="qwizbook-sub-title">Sub Title</label>
+                                                <input id="qwizbook-sub-title" maxlength="64" type="text"
+                                                       name="qwizbook-sub-title" class="form-control"
+                                                       placeholder="Enter a Sub Title [optional]">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="qwizbook-description">Description</label>
+
+                                                <textarea class="form-control" id="qwizbook-description" placeholder="Please enter the description here"
+                                                          name="qwizbook-description" style="resize: vertical" rows="5"
+                                                          maxlength="1000"></textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default close-qwizbook-modal-btn"
+                                                data-dismiss="modal">Close
+                                        </button>
+                                        <button type="button" id="create-qwizbook-modal-form-btn" class="btn btn-info">
+                                            Save changes
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <!-- /.modal -->
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="span12" id="myQwizbookList-container">
+
+</div>

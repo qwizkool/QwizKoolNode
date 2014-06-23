@@ -1,0 +1,31 @@
+extends layout
+block content
+ 
+
+ div#qwizbook-comments-form.qwizbook-comment-style.clearfix
+     div.row
+         div.span12
+             
+             script(type='text/javascript')
+               var RecaptchaOptions = {
+               theme : 'clean',
+               lang  : 'en'
+               }
+div  
+
+
+
+form(name="input", action="/", method="post")
+  mixin text('user', null, 'User')
+  mixin password('pswd', null, 'Password')
+  mixin submit('do', 'Login')
+  
+  
+
+              
+form(name="showCaptcha", method='POST', action='/')
+fieldset
+label(for='qwizbook-comment-text') Text Input: 
+textarea(id="qwizbook-comment-text",name="qwizbook-comment-text")
+input(type='submit', value='Check Recaptcha')
+!= recaptcha_form

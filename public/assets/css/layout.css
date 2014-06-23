@@ -1,330 +1,183 @@
-/*
-* Skeleton V1.2
-* Copyright 2011, Dave Gamache
-* www.getskeleton.com
-* Free to use under the MIT license.
-* http://www.opensource.org/licenses/mit-license.php
-* 6/20/2012
-*/
 
-/* Table of Content
-==================================================
-	#Site Styles
-	#Page Styles
-	#Media Queries
-	#Font-Face */
-
-/* #Site Styles
-================================================== */
-
-.logo{
-    margin-left:0px;
-    padding:0px;
-
-
+.qwizbook-panel {
+           margin-top: 10px;
+}
+.qwizbook-panel .page-header {
+    border-bottom: none;
 }
 
-.logo a{
-    width:250px;
-    height:90px;
-    display:block;
-    background:url(../img/qwizkool-logo.png) no-repeat;
-
-    /* to hide text of the link */
-    text-indent: 100%;
-    white-space: nowrap;
-    overflow: hidden;
+.breadcrumb {
+    background-color: #F8F8F8;
+}
+#qwizkool-signin-pane,#qwizkool-signup-pane {
+    padding-top: 20px;
 }
 
-
-.hero-image{
-
-    background:url(../img/knowledge.gif);
-
- }
-
-#qwizkool-header {
-
+#login-status,#registration-status .alert {
+    margin: 10px;
 }
 
-#qwizkool-toolbar {
-
+.header-int-nav {
+    background-color: #ececec;
+    border: none;
+    margin-bottom: 0px;
 }
 
-#qwizkool-int-header {
-
+.header-int-nav .qwizkool-logo-name {
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
-#qwizkool-user-settings {
+.header-int-nav #qwizkool-search {
+    padding-top: 10px;
 }
 
-#qwizkool-user-settings .guibuttons{
-
-    float: right;
+.header-int-nav #qwizkool-settings {
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
-
-#qwizkool-content-side {
-    /*background-color: #CCC;*/
-}
-
-#qwizkool-main-image {
-    /*background-color: #CCC;*/
-}
-
-#qwizkool-sign-in {
-    /*background-color: #CCC;*/
-}
-
-#sign-in-form {
-    /*background-color: #CCC;*/
-}
-
-input.text {
-     width: 86%;
-    font-size: 14px;
-    padding-left: 36px;
-    height: 28px;
-
-}
-
-input.user {
-    background: url(../img/agent.png) no-repeat;
-}
-
-input.email {
-    background: url(../img/email.png) no-repeat;
-}
-
-input.password {
-    background: url(../img/lock.png) no-repeat;
-}
-
-button#signin-button {
-    font-size: 14px;
-}
-button#register-button{
-    font-size: 14px;
-    color: #2b7ebe;
-}
-
-.panel-style {
-background: #FFF;
-padding: 10px;
-border: thin solid #d0d0d0; /* This is the outer border, inner border will be added to the div contained within*/
-border-radius: 8px; /* Add rounded corners to the form*/
--moz-border-radius: 8px;
--webkit-border-radius: 8px;
-box-shadow: 0px 1px 3px #888; /* Add shadow to the form – First two values are shadow offset, third is blur radius*/
--webkit-box-shadow: 0px 1px 3px #888;
--moz-box-shadow: 0px 1px 3px #888;
-}
-
-#registration-status .error {
-    color:#ff0000;
-}
-
-#registration-status .success {
-    color:#08C;
-}
-
-#login-status .error {
-    color:#ff0000;
-}
-
-#login-status .success {
-    color:#08C;
+.header-int-nav #qwizkool-search-xs {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 
-#sign-in-form {
+.header-login-nav {
+    background-color: #FFF;
+    border: none;
 }
 
-#reg-in-form {
+.header-login-nav .qwizkool-logo-name {
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
-#qwizkool-info-left {
-    height: 200px;
-    background-color: #CCC;
+.header-main-nav {
+    background-color: #FFF;
+    border: none;
 }
 
-#qwizkool-info-right {
-    height: 200px;
-    background-color: #CCC;
-}
-
-#qwizkool-info-mid {
-    height: 200px;
-    background-color: #CCC;
-}
-
-#qwizkool-footer-content {
-    /*background-color:#CCC;*/
-    height: 80px;
-}
-
-.band.social_connection .connect {
-    color: #C0C0C0;
-}
-
-.band.social_connection .logo_facebook a {
-    width: 70px;
-    height: 70px;
-    display: block;
-    background: url(../img/f_logo.png) no-repeat;
-
-    /* to hide text of the link */
-    text-indent: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.band.social_connection .logo_googleplus a {
-    width: 70px;
-    height: 70px;
-    display: block;
-    background: url(../img/gplusicon_large.png) no-repeat;
-
-    /* to hide text of the link */
-    text-indent: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.band.social_connection .logo_twitter a {
-    width: 70px;
-    height: 70px;
-    display: block;
-    background: url(../img/twitter_newbird_boxed_whiteonblue.png) no-repeat;
-
-    /* to hide text of the link */
-    text-indent: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-}
-#qwizkool-footer-content a{
-    font-size: 14px;
-    font-weight: bold;
-
-}
-
-.side-panel-header-style {
-    background: #f5f5f5;;
+.header-main-nav .btn-group {
     padding: 10px;
-    border: thin solid #d0d0d0; /* This is the outer border, inner border will be added to the div contained within*/
-    -webkit-border-top-left-radius: 8px;
-    -webkit-border-top-right-radius: 8px;
-    -moz-border-radius-topleft: 8px;
-    -moz-border-radius-topright: 8px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    box-shadow: 0px 1px 3px #888; /* Add shadow to the form – First two values are shadow offset, third is blur radius*/
-    -webkit-box-shadow: 0px 1px 3px #888;
-    -moz-box-shadow: 0px 1px 3px #888;
 }
 
+.header-main-nav .qwizkool-logo-name {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
 
-.side-panel-style {
-    background: #FFF;
+.footer-nav {
+    background-color: #FFF;
+    border: none;
+}
+.footer-wrapper {
     padding: 10px;
-    border: thin solid #d0d0d0; /* This is the outer border, inner border will be added to the div contained within*/
-    -webkit-border-bottom-right-radius: 8px;
-    -webkit-border-bottom-left-radius: 8px;
-    -moz-border-radius-bottomright: 8px;
-    -moz-border-radius-bottomleft: 8px;
-    border-bottom-right-radius: 8px;
-    border-bottom-left-radius: 8px;
-    box-shadow: 0px 1px 3px #888; /* Add shadow to the form – First two values are shadow offset, third is blur radius*/
-    -webkit-box-shadow: 0px 1px 3px #888;
-    -moz-box-shadow: 0px 1px 3px #888;
+    text-align: center;
 }
-
-.qwizbook-panel-style {
-    background: #FFF;
+.pagination-wrapper {
     padding: 10px;
-    border: thin solid #d0d0d0; /* This is the outer border, inner border will be added to the div contained within*/
-    box-shadow: 0px 1px 3px #888; /* Add shadow to the form – First two values are shadow offset, third is blur radius*/
-    -webkit-box-shadow: 0px 1px 3px #888;
-    -moz-box-shadow: 0px 1px 3px #888;
+    text-align: center;
 }
 
-#qwizkool-major-category-list li a {
-    text-decoration: none;
+.content-toolbar {
+    margin-bottom: 10px;
 }
 
-#qwizkool-major-category-list li a:hover {
-    color: #007bc4;
+.breadcrumb-bar {
+    margin-bottom: 0px;
 }
 
-input.search {
-    background: url(../img/search.png) no-repeat;
-    width: 76%;
-    font-size: 14px;
-    padding-left: 36px;
-    height: 28px;
-   background-color:#FFFFFF; /*edited by Seethal on 14/01/2013 */
+.breadcrumb-bar .breadcrumb {
+    margin-bottom: 0px;
 }
 
-.qwizbook-list-item-content {
-    min-height: 100px;
-}
-
-.qwizbook-list-item-footer button {
-    float: right;
+#qwizbook-details-tab {
+    margin-top: 10px;
 }
 
 
-
-.qwizbook-details button {
-    float: left;
+.icon-published-status {
+    color: green;
 }
 
-.qwizbook-ratings-container {
-    float: left;
-}
-
-
-/* Qwizbook */
-
-#qwizbook-main-image{
-
-}
-
-
-.qwizbook-footer {
-
-    padding: 5px;
-}
-
-
-.qwizbook-footer .qwizbook-rated-container {
-   float: left;
-}
-.qwizbook-footer .qwizbook-to-be-rated-container {
-    float: right;
-}
-
-
-.qwizbook-rated-container .rater {
+.pagination {
     margin: 0px;
 }
 
-.qwizbook-to-be-rated-container .rater {
-    margin: 0px;
+#qwizkool-logo h1 {
+    /*font-family: 'Courgette', cursive;*/
+    font-weight:300;
+    font-size: 24px;
+    /*color: #0088cc;*/
 }
-
 
 /* Generic scaled image */
-.scaled-image {
-    max-width: 100%;
-    height: auto;
+
+.logo {
+    margin-left: 0px;
+    padding: 0px;
+
 }
 
-/* For scaling the emdedded video
-firstly we deal with the container element
-making it relatively positioned
-and defining its height proportionally
-to its width - giving us a 16:9 ratio
-*/
+
+#qwizkool-home-content-toolbar #sort-selection {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+/* Large desktop */
+@media (min-width: 1200px) {
+
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 992px) and (max-width: 1200px) {
+
+
+
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 992px) {
+    .reg-form-margin-media {
+        margin-top: 5px;
+    }
+
+
+
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 768px) {
+    .reg-form-margin-media {
+        margin-top: 5px;
+    }
+
+    .tb-item-small-media {
+        text-align: left
+    }
+
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+    .reg-form-margin-media {
+        margin-top: 5px;
+    }
+    .tb-item-small-media {
+        text-align: left
+    }
+
+    .signin-drop-alignment {
+        float: right;
+    }
+
+
+}
+
+
+
+
+
 .embed {
     position: relative;
     padding: 0;
@@ -348,46 +201,396 @@ and its position within the container
     height: 100%;
 }
 
-/* #Page Styles
-================================================== */
 
-/* #Media Queries
-================================================== */
 
-/* Smaller than standard 960 (devices and browsers) */
-@media only screen and (max-width: 959px) {
+/* OLD DESIGN */
+body {
+    /* background-color: #dcdcdc;*/
 }
 
-/* Tablet Portrait size to standard 960 (devices and browsers) */
-@media only screen and (min-width: 768px) and (max-width: 959px) {
+.body-black {
+    background-color: #000;
 }
 
-/* All Mobile Sizes (devices and browser) */
-@media only screen and (max-width: 767px) {
+
+.hero-unit {
+    background-image: url('../img/lined_paper/lined_paper.png');
+
 }
 
-/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
-@media only screen and (min-width: 480px) and (max-width: 767px) {
+
+#qwizkool-header hr {
+    margin-top: 0px;
 }
 
-/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
-@media only screen and (max-width: 479px) {
+#qwizkool-logo h1 {
+    /*font-family: 'Courgette', cursive;*/
+    font-weight:300;
+    font-size: 24px;
+    /*color: #0088cc;*/
 }
 
-/* #Font-Face
-================================================== */
-/* 	This is the proper syntax for an @font-face file
-		Just create a "fonts" folder at the root,
-		copy your FontName into code below and remove
-		comment brackets */
+.server-padding {
+    padding-left: 10px;
+}
 
-/*	@font-face {
-	    font-family: 'FontName';
-	    src: url('../fonts/FontName.eot');
-	    src: url('../fonts/FontName.eot?iefix') format('eot'),
-	         url('../fonts/FontName.woff') format('woff'),
-	         url('../fonts/FontName.ttf') format('truetype'),
-	         url('../fonts/FontName.svg#webfontZam02nTh') format('svg');
-	    font-weight: normal;
-	    font-style: normal; }
-*/
+.activation-banner {
+    background-color: #d0d0d0;
+    padding: 10px;
+    margin: 10px;
+}
+
+#qwizkool-logo span {
+    font-family: 'Lato', sans-serif;
+    color: #0088cc;
+}
+
+.logo a {
+    width: 250px;
+    height: 90px;
+    display: block;
+    background: url(../img/qwizkool-logo.png) no-repeat;
+
+    /* to hide text of the link */
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.panel-style {
+    background: #FFF;
+    padding: 10px;
+    border: thin solid #d0d0d0; /* This is the outer border, inner border will be added to the div contained within*/
+    border-radius: 8px; /* Add rounded corners to the form*/
+
+}
+
+
+.panel-style-transparent {
+    background: #F9f9f9;
+    padding: 10px;
+    border-radius: 8px; /* Add rounded corners to the form*/
+
+    box-shadow: 0 0 20px #FFFFFF; /* Add shadow to the form – First two values are shadow offset, third is blur radius*/
+    -webkit-box-shadow: 0 0 20px #FFFFFF;
+    -moz-box-shadow:0 0 20px #FFFFFF;
+}
+
+.panel-style-signin {
+
+    padding: 10px;
+    border-radius: 8px; /* Add rounded corners to the form*/
+
+    box-shadow: 0 0 20px #FFFFFF; /* Add shadow to the form – First two values are shadow offset, third is blur radius*/
+    -webkit-box-shadow: 0 0 20px #FFFFFF;
+    -moz-box-shadow:0 0 20px #FFFFFF;
+}
+
+.panel-registration {
+    background: #000;
+}
+
+#qwizkool-footer-content {
+    text-align: center;
+}
+
+#hero-unit-qwizkoolmain {
+    background-color: #ffffff;
+    padding: 10px;
+    text-align: center;
+}
+
+#reg-in-form {
+    margin-top: 20px;
+}
+#reg-in-form h4 {
+    font-weight: 300;
+    color: #08c;
+}
+
+#connect h2 {
+    font-weight: 300;
+}
+#connect h4 {
+    font-weight: 300;
+    color: #08c;
+}
+
+#login-status {
+    margin-top: 10px;
+}
+
+#registration-status {
+    margin-top: 10px;
+}
+
+
+.qwizbook-panel-style {
+    background: #FFF;
+    padding: 0px;
+    border: thin solid #d0d0d0; /* This is the outer border, inner border will be added to the div contained within*/
+    box-shadow: 0px 1px 3px #888; /* Add shadow to the form – First two values are shadow offset, third is blur radius*/
+    -webkit-box-shadow: 0px 1px 3px #888;
+    -moz-box-shadow: 0px 1px 3px #888;
+}
+
+
+.qwizbook-item-style {
+    background: #FFF;
+    margin-top: 10px;
+    padding: 0px;
+    border: thin solid #d0d0d0;
+}
+
+.qwizbook-comment-style {
+    background: #FFF;
+    margin-top: 10px;
+    padding: 0px;
+    border: thin solid #d0d0d0;
+}
+
+.qwizbook-card-style {
+    background: #FEFEFE;
+    margin-top: 10px;
+    padding: 0px;
+    border: thin solid #d0d0d0;
+    box-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
+}
+
+
+.btn-orange {
+    color: #FF8800;
+}
+
+.qwizbook-list-item-footer .qwizbook-ratings-container .qwizbook-summary-footer{
+    border-right: 1px solid #e3e3e3;
+}
+
+#qwizbook-author-toolbar .page-header, #qwizbook-create-header .page-header{
+    border-bottom: 0px;
+}
+
+.hidden{
+    display: none;
+}
+
+#qwizbook-author-toolbar .form-horizontal{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.form-horizontal .controls{
+    position: relative;
+}
+
+.form-horizontal .controls .media-group{
+    position: absolute;
+    bottom: 0px;
+    margin-left: 10px;
+}
+
+.control-group .media-controls{
+    line-height: 50px;
+}
+.controls input{
+    height: 22px;
+}
+/* My Qwizbooks */
+.my-qwizbooks-tb {
+    margin-bottom: 10px;
+}
+
+.item-hide {
+    display: none;
+}
+
+.tb-item-left {
+
+    text-align: left,
+
+}
+
+.tb-item-center {
+    text-align: center
+}
+
+.tb-item-right {
+
+    text-align: right
+}
+
+.controls .answer{
+    margin-top: -3px;
+    margin-left: 10px;
+}
+
+.controls .answer.first{
+    margin-left: 0px;
+}
+.controls.answer-group{
+    padding-top: 5px;
+}
+
+
+/* Qwiz & Qwizengine */
+
+#qwiz-container {
+    background: #FEFEFE;
+    box-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
+    background: -webkit-linear-gradient(45deg, #FFF, #F9F9F9);
+
+}
+
+.qwiz-header {
+    padding: 14px 15px 15px;
+    margin-bottom: 0;
+    text-align: right;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+    -webkit-border-radius: 6px 6px 0px 0px;
+    -moz-border-radius: 6px 6px 0px 0px;
+    border-radius: 6px 6px 0px 0px;
+    -webkit-box-shadow:  0 1px 0 #ffffff;
+    -moz-box-shadow:  0 1px 0 #ffffff;
+    box-shadow:  0 1px 0 #ffffff;
+}
+
+.qwiz-header .title {
+ /*   float: left;    */
+    font-weight: 200;
+    color: #999999;
+}
+
+.qwiz-header .subtitle {
+
+    float: left;
+    font-weight: 300;
+    line-height: 1;
+
+}
+
+
+.qwiz-header button {
+   /* float: right; */
+}
+
+.qwiz-body {
+    padding: 15px;
+    min-height: 300px;
+}
+
+.qwiz-body p{
+   font-size: 15px;
+}
+.qwiz-question p{
+    font-size: 15px;
+}
+.qwiz-option  p{
+    font-size: 15px;
+}
+
+
+.qwiz-controls {
+    padding: 14px 15px 15px;
+    margin-bottom: 0;
+    text-align: right;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    -webkit-border-radius: 0 0 6px 6px;
+    -moz-border-radius: 0 0 6px 6px;
+    border-radius: 0 0 6px 6px;
+    -webkit-box-shadow: inset 0 1px 0 #ffffff;
+    -moz-box-shadow: inset 0 1px 0 #ffffff;
+    box-shadow: inset 0 1px 0 #ffffff;
+}
+
+
+.qwiz-body > p:first-letter {
+    font-size : 200%;
+    background-color: #f21e21;
+    color: #fff;
+    padding-right: 3px;
+
+}
+
+.qwiz-option-header  p {
+    font-size : 150%;
+    font-weight: inherit;
+    color: #000;
+}
+
+.qwiz-option {
+
+}
+
+.qwiz-option  p:first-letter {
+    font-size : 125%;
+    font-weight: bold;
+    color: #007BC4;
+
+}
+
+.qwiz-option input[type=checkbox] {
+
+}
+
+.qwiz-question  p:first-letter {
+    font-size : 200%;
+    background-color: #f21e21;
+    color: #fff;
+    margin: 3px;
+}
+.qwiz-question div {
+    margin: 10px;
+}
+
+.qwiz-option div {
+    margin: 10px;
+}
+
+.qwiz-option div {
+    margin: 10px;
+}
+
+.qwiz-option input {
+    margin-bottom:5px;
+}
+
+#qwiz-media-image .scaled-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 400px;
+}
+
+
+
+
+
+
+
+
+.reg-form-margin-media-block {
+    display: block;
+    width: 100%
+}
+
+/* Bootstrap customization */
+.navbar-simple {
+    background: #FFF;
+    box-shadow: 0 0 0;
+    padding-top: 8px;
+}
+
+.btn-group.filter-selection {
+    margin: 0px;
+}
+
+.search-filter-tb {
+    margin-bottom: 5px;
+}
+
+
+.list-group-item.media-controls {
+    background: lightgrey;
+}
+

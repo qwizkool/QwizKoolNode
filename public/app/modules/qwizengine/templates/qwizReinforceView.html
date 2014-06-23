@@ -1,0 +1,104 @@
+
+<!--
+        Create the header for the qwiz view using template
+-->
+<%= _.partial('qwizHeader', {"obj": obj} ) %>
+
+<%
+
+var reinforce = obj.reinforce
+
+// For controlling the media tab creation and active selection.
+var image_active=""
+var audio_active=""
+var video_active=""
+var qwiz_media=1
+
+if (reinforce.imageLinks.length)
+{
+    image_active="active"
+}
+else if (reinforce.audioLinks.length)
+{
+    audio_active="active"
+}
+else if (reinforce.videoLinks.length)
+{
+    video_active="active"
+} else {
+    qwiz_media =0
+}
+
+%>
+
+<div class="qwiz-body clearfix">
+
+    <div class="qwiz-reinforce">
+
+            <p>
+                <%= reinforce.description %>
+            </p>
+
+    </div>
+
+    <% if ( qwiz_media ){ %>
+
+    <div class="qwiz-media clearfix">
+            <div class="tabbable">
+                <ul class="nav nav-tabs">
+
+                    <% if ( (reinforce.imageLinks !== undefined) && reinforce.imageLinks.length ){ %>
+                    <li class="active">
+                        <a href="#qwiz-media-image" data-bypass data-toggle="tab"><i class="fa fa-picture-o"
+                                                                                     data-toggle="tooltip"
+                                                                                     title="Image"></i></a>
+                    </li>
+                    <% } %>
+
+                    <% if ( (reinforce.audioLinks !== undefined) && reinforce.audioLinks.length ){ %>
+                    <li>
+                        <a href="#qwiz-media-audio" data-bypass data-toggle="tab"><i class="fa fa-volume-up"
+                                                                                     data-toggle="tooltip"
+                                                                                     title="Audio"></i></a>
+                    </li>
+                    <% } %>
+
+                    <% if ( (reinforce.videoLinks !== undefined) && reinforce.videoLinks.length ){ %>
+                    <li>
+                        <a href="#qwiz-media-video" data-bypass data-toggle="tab"><i class="fa fa-video-camera"
+                                                                                     data-toggle="tooltip"
+                                                                                     title="Video"></i> </a>
+                    </li>
+                    <% } %>
+
+                </ul>
+
+                <div class="tab-content">
+
+                    <div id="qwiz-media-image" class="tab-pane <%= image_active %>">
+                        <%= _.partial('imageLinks', {"imageLinks": reinforce.imageLinks} ) %>
+                    </div>
+
+                    <div id="qwiz-media-audio" class="tab-pane <%= audio_active %>">
+                        <%= _.partial('audioLinks', {"audioLinks": reinforce.audioLinks} ) %>
+                    </div>
+
+                    <div id="qwiz-media-video" class="tab-pane <%= video_active %>">
+                        <%= _.partial('videoLinks', {"videoLinks": reinforce.videoLinks} ) %>
+                    </div>
+
+                </div>
+                <!-- /.tab-content -->
+            </div>
+    </div>
+     <% } %>
+
+
+</div>
+
+
+
+<div class="qwiz-controls clearfix">
+         <button class="btn btn-primary pull-right" id="qwiz-control-next">Next Question</button>
+</div>
+

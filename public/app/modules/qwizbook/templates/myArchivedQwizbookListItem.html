@@ -1,0 +1,36 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix">
+
+    <div class="panel panel-info qwizbook-panel">
+
+        <div class="panel-heading clearfix">
+            <input type="hidden" name="published_<%= _id %>" id="published_<%= _id %>"
+                   value="<%= published %>"/>
+            <div class="btn-group pull-right">
+                <button data-toggle="tooltip" title="Un Archive" type="button" id="qwizbookArchive_<%= _id %>" class="btn btn-default btn-small item-un-archive-sel"><i class="fa  fa-folder-open"></i></button>
+             </div>
+        </div>
+        <div class="panel-body">
+            <div class="media">
+
+                <a class="pull-left" href="">
+                    <img class="media-object img-polaroid" src="../../../../assets/img/qbook-thumb-114x166.gif">
+                </a>
+
+                <div class="media-body">
+
+                    <div class="page-header">
+                        <h4><%= title %>
+                            <small><%= subtitle %></small>
+                        </h4>
+                    </div>
+
+                </div>
+
+            </div>
+            <p style="padding-top: 10px"><%= description %></p>
+        </div>
+
+    </div>
+
+</div>
+

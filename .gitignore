@@ -1,5 +1,7 @@
 _notes/
+node_modules/
 .project
 .idea
 .DS_Store
-
+*.log
+public/vendor/jam/

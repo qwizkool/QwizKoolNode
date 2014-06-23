@@ -1,0 +1,365 @@
+<div class="breadcrumb-bar">
+    <div class="navbar-default">
+        <div class="container">
+            <div class="row">
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="javascript:void(0)">My Qwizbooks</a></li>
+                    <li><a href="javascript:void(0)">Edit</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container" id="my-qwizbooks-pages-header" style="margin-top: 10px">
+    <div class="row">
+        <div id="qwizbook-create-form" name="qwizbook-create-form">
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row" style="padding: 10px">
+        <div class="btn-group pull-left">
+            <button class="btn btn-info" id="create-page-btn"><span>Add Questions </span><i class="fa fa-plus"
+                                                                                          data-toggle="tooltip"
+                                                                                          title="Create a qwiz page"></i>
+            </button>
+            <!--                   <a class="btn btn-danger" id="delete-all-btn"><i class="fa fa-times"
+                                                                                data-toggle="tooltip"
+                                                                                title="Delete "></i></a>
+           -->                   </div>
+    </div>
+    <hr>
+
+</div>
+
+<div class="clearfix hidden" id="my-qwizbooks-pages-form">
+<div class="container">
+<div class="row">
+
+<div class="panel panel-info" style="margin: 10px">
+
+<div class="panel-heading clearfix">
+    <button class="btn btn-info btn-qwizbook-author-cancel pull-right" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4>Edit - Question Page</h4>
+</div>
+
+<div class="panel-body clearfix">
+<div id="qwizbook-questionnare-form" name="qwizbook-questionnare-form">
+    <form class="clearfix" role="form">
+        <input type="hidden" name="edit-page-id" id="edit-page-id">
+
+        <div class="form-group">
+            <label for="question-type">Select question type</label>
+
+            <div class="controls">
+                <select id="question-type">
+                    <option value="1">Multiple Choice</option>
+                    <option value="2">Match the following</option>
+                    <option value="3">Descriptive</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group clearfix">
+            <label for="question">Question</label>
+
+            <div>
+                <textarea style="resize: vertical" rows="5" id="question" name="question"
+                          class="col-lg-12 col-xs-12 input-block-level"
+                          placeholder="Please enter the question here"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group media-group">
+            <span for="question-media-elements" class="text-muted">Add optional media elements for this question</span>
+
+        <span id="question-media-elements">
+            <div class="btn-group btn-group-xs media-btn-group">
+                <button title="Add Image" type="button" name="image-toggler" class="btn btn-default"><i
+                        class="fa fa-picture-o text-info"></i></i></button>
+                <button title="Add Audio" type="button" name="audio-toggler" class="btn btn-default"><i
+                        class="fa fa-volume-up text-info"></i></button>
+                <button title="Add Video" type="button" name="video-toggler" class="btn btn-default"><i
+                        class="fa fa-video-camera text-info"></i></button>
+            </div>
+            <div id="question-media-elements-urls" style="padding-top: 10px">
+
+            </div>
+        </span>
+
+        </div>
+
+        <hr>
+        <div class="form-group">
+            <label> Add the answers </label>
+            <h6 class="text-muted">[Select the check box to specify the correct answers]</h6>
+        </div>
+
+        <%for (var i = 0; i < 4; i++) { %>
+        <% var item_id = String.fromCharCode('A'.charCodeAt() + i) %>
+        <%= _.partial('answerMediaOptions', item_id ) %>
+        <% }; %>
+
+        <hr>
+
+
+        <div class="form-group">
+            <label> Reinforcement Information</label>
+        </div>
+        <input type="hidden" id="reinforcement-count" value="1">
+
+        <div class="form-group">
+            <div id="add-more-reinforcements" class="btn btn-sm btn-info" >Add Reinforcements</div>
+        </div>
+
+        <hr>
+        <div class="form-group">
+            <label> Hints</label>
+        </div>
+        <input type="hidden" id="hint-count" value="1">
+
+        <div class="form-group">
+            <div id="add-more-hints"  class="btn btn-sm btn-info" >Add Hints</div>
+        </div>
+
+        <hr>
+        <div class="form-group">
+            <label> References</label>
+        </div>
+        <input type="hidden" id="reference-count" value="1">
+
+
+        <div class="form-group">
+            <div id="add-more-references"  class="btn btn-sm btn-info" >Add References</div>
+        </div>
+
+        <hr>
+
+
+        <div class="form-group pull-right">
+            <button id="btn-qwizbook-author-submit" class="btn btn-info btn-small">Submit
+            </button>
+            <button class="btn btn-info btn-small btn-qwizbook-author-cancel">Cancel
+            </button>
+
+        </div>
+    </form>
+
+</div>
+
+
+<!--Questionnare form-->
+
+
+<!-- templates for different repeated elemets -->
+<div class="templates hidden">
+    <ul class="list-group-item   form-group  media-controls external" style="background: #dcdcdc">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-external-link"></i></span>
+            <input type="text" class="form-control external-url" placeholder="URL">
+            <span class="input-group-btn"><button class="btn btn-info media-hide"><i class="fa fa-times"></i>
+            </button></span>
+        </div>
+    </ul>
+
+    <ul class="list-group-item form-group  media-controls image">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-picture-o"></i></span>
+            <input type="text" class="form-control image-url" placeholder="Image URL">
+            <span class="input-group-btn"><button class="btn btn-info media-hide" type="button"><i
+                    class="fa fa-times"></i></button></span>
+        </div>
+    </ul>
+    <ul class="list-group-item  form-group   media-controls audio">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-volume-up"></i></span>
+            <input type="text" class="form-control audio-url" placeholder="Audio clip URL">
+            <span class="input-group-btn"><button class="btn btn-info media-hide"><i class="fa fa-times"></i>
+            </button></span>
+        </div>
+    </ul>
+
+    <ul class="list-group-item  form-group  media-controls video">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-video-camera"></i></span>
+            <input type="text" class="form-control video-url" placeholder="Video clip URL">
+            <span class="input-group-btn"><button class="btn btn-info media-hide"><i class="fa fa-times"></i>
+            </button></span>
+        </div>
+    </ul>
+
+
+    <div class="reinforcement">
+
+        <div class="form-group clearfix">
+
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <button type="button" class="close reinforcement-hide btn btn-default" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <label for="reinforcement-description-X"></label>
+                </div>
+                <div class="panel-body">
+
+                    <div>
+                        <textarea style="resize: vertical" rows="5" id="reinforcement-description-X"
+                                  name="reinforcement-description-X"
+                                  class="col-lg-12 col-xs-12 input-block-level"
+                                  placeholder="Please enter the reinforcement information for this question"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group media-group" style="padding: 10px">
+                    <span class="text-muted" >Add optional media elements for this reinforcement</span>
+
+                        <span id="reinforcement-media-elements-X">
+                            <div class="btn-group btn-group-xs media-btn-group">
+                                <button title="Add Image" type="button" name="image-toggler" class="btn btn-default"><i
+                                        class="fa fa-picture-o text-info"></i></i></button>
+                                <button title="Add Audio" type="button" name="audio-toggler" class="btn btn-default"><i
+                                        class="fa fa-volume-up text-info"></i></button>
+                                <button title="Add Video" type="button" name="video-toggler" class="btn btn-default"><i
+                                        class="fa fa-video-camera text-info"></i></button>
+                                <button title="Add Link" type="button" name="external-toggler" class="btn btn-default"><i
+                                        class="fa fa-external-link text-info"></i></button>
+                            </div>
+                            <div class="reinforcement-media-elements-urls" id="reinforcement-media-elements-X-urls" style="padding: 10px">
+
+                            </div>
+                        </span>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="hint">
+
+        <div class="form-group clearfix">
+
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <button type="button" class="close hint-hide btn btn-default" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <label for="hint-description-X"></label>
+                </div>
+                <div class="panel-body">
+
+                    <div>
+                        <textarea style="resize: vertical" rows="5" id="hint-description-X"
+                                  name="hint-description-X"
+                                  class="col-lg-12 col-xs-12 input-block-level"
+                                  placeholder="Please enter the hint information for this question"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group media-group" style="padding: 10px">
+                    <span class="text-muted" >Add optional media elements for this hint</span>
+
+                        <span id="hint-media-elements-X">
+                            <div class="btn-group btn-group-xs media-btn-group">
+                                <button title="Add Image" type="button" name="image-toggler" class="btn btn-default"><i
+                                        class="fa fa-picture-o text-info"></i></i></button>
+                                <button title="Add Audio" type="button" name="audio-toggler" class="btn btn-default"><i
+                                        class="fa fa-volume-up text-info"></i></button>
+                                <button title="Add Video" type="button" name="video-toggler" class="btn btn-default"><i
+                                        class="fa fa-video-camera text-info"></i></button>
+                            </div>
+                            <div class="hint-media-elements-urls" id="hint-media-elements-X-urls" style="padding: 10px">
+
+                            </div>
+                        </span>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="reference">
+
+        <div class="form-group clearfix">
+
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <button type="button" class="close reference-hide btn btn-default" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <label for="reference-description-X"></label>
+                </div>
+                <div class="panel-body">
+
+                    <div>
+                        <textarea style="resize: vertical" rows="5" id="reference-description-X"
+                                  name="reference-description-X"
+                                  class="col-lg-12 col-xs-12 input-block-level"
+                                  placeholder="Please enter the reference information for this question"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group media-group" style="padding: 10px">
+                    <span class="text-muted" >Add optional media elements for this reference</span>
+
+                        <span id="reference-media-elements-X">
+                            <div class="btn-group btn-group-xs media-btn-group">
+                                <button title="Add Image" type="button" name="image-toggler" class="btn btn-default"><i
+                                        class="fa fa-picture-o text-info"></i></i></button>
+                                <button title="Add Audio" type="button" name="audio-toggler" class="btn btn-default"><i
+                                        class="fa fa-volume-up text-info"></i></button>
+                                <button title="Add Video" type="button" name="video-toggler" class="btn btn-default"><i
+                                        class="fa fa-video-camera text-info"></i></button>
+                                <button title="Add Link" type="button" name="external-toggler" class="btn btn-default"><i
+                                        class="fa fa-external-link text-info"></i></button>
+                            </div>
+                            <div class="reference-media-elements-urls" id="reference-media-elements-X-urls" style="padding: 10px">
+
+                            </div>
+                        </span>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+<!-- end templates -->
+</div>
+</div>
+</div>
+
+<hr>
+</div>
+</div>
+
+<div class="modal fade" id="qwiz-creation-error">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Oops!! something is not right.</h3>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="container">
+    <div class="row">
+
+        <div id="qwizbookpage-list">
+
+        </div>
+    </div>
+</div>

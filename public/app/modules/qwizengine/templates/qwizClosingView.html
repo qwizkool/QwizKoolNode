@@ -1,0 +1,42 @@
+<!--
+        Create the header for the qwiz view using template
+-->
+<%= _.partial('qwizHeader', {"obj": obj} ) %>
+
+
+<div class="qwiz-body clearfix">
+
+
+    <ul class="list-group">
+        <li class="list-group-item">
+            <span class="badge"><%= obj.score.total %></span>
+            Total Attempts
+        </li>
+        <li class="list-group-item">
+            <span class="badge"><%= obj.score.points %></span>
+            Total Points
+        </li>
+         <li class="list-group-item">
+            <span class="badge"><%= obj.score.success %></span>
+            Total Successful Attempts
+        </li>
+        <li class="list-group-item">
+            <span class="badge"><%= obj.score.fail %></span>
+            Total Failed Attempts
+        </li>
+        <li class="list-group-item">
+            <span class="badge"><%= obj.score.hintsUsed %></span>
+            Total Hints Used
+        </li>
+    </ul>
+
+    <p class="pull-right">
+        The END !!
+    </p>
+
+</div>
+
+<div class="qwiz-controls">
+    <button class="btn btn-primary qwiz-control-done" >Done</button>
+</div>
+

@@ -1,102 +1,110 @@
 define([
-    "backbone.layoutmanager"
-], function () {
+  "backbone.layoutmanager",
+  "app_config"
 
-    // Provide a global location to place configuration settings and module
-    // creation.
-    var app = {
-        // The root path to run the application.
-        root:"/"
-    };
+  // Include additional libraries installed with JamJS or placed in the
+  // `vendor/js` directory, here.
+],
 
-    // Localize or create a new JavaScript Template object.
-    var JST = window.JST = window.JST || {};
+function(LayoutManager, AppConfig) {
 
-    // Configure LayoutManager with Backbone Boilerplate defaults.
-    Backbone.LayoutManager.configure({
-        // Allow LayoutManager to augment Backbone.View.prototype.
-        manage:false,
+    /**
+     * Allow underscore use of partials
+     */
+    var underscorePartials = (function(){
+        var partialCache = {};
 
-        prefix:"app/templates/",
-
-        fetch:function (path) {
-            // Concatenate the file extension.
-            path = path + ".html";
-
-            // If cached, use the compiled template.
-            if (JST[path]) {
-                return JST[path];
+        var mixin = {
+            declarePartial: function(name, template) {
+                partialCache[name] = _.template(template);
+            },
+            partial: function(name, data) {
+                return partialCache[name](data)
             }
+        };
 
-            // Put fetch into `async-mode`.
-            var done = this.async();
+        return mixin;
 
-            // Seek out the template asynchronously.
-            $.get(app.root + path, function (contents) {
-                done(JST[path] = _.template(contents));
-            });
-        }
-    });
+    })();
 
-    // Mix Backbone.Events, modules, and layout management into the app object.
-    return _.extend(app, {
-        // Create a custom object with a nested Views object.
-        module:function (additionalProps) {
-            return _.extend({ Views:{} }, additionalProps);
-        },
-        // Added from previous version for compatibility.
-        // TODO: Use native requi.js loading or use lay out manager
-        // technique.
-        fetchTemplate:function (path, done) {
-            var JST = window.JST = window.JST || {};
-            var def = new $.Deferred();
+    _.mixin(underscorePartials)
 
-            // Should be an instant synchronous way of getting the template, if it
-            // exists in the JST object.
-            if (JST[path]) {
-                if (_.isFunction(done)) {
-                    done(JST[path]);
-                }
 
-                return def.resolve(JST[path]);
-            }
+  // Provide a global location to place configuration settings and module
+  // creation.
+  var app = {
+    // The root path to run the application.
+    root: "/",
+    // Qwizkool Container object to hold configuration parameters
+    appConfig :{}
+  };
 
-            // Fetch it asynchronously if not available from JST, ensure that
-            // template requests are never cached and prevent global ajax event
-            // handlers from firing.
-            $.ajax({
-                url:path,
-                type:"get",
-                dataType:"text",
-                cache:false,
-                global:false,
+  // Localize or create a new JavaScript Template object.
+  var JST = window.JST = window.JST || {};
 
-                success:function (contents) {
-                    JST[path] = _.template(contents);
 
-                    // Set the global JST cache and return the template
-                    if (_.isFunction(done)) {
-                        done(JST[path]);
-                    }
+  // Configure LayoutManager with Backbone Boilerplate defaults.
+  LayoutManager.configure({
+    // Allow LayoutManager to augment Backbone.View.prototype.
+    manage: false,
 
-                    // Resolve the template deferred
-                    def.resolve(JST[path]);
-                }
-            });
+    prefix: "app/templates/",
 
-            // Ensure a normalized return value (Promise)
-            return def.promise();
-        },
-        // Helper for using layouts.
-        useLayout:function (options) {
-            // Create a new Layout with options.
-            var layout = new Backbone.Layout(_.extend({
-                el:"body"
-            }, options));
+    fetch: function(path) {
+      // Concatenate the file extension.
+      path = path + ".html";
 
-            // Cache the refererence.
-            return this.layout = layout;
-        }
-    }, Backbone.Events);
+      // If cached, use the compiled template.
+      if (JST[path]) {
+        return JST[path];
+      }
+
+      // Put fetch into `async-mode`.
+      var done = this.async();
+
+      // Seek out the template asynchronously.
+      $.get(app.root + path, function(contents) {
+        done(_.template(contents));
+      }, "text");
+    }
+  });
+
+  // Mix Backbone.Events, modules, and layout management into the app object.
+  return _.extend(app, AppConfig, {
+    // Create a custom object with a nested Views object.
+    module: function(additionalProps) {
+      return _.extend({ Views: {} }, additionalProps);
+    },
+
+    // Helper for using layouts.
+    useLayout: function(name, options) {
+      // Enable variable arity by allowing the first argument to be the options
+      // object and omitting the name argument.
+      if (_.isObject(name)) {
+        options = name;
+      }
+
+      // Ensure options is an object.
+      options = options || {};
+
+      // If a name property was specified use that as the template.
+      if (_.isString(name)) {
+        options.template = name;
+      }
+
+      // Check if a layout already exists, if so, update the template.
+      if (this.layout) {
+        this.layout.template = options.template;
+      } else {
+        // Create a new Layout with options.
+        this.layout = new Backbone.Layout(_.extend({
+          el: "main"
+        }, options));
+      }
+
+      // Cache the reference.
+      return this.layout;
+    }
+  }, Backbone.Events);
 
 });

@@ -1,0 +1,117 @@
+<div class="content-toolbar" id="qwizkool-home-content-toolbar">
+    <div class="navbar-default">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12  col-sm-6 col-md-6 col-lg-6 clearfix">
+                    <div class="btn-group" style="padding-top: 10px">
+                        <button type="button" id="my-qwizbooks" class="btn btn-default">My Qwizbooks</button>
+                        <button type="button" id="create-qwizbook-modal-btn" class="btn btn-primary"  data-toggle="tooltip" data-placement="bottom" title="Create a Qwizbook"><i class="fa fa-plus-square"></i></button>
+
+               <!--         <a data-toggle="modal" href="#create-qwizbbok-modal" class="btn btn-primary"><i
+                                class="icon-plus-sign-alt"></i></a>
+-->
+                        <!-- Modal -->
+                        <div class="modal" id="create-qwizbook-modal" tabindex="-1" role="dialog" aria-labelledby="createQwizbookModalLabel"
+                             aria-hidden="true" >
+                            <div class="modal-dialog" style="padding-top: 30px">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close close-qwizbook-modal-btn" data-dismiss="modal"
+                                                aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title text-primary">Create a Qwizbook</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="qwizbook-create-form">
+                                            <div class="form-group">
+                                                <label for="qwizbook-title">Title</label>
+                                                <input id="qwizbook-title" maxlength="64" type="text"
+                                                       name="qwizbook-title" class="form-control"
+                                                       placeholder="Enter a Title">
+                                                <div id="title-status"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="qwizbook-sub-title">Sub Title</label>
+                                                <input id="qwizbook-sub-title" maxlength="64" type="text"
+                                                       name="qwizbook-sub-title" class="form-control"
+                                                       placeholder="Enter a Sub Title [optional]">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="qwizbook-description">Description</label>
+
+                                                <textarea class="form-control" id="qwizbook-description"
+                                                          name="qwizbook-description" style="resize: vertical"
+                                                          maxlength="1000">
+                                                </textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button"  class="btn btn-default close-qwizbook-modal-btn" data-dismiss="modal">Close
+                                        </button>
+                                        <button type="button" id="create-qwizbook-modal-form-btn" class="btn btn-info">Save changes</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <!-- /.modal -->
+                    </div>
+
+                </div>
+                <div class="col-xs-12  col-sm-6 col-md-offset-3 col-lg-offset-3 col-md-3 col-lg-3 clearfix">
+                    <div id="sort-selection" class="input-group">
+                        <input id="sort-selection-input" type="text" class="form-control" readonly
+                               placeholder="Recently Updated">
+
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                Sort
+                                <span class="caret"></span></button>
+                            <ul class="dropdown-menu pull-right" id="sort-selector">
+                                <li><a id="sort-recently-updated" name="Recently Updated">Recently Updated</a></li>
+                                <li><a id="sort-most-popular" name="Most Popular">Most Popular</a></li>
+                            </ul>
+                        </div>
+                        <!-- /btn-group -->
+                    </div>
+                    <!-- /input-group -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="container" id="qwizkool-home-content-container">
+
+</div>
+
+<div id="qwizkool-home-content-footer">
+    <div class=" navbar-default ">
+        <div class="container">
+            <div class="col-xs-12  col-sm-12  col-md-12 col-lg-12">
+
+                <div class="pagination-wrapper">
+                    <ul class="pagination">
+                        <li><a href="#">&laquo;</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">&raquo;</a></li>
+                    </ul>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

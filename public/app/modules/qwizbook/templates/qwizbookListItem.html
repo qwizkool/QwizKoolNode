@@ -1,0 +1,75 @@
+<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 clearfix">
+
+    <div class="panel panel-info qwizbook-panel">
+
+        <div class="panel-body">
+            <div class="media">
+
+                <a class="pull-left" href="">
+                    <img class="media-object img-polaroid" src="../../../../assets/img/qbook-thumb-114x166.gif">
+                </a>
+
+                <div id="qwizbook-rating-container_<%= _id %>">
+                    <span>
+
+                    <% for (var i = 0; i < averageRating; i++) { %>
+
+                     <i class="fa fa-star text-primary"></i>
+
+                     <% } %>
+
+                     <% if (userratingcount > 1) { %>
+                            <p class="text-muted"><%= userratingcount %> ratings</p>
+                      <% } else { %>
+                              <p class="text-muted"><%= userratingcount %> rating</p>
+                     <% } %>
+
+
+                    </span>
+                </div>
+
+                <div class="media-body">
+
+                    <div class="page-header">
+                        <h4><%= title %>
+                            <small><%= subtitle %></small>
+                        </h4>
+                    </div>
+
+                </div>
+
+            </div>
+            <p style="padding-top: 10px"><%= description %></p>
+        </div>
+
+        <!-- List group -->
+        <ul class="list-group">
+
+            <li class="list-group-item">
+                <span class="clearfix">
+                               <p class="text-muted">Your rating:<p>
+                               <div class="qwizbook-rating  text-muted">
+                                   <input value="<%= userRating %>" data-max="5" data-min="1" type="number"
+                                          data-clearable="remove"
+                                          name="qwizbook-rating" id="qwizbookrating_<%= _id %>" class="rating"/>
+                               </div>
+
+                </span>
+            </li>
+
+            <li class="list-group-item clearfix" style="padding: 10px">
+
+                <div class="pull-right">
+
+                    <button class="btn btn-primary btn-large" id="<%= _id %>">Open</button>
+                </div>
+            </li>
+        </ul>
+
+
+    </div>
+
+</div>
+
+
+<!--Qwizbook List Item ends-->
